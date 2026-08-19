@@ -3,7 +3,7 @@
 Gestionnaire de contenu permettant de créer des sites `.gouv.cd` conformes,
 habillés par le **Système de design RDC (SDCD)**.
 
-> **Statut : fork initialisé, portage non commencé.** Le code est encore
+> **Statut : fork initialisé, dépendances installées, portage non commencé.** Le code est encore
 > intégralement celui de l'amont français et dépend du DSFR — dont l'usage nous
 > est **interdit** (voir « Contrainte juridique »). Il n'est pas déployable en
 > l'état.
@@ -73,9 +73,36 @@ L'essentiel du travail porte donc sur les 233 classes CSS :
 | Utilitaires d'espacement | 34 (14 %) | couverts depuis SDCD 0.5.0 |
 | Utilitaires typographiques | 10 (4 %) | couverts depuis SDCD 0.5.0 |
 
+## Surface exacte de `django-dsfr` à répliquer
+
+Relevé sur le code du fork : `django-dsfr` expose 43 tags, le CMS n'en utilise
+que **19**. C'est le périmètre de `django-sdcd`, rien de plus.
+
+**Tags de gabarit** (nombre d'appels) : `dsfr_pagination` (7),
+`dsfr_mark_optionnal_fields` (5), `dsfr_breadcrumb` (5), `dsfr_form_field` (4),
+`dsfr_badge` (4), `dsfr_js` (3), `dsfr_css` (3), `dsfr_button` (3),
+`dsfr_transcription` (2), `dsfr_theme_modale` (2), `dsfr_tag` (2),
+`dsfr_skiplinks` (2), `dsfr_quote` (2), `dsfr_notice` (2), `dsfr_favicon` (2),
+`dsfr_accordion` (2), `dsfr_link` (1), `dsfr_django_messages` (1),
+`dsfr_alert` (1).
+
+**Python** — trois modules seulement :
+
+| Import | Éléments |
+|---|---|
+| `dsfr.constants` | `COLOR_CHOICES`, `COLOR_CHOICES_ILLUSTRATION`, `COLOR_CHOICES_SYSTEM`, `IMAGE_RATIOS`, `VIDEO_RATIOS`, `NOTICE_TYPE_CHOICES` |
+| `dsfr.forms` | `DsfrBaseForm`, `DsfrDjangoTemplates` |
+| `dsfr.utils` | `dsfr_input_class_attr` |
+
+Les 8 tags locaux de `sites_conformes/core/templatetags/wagtail_dsfr_tags.py`
+(`settings_value`, `root_url`, `canonical_url`, `language_selector`,
+`richtext_p_add_class`, `toggle_url_filter`, `event_date_range`,
+`table_has_heading_row`) **ne dépendent pas du DSFR** : seul leur nom de module
+est à renommer.
+
 ## Plan de portage
 
-1. **`django-sdcd`** — application Django fournissant les tags de gabarit,
+1. **`django-sdcd`** — application Django fournissant les 19 tags ci-dessus,
    calquée sur l'API de `django-dsfr` pour limiter la réécriture des templates.
 2. **Remplacement des templates** — 61 fichiers, remappage des 233 classes.
 3. **Retrait de `django-dsfr`** de `pyproject.toml`, et des assets DSFR.
