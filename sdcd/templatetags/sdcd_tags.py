@@ -191,3 +191,221 @@ def url_remplace_params(context, **kwargs):
     for k, v in kwargs.items():
         query[k] = v
     return query.urlencode()
+
+
+# ================================================================
+# Parité d'API avec django-dsfr
+# Les tags ci-dessous ne sont pas employés par le CMS, mais un remplacement
+# « plug and play » exige que toute la surface existe.
+# ================================================================
+
+@register.inclusion_tag("sdcd/badge.html")
+def sdcd_badge(*args, **kwargs) -> dict:
+    """Badge. Clés : `label`, `extra_classes`."""
+    return {"self": parse_tag_args(args, kwargs, ["label", "extra_classes"])}
+
+
+@register.inclusion_tag("sdcd/badge_group.html")
+def sdcd_badge_group(items: list) -> dict:
+    return {"self": {"items": items}}
+
+
+@register.inclusion_tag("sdcd/button.html")
+def sdcd_button(*args, **kwargs) -> dict:
+    """
+    Bouton. Clés : `label`, `name`, `type` (primaire, secondaire, tertiaire),
+    `onclick`, `is_disabled`, `extra_classes`.
+    """
+    allowed_keys = ["label", "name", "type", "onclick", "is_disabled", "extra_classes"]
+    tag_data = parse_tag_args(args, kwargs, allowed_keys)
+    # Le DSFR met le type HTML dans `type` et la variante dans les classes ;
+    # le SDCD range la variante dans `type`. On accepte les deux écritures.
+    if tag_data.get("type") in ("submit", "button", "reset"):
+        tag_data["html_type"] = tag_data.pop("type")
+    return {"self": tag_data}
+
+
+@register.inclusion_tag("sdcd/button_group.html")
+def sdcd_button_group(*args, **kwargs) -> dict:
+    return {"self": parse_tag_args(args, kwargs, ["items", "extra_classes"])}
+
+
+@register.inclusion_tag("sdcd/callout.html")
+def sdcd_callout(*args, **kwargs) -> dict:
+    """Mise en avant. Clés : `text`, `title`, `heading_tag`, `icon_class`, `button`."""
+    allowed_keys = ["text", "title", "heading_tag", "icon_class", "extra_classes", "button"]
+    return {"self": parse_tag_args(args, kwargs, allowed_keys)}
+
+
+@register.inclusion_tag("sdcd/card.html")
+def sdcd_card(*args, **kwargs) -> dict:
+    """Carte de contenu. Voir le composant `Card` du SDCD."""
+    allowed_keys = [
+        "title", "heading_tag", "description", "image_url", "image_alt",
+        "ratio_class", "media_badges", "new_tab", "link", "enlarge_link",
+        "extra_classes", "top_detail", "bottom_detail", "call_to_action", "id",
+    ]
+    return {"self": parse_tag_args(args, kwargs, allowed_keys)}
+
+
+@register.inclusion_tag("sdcd/consent.html")
+def sdcd_consent(*args, **kwargs) -> dict:
+    """Bandeau de consentement aux témoins de connexion."""
+    return {"self": parse_tag_args(args, kwargs, ["title", "content"])}
+
+
+@register.inclusion_tag("sdcd/content.html")
+def sdcd_content(*args, **kwargs) -> dict:
+    """Média avec légende et transcription."""
+    allowed_keys = [
+        "image_url", "iframe_url", "svg", "caption", "alt_text",
+        "extra_classes", "ratio_class", "transcription",
+    ]
+    return {"self": parse_tag_args(args, kwargs, allowed_keys)}
+
+
+@register.inclusion_tag("sdcd/connect.html")
+def sdcd_connect(*args, **kwargs) -> dict:
+    """
+    Bouton d'identité numérique **CongoConnect**.
+
+    Remplace `dsfr_france_connect` : l'alias rend ce composant, la fédération
+    d'identité congolaise n'étant pas FranceConnect.
+    """
+    return {"self": parse_tag_args(args, kwargs, ["id", "plus", "service"])}
+
+
+@register.inclusion_tag("sdcd/highlight.html")
+def sdcd_highlight(*args, **kwargs) -> dict:
+    """Citation en exergue. Clés : `content`, `size_class`, `extra_classes`."""
+    return {"self": parse_tag_args(args, kwargs, ["content", "size_class", "extra_classes"])}
+
+
+@register.inclusion_tag("sdcd/input.html")
+def sdcd_input(*args, **kwargs) -> dict:
+    """Champ de saisie autonome, hors formulaire Django."""
+    allowed_keys = ["id", "label", "type", "onchange", "value", "min", "max", "extra_classes"]
+    return {"self": parse_tag_args(args, kwargs, allowed_keys)}
+
+
+@register.inclusion_tag("sdcd/link.html")
+def sdcd_link(*args, **kwargs) -> dict:
+    """Lien. Clés : `url`, `label`, `is_external`, `extra_classes`."""
+    return {"self": parse_tag_args(args, kwargs, ["url", "label", "is_external", "extra_classes"])}
+
+
+@register.inclusion_tag("sdcd/select.html")
+def sdcd_select(*args, **kwargs) -> dict:
+    """Liste déroulante autonome."""
+    allowed_keys = [
+        "id", "label", "hint", "onchange", "selected", "default", "options", "extra_classes",
+    ]
+    return {"self": parse_tag_args(args, kwargs, allowed_keys)}
+
+
+@register.inclusion_tag("sdcd/sidemenu.html", takes_context=True)
+def sdcd_sidemenu(context: Context, *args, **kwargs) -> dict:
+    """Menu latéral. Marque l'entrée courante à partir du chemin demandé."""
+    allowed_keys = ["title", "button_label", "items", "heading_tag", "extra_classes", "id"]
+    tag_data = parse_tag_args(args, kwargs, allowed_keys)
+    request = context.get("request")
+    tag_data["chemin_actif"] = request.path if request is not None else ""
+    return {"self": tag_data}
+
+
+@register.inclusion_tag("sdcd/stepper.html")
+def sdcd_stepper(*args, **kwargs) -> dict:
+    """Indicateur d'étapes."""
+    allowed_keys = [
+        "current_step_id", "current_step_title", "next_step_title",
+        "total_steps", "heading_tag",
+    ]
+    return {"self": parse_tag_args(args, kwargs, allowed_keys)}
+
+
+@register.inclusion_tag("sdcd/summary.html")
+def sdcd_summary(items: list, heading_tag: str = "p", summary_id: str = "") -> dict:
+    """Sommaire d'article."""
+    return {"self": {"items": items, "heading_tag": heading_tag, "id": summary_id}}
+
+
+@register.inclusion_tag("sdcd/table.html")
+def sdcd_table(*args, **kwargs) -> dict:
+    """Tableau. Clés : `caption`, `header`, `content`, `extra_classes`."""
+    allowed_keys = ["caption", "content", "header", "extra_classes"]
+    return {"self": parse_tag_args(args, kwargs, allowed_keys)}
+
+
+@register.inclusion_tag("sdcd/tag.html")
+def sdcd_tag(*args, **kwargs) -> dict:
+    """Étiquette. Clés : `label`, `link`, `is_selectable`, `is_selected`, `is_dismissable`."""
+    allowed_keys = [
+        "label", "link", "onclick", "extra_classes",
+        "is_selectable", "is_selected", "is_dismissable",
+    ]
+    return {"self": parse_tag_args(args, kwargs, allowed_keys)}
+
+
+@register.inclusion_tag("sdcd/tile.html")
+def sdcd_tile(*args, **kwargs) -> dict:
+    """Tuile de service."""
+    allowed_keys = [
+        "title", "url", "image_path", "svg_path", "description", "detail",
+        "top_detail", "heading_tag", "id", "enlarge_link", "extra_classes",
+    ]
+    return {"self": parse_tag_args(args, kwargs, allowed_keys)}
+
+
+@register.inclusion_tag("sdcd/toggle.html")
+def sdcd_toggle(*args, **kwargs) -> dict:
+    """Interrupteur."""
+    allowed_keys = ["label", "name", "help_text", "is_disabled", "extra_classes", "id"]
+    return {"self": parse_tag_args(args, kwargs, allowed_keys)}
+
+
+@register.inclusion_tag("sdcd/tooltip.html")
+def sdcd_tooltip(*args, **kwargs) -> dict:
+    """Infobulle. Clés : `content`, `label`, `is_clickable`, `id`."""
+    return {"self": parse_tag_args(args, kwargs, ["content", "label", "is_clickable", "id"])}
+
+
+@register.inclusion_tag("sdcd/accordion_group.html")
+def sdcd_accordion_group(items: list) -> dict:
+    """Groupe d'accordéons : un conteneur, plusieurs volets."""
+    return {"self": {"items": items}}
+
+
+@register.simple_tag
+def sdcd_form(form) -> str:
+    """Rend un formulaire complet."""
+    return form.render() if hasattr(form, "render") else str(form)
+
+
+# ---------------------------------------------------------------- filtres
+
+@register.filter
+def sdcd_inline(field):
+    """Passe un groupe de cases ou de boutons radio en disposition horizontale."""
+    if hasattr(field, "field") and hasattr(field.field, "widget"):
+        classe = field.field.widget.attrs.get("class", "")
+        field.field.widget.attrs["class"] = (classe + " sdcd-flex sdcd-wrap").strip()
+    return field
+
+
+@register.filter
+def concatenate(valeur, arg):
+    """Concatène deux chaînes."""
+    return f"{valeur}{arg}"
+
+
+@register.filter
+def hyphenate(valeur, arg):
+    """Joint deux valeurs par un trait d'union, en ignorant les vides."""
+    morceaux = [str(v) for v in (valeur, arg) if v not in (None, "")]
+    return "-".join(morceaux)
+
+
+@register.filter
+def strfmt(valeur, gabarit):
+    """Applique un gabarit de formatage, `{}` marquant la valeur."""
+    return gabarit.format(valeur)

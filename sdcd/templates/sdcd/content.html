@@ -1,0 +1,11 @@
+<figure class="sdcd-mediaplayer{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}">
+  {% if self.image_url %}
+    <img class="{{ self.ratio_class }}" src="{{ self.image_url }}" alt="{{ self.alt_text|default:'' }}" loading="lazy">
+  {% elif self.iframe_url %}
+    <iframe class="{{ self.ratio_class }}" src="{{ self.iframe_url }}" title="{{ self.caption|default:'' }}" loading="lazy"></iframe>
+  {% elif self.svg %}
+    {{ self.svg|safe }}
+  {% endif %}
+  {% if self.caption %}<figcaption class="sdcd-mediaplayer__titre">{{ self.caption }}</figcaption>{% endif %}
+  {% if self.transcription %}{{ self.transcription|safe }}{% endif %}
+</figure>

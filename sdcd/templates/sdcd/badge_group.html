@@ -1,0 +1,5 @@
+<ul class="sdcd-flex sdcd-wrap" style="list-style:none;margin:0;padding:0;gap:var(--sdcd-2)">
+  {% for item in self.items %}
+    <li><p class="sdcd-badge{% if item.extra_classes %} {{ item.extra_classes }}{% endif %}">{{ item.label }}</p></li>
+  {% endfor %}
+</ul>

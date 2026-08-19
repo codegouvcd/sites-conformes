@@ -1,0 +1,8 @@
+<div class="sdcd-accordion">
+  {% for item in self.items %}
+    <details class="sdcd-accordion__item" {% if item.id %}id="{{ item.id }}"{% endif %}>
+      <summary class="sdcd-accordion__entete">{{ item.title }}</summary>
+      <div class="sdcd-accordion__contenu">{{ item.content|safe }}</div>
+    </details>
+  {% endfor %}
+</div>

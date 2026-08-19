@@ -531,19 +531,6 @@ wheels = [
 ]
 
 [[package]]
-name = "django-dsfr"
-version = "3.5.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "django" },
-    { name = "django-widget-tweaks" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/a4/c4/8ff679434fab961fc1920e044b68ffeb381c4d80d794d6b5c09f2bd31147/django_dsfr-3.5.2.tar.gz", hash = "sha256:5c84a0507ccd360fe78a3db77764333ca789c8c2487af000b8e3d8929dd691a6", size = 2749517, upload-time = "2026-06-11T10:24:31.709Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/74/57/fe17dd6eff3d4b98e006e1049382e6874923cdd3ff35431dda408ccfb08b/django_dsfr-3.5.2-py3-none-any.whl", hash = "sha256:84b97a4024c20f9667a8aae1b2a74074e0b0c83445269576918ecfbac7bc069d", size = 3496604, upload-time = "2026-06-11T10:24:29.909Z" },
-]
-
-[[package]]
 name = "django-filter"
 version = "26.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1733,9 +1720,9 @@ dependencies = [
     { name = "dj-database-url" },
     { name = "dj-static" },
     { name = "django" },
-    { name = "django-dsfr" },
     { name = "django-storages", extra = ["s3"] },
     { name = "django-taggit" },
+    { name = "django-widget-tweaks" },
     { name = "faker" },
     { name = "gunicorn" },
     { name = "icalendar" },
@@ -1776,9 +1763,9 @@ requires-dist = [
     { name = "dj-database-url", specifier = ">=3.0.0" },
     { name = "dj-static", specifier = ">=0.0.6" },
     { name = "django", specifier = ">=6.0" },
-    { name = "django-dsfr", specifier = ">=2.4.0" },
     { name = "django-storages", extras = ["s3"], specifier = ">=1.14.6" },
     { name = "django-taggit", specifier = ">=6.1.0" },
+    { name = "django-widget-tweaks", specifier = ">=1.5.1" },
     { name = "faker", specifier = ">=37.4.0" },
     { name = "gunicorn", specifier = ">=23.0.0" },
     { name = "icalendar", specifier = ">=6.3.1" },

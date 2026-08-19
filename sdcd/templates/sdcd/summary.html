@@ -1,0 +1,9 @@
+{% load i18n %}
+<nav class="sdcd-summary" {% if self.id %}id="{{ self.id }}"{% endif %} aria-label="{% translate 'Sommaire' %}">
+  <{{ self.heading_tag|default:"p" }} class="sdcd-summary__titre">{% translate "Sommaire" %}</{{ self.heading_tag|default:"p" }}>
+  <ol class="sdcd-summary__liste">
+    {% for item in self.items %}
+      <li><a href="{{ item.link }}">{{ item.label }}</a></li>
+    {% endfor %}
+  </ol>
+</nav>

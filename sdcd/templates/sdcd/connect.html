@@ -1,0 +1,12 @@
+{% load i18n static %}
+{# Identité numérique congolaise. Remplace le bouton FranceConnect du DSFR. #}
+<div class="sdcd-connectbutton{% if self.compact %} sdcd-connectbutton--compact{% endif %}">
+  <button type="button" class="sdcd-connectbutton__bouton" {% if self.id %}id="{{ self.id }}"{% endif %}>
+    <img class="sdcd-connectbutton__logo" src="{% static 'sdcd/assets/logo-blanc-tricolore.png' %}" alt="">
+    <span class="sdcd-connectbutton__textes">
+      <span class="sdcd-connectbutton__amorce">{% translate "S’identifier avec" %}</span>
+      <span class="sdcd-connectbutton__service">{{ self.service|default:"CongoConnect" }}</span>
+    </span>
+  </button>
+  <a class="sdcd-connectbutton__aide" href="#">{% translate "Qu’est-ce que CongoConnect ?" %}</a>
+</div>

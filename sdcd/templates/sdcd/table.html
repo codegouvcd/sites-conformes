@@ -1,0 +1,17 @@
+<div class="sdcd-scroll-x">
+  <table class="sdcd-table{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}" data-empilable="">
+    {% if self.caption %}<caption>{{ self.caption }}</caption>{% endif %}
+    {% if self.header %}
+      <thead><tr>{% for cellule in self.header %}<th scope="col">{{ cellule|safe }}</th>{% endfor %}</tr></thead>
+    {% endif %}
+    <tbody>
+      {% for ligne in self.content %}
+        <tr>
+          {% for cellule in ligne %}
+            <td {% if self.header %}data-label="{{ forloop.parentloop.counter0|default:'' }}"{% endif %}>{{ cellule|safe }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

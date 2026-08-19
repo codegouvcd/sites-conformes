@@ -3,11 +3,11 @@
 Gestionnaire de contenu permettant de créer des sites `.gouv.cd` conformes,
 habillés par le **Système de design RDC (SDCD)**.
 
-> **Statut : `django-sdcd` livré, gabarits non portés.** L'application `sdcd/`
-> fournit les 14 tags nécessaires, mais les 61 gabarits du CMS utilisent encore
-> `django-dsfr` — dont l'usage nous est **interdit** (voir « Contrainte
-> juridique »). Les deux systèmes coexistent : le site n'est pas déployable en
-> l'état.
+> **Statut : DSFR retiré, habillage SDCD en place.** `django-dsfr` est
+> désinstallé ; l'application `sdcd/` le remplace, et l'alias `dsfr/` permet aux
+> gabarits hérités de fonctionner sans modification. La contrainte juridique est
+> levée. Reste à porter les gabarits en `sdcd-*` et à produire la marque d'État
+> congolaise ; le CMS n'a pas encore été exécuté contre une base de données.
 
 Le README d'origine est conservé sous [`README.amont.md`](README.amont.md).
 

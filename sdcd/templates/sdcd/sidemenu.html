@@ -1,0 +1,23 @@
+<nav class="sdcd-sidemenu{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}"
+     {% if self.id %}id="{{ self.id }}"{% endif %}
+     aria-label="{{ self.title|default:'Menu latéral' }}">
+  {% if self.title %}
+    <{{ self.heading_tag|default:"p" }} class="sdcd-sidemenu__titre">{{ self.title }}</{{ self.heading_tag|default:"p" }}>
+  {% endif %}
+  <ul class="sdcd-sidemenu__liens">
+    {% for item in self.items %}
+      <li>
+        <a class="sdcd-sidemenu__lien" href="{{ item.link }}"
+           {% if item.link == self.chemin_actif %}aria-current="page"{% endif %}>{{ item.label }}</a>
+        {% if item.items %}
+          <ul class="sdcd-sidemenu__section">
+            {% for sous in item.items %}
+              <li><a class="sdcd-sidemenu__lien" href="{{ sous.link }}"
+                     {% if sous.link == self.chemin_actif %}aria-current="page"{% endif %}>{{ sous.label }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

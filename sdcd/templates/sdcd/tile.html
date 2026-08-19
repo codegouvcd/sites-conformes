@@ -1,0 +1,13 @@
+<div class="sdcd-tile{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}" {% if self.id %}id="{{ self.id }}"{% endif %}>
+  {% if self.svg_path %}
+    <i class="sdcd-tile__icone {{ self.svg_path }}" aria-hidden="true"></i>
+  {% elif self.image_path %}
+    <img class="sdcd-tile__icone" src="{{ self.image_path }}" alt="" loading="lazy">
+  {% endif %}
+  {% if self.top_detail %}<p class="sdcd-card__sur-titre">{{ self.top_detail|safe }}</p>{% endif %}
+  <{{ self.heading_tag|default:"h3" }} class="sdcd-tile__titre">
+    {% if self.url %}<a href="{{ self.url }}">{{ self.title }}</a>{% else %}{{ self.title }}{% endif %}
+  </{{ self.heading_tag|default:"h3" }}>
+  {% if self.description %}<p class="sdcd-tile__description">{{ self.description|safe }}</p>{% endif %}
+  {% if self.detail %}<p class="sdcd-card__meta">{{ self.detail|safe }}</p>{% endif %}
+</div>

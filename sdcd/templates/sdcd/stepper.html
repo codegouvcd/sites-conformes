@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="sdcd-stepper">
+  <p class="sdcd-stepper__compte">{% blocktranslate with n=self.current_step_id t=self.total_steps %}Étape {{ n }} sur {{ t }}{% endblocktranslate %}</p>
+  <{{ self.heading_tag|default:"h2" }} class="sdcd-stepper__titre">{{ self.current_step_title }}</{{ self.heading_tag|default:"h2" }}>
+  <div class="sdcd-stepper__jauge" aria-hidden="true">
+    {% for i in self.total_steps|rjust:0 %}{% endfor %}
+  </div>
+  {% if self.next_step_title %}
+    <p class="sdcd-stepper__suivant">{% translate "Étape suivante :" %} {{ self.next_step_title }}</p>
+  {% endif %}
+</div>

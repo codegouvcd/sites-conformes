@@ -1,0 +1,18 @@
+<div class="sdcd-card{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}" {% if self.id %}id="{{ self.id }}"{% endif %}>
+  {% if self.image_url %}
+    <div class="sdcd-card__media {{ self.ratio_class }}">
+      <img src="{{ self.image_url }}" alt="{{ self.image_alt|default:'' }}" loading="lazy">
+    </div>
+  {% endif %}
+  <div class="sdcd-card__corps">
+    {% if self.top_detail %}<p class="sdcd-card__sur-titre">{{ self.top_detail|safe }}</p>{% endif %}
+    <{{ self.heading_tag|default:"h3" }} class="sdcd-card__titre">
+      {% if self.link %}
+        <a href="{{ self.link }}" {% if self.new_tab %}target="_blank" rel="noopener external"{% endif %}>{{ self.title }}</a>
+      {% else %}{{ self.title }}{% endif %}
+    </{{ self.heading_tag|default:"h3" }}>
+    {% if self.description %}<p class="sdcd-card__description">{{ self.description|safe }}</p>{% endif %}
+    {% if self.bottom_detail %}<p class="sdcd-card__meta">{{ self.bottom_detail|safe }}</p>{% endif %}
+    {% if self.call_to_action %}<div class="sdcd-card__pied">{{ self.call_to_action|safe }}</div>{% endif %}
+  </div>
+</div>

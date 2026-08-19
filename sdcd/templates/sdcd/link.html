@@ -1,0 +1,6 @@
+{% load i18n %}
+<a class="sdcd-lien{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}"
+   href="{{ self.url }}"
+   {% if self.is_external %}target="_blank" rel="noopener external" title="{{ self.label }} — {% translate 'ouvre une nouvelle fenêtre' %}"{% endif %}>
+  {{ self.label }}{% if self.is_external %}<i class="sdcd-lien__icone ri-external-link-line" aria-hidden="true"></i>{% endif %}
+</a>

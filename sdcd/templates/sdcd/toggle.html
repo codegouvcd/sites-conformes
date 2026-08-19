@@ -1,0 +1,9 @@
+<div class="sdcd-champ{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}">
+  <label class="sdcd-toggle" for="{{ self.id }}">
+    <input type="checkbox" id="{{ self.id }}" name="{{ self.name|default:self.id }}"
+           class="sdcd-lecteur-seul" {% if self.is_disabled %}disabled{% endif %}>
+    <span class="sdcd-toggle__piste" aria-hidden="true"><span class="sdcd-toggle__pastille"></span></span>
+    <span>{{ self.label }}</span>
+  </label>
+  {% if self.help_text %}<p class="sdcd-champ__aide">{{ self.help_text }}</p>{% endif %}
+</div>

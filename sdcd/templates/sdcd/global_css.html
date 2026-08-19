@@ -1,2 +1,5 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'sdcd/styles.css' %}">
+{# Couche transitoire : donne l'apparence du SDCD aux classes `fr-*` encore
+   présentes dans les gabarits hérités. À retirer une fois le portage achevé. #}
+<link rel="stylesheet" href="{% static 'sdcd/compat-dsfr.css' %}">

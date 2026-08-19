@@ -1,0 +1,14 @@
+{% load i18n %}
+<div class="sdcd-bandeaucookies sdcd-bandeaucookies--fixe" role="region" aria-label="{% translate 'Gestion des cookies' %}">
+  <div class="sdcd-bandeaucookies__corps">
+    <div class="sdcd-bandeaucookies__texte">
+      <div class="sdcd-bandeaucookies__titre">{{ self.title }}</div>
+      <div class="sdcd-bandeaucookies__detail">{{ self.content|safe }}</div>
+    </div>
+    <div class="sdcd-bandeaucookies__actions">
+      <button type="button" class="sdcd-button sdcd-button--primaire sdcd-button--sm">{% translate "Tout accepter" %}</button>
+      <button type="button" class="sdcd-button sdcd-button--secondaire sdcd-button--sm">{% translate "Tout refuser" %}</button>
+      <button type="button" class="sdcd-button sdcd-button--tertiaire sdcd-button--sm">{% translate "Personnaliser" %}</button>
+    </div>
+  </div>
+</div>

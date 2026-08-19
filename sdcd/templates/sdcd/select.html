@@ -1,0 +1,11 @@
+<div class="sdcd-champ{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}">
+  <label class="sdcd-champ__label" for="{{ self.id }}">{{ self.label }}</label>
+  {% if self.hint %}<p class="sdcd-champ__aide">{{ self.hint }}</p>{% endif %}
+  <select class="sdcd-select__champ" id="{{ self.id }}" name="{{ self.id }}"
+          {% if self.onchange %}onchange="{{ self.onchange }}"{% endif %}>
+    {% if self.default %}<option value="">{{ self.default }}</option>{% endif %}
+    {% for option in self.options %}
+      <option value="{{ option.value }}" {% if option.value == self.selected %}selected{% endif %}>{{ option.text }}</option>
+    {% endfor %}
+  </select>
+</div>

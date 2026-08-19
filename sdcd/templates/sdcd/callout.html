@@ -1,0 +1,10 @@
+<div class="sdcd-callout{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}">
+  {% if self.icon_class %}<i class="{{ self.icon_class }}" aria-hidden="true"></i>{% endif %}
+  <div>
+    {% if self.title %}
+      <{{ self.heading_tag|default:"p" }} class="sdcd-callout__titre">{{ self.title }}</{{ self.heading_tag|default:"p" }}>
+    {% endif %}
+    {% if self.text %}<p class="sdcd-callout__texte">{{ self.text|safe }}</p>{% endif %}
+    {% if self.button %}<div class="sdcd-callout__action">{{ self.button|safe }}</div>{% endif %}
+  </div>
+</div>
