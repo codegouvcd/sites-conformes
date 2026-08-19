@@ -145,6 +145,7 @@ bénéficier indéfiniment, à condition de rester synchronisés.
 
 | Document | Contenu |
 |---|---|
+| [`DEPLOIEMENT.md`](DEPLOIEMENT.md) | Marche à suivre pour le déploiement Dokploy |
 | [`MODIFICATIONS.md`](MODIFICATIONS.md) | Journal des écarts avec l'amont (obligation AGPL) |
 | [`README.amont.md`](README.amont.md) | README d'origine, conservé pour attribution |
 | `../SDCD/readme.md` | Système de design RDC — doctrine, jetons, composants |
