@@ -76,7 +76,8 @@ gabarits du CMS n'ont pas encore été portés : les deux systèmes coexistent.
 
 Les entrées suivantes seront ajoutées au fil du portage :
 
-- retrait de `django-dsfr` et de ses gabarits ;
-- ajout de `django-sdcd` ;
+- portage des 61 gabarits : `{% load dsfr_tags %}` → `{% load sdcd_tags %}` et
+  remappage des 233 classes `fr-*` ;
+- retrait de `django-dsfr` de `pyproject.toml` et de `INSTALLED_APPS` ;
 - substitution de la marque d'État française par la marque congolaise ;
-- remappage des 233 classes CSS `fr-*` vers `sdcd-*`.
+- production des fichiers d'icône référencés par `sdcd_favicon`.
