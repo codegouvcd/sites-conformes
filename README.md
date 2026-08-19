@@ -1,104 +1,115 @@
-# Sites Conformes
+# Sites conformes RDC
 
-**Sites Conformes** (anciennement « Sites Faciles ») vise à permettre la création simplifiée de **sites dont le domaine se termine par .gouv.fr**.
+Gestionnaire de contenu permettant de créer des sites `.gouv.cd` conformes,
+habillés par le **Système de design RDC (SDCD)**.
 
-Basé sur **[Wagtail](https://wagtail.org/)**, il permet de **concevoir rapidement des sites internet conformes aux normes numériques en vigueur**.
+> **Statut : fork initialisé, portage non commencé.** Le code est encore
+> intégralement celui de l'amont français et dépend du DSFR — dont l'usage nous
+> est **interdit** (voir « Contrainte juridique »). Il n'est pas déployable en
+> l'état.
 
-En particulier, il permet de **construire des pages à l’aide de composants** prêts à l’emploi issus du **[Système de design de l’État (DSFR)](https://www.systeme-de-design.gouv.fr/)**.
+Le README d'origine est conservé sous [`README.amont.md`](README.amont.md).
 
-## Prérequis
+## Origine et licence
 
-Sites Conformes vise à utiliser les dernières versions disponibles de [Django (6.0+)](https://www.djangoproject.com/download/) et [Wagtail](https://docs.wagtail.org/en/stable/releases/upgrading.html).
+Ce dépôt est un fork de
+**[numerique-gouv/sites-conformes](https://github.com/numerique-gouv/sites-conformes)**
+(anciennement « Sites Faciles »), développé par la DINUM pour l'État français.
 
-Les tests automatisés couvrent les versions suivantes :
+Base du fork : **v4.1.0**, commit `1d36360` du 18 août 2026.
 
-- Python 3.12 à 3.14 (cf. [versions de Python supportées par Django](https://docs.djangoproject.com/en/6.0/faq/install/))
-- PostgreSQL 14 à 17 (cf. [versions de PostgreSQL supportées par Django](https://code.djangoproject.com/wiki/SupportedDatabaseVersions))
+### AGPL-3.0 — ce que cela nous engage à faire
 
-## Installation et contribution
+L'amont est sous **GNU Affero General Public License v3.0**, conservée à
+l'identique dans [`LICENSE`](LICENSE). Trois obligations en découlent, actées :
 
-- Pour déployer le projet en production sur un serveur, voir la [documentation d'installation](https://sites.beta.gouv.fr/documentation/installation/)
-- Pour installer le projet en local pour le développement, voir la [documentation d'embarquement](./ONBOARDING.md)
-- Avant de soumettre une contribution, consulter la [documentation de contribution](./CONTRIBUTING.md)
+1. **Publication du code source.** L'AGPL couvre l'usage en réseau : tout site
+   servi au public à partir de ce code doit en publier les sources
+   correspondantes, nos modifications comprises. Une simple mise en ligne
+   déclenche l'obligation, sans qu'aucun binaire soit distribué.
+2. **Signalement des modifications.** Les versions modifiées doivent porter
+   mention du changement et de sa date — voir [`MODIFICATIONS.md`](MODIFICATIONS.md).
+3. **Maintien de la licence.** Tout dérivé reste sous AGPL-3.0. Nous ne pouvons
+   pas relicencier, y compris dans le cadre d'un marché public.
 
-### Git blame
+### ⚠️ Contrainte juridique : le DSFR ne nous est pas accessible
 
-Le projet utilise [`.git-blame-ignore-revs`](./.git-blame-ignore-revs) pour exclure les commits de reformatage de `git blame`. À configurer une fois après le clone :
+Le README amont énonce, au sujet du Système de design de l'État français :
+
+> « Il est formellement interdit à tout autre acteur d'utiliser le Système de
+> Design de l'État (les administrations territoriales ou tout autre acteur
+> privé) pour des sites web ou des applications. »
+
+La République Démocratique du Congo est un « autre acteur » au sens de cette
+clause. **Retirer le DSFR n'est donc pas une option de personnalisation, c'est
+une condition de légalité.** C'est précisément la raison d'être du SDCD.
+
+Cette contrainte ne porte que sur le design. Le code applicatif, sous AGPL,
+reste librement réutilisable.
+
+## Ce qu'il faut remplacer — état des lieux mesuré
+
+Relevé sur la base du fork, à des fins de chiffrage :
+
+| Couplage au DSFR | Mesure |
+|---|---|
+| Fichiers mentionnant `dsfr` | 204 |
+| Templates HTML concernés | 61 sur 125 |
+| Fichiers Python concernés | 139 sur 381 |
+| Occurrences `DSFR` en Python **hors migrations** | 34, dans 10 fichiers |
+| Classes CSS `fr-*` distinctes dans les templates | **233** (1 331 occurrences) |
+
+Le couplage Python est superficiel : `from dsfr.constants`, `from dsfr.forms`,
+et les tags `{% dsfr_pagination %}`, `{% dsfr_form_field %}`,
+`{% dsfr_breadcrumb %}`. Le gros des occurrences est du bruit de migration
+Wagtail (renommages du modèle `dsfrconfig`).
+
+L'essentiel du travail porte donc sur les 233 classes CSS :
+
+| Nature | Nombre | Couverture SDCD |
+|---|---|---|
+| Composants | 153 (65 %) | couverts — les 17 plus fréquents ont leur équivalent |
+| Grille et conteneur | 36 (15 %) | couverts, API différente (`fr-col-12` → `--sdcd-cols`) |
+| Utilitaires d'espacement | 34 (14 %) | couverts depuis SDCD 0.5.0 |
+| Utilitaires typographiques | 10 (4 %) | couverts depuis SDCD 0.5.0 |
+
+## Plan de portage
+
+1. **`django-sdcd`** — application Django fournissant les tags de gabarit,
+   calquée sur l'API de `django-dsfr` pour limiter la réécriture des templates.
+2. **Remplacement des templates** — 61 fichiers, remappage des 233 classes.
+3. **Retrait de `django-dsfr`** de `pyproject.toml`, et des assets DSFR.
+4. **Marque d'État** — armoiries, filet tricolore et bloc « République
+   Démocratique du Congo » à la place de la Marianne et du bloc-marque français.
+5. **Multilinguisme** — six langues, dont quatre langues nationales. Wagtail
+   Localize est déjà présent dans l'amont. Attention : la fonte doit couvrir
+   `ɛ`, `ɔ` et `ŋ` — le SDCD fournit `outils/verifier-fontes.html` pour le
+   contrôler.
+
+## Pile technique
+
+Reprise de l'amont sans changement : **Django 6**, **Wagtail 7.2**,
+**PostgreSQL 14-17**, **Python 3.12–3.14**. Dépendances par `uv`, tâches par
+`just`, conteneurs par `docker compose`.
+
+## Suivi de l'amont
+
+Le dépôt distant `upstream` pointe sur le dépôt français ; le push y est
+volontairement désactivé.
 
 ```bash
-git config blame.ignoreRevsFile .git-blame-ignore-revs
+git fetch upstream && git log --oneline HEAD..upstream/main
 ```
 
-Voir [`docs/git-blame-ignore-revs.md`](./docs/git-blame-ignore-revs.md) pour plus de détails.
+Le travail se fait sur la branche `sdcd`. Garder les modifications regroupées et
+documentées facilite la reprise des évolutions amont — l'AGPL nous permet d'en
+bénéficier indéfiniment, à condition de rester synchronisés.
 
-## Architecture
+## Documentation liée
 
-### Applications Django
-
-[![Made with Django](https://img.shields.io/badge/Made%20with-Django-0C4B33.svg)](https://www.djangoproject.com/)
-[![Made with Wagtail](https://img.shields.io/badge/Made%20with-Wagtail-0F7676.svg)](https://wagtail.io/)
-
-Sites Conformes est développé en utilisant le framework [Django](https://www.djangoproject.com/) et le CMS [Wagtail](https://wagtail.org/). Il est centré autour d'une application principale nommée **sites_conformes.core**, accompagnée d’applications annexes pour divers types de pages :
-
-- **sites_conformes.core** : l’application principale, contient les contenus communs, les pages standard (pages de contenu), les pages d’index de catalogue et la gestion des configurations
-- **blog** : Permet de gérer des articles de blog et des index de blog, et les flux RSS correspondants.
-- **dashboard** : Contient les personnalisations des panneaux d’administration de Wagtail (dans `templates/wagtailadmin` et `wagtail_hooks.py`)
-- **[django-dsfr](https://github.com/numerique-gouv/django-dsfr)** : Permet d’utiliser facilement le [système de design de l’État](https://www.systeme-de-design.gouv.fr/) dans des templates Django.
-- **events** : Similaire à `blog`, mais permet de gérer des événements et des pages de calendrier, ainsi que les exports iCal correspondants.
-- **forms** : implémentation du [module de création de formulaire](https://docs.wagtail.org/en/stable/reference/contrib/forms/index.html) de Wagtail, par exemple pour les pages de contact. Volontairement assez limité (suffisant pour un formulaire de contact mais pas beaucoup plus), pour les cas complexes il vaut mieux privilégier l’intégration de [Démarches simplifiées](https://www.demarches-simplifiees.fr) ou de [Grist](https://grist.numerique.gouv.fr/).
-- **db_storage** : stockage des médias en base de données PostgreSQL, alternative au S3 pour les PaaS avec filesystem éphémère (cf. [documentation](./docs/db-storage.md))
-- **proconnect** : permet la connexion via [ProConnect](https://www.proconnect.gouv.fr/)
-
-### Structure du dépôt
-
-En plus des applications déjà citées, le dépôt contient les répertoires suivants :
-
-- **config** : le projet Django proprement dit
-- **locale** : la traduction des templates de base et du JS global du site (cf. ci-dessous.) La localisation des apps listées plus haut se fait à l’intérieur de celles-ci.
-- **scripts** : scripts shell utilisés par certaines commandes et fichiers de configurations associés.
-- **static** : des fichiers statiques communs à l’ensemble du site (CSS global, JS global, quelques images intégrées par défaut) ainsi que la librairie tierce TarteaucitronJS (utilisée pour la gestion des cookies tiers)
-- **templates** : les templates de base du site.
-
-### Schéma
-
-![Schéma montrant les apps listées ci-dessus ainsi que l’interconnection avec la BDD, le S3 et les services tiers (dont ProConnect)](sites_conformes/static/doc/sites-conformes-schema.svg)
-
-Schéma de l’application dans le cas d’un hébergement sur Scalingo.
-
-## Indexation des contenus
-
-Les contenus des pages sont indexés pour la recherche par un script `python manage.py update_index` (cf. [documentation de Wagtail](https://docs.wagtail.org/en/stable/topics/search/indexing.html))
-
-### Scalingo
-
-Le script est lancé automatiquement après les déploiements sur Scalingo.
-
-Il est recommandé de procéder à une nouvelle indexation une fois par semaine, en renommant le fichier `cron.json.example` en `cron.json` (cf. [documentation de Scalingo](https://doc.scalingo.com/platform/app/task-scheduling/scalingo-scheduler))
-
-### Autres déploiements
-
-Il est recommandé de faire de même pour les déploiements sur d’autres plateformes, en ajoutant une ligne à la crontab de l’utilisateur avec lequel tourne le site :
-
-```crontab
-0 3 * * SUN python manage.py update_index
-```
-
-## Notifications
-
-Le panneau d’information de l’administration peut afficher des notifications (nouveautés, alertes, maintenances) aux utilisateurs qui ont accès au back-office. Ces notifications sont pilotées par le fichier [`notifications.json`](notifications.json) à la racine du dépôt.
-
-Pour savoir comment ajouter, modifier ou désactiver une notification, voir la documentation dédiée : [`NOTIFICATIONS.md`](NOTIFICATIONS.md).
-
-## Droit d’utilisation du DSFR
-
-Ce projet utilise le DSFR et est donc tenu par les conditions d’utilisations suivantes :
-
-### ⚠️ Utilisation interdite en dehors des sites Internet de l’État
-
->Il est formellement interdit à tout autre acteur d’utiliser le Système de Design de l’État (les administrations territoriales ou tout autre acteur privé) pour des sites web ou des applications. Le Système de Design de l’État représente l’identité numérique de l’État. En cas d’usage à des fins trompeuses ou frauduleuses, l’État se réserve le droit d’entreprendre les actions nécessaires pour y mettre un terme.
-
-Voir les [conditions générales d'utilisation](https://github.com/GouvernementFR/dsfr/blob/main/doc/legal/cgu.md).
-
-### ⚠️ Prohibited Use Outside Government Websites
-
->This Design System is only meant to be used by official French public services' websites and apps. Its main purpose is to make it easy to identify governmental websites for citizens. See terms.
+| Document | Contenu |
+|---|---|
+| [`MODIFICATIONS.md`](MODIFICATIONS.md) | Journal des écarts avec l'amont (obligation AGPL) |
+| [`README.amont.md`](README.amont.md) | README d'origine, conservé pour attribution |
+| `../SDRDC/readme.md` | Système de design RDC — doctrine, jetons, composants |
+| `../SDRDC/CHANGELOG.md` | Journal du système de design |
