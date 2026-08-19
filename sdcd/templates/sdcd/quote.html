@@ -1,0 +1,10 @@
+<figure class="sdcd-quote{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}">
+  <i class="sdcd-quote__guillemet ri-double-quotes-l" aria-hidden="true"></i>
+  <blockquote class="sdcd-quote__texte">{{ self.text|safe }}</blockquote>
+  {% if self.author or self.source %}
+    <figcaption class="sdcd-quote__source">
+      {% if self.author %}{{ self.author }}{% endif %}{% if self.author and self.source %} — {% endif %}
+      {% if self.source %}{% if self.source_url %}<a href="{{ self.source_url }}">{{ self.source }}</a>{% else %}{{ self.source }}{% endif %}{% endif %}
+    </figcaption>
+  {% endif %}
+</figure>

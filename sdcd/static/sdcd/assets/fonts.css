@@ -1,0 +1,11 @@
+/* SDCD — fontes et icônes.
+   Inter est retenue pour une raison vérifiée, pas esthétique : c'est la seule
+   grotesque libre testée qui ancre correctement l'accent aigu combinant sur
+   ɛ et ɔ (écart 1,5–2,5 px à 200 px, contre 13–24 px pour Noto Sans, Fira Sans,
+   Source Sans 3 et Andika). Ces voyelles ouvertes sont indispensables au
+   lingala et au kikongo. Noto Sans Mono est la seule monospace libre testée qui
+   porte ces mêmes glyphes — JetBrains, Fira, IBM Plex et Roboto Mono ne les ont pas.
+   Voir outils/verifier-fontes.html.
+   ⚠ Chargement par CDN : à auto-héberger avant toute mise en production. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Noto+Sans+Mono:wght@400;500&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css');

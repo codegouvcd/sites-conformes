@@ -3,9 +3,10 @@
 Gestionnaire de contenu permettant de créer des sites `.gouv.cd` conformes,
 habillés par le **Système de design RDC (SDCD)**.
 
-> **Statut : fork initialisé, dépendances installées, portage non commencé.** Le code est encore
-> intégralement celui de l'amont français et dépend du DSFR — dont l'usage nous
-> est **interdit** (voir « Contrainte juridique »). Il n'est pas déployable en
+> **Statut : `django-sdcd` livré, gabarits non portés.** L'application `sdcd/`
+> fournit les 14 tags nécessaires, mais les 61 gabarits du CMS utilisent encore
+> `django-dsfr` — dont l'usage nous est **interdit** (voir « Contrainte
+> juridique »). Les deux systèmes coexistent : le site n'est pas déployable en
 > l'état.
 
 Le README d'origine est conservé sous [`README.amont.md`](README.amont.md).

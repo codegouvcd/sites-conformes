@@ -1,0 +1,129 @@
+/* SDCD — couche responsive : grilles fluides, gabarits, utilitaires d’affichage.
+   Les composants passent leurs colonnes en variable (--sdcd-cols) ; les media queries
+   de cette feuille reprennent la main sur mobile sans !important. */
+
+/* ---------- Débordements ---------- */
+img,svg,video,canvas,iframe,image-slot{max-width:100%;min-width:0}
+table{max-width:100%}
+pre{overflow-x:auto}
+
+/* ---------- Grille responsive ----------
+   Deux écritures équivalentes : la classe .sdcd-grid, ou la seule présence de
+   --sdcd-cols dans le style en ligne (pratique pour les composants existants).
+   Déclinaisons facultatives : --sdcd-cols-lg (≤1024), --sdcd-cols-md (≤900),
+   --sdcd-cols-sm (≤640, 1fr par défaut). */
+.sdcd-grid,[style*="--sdcd-cols"]{display:grid;grid-template-columns:var(--sdcd-cols,minmax(0,1fr))}
+.sdcd-grid{gap:var(--sdcd-gap,var(--sdcd-5))}
+@media (max-width:1024px){
+  .sdcd-grid,[style*="--sdcd-cols"]{grid-template-columns:var(--sdcd-cols-lg,var(--sdcd-cols,minmax(0,1fr)))}
+}
+@media (max-width:900px){
+  .sdcd-grid,[style*="--sdcd-cols"]{grid-template-columns:var(--sdcd-cols-md,var(--sdcd-cols-lg,var(--sdcd-cols,minmax(0,1fr))))}
+}
+@media (max-width:640px){
+  .sdcd-grid,[style*="--sdcd-cols"]{grid-template-columns:var(--sdcd-cols-sm,minmax(0,1fr))}
+  .sdcd-grid{gap:var(--sdcd-gap-sm,var(--sdcd-4))}
+}
+
+/* ---------- Gabarit à panneau latéral ---------- */
+.sdcd-shell{display:grid;grid-template-columns:var(--sdcd-aside,260px) minmax(0,1fr);min-height:100vh}
+@media (max-width:900px){
+  .sdcd-shell{grid-template-columns:minmax(0,1fr)}
+}
+
+/* Panneau latéral devenant tiroir hors-écran sous 900px */
+@media (max-width:900px){
+  .sdcd-aside{display:block!important;position:fixed;inset:0 auto 0 0;z-index:80;width:min(84vw,300px);
+    transform:translateX(-100%);transition:transform var(--sdcd-transition);overflow-y:auto;
+    box-shadow:var(--sdcd-ombre)}
+  .sdcd-aside[data-ouvert="true"]{transform:none}
+  .sdcd-voile{position:fixed;inset:0;z-index:70;background:rgba(22,26,29,.5);border:0}
+}
+.sdcd-voile{display:none}
+@media (max-width:900px){.sdcd-voile[data-ouvert="true"]{display:block}}
+
+/* ---------- Affichage conditionnel ---------- */
+.sdcd-mobile-only{display:none}
+@media (max-width:900px){
+  .sdcd-mobile-only{display:var(--sdcd-mobile-display,inline-flex)!important}
+  .sdcd-desktop-only{display:none!important}
+}
+@media (max-width:640px){
+  .sdcd-sm-only{display:var(--sdcd-mobile-display,inline-flex)!important}
+  .sdcd-sm-hide{display:none!important}
+}
+.sdcd-sm-only{display:none}
+
+/* ---------- Empilement ---------- */
+/* Filet de sécurité : sous 640px, les rangées flex passent à la ligne, sauf
+   celles qui demandent explicitement nowrap ou un défilement horizontal. */
+@media (max-width:640px){
+  [style*="display: flex"]:not([style*="flex-wrap: nowrap"]):not([style*="overflow-x: auto"]):not([style*="flex-direction: column"]){flex-wrap:wrap}
+  [style*="display: inline-flex"]:not([style*="flex-wrap: nowrap"]):not([style*="overflow-x: auto"]){flex-wrap:wrap;max-width:100%}
+}
+@media (max-width:900px){
+  .sdcd-stack-md{flex-direction:column;align-items:stretch}
+}
+@media (max-width:640px){
+  .sdcd-stack-sm{flex-direction:column;align-items:stretch}
+  .sdcd-stack-sm>*{width:100%}
+  .sdcd-full-sm{width:100%;justify-content:center}
+}
+.sdcd-wrap{flex-wrap:wrap}
+
+/* ---------- Tableaux : défilement horizontal contrôlé ---------- */
+.sdcd-scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.sdcd-scroll-x>table{min-width:var(--sdcd-table-min,720px)}
+/* Tableaux en cartes empilées sous 640px : <table data-empilable> + td[data-label] */
+@media (max-width:640px){
+  .sdcd-scroll-x>table[data-empilable]{min-width:0}
+  table[data-empilable]{display:block}
+  table[data-empilable] thead{display:none}
+  table[data-empilable] tbody,table[data-empilable] tr,table[data-empilable] td{display:block;width:auto}
+  table[data-empilable] tr{border:1px solid var(--sdcd-ligne);margin-bottom:var(--sdcd-3);
+    padding:var(--sdcd-2) var(--sdcd-3);background:var(--sdcd-fond)!important;box-shadow:none}
+  table[data-empilable] tr[data-alerte="true"]{box-shadow:inset 3px 0 0 var(--sdcd-erreur)!important}
+  table[data-empilable] td{display:grid;grid-template-columns:minmax(0,38%) minmax(0,1fr);
+    gap:var(--sdcd-3);align-items:baseline;text-align:left!important;
+    border-bottom:0!important;padding:5px 0!important}
+  table[data-empilable] td+td{border-top:1px solid var(--sdcd-ligne)!important;padding-top:7px!important}
+  table[data-empilable] td::before{content:attr(data-label);font-size:var(--sdcd-xs);font-weight:700;
+    text-transform:uppercase;letter-spacing:.04em;color:var(--sdcd-muet);line-height:1.5}
+  table[data-empilable] td[colspan]{display:block;text-align:center!important}
+  table[data-empilable] td[colspan]::before{content:none}
+  table[data-empilable] caption{padding-bottom:var(--sdcd-2)}
+}
+
+/* Défilement discret : pas de barre visible, dégradé de bord indiquant la suite.
+   <div class="sdcd-scroll-x" data-discret> */
+.sdcd-scroll-x[data-discret]{scrollbar-width:none;-ms-overflow-style:none}
+.sdcd-scroll-x[data-discret]::-webkit-scrollbar{display:none}
+.sdcd-scroll-x[data-discret]{
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 16px,#000 calc(100% - 28px),transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 16px,#000 calc(100% - 28px),transparent 100%)}
+.sdcd-scroll-x[data-discret][data-debut="true"]{
+  -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent 100%);
+  mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent 100%)}
+.sdcd-scroll-x[data-discret][data-fin="true"]{
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 16px);
+  mask-image:linear-gradient(to right,transparent 0,#000 16px)}
+.sdcd-scroll-x[data-discret][data-debut="true"][data-fin="true"]{-webkit-mask-image:none;mask-image:none}
+
+/* Débord pleine largeur sur demande : <div class="sdcd-scroll-x" data-bleed> */
+@media (max-width:640px){
+  .sdcd-scroll-x[data-bleed]{margin-inline:calc(-1 * var(--sdcd-gouttiere));padding-inline:var(--sdcd-gouttiere)}
+}
+
+/* ---------- Cibles tactiles ---------- */
+@media (pointer:coarse){
+  button,[role="button"],a.sdcd-lien-bouton,select,summary,input[type="checkbox"],input[type="radio"]{
+    min-height:var(--sdcd-cible-tactile)
+  }
+  button.sdcd-compact,[role="button"].sdcd-compact{min-height:32px}
+}
+
+/* ---------- Barre d’actions collante (mobile) ---------- */
+@media (max-width:640px){
+  .sdcd-actions-collantes{position:sticky;bottom:0;z-index:20;background:var(--sdcd-fond);
+    padding:var(--sdcd-3) var(--sdcd-gouttiere);box-shadow:0 -4px 16px rgba(22,26,29,.12)}
+}

@@ -103,6 +103,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "widget_tweaks",
     "dsfr",
+    # Système de design RDC — remplace progressivement django-dsfr.
+    "sdcd",
     "sites_conformes.core",
     "sites_conformes.blog",
     "sites_conformes.events",

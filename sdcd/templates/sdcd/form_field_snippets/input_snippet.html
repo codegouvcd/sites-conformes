@@ -1,0 +1,16 @@
+{% load sdcd_tags %}
+{# Fragment générique, utilisé par la plupart des types de champ. #}
+<div class="{{ field.field.widget.group_class|default:'sdcd-champ' }}">
+  <label for="{{ field.id_for_label }}" class="sdcd-champ__label">
+    {# djlint:off #}
+    {{ field.label }}{% sdcd_mark_optionnal_fields field %}
+    {# djlint:on #}
+  </label>
+  {% if field.help_text %}
+    <p class="sdcd-champ__aide" id="{{ field.id_for_label }}_helptext">{{ field.help_text|safe }}</p>
+  {% endif %}
+  {{ field|sdcd_input_class_attr }}
+  {% if field.errors %}
+    <p class="sdcd-champ__erreur" id="{{ field.auto_id }}-desc-error">{{ field.errors.0 }}</p>
+  {% endif %}
+</div>

@@ -1,0 +1,6 @@
+{% if form.non_field_errors %}
+  <section class="sdcd-champ__erreur sdcd-my-4" role="alert">{{ form.non_field_errors }}</section>
+{% endif %}
+{% for field in form %}
+  {% if field.is_hidden %}{{ field.as_hidden }}{% else %}{{ field.as_field_group }}{% endif %}
+{% endfor %}

@@ -1,0 +1,6 @@
+<div class="sdcd-accordion{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}">
+  <details class="sdcd-accordion__item" {% if self.id %}id="{{ self.id }}"{% endif %}>
+    <summary class="sdcd-accordion__entete">{{ self.title }}</summary>
+    <div class="sdcd-accordion__contenu">{{ self.content|safe }}</div>
+  </details>
+</div>

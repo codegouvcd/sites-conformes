@@ -1,0 +1,9 @@
+{% load i18n %}
+{% translate "Transcription" as transcription_label %}
+{# Pas de composant dédié au SDCD : la transcription réutilise l'accordéon. #}
+<div class="sdcd-accordion">
+  <details class="sdcd-accordion__item" id="sdcd-transcription-{{ self.id }}">
+    <summary class="sdcd-accordion__entete">{{ self.title|default:transcription_label }}</summary>
+    <div class="sdcd-accordion__contenu">{{ self.content|safe }}</div>
+  </details>
+</div>

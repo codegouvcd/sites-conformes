@@ -1,0 +1,7 @@
+{% load i18n %}
+{% translate "Liens d’évitement" as evitement %}
+<nav role="navigation" aria-label="{{ evitement }}">
+  {% for item in self.items %}
+    <a class="sdcd-skiplink" href="{{ item.link }}">{{ item.label }}</a>
+  {% endfor %}
+</nav>

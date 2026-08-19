@@ -1,0 +1,59 @@
+/* SDCD — jetons de couleur.
+   Règle : toute couleur portant du texte ou une bordure de contrôle est vérifiée
+   à ≥ 4,5:1 (texte) / ≥ 3:1 (bordure, graphique) sur les fonds du système,
+   en clair comme en sombre. Les couleurs du drapeau restent invariantes. */
+:root{
+  /* Drapeau — codes officiels fournis. Invariants : filet tricolore, armoiries,
+     aplats de marque. Ne jamais utiliser pour du texte ni pour un contrôle. */
+  --sdcd-bleu:#0095C9; --sdcd-jaune:#FFF24B; --sdcd-rouge:#DB3832;
+  /* Bleu d'État — échelle d'interaction.
+     bleu-action est la teinte porteuse de texte (5,42:1 sur blanc) ;
+     --sdcd-bleu reste la teinte de marque, non conforme au texte (3,42:1). */
+  --sdcd-bleu-action:#00729A; --sdcd-bleu-sombre:#005D7C; --sdcd-bleu-profond:#004F6B;
+  /* Aplat de marque, volontairement NON redéfini en sombre : un panneau bleu profond
+     qui porte data-theme="dark" pour son contenu doit garder son fond. */
+  --sdcd-bleu-aplat:#004F6B;
+  --sdcd-bleu-pale:#EDF6FA; --sdcd-bleu-teinte:#D6ECF5;
+  /* Encres */
+  --sdcd-encre:#161A1D; --sdcd-encre-2:#3A434B; --sdcd-muet:#56616B; --sdcd-inactif:#8B959E;
+  /* Fonds & filets.
+     ligne : séparateurs et bordures décoratives (hors champ d'application 1.4.11).
+     ligne-forte : bordure des contrôles de saisie — tenue à ≥ 3:1. */
+  --sdcd-fond:#FFFFFF; --sdcd-fond-alt:#F5F7F9; --sdcd-ligne:#DCE3E8; --sdcd-ligne-forte:#7E8992;
+  /* Sémantique — chaque teinte est conforme sur blanc ET sur son fond pâle */
+  --sdcd-succes:#197448; --sdcd-succes-pale:#E7F4EC;
+  --sdcd-info:#00729A;   --sdcd-info-pale:#EDF6FA;
+  --sdcd-alerte:#8E5F08; --sdcd-alerte-pale:#FBF3E3;
+  --sdcd-erreur:#C42E29; --sdcd-erreur-pale:#FCEEEE;
+  /* Mise en avant « nouveau » — jaune sourd, distinct de l'alerte */
+  --sdcd-nouveau:#6E5E00; --sdcd-nouveau-pale:#FFF9D6;
+  /* Séries de graphiques — teintes distinctes, ≥ 3:1 sur le fond (WCAG 1.4.11) */
+  --sdcd-chart-1:#0095C9; --sdcd-chart-2:#005D7C; --sdcd-chart-3:#8E5F08;
+  --sdcd-chart-4:#197448; --sdcd-chart-5:#C42E29; --sdcd-chart-6:#56616B;
+  /* Alias sémantiques */
+  --sdcd-action:var(--sdcd-bleu-action); --sdcd-action-survol:var(--sdcd-bleu-sombre); --sdcd-action-appui:var(--sdcd-bleu-profond);
+  --sdcd-texte:var(--sdcd-encre); --sdcd-texte-2:var(--sdcd-muet);
+  --sdcd-surface:var(--sdcd-fond);
+  /* Couleurs de premier plan posées SUR un aplat — suivent le thème */
+  --sdcd-sur-action:#FFFFFF; --sdcd-sur-encre:#FFFFFF;
+  --sdcd-focus:0 0 0 2px var(--sdcd-fond),0 0 0 4px var(--sdcd-bleu-action);
+}
+[data-theme="dark"]{
+  --sdcd-bleu-action:#4DB8DC; --sdcd-bleu-sombre:#79CBE6; --sdcd-bleu-profond:#A6DDF0;
+  --sdcd-bleu-pale:#12242C; --sdcd-bleu-teinte:#173341;
+  --sdcd-encre:#F2F5F7; --sdcd-encre-2:#C6CDD3; --sdcd-muet:#96A0A9; --sdcd-inactif:#6A7681;
+  --sdcd-fond:#131619; --sdcd-fond-alt:#1B2025; --sdcd-ligne:#2A3138; --sdcd-ligne-forte:#63707A;
+  --sdcd-succes:#4CC38A; --sdcd-succes-pale:#12251B;
+  --sdcd-info:#4DB8DC;   --sdcd-info-pale:#12242C;
+  --sdcd-alerte:#E2A33C; --sdcd-alerte-pale:#2A2113;
+  --sdcd-erreur:#F07470; --sdcd-erreur-pale:#2C1514;
+  --sdcd-nouveau:#E3CE55; --sdcd-nouveau-pale:#2A2611;
+  --sdcd-chart-1:#4DB8DC; --sdcd-chart-2:#A6DDF0; --sdcd-chart-3:#E2A33C;
+  --sdcd-chart-4:#4CC38A; --sdcd-chart-5:#F07470; --sdcd-chart-6:#96A0A9;
+  --sdcd-action:var(--sdcd-bleu-action); --sdcd-action-survol:var(--sdcd-bleu-sombre); --sdcd-action-appui:var(--sdcd-bleu-profond);
+  --sdcd-texte:var(--sdcd-encre); --sdcd-texte-2:var(--sdcd-muet);
+  --sdcd-surface:var(--sdcd-fond);
+  /* Sur fond bleu clair et sur encre claire, le premier plan repasse en encre sombre */
+  --sdcd-sur-action:#131619; --sdcd-sur-encre:#131619;
+  --sdcd-focus:0 0 0 2px var(--sdcd-fond),0 0 0 4px var(--sdcd-jaune);
+}

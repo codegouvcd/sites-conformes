@@ -1,0 +1,11 @@
+{% load sdcd_tags %}
+<div class="sdcd-champ">
+  <label class="sdcd-checkbox">
+    {{ field|sdcd_input_class_attr }}
+    <span>{# djlint:off #}{{ field.label }}{% sdcd_mark_optionnal_fields field %}{# djlint:on #}</span>
+  </label>
+  {% if field.help_text %}<p class="sdcd-champ__aide">{{ field.help_text|safe }}</p>{% endif %}
+  {% if field.errors %}
+    <p class="sdcd-champ__erreur" id="{{ field.auto_id }}-desc-error">{{ field.errors.0 }}</p>
+  {% endif %}
+</div>

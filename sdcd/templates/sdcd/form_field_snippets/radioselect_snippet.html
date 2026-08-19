@@ -1,0 +1,14 @@
+{% load sdcd_tags %}
+<fieldset class="sdcd-champ"
+          {% if field.errors %}aria-describedby="{{ field.auto_id }}-desc-error"{% endif %}>
+  <legend class="sdcd-champ__label">
+    {# djlint:off #}{{ field.label }}{% sdcd_mark_optionnal_fields field %}{# djlint:on #}
+  </legend>
+  {% if field.help_text %}<p class="sdcd-champ__aide">{{ field.help_text|safe }}</p>{% endif %}
+  {% for choix in field %}
+    <label class="sdcd-radio" for="{{ choix.id_for_label }}">{{ choix.tag }}<span>{{ choix.choice_label }}</span></label>
+  {% endfor %}
+  {% if field.errors %}
+    <p class="sdcd-champ__erreur" id="{{ field.auto_id }}-desc-error">{{ field.errors.0 }}</p>
+  {% endif %}
+</fieldset>

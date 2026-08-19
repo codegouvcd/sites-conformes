@@ -1,0 +1,20 @@
+{% load i18n %}
+{% translate "Masquer le message" as masquer %}
+<div role="alert"
+     class="sdcd-alert sdcd-alert--{{ self.type|default:'info' }}{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}"
+     {% if self.id %}id="{{ self.id }}"{% endif %}>
+  <i class="sdcd-alert__icone {% if self.type == 'succes' %}ri-checkbox-circle-line{% elif self.type == 'erreur' %}ri-error-warning-line{% elif self.type == 'alerte' %}ri-alert-line{% else %}ri-information-line{% endif %}"
+     aria-hidden="true"></i>
+  <div class="sdcd-alert__corps">
+    {% if self.title %}
+      <{{ self.heading_tag|default:"p" }} class="sdcd-alert__titre">{{ self.title }}</{{ self.heading_tag|default:"p" }}>
+    {% endif %}
+    {% if self.content %}<p class="sdcd-alert__texte">{{ self.content|safe }}</p>{% endif %}
+  </div>
+  {% if self.is_collapsible %}
+    <button type="button" class="sdcd-fermer" title="{{ masquer }}"
+            onclick="this.closest('.sdcd-alert').remove()">
+      <i class="ri-close-line" aria-hidden="true"></i><span class="sdcd-lecteur-seul">{{ masquer }}</span>
+    </button>
+  {% endif %}
+</div>

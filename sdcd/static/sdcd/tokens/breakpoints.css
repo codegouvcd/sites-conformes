@@ -1,0 +1,9 @@
+/* SDCD — points de rupture (tokens documentaires : à utiliser tels quels dans les @media) */
+:root{
+  --sdcd-bp-xs:480px;   /* petit mobile */
+  --sdcd-bp-sm:640px;   /* mobile */
+  --sdcd-bp-md:900px;   /* tablette / bascule menu */
+  --sdcd-bp-lg:1024px;  /* petit portable */
+  --sdcd-bp-xl:1280px;  /* bureau */
+  --sdcd-cible-tactile:44px; /* taille minimale d’une cible tactile */
+}

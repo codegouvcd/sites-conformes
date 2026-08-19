@@ -1,0 +1,184 @@
+/* SDCD — utilitaires.
+   Complément aux composants : espacement, affichage, typographie. Réservés aux
+   ajustements de mise en page ; un écart récurrent doit devenir un composant,
+   pas une accumulation d'utilitaires.
+   L'échelle reprend les jetons d'espacement : 1=4px, 2=8px, 3=12px, 4=16px,
+   5=24px, 6=32px, 7=40px, 8=64px. */
+
+/* ---------- Espacement ---------- */
+
+/* margin */
+.sdcd-mt-0 { margin-top: 0; }
+.sdcd-mt-1 { margin-top: var(--sdcd-1); }
+.sdcd-mt-2 { margin-top: var(--sdcd-2); }
+.sdcd-mt-3 { margin-top: var(--sdcd-3); }
+.sdcd-mt-4 { margin-top: var(--sdcd-4); }
+.sdcd-mt-5 { margin-top: var(--sdcd-5); }
+.sdcd-mt-6 { margin-top: var(--sdcd-6); }
+.sdcd-mt-7 { margin-top: var(--sdcd-7); }
+.sdcd-mt-8 { margin-top: var(--sdcd-8); }
+.sdcd-mb-0 { margin-bottom: 0; }
+.sdcd-mb-1 { margin-bottom: var(--sdcd-1); }
+.sdcd-mb-2 { margin-bottom: var(--sdcd-2); }
+.sdcd-mb-3 { margin-bottom: var(--sdcd-3); }
+.sdcd-mb-4 { margin-bottom: var(--sdcd-4); }
+.sdcd-mb-5 { margin-bottom: var(--sdcd-5); }
+.sdcd-mb-6 { margin-bottom: var(--sdcd-6); }
+.sdcd-mb-7 { margin-bottom: var(--sdcd-7); }
+.sdcd-mb-8 { margin-bottom: var(--sdcd-8); }
+.sdcd-ml-0 { margin-left: 0; }
+.sdcd-ml-1 { margin-left: var(--sdcd-1); }
+.sdcd-ml-2 { margin-left: var(--sdcd-2); }
+.sdcd-ml-3 { margin-left: var(--sdcd-3); }
+.sdcd-ml-4 { margin-left: var(--sdcd-4); }
+.sdcd-ml-5 { margin-left: var(--sdcd-5); }
+.sdcd-ml-6 { margin-left: var(--sdcd-6); }
+.sdcd-ml-7 { margin-left: var(--sdcd-7); }
+.sdcd-ml-8 { margin-left: var(--sdcd-8); }
+.sdcd-mr-0 { margin-right: 0; }
+.sdcd-mr-1 { margin-right: var(--sdcd-1); }
+.sdcd-mr-2 { margin-right: var(--sdcd-2); }
+.sdcd-mr-3 { margin-right: var(--sdcd-3); }
+.sdcd-mr-4 { margin-right: var(--sdcd-4); }
+.sdcd-mr-5 { margin-right: var(--sdcd-5); }
+.sdcd-mr-6 { margin-right: var(--sdcd-6); }
+.sdcd-mr-7 { margin-right: var(--sdcd-7); }
+.sdcd-mr-8 { margin-right: var(--sdcd-8); }
+.sdcd-mx-0 { margin-left: 0; margin-right: 0; }
+.sdcd-mx-1 { margin-left: var(--sdcd-1); margin-right: var(--sdcd-1); }
+.sdcd-mx-2 { margin-left: var(--sdcd-2); margin-right: var(--sdcd-2); }
+.sdcd-mx-3 { margin-left: var(--sdcd-3); margin-right: var(--sdcd-3); }
+.sdcd-mx-4 { margin-left: var(--sdcd-4); margin-right: var(--sdcd-4); }
+.sdcd-mx-5 { margin-left: var(--sdcd-5); margin-right: var(--sdcd-5); }
+.sdcd-mx-6 { margin-left: var(--sdcd-6); margin-right: var(--sdcd-6); }
+.sdcd-mx-7 { margin-left: var(--sdcd-7); margin-right: var(--sdcd-7); }
+.sdcd-mx-8 { margin-left: var(--sdcd-8); margin-right: var(--sdcd-8); }
+.sdcd-my-0 { margin-top: 0; margin-bottom: 0; }
+.sdcd-my-1 { margin-top: var(--sdcd-1); margin-bottom: var(--sdcd-1); }
+.sdcd-my-2 { margin-top: var(--sdcd-2); margin-bottom: var(--sdcd-2); }
+.sdcd-my-3 { margin-top: var(--sdcd-3); margin-bottom: var(--sdcd-3); }
+.sdcd-my-4 { margin-top: var(--sdcd-4); margin-bottom: var(--sdcd-4); }
+.sdcd-my-5 { margin-top: var(--sdcd-5); margin-bottom: var(--sdcd-5); }
+.sdcd-my-6 { margin-top: var(--sdcd-6); margin-bottom: var(--sdcd-6); }
+.sdcd-my-7 { margin-top: var(--sdcd-7); margin-bottom: var(--sdcd-7); }
+.sdcd-my-8 { margin-top: var(--sdcd-8); margin-bottom: var(--sdcd-8); }
+.sdcd-m-0 { margin: 0; }
+.sdcd-m-1 { margin: var(--sdcd-1); }
+.sdcd-m-2 { margin: var(--sdcd-2); }
+.sdcd-m-3 { margin: var(--sdcd-3); }
+.sdcd-m-4 { margin: var(--sdcd-4); }
+.sdcd-m-5 { margin: var(--sdcd-5); }
+.sdcd-m-6 { margin: var(--sdcd-6); }
+.sdcd-m-7 { margin: var(--sdcd-7); }
+.sdcd-m-8 { margin: var(--sdcd-8); }
+.sdcd-mx-auto { margin-left: auto; margin-right: auto; }
+.sdcd-ml-auto { margin-left: auto; }
+.sdcd-mr-auto { margin-right: auto; }
+
+/* padding */
+.sdcd-pt-0 { padding-top: 0; }
+.sdcd-pt-1 { padding-top: var(--sdcd-1); }
+.sdcd-pt-2 { padding-top: var(--sdcd-2); }
+.sdcd-pt-3 { padding-top: var(--sdcd-3); }
+.sdcd-pt-4 { padding-top: var(--sdcd-4); }
+.sdcd-pt-5 { padding-top: var(--sdcd-5); }
+.sdcd-pt-6 { padding-top: var(--sdcd-6); }
+.sdcd-pt-7 { padding-top: var(--sdcd-7); }
+.sdcd-pt-8 { padding-top: var(--sdcd-8); }
+.sdcd-pb-0 { padding-bottom: 0; }
+.sdcd-pb-1 { padding-bottom: var(--sdcd-1); }
+.sdcd-pb-2 { padding-bottom: var(--sdcd-2); }
+.sdcd-pb-3 { padding-bottom: var(--sdcd-3); }
+.sdcd-pb-4 { padding-bottom: var(--sdcd-4); }
+.sdcd-pb-5 { padding-bottom: var(--sdcd-5); }
+.sdcd-pb-6 { padding-bottom: var(--sdcd-6); }
+.sdcd-pb-7 { padding-bottom: var(--sdcd-7); }
+.sdcd-pb-8 { padding-bottom: var(--sdcd-8); }
+.sdcd-pl-0 { padding-left: 0; }
+.sdcd-pl-1 { padding-left: var(--sdcd-1); }
+.sdcd-pl-2 { padding-left: var(--sdcd-2); }
+.sdcd-pl-3 { padding-left: var(--sdcd-3); }
+.sdcd-pl-4 { padding-left: var(--sdcd-4); }
+.sdcd-pl-5 { padding-left: var(--sdcd-5); }
+.sdcd-pl-6 { padding-left: var(--sdcd-6); }
+.sdcd-pl-7 { padding-left: var(--sdcd-7); }
+.sdcd-pl-8 { padding-left: var(--sdcd-8); }
+.sdcd-pr-0 { padding-right: 0; }
+.sdcd-pr-1 { padding-right: var(--sdcd-1); }
+.sdcd-pr-2 { padding-right: var(--sdcd-2); }
+.sdcd-pr-3 { padding-right: var(--sdcd-3); }
+.sdcd-pr-4 { padding-right: var(--sdcd-4); }
+.sdcd-pr-5 { padding-right: var(--sdcd-5); }
+.sdcd-pr-6 { padding-right: var(--sdcd-6); }
+.sdcd-pr-7 { padding-right: var(--sdcd-7); }
+.sdcd-pr-8 { padding-right: var(--sdcd-8); }
+.sdcd-px-0 { padding-left: 0; padding-right: 0; }
+.sdcd-px-1 { padding-left: var(--sdcd-1); padding-right: var(--sdcd-1); }
+.sdcd-px-2 { padding-left: var(--sdcd-2); padding-right: var(--sdcd-2); }
+.sdcd-px-3 { padding-left: var(--sdcd-3); padding-right: var(--sdcd-3); }
+.sdcd-px-4 { padding-left: var(--sdcd-4); padding-right: var(--sdcd-4); }
+.sdcd-px-5 { padding-left: var(--sdcd-5); padding-right: var(--sdcd-5); }
+.sdcd-px-6 { padding-left: var(--sdcd-6); padding-right: var(--sdcd-6); }
+.sdcd-px-7 { padding-left: var(--sdcd-7); padding-right: var(--sdcd-7); }
+.sdcd-px-8 { padding-left: var(--sdcd-8); padding-right: var(--sdcd-8); }
+.sdcd-py-0 { padding-top: 0; padding-bottom: 0; }
+.sdcd-py-1 { padding-top: var(--sdcd-1); padding-bottom: var(--sdcd-1); }
+.sdcd-py-2 { padding-top: var(--sdcd-2); padding-bottom: var(--sdcd-2); }
+.sdcd-py-3 { padding-top: var(--sdcd-3); padding-bottom: var(--sdcd-3); }
+.sdcd-py-4 { padding-top: var(--sdcd-4); padding-bottom: var(--sdcd-4); }
+.sdcd-py-5 { padding-top: var(--sdcd-5); padding-bottom: var(--sdcd-5); }
+.sdcd-py-6 { padding-top: var(--sdcd-6); padding-bottom: var(--sdcd-6); }
+.sdcd-py-7 { padding-top: var(--sdcd-7); padding-bottom: var(--sdcd-7); }
+.sdcd-py-8 { padding-top: var(--sdcd-8); padding-bottom: var(--sdcd-8); }
+.sdcd-p-0 { padding: 0; }
+.sdcd-p-1 { padding: var(--sdcd-1); }
+.sdcd-p-2 { padding: var(--sdcd-2); }
+.sdcd-p-3 { padding: var(--sdcd-3); }
+.sdcd-p-4 { padding: var(--sdcd-4); }
+.sdcd-p-5 { padding: var(--sdcd-5); }
+.sdcd-p-6 { padding: var(--sdcd-6); }
+.sdcd-p-7 { padding: var(--sdcd-7); }
+.sdcd-p-8 { padding: var(--sdcd-8); }
+
+/* ---------- Typographie ---------- */
+/* Applique une taille de l'échelle sans imposer le niveau sémantique du titre :
+   un h2 peut porter .sdcd-h4 si la hiérarchie du document l'exige. */
+.sdcd-display { font-size: var(--sdcd-display); line-height: var(--sdcd-lh-titre); letter-spacing: var(--sdcd-tracking-titre); font-weight: 700; }
+.sdcd-h1 { font-size: var(--sdcd-h1); line-height: var(--sdcd-lh-titre); letter-spacing: var(--sdcd-tracking-titre); font-weight: 700; }
+.sdcd-h2 { font-size: var(--sdcd-h2); line-height: var(--sdcd-lh-titre); letter-spacing: var(--sdcd-tracking-titre); font-weight: 700; }
+.sdcd-h3 { font-size: var(--sdcd-h3); line-height: var(--sdcd-lh-titre); letter-spacing: var(--sdcd-tracking-titre); font-weight: 700; }
+.sdcd-h4 { font-size: var(--sdcd-h4); line-height: var(--sdcd-lh-titre); letter-spacing: var(--sdcd-tracking-titre); font-weight: 700; }
+.sdcd-texte-sm { font-size: var(--sdcd-sm); }
+.sdcd-texte-xs { font-size: var(--sdcd-xs); }
+.sdcd-texte-mono { font-family: var(--sdcd-font-mono); }
+.sdcd-texte-muet { color: var(--sdcd-texte-2); }
+.sdcd-texte-centre { text-align: center; }
+.sdcd-texte-droite { text-align: right; }
+.sdcd-gras { font-weight: 700; }
+
+/* ---------- Affichage et flux ---------- */
+.sdcd-bloc { display: block; }
+.sdcd-flex { display: flex; }
+.sdcd-flex-colonne { display: flex; flex-direction: column; }
+.sdcd-align-centre { align-items: center; }
+.sdcd-justifie-entre { justify-content: space-between; }
+.sdcd-plein { width: 100%; }
+
+/* ---------- Surfaces ---------- */
+.sdcd-fond-alt { background: var(--sdcd-fond-alt); }
+.sdcd-fond-bleu-pale { background: var(--sdcd-bleu-pale); }
+.sdcd-bordure { border: 1px solid var(--sdcd-ligne); }
+.sdcd-bordure-haut { border-top: 1px solid var(--sdcd-ligne); }
+.sdcd-bordure-bas { border-bottom: 1px solid var(--sdcd-ligne); }
+
+/* ---------- Accessibilité ---------- */
+/* Masque visuellement en restant lisible par les lecteurs d'écran. */
+.sdcd-lecteur-seul {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
