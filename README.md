@@ -147,5 +147,5 @@ bénéficier indéfiniment, à condition de rester synchronisés.
 |---|---|
 | [`MODIFICATIONS.md`](MODIFICATIONS.md) | Journal des écarts avec l'amont (obligation AGPL) |
 | [`README.amont.md`](README.amont.md) | README d'origine, conservé pour attribution |
-| `../SDRDC/readme.md` | Système de design RDC — doctrine, jetons, composants |
-| `../SDRDC/CHANGELOG.md` | Journal du système de design |
+| `../SDCD/readme.md` | Système de design RDC — doctrine, jetons, composants |
+| `../SDCD/CHANGELOG.md` | Journal du système de design |
