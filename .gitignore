@@ -151,3 +151,8 @@ test-results
 __screenshots__
 playwright-report
 blob-report
+
+# Verification locale
+verif.sqlite3
+rendu_*.html
+apercu/

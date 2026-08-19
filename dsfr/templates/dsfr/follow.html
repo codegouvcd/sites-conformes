@@ -1,0 +1,10 @@
+{% load i18n %}
+{# Bloc « Suivez-nous » : lettre d'information et réseaux. #}
+<div class="sdcd-follow">
+  <div class="sdcd-container sdcd-follow__corps">
+    <div class="sdcd-grid" style="--sdcd-cols: repeat(12, minmax(0, 1fr)); --sdcd-cols-sm: minmax(0, 1fr)">
+      {% block follow_newsletter %}{% endblock follow_newsletter %}
+      {% block follow_social %}{% endblock follow_social %}
+    </div>
+  </div>
+</div>

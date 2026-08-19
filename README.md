@@ -74,39 +74,47 @@ L'essentiel du travail porte donc sur les 233 classes CSS :
 | Utilitaires d'espacement | 34 (14 %) | couverts depuis SDCD 0.5.0 |
 | Utilitaires typographiques | 10 (4 %) | couverts depuis SDCD 0.5.0 |
 
-## Surface exacte de `django-dsfr` à répliquer
+## Ce que `sdcd` fournit
 
-Relevé sur le code du fork : `django-dsfr` expose 43 tags, le CMS n'en utilise
-que **19**. C'est le périmètre de `django-sdcd`, rien de plus.
+`django-dsfr` exposait 43 entrées. `sdcd` en fournit **40 tags** plus les
+auxiliaires : parité entière, pour qu'aucun gabarit — présent ou futur — ne
+tombe sur un tag manquant.
 
-**Tags de gabarit** (nombre d'appels) : `dsfr_pagination` (7),
-`dsfr_mark_optionnal_fields` (5), `dsfr_breadcrumb` (5), `dsfr_form_field` (4),
-`dsfr_badge` (4), `dsfr_js` (3), `dsfr_css` (3), `dsfr_button` (3),
-`dsfr_transcription` (2), `dsfr_theme_modale` (2), `dsfr_tag` (2),
-`dsfr_skiplinks` (2), `dsfr_quote` (2), `dsfr_notice` (2), `dsfr_favicon` (2),
-`dsfr_accordion` (2), `dsfr_link` (1), `dsfr_django_messages` (1),
-`dsfr_alert` (1).
+Le CMS n'en emploie lui-même que **14**, plus quatre gabarits qu'il étend par
+chemin (`dsfr/header.html`, `dsfr/footer.html`, `dsfr/follow.html`,
+`dsfr/form_snippet.html`). Ces quatre-là définissent les mêmes blocs que
+l'amont : le CMS les surcharge sans modification.
 
-**Python** — trois modules seulement :
+**Python** — trois modules, tous aliasés :
 
 | Import | Éléments |
 |---|---|
-| `dsfr.constants` | `COLOR_CHOICES`, `COLOR_CHOICES_ILLUSTRATION`, `COLOR_CHOICES_SYSTEM`, `IMAGE_RATIOS`, `VIDEO_RATIOS`, `NOTICE_TYPE_CHOICES` |
-| `dsfr.forms` | `DsfrBaseForm`, `DsfrDjangoTemplates` |
-| `dsfr.utils` | `dsfr_input_class_attr` |
+| `dsfr.constants` | `COLOR_CHOICES`, `COLOR_CHOICES_ILLUSTRATION`, `COLOR_CHOICES_SYSTEM`, `IMAGE_RATIOS`, `VIDEO_RATIOS`, `NOTICE_TYPE_CHOICES`, `DJANGO_DSFR_LANGUAGES` |
+| `dsfr.forms` | `DsfrBaseForm`, `DsfrBoundField`, `DsfrDjangoTemplates` |
+| `dsfr.utils` | `dsfr_input_class_attr`, `parse_tag_args`, `lazy_static` |
 
 Les 8 tags locaux de `sites_conformes/core/templatetags/wagtail_dsfr_tags.py`
 (`settings_value`, `root_url`, `canonical_url`, `language_selector`,
 `richtext_p_add_class`, `toggle_url_filter`, `event_date_range`,
-`table_has_heading_row`) **ne dépendent pas du DSFR** : seul leur nom de module
-est à renommer.
+`table_has_heading_row`) **ne dépendent pas du DSFR** : ils sont inchangés.
+
+## Vérifier
+
+```bash
+.venv/Scripts/python.exe verifier_sdcd.py
+```
+
+Quatre contrôles : rendu des tags `sdcd_*`, rendu des tags `dsfr_*` via l'alias,
+existence de toute classe `sdcd-*` émise, compilation des 55 gabarits du CMS.
 
 ## Plan de portage
 
-1. **`django-sdcd`** — application Django fournissant les 19 tags ci-dessus,
-   calquée sur l'API de `django-dsfr` pour limiter la réécriture des templates.
-2. **Remplacement des templates** — 61 fichiers, remappage des 233 classes.
-3. **Retrait de `django-dsfr`** de `pyproject.toml`, et des assets DSFR.
+1. ~~**`django-sdcd`**~~ — **fait.** 40 tags, parité entière avec l'amont.
+2. ~~**Retrait de `django-dsfr`**~~ — **fait.** Désinstallé, retiré de
+   `pyproject.toml` et de `uv.lock`. L'alias `dsfr/` prend le relais.
+3. **Portage des gabarits** — remplacer `fr-*` par `sdcd-*` dans les 61
+   fichiers, ce qui allégera `compat-dsfr.css` puis permettra de retirer
+   l'alias. Non commencé.
 4. **Marque d'État** — armoiries, filet tricolore et bloc « République
    Démocratique du Congo » à la place de la Marianne et du bloc-marque français.
 5. **Multilinguisme** — six langues, dont quatre langues nationales. Wagtail

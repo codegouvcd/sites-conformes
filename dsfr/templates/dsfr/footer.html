@@ -1,0 +1,49 @@
+{% load i18n static %}
+{# Pied de page d'État. Mêmes blocs que django-dsfr, balisage du SDCD. #}
+{% translate "Retour à l’accueil" as retour_accueil %}
+<footer role="contentinfo" class="sdcd-footer">
+  <div class="sdcd-filet-tricolore" aria-hidden="true">
+    <div class="sdcd-filet-tricolore__bande--bleu"></div>
+    <div class="sdcd-filet-tricolore__bande--jaune"></div>
+    <div class="sdcd-filet-tricolore__bande--rouge"></div>
+  </div>
+
+  <div class="sdcd-footer__haut">
+    <div>
+      <div class="sdcd-footer__marque">
+        {% block footer_brand %}
+          <a href="/" title="{{ retour_accueil }}">
+            <img class="sdcd-footer__armoiries"
+                 src="{% static 'sdcd/assets/armoiries-rdc.png' %}"
+                 alt="{% translate 'Armoiries de la République Démocratique du Congo' %}">
+          </a>
+        {% endblock footer_brand %}
+        <div>
+          {% block brand %}
+            <div class="sdcd-footer__republique">{% translate "République Démocratique du Congo" %}</div>
+            <div class="sdcd-footer__devise">{% translate "Justice · Paix · Travail" %}</div>
+          {% endblock brand %}
+        </div>
+      </div>
+      <p class="sdcd-footer__description">
+        {% block footer_description %}{% endblock footer_description %}
+      </p>
+    </div>
+
+    <div class="sdcd-footer__colonnes sdcd-grid">
+      {% block footer_links %}{% endblock footer_links %}
+    </div>
+  </div>
+
+  <div class="sdcd-footer__bande">
+    <div class="sdcd-footer__bande-corps">
+      {% block footer_bottom_extra %}{% endblock footer_bottom_extra %}
+    </div>
+  </div>
+
+  <div class="sdcd-footer__licence">
+    <div class="sdcd-footer__licence-corps">
+      {% blocktranslate %}Sauf mention contraire, tous les contenus de ce site sont sous licence ouverte de l’État congolais.{% endblocktranslate %}
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,53 @@
+{% load i18n static %}
+{# En-tête d'État. Blocs repris de django-dsfr pour que les gabarits du CMS
+   puissent les surcharger sans modification ; balisage du SDCD. #}
+{% translate "Retour à l’accueil" as retour_accueil %}
+<header role="banner" class="sdcd-header">
+  <div class="sdcd-filet-tricolore" aria-hidden="true">
+    <div class="sdcd-filet-tricolore__bande--bleu"></div>
+    <div class="sdcd-filet-tricolore__bande--jaune"></div>
+    <div class="sdcd-filet-tricolore__bande--rouge"></div>
+  </div>
+
+  <div class="sdcd-header__utilitaire">
+    <div class="sdcd-container">
+      {% block header_utility %}
+        <span class="sdcd-header__mention">
+          {% translate "Site officiel de la République Démocratique du Congo — vérifiez que l’adresse se termine par .gouv.cd" %}
+        </span>
+      {% endblock header_utility %}
+    </div>
+  </div>
+
+  <div class="sdcd-container sdcd-header__corps">
+    <div class="sdcd-header__marque">
+      <a href="/" title="{{ retour_accueil }}" class="sdcd-header__lien-marque">
+        <img class="sdcd-header__armoiries"
+             src="{% static 'sdcd/assets/armoiries-rdc.png' %}"
+             alt="{% translate 'Armoiries de la République Démocratique du Congo' %}">
+        <span class="sdcd-header__bloc">
+          {% block brand %}
+            <span class="sdcd-header__republique">{% translate "République Démocratique du Congo" %}</span>
+          {% endblock brand %}
+          {% block operator_logo %}{% endblock operator_logo %}
+        </span>
+      </a>
+      <div class="sdcd-header__entite">
+        {% block service_title %}{% endblock service_title %}
+        {% block service_tagline %}{% endblock service_tagline %}
+      </div>
+    </div>
+
+    <div class="sdcd-header__outils">
+      {% block header_tools %}{% endblock header_tools %}
+      {% block header_search %}{% endblock header_search %}
+      {% block burger_menu %}{% endblock burger_menu %}
+    </div>
+  </div>
+
+  <nav class="sdcd-header__navigation" role="navigation" aria-label="{% translate 'Menu principal' %}">
+    <div class="sdcd-container">
+      {% block main_menu %}{% endblock main_menu %}
+    </div>
+  </nav>
+</header>

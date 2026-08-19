@@ -138,6 +138,53 @@ retirer des règles.
 
 ---
 
+## 2026-08-18 — Gabarits `dsfr/` etendus par chemin, et rendu de bout en bout
+
+Le remplacement precedent etait incomplet : trois gabarits du CMS font
+`{% extends "dsfr/… .html" %}` et surchargent des blocs nommes. Les tags ne
+suffisaient donc pas — il fallait aussi les fichiers.
+
+| Fichier | Modification |
+|---|---|
+| `dsfr/templates/dsfr/header.html` | **Ajouté** — en-tête d'État, blocs `brand`, `operator_logo`, `service_title`, `service_tagline`, `header_tools`, `header_search`, `burger_menu`, `main_menu` |
+| `dsfr/templates/dsfr/footer.html` | **Ajouté** — blocs `footer_brand`, `brand`, `footer_description`, `footer_links`, `footer_bottom_extra` |
+| `dsfr/templates/dsfr/follow.html` | **Ajouté** — blocs `follow_newsletter`, `follow_social` |
+| `dsfr/templates/dsfr/form_snippet.html` | **Ajouté** — délègue à `sdcd/form_snippet.html` |
+
+Les noms de blocs sont ceux de l'amont, pour que les surcharges du CMS
+s'appliquent sans modification. Le balisage et la marque sont congolais :
+armoiries de la République, filet tricolore, devise « Justice · Paix · Travail ».
+
+### Rendu de bout en bout — enfin obtenu
+
+Docker Desktop ne répond pas dans cet environnement ; la base a donc été montée
+sur **SQLite**, application par application. À noter : `migrate` global échoue
+sur SQLite (une migration emploie du SQL PostgreSQL) — **le CMS exige bien
+PostgreSQL en exploitation**. Les applications nécessaires au rendu
+(`wagtailcore`, `sites_conformes_core`, `sites_conformes_menus`, `wagtailmenus`,
+`wagtailimages`, `wagtaildocs`, `taggit`) migrent, elles, sans difficulté.
+
+| Gabarit réel du CMS | Rendu | Classes `sdcd-*` | Classes `fr-*` |
+|---|---|---|---|
+| `standalone.html` | 5 463 car. | 26 | 16 |
+| `header.html` | 2 452 car. | 16 | 12 |
+| `footer.html` | 1 675 car. | 14 | 5 |
+| `follow.html` | 235 car. | 4 | 0 |
+| `iframe.html` | 734 car. | 0 | 0 |
+
+Les classes `fr-*` restantes proviennent du balisage propre au CMS ; la couche
+`compat-dsfr.css` les habille — vérifié en navigateur sur `fr-logo`,
+`fr-container` et `fr-btn`.
+
+### Vérifié en navigateur, sur la sortie réelle
+
+- Feuilles du SDCD chargées (`--sdcd-action: #00729A`), police **Inter**.
+- **4 filets tricolores**, **2 armoiries de la République** — la marque d'État
+  congolaise remplace bien la Marianne.
+- **0 échec de contraste sur 14 nœuds de texte.**
+
+---
+
 ## À venir
 
 Les entrées suivantes seront ajoutées au fil du portage :
