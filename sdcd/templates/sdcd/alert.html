@@ -13,7 +13,7 @@
   </div>
   {% if self.is_collapsible %}
     <button type="button" class="sdcd-fermer" title="{{ masquer }}"
-            onclick="this.closest('.sdcd-alert').remove()">
+            data-sdcd-fermer-parent=".sdcd-alert">
       <i class="ri-close-line" aria-hidden="true"></i><span class="sdcd-lecteur-seul">{{ masquer }}</span>
     </button>
   {% endif %}

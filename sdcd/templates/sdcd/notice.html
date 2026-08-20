@@ -15,7 +15,7 @@
     </p>
     {% if self.is_collapsible %}
       <button type="button" class="sdcd-fermer" title="{{ masquer }}"
-              onclick="this.closest('.sdcd-notice').remove()">
+              data-sdcd-fermer-parent=".sdcd-notice">
         <i class="ri-close-line" aria-hidden="true"></i><span class="sdcd-lecteur-seul">{{ masquer }}</span>
       </button>
     {% endif %}

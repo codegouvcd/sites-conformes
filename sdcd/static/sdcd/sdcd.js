@@ -101,6 +101,19 @@
     try { localStorage.setItem(CLE_THEME, mode); } catch (err) {}
   });
 
+  // ---------------------------------------------------------------- fermeture
+  //
+  // Un `onclick` en ligne serait plus court, mais il exige `unsafe-inline`
+  // dans la politique de sécurité de contenu — c'est-à-dire renoncer à la
+  // protection principale contre l'injection de script. Les composants
+  // déclarent donc leur intention par un attribut de données, et la fermeture
+  // est traitée ici.
+
+  surClic("[data-sdcd-fermer-parent]", function (el) {
+    var cible = el.closest(el.getAttribute("data-sdcd-fermer-parent"));
+    if (cible) cible.remove();
+  });
+
   // ---------------------------------------------------------------- interrupteur
 
   surClic(".sdcd-toggle__piste", function (el) {

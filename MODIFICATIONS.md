@@ -211,6 +211,40 @@ depuis le meme domaine.
 
 ---
 
+## 2026-08-19 — SDCD 0.9.0 : audit et corrections de securite
+
+| Fichier | Modification |
+|---|---|
+| `sdcd/static/sdcd/*` | Reprise de la distribution 0.9.0 |
+| `sdcd/templates/sdcd/alert.html`, `notice.html`, `theme_modale.html` | `onclick` en ligne remplace par `data-sdcd-fermer-parent` / `data-sdcd-ferme` |
+| `sdcd/templates/sdcd/button.html`, `tag.html`, `button_group.html` | **Parametre `onclick` retire de l'API** |
+
+### Pourquoi
+
+Un `onclick` en ligne impose `unsafe-inline` dans la politique de securite de
+contenu, c'est-a-dire renoncer a la protection principale contre l'injection
+de script. Et le parametre `onclick` de `sdcd_button` injectait du JavaScript
+arbitraire dans un attribut : des lors que sa valeur venait du CMS, un
+redacteur pouvait executer du script chez les visiteurs. L'echappement de
+Django empechait la sortie de l'attribut, pas l'execution de son contenu.
+
+**Rupture d'API assumee** : `{% sdcd_button onclick="…" %}` ne fait plus rien.
+Aucun gabarit du CMS ne l'employait.
+
+### A traiter cote CMS
+
+Les gabarits referencent `request.csp_nonce`, mais **aucun middleware CSP
+n'est installe** : `django-csp` n'est pas une dependance et le nonce se
+resout a vide. Le site n'a donc aujourd'hui **aucune politique de securite de
+contenu**. Le SDCD est desormais compatible avec une CSP stricte ; l'activer
+releve du CMS.
+
+### Verifie
+
+`verifier_sdcd.py` : aucun defaut, 55/55 gabarits compiles.
+
+---
+
 ## À venir
 
 Les entrées suivantes seront ajoutées au fil du portage :

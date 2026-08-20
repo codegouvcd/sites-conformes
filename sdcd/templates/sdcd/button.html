@@ -1,5 +1,4 @@
 <button type="{{ self.html_type|default:'button' }}"
         {% if self.name %}name="{{ self.name }}"{% endif %}
         class="sdcd-button sdcd-button--{{ self.type|default:'primaire' }}{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}"
-        {% if self.onclick %}onclick="{{ self.onclick }}"{% endif %}
         {% if self.is_disabled %}disabled{% endif %}>{{ self.label }}</button>

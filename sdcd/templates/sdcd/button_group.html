@@ -2,7 +2,6 @@
   {% for item in self.items %}
     <button type="{{ item.html_type|default:'button' }}"
             class="sdcd-button sdcd-button--{{ item.type|default:'primaire' }}"
-            {% if item.onclick %}onclick="{{ item.onclick }}"{% endif %}
             {% if item.is_disabled %}disabled{% endif %}>{{ item.label }}</button>
   {% endfor %}
 </div>
