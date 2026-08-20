@@ -359,7 +359,8 @@ def sdcd_tile(*args, **kwargs) -> dict:
 @register.inclusion_tag("sdcd/toggle.html")
 def sdcd_toggle(*args, **kwargs) -> dict:
     """Interrupteur."""
-    allowed_keys = ["label", "name", "help_text", "is_disabled", "extra_classes", "id"]
+    allowed_keys = ["label", "name", "help_text", "is_disabled", "is_checked",
+                    "extra_classes", "id"]
     return {"self": parse_tag_args(args, kwargs, allowed_keys)}
 
 

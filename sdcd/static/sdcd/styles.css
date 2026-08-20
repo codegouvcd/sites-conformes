@@ -1,4 +1,4 @@
-/*! Système de design RDC (SDCD) — v0.5.0
+/*! Système de design RDC (SDCD) — v0.6.0
     Point d'entrée unique. Licence : MIT pour le code, marque d'État réservée.
     Voir LICENSE.md · CHANGELOG.md · readme.md */
 @import url("tokens/colors.css");
@@ -6,6 +6,7 @@
 @import url("tokens/spacing.css");
 @import url("tokens/breakpoints.css");
 @import url("assets/fonts.css");
+@import url("assets/icones.css");
 @import url("base.css");
 @import url("components.css");
 @import url("utilitaires.css");

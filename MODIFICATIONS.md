@@ -185,6 +185,32 @@ Les classes `fr-*` restantes proviennent du balisage propre au CMS ; la couche
 
 ---
 
+## 2026-08-19 — SDCD 0.6.0 : comportements et auto-hebergement
+
+Reprise du systeme de design en version 0.6.0. Deux consequences pour le CMS.
+
+| Fichier | Modification |
+|---|---|
+| `sdcd/static/sdcd/sdcd.js` | Remplace le script de bascule de theme par la couche complete : 14 comportements, 385 lignes |
+| `sdcd/static/sdcd/assets/fontes/` | **Ajoute** — 7 fichiers woff2, 548 Ko |
+| `sdcd/static/sdcd/assets/fonts.css` | Faces locales, plus aucune requete vers Google Fonts |
+| `sdcd/static/sdcd/assets/icones.css` | **Ajoute** — glyphes Remix Icon, plus aucune requete vers jsDelivr |
+| `sdcd/templates/sdcd/toggle.html` | **Corrige** — rendait une case a cocher la ou le CSS attend `aria-checked` |
+
+### Ce que cela change pour le deploiement
+
+Le site ne depend plus d'aucun domaine tiers pour ses fontes et ses icones :
+ni fuite d'adresse IP des usagers vers un hebergeur etranger, ni dependance a
+une liaison internationale. Le poids statique du paquet passe a 1,3 Mo, servi
+depuis le meme domaine.
+
+### Verifie
+
+- `verifier_sdcd.py` : aucun defaut, 55/55 gabarits compiles.
+- Aucune reference `fonts.googleapis` ou `jsdelivr` dans les feuilles servies.
+
+---
+
 ## À venir
 
 Les entrées suivantes seront ajoutées au fil du portage :

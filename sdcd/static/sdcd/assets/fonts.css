@@ -1,11 +1,76 @@
-/* SDCD — fontes et icônes.
-   Inter est retenue pour une raison vérifiée, pas esthétique : c'est la seule
-   grotesque libre testée qui ancre correctement l'accent aigu combinant sur
-   ɛ et ɔ (écart 1,5–2,5 px à 200 px, contre 13–24 px pour Noto Sans, Fira Sans,
-   Source Sans 3 et Andika). Ces voyelles ouvertes sont indispensables au
-   lingala et au kikongo. Noto Sans Mono est la seule monospace libre testée qui
-   porte ces mêmes glyphes — JetBrains, Fira, IBM Plex et Roboto Mono ne les ont pas.
-   Voir outils/verifier-fontes.html.
-   ⚠ Chargement par CDN : à auto-héberger avant toute mise en production. */
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Noto+Sans+Mono:wght@400;500&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css');
+/* SDCD — fontes et icônes, auto-hébergées.
+
+   Aucune requête vers un tiers : ni Google Fonts, ni jsDelivr. Pour un service
+   de l'État, cela évite de faire fuiter l'adresse IP des usagers vers un
+   hébergeur étranger, permet le fonctionnement hors ligne, et supprime une
+   latence qui compte sur les connexions mobiles congolaises.
+
+   Inter est retenue pour une raison vérifiée : c'est la seule grotesque libre
+   testée qui ancre correctement l'accent aigu combinant sur ɛ et ɔ, voyelles
+   indispensables au lingála et au kikongo. Noto Sans Mono est la seule
+   monospace libre testée à porter ces mêmes glyphes.
+   Contrôle : outils/verifier-fontes.html
+
+   Les deux familles sont variables : un seul fichier couvre 400 à 900.
+   Seuls les sous-ensembles latin et latin-ext sont embarqués — c'est
+   latin-ext qui porte ɛ (U+025B), ɔ (U+0254) et ŋ (U+014B). */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fontes/inter-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fontes/inter-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('fontes/inter-normal-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('fontes/inter-normal-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Noto Sans Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('fontes/noto-sans-mono-normal-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Noto Sans Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('fontes/noto-sans-mono-normal-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Remix Icon v4.5.0 — Apache License 2.0. https://remixicon.com
+   Fichier de fonte embarqué ; les règles de glyphes suivent dans
+   assets/icones.css afin de garder ce fichier lisible. */
+@font-face {
+  font-family: 'remixicon';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('fontes/remixicon.woff2') format('woff2');
+}
