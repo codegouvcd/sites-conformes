@@ -488,6 +488,55 @@ gabarit par gabarit, avec verification visuelle — pas un renommage.
 `fr-tag` et `fr-tags-group` etaient les seules dont la correspondance etait
 reellement 1:1.
 
+### Portage, suite : boutons, liens, alertes
+
+`fr-*` de 178 a **169** (le compteur remonte de 164 a 169 parce que le controle
+8 voit desormais les classes injectees, cf. plus bas).
+
+| Porte | Occurrences |
+|---|---|
+| boutons, groupes, fermetures | 53 |
+| liens et alertes | 27 |
+
+**Portage sensible au contexte.** En DSFR, `.fr-btn` **seul est primaire** ; dans
+le SDCD, `.sdcd-button` **seul est neutre**. Un renommage direct aurait rendu
+invisibles les boutons sans modificateur. La variante est donc deduite des
+autres jetons de l'attribut.
+
+**Une premiere version du script a casse dix gabarits.** Sa deduplication
+operait sur tous les jetons de l'attribut, fragments de syntaxe Django compris,
+et supprimait les repetitions de `{%`, `if` et `endif`. **Le controle 4 l'a
+signale avant tout commit et tout deploiement.** Le script ignore desormais tout
+attribut contenant du code de gabarit — 97 dans le depot, laisses a une
+relecture manuelle.
+
+### Quatre defauts du systeme, encore
+
+| Version | Defaut |
+|---|---|
+| 0.11.0 | Pas de **groupe de boutons** : chaque integration alignait ses actions a la main. |
+| 0.11.0 | Pas de **tertiaire bordee**. Le DSFR distingue bordee et sans bordure a raison : bordee, l'action se lit comme un bouton ; sans bordure, comme un lien. |
+| 0.11.1 | **`.sdcd-lien` ne fonctionnait que sur `<a>`.** Couleur et soulignement venaient de la regle `a` de `base.css` ; un bouton presente comme un lien n'heritait de rien. |
+| 0.11.1 | Pas de variante compacte d'alerte. |
+
+### La page de connexion s'affichait de travers
+
+Constatee en la regardant, pas en la mesurant.
+
+- **`.fr-password` etait declaree avec `.fr-search-bar`** en `flex` ligne. La
+  barre de recherche est bien une ligne ; le bloc mot de passe est une colonne.
+  Le champ et sa case « Afficher » se chevauchaient.
+- **`.fr-label { display: block }`** s'appliquait aussi a l'intitule d'une case,
+  qui passait donc a la ligne.
+- **Deux classes sans regle** — `fr-password__input`, `fr-footer__content-desc`.
+
+### Angle mort du controle 8, corrige
+
+Ces deux classes sont injectees par le filtre `add_class` de
+`django-widget-tweaks`, et n'apparaissent dans aucun attribut `class=` litteral.
+Le controle ne lisait que ces attributs. Il lit desormais les deux sources :
+**169 classes vues au lieu de 164**. Teste a l'envers.
+
 ---
 
 ## À venir
