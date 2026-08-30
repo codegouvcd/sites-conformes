@@ -444,6 +444,50 @@ index de blog, pages protegees par mot de passe, menus lateraux, cartes,
 listes d'evenements, fils de syndication. Ces pages presentent donc encore des
 elements sans style.
 
+### Sixieme tour : compatibilite completee, puis portage
+
+**Phase 1 — compatibilite.** Les 52 classes `fr-*` sans regle sont couvertes.
+Controle 8 ajoute : toute classe `fr-*` emise doit avoir une declaration. Il sert
+aussi de compteur d'avancement du portage.
+
+**Phase 2 — portage.** 581 occurrences portees, `fr-*` de 251 a 178.
+
+| Passe | Porte | Occurrences |
+|---|---|---|
+| 1 | grille, espacement, typographie, utilitaires | 518 |
+| 2 | etiquettes | 63 |
+
+**Ce que le portage a exige du systeme**
+
+| Version | Ajout |
+|---|---|
+| 0.10.0 | **Grille en 12 colonnes.** Le SDCD n'en avait pas : sa grille etait pilotee par `--sdcd-cols`, ce qui convient a un composant mais pas a une page. Le portage etait impossible sans elle. |
+| 0.10.0 | Espacement au point de rupture `md`. |
+| 0.10.1 | `.sdcd-tags`, conteneur d'etiquettes. |
+
+**Decisions prises**
+
+- *L'espacement est normalise sur l'echelle du systeme.* Onze valeurs se
+  decalent — 48 px vers 40, 96 px vers 64. C'est le role d'une echelle. Une
+  valeur non nulle ne tombe jamais a zero : normaliser un espacement est une
+  chose, le supprimer en est une autre.
+- *`fr-col` et `fr-col-sm` nus ne sont pas portes.* En flexbox DSFR ils
+  signifient « part egale », ce qu'une grille a 12 colonnes n'exprime pas.
+- *Le decalage de colonnes reste absolu.* Trois implementations d'un decalage
+  relatif ont ete mesurees au navigateur ; aucune ne tient. Il ne convient donc
+  qu'a une colonne qui ouvre sa ligne.
+
+**Pourquoi le reste est un autre travail**
+
+Les 178 classes restantes sont des composants, et **leurs structures different** :
+le DSFR imbrique `fr-card__body > fr-card__content`, le SDCD a
+`sdcd-card__corps` directement. Renommer les deux vers `__corps` produirait un
+double rembourrage. Ces familles demandent une **reecriture du balisage**
+gabarit par gabarit, avec verification visuelle — pas un renommage.
+
+`fr-tag` et `fr-tags-group` etaient les seules dont la correspondance etait
+reellement 1:1.
+
 ---
 
 ## À venir
