@@ -9,7 +9,7 @@
       aria-expanded="false"
       title="{{ user_menu_label }}"
       type="button"
-      class="fr-usermenu__btn fr-btn fr-btn--tertiary fr-icon-account-circle-fill">
+      class="fr-usermenu__btn sdcd-button sdcd-button--tertiaire-bordure fr-icon-account-circle-fill">
       {{ user_menu_label }}
     </button>
     <div class="fr-collapse fr-usermenu__menu fr-menu" id="user-menu">
@@ -23,7 +23,7 @@
         </li>
         <li>
           {% if perms.wagtailadmin.access_admin %}
-            <a class="fr-nav__link fr-btn fr-icon-user-setting-fill" href="{% url 'wagtailadmin_account' %}">
+            <a class="fr-nav__link sdcd-button sdcd-button--primaire fr-icon-user-setting-fill" href="{% url 'wagtailadmin_account' %}">
               {% translate "Account settings" %}
             </a>
           {% endif %}
@@ -33,7 +33,7 @@
           {# Cf. https://docs.djangoproject.com/en/5.1/releases/4.1/#log-out-via-get #}
           <form class="fr-usermenu__item" action="{% settings_value 'LOGOUT_URL' %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="fr-btn fr-btn--tertiary fr-icon-logout-box-r-line">
+            <button type="submit" class="sdcd-button sdcd-button--tertiaire-bordure fr-icon-logout-box-r-line">
               {% translate "Log out" %}
             </button>
           </form>
@@ -44,7 +44,7 @@
 </li>
 {% elif settings.sites_conformes_core.CmsDsfrConfig.header_login_button %}
   <li>
-    <a class="fr-btn fr-btn--tertiary fr-icon-lock-line"
+    <a class="sdcd-button sdcd-button--tertiaire-bordure fr-icon-lock-line"
         href="{% settings_value 'LOGIN_URL' %}">{% translate "Log in" %}</a>
   </li>
 {% endif %}

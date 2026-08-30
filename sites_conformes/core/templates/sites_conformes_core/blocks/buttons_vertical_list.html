@@ -1,6 +1,6 @@
 {% load static wagtailcore_tags %}
 
-<ul class="fr-btns-group">
+<ul class="sdcd-boutons">
   {% for button in block.value %}
     <li>{% include "sites_conformes_core/blocks/button.html" with button=button.value %}</li>
   {% endfor %}

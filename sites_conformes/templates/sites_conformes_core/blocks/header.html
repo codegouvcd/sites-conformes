@@ -53,7 +53,7 @@
     <div class="fr-header__search fr-modal" id="modal-search">
       <div class="sdcd-conteneur sdcd-conteneur--fluide">
         {% translate "Close" as close_label %}
-        <button class="fr-btn--close fr-btn"
+        <button class="sdcd-fermer"
                 aria-controls="modal-search"
                 title="{{ close_label }}">{{ close_label }}</button>
         <form action="{% url 'cms_search' %}" method="get">
@@ -65,7 +65,7 @@
                    id="query"
                    name="q"
                    value="{{ query|default_if_none:'' }}">
-            <button class="fr-btn" title="{{ search_label }}">{{ search_label }}</button>
+            <button class="sdcd-button sdcd-button--primaire" title="{{ search_label }}">{{ search_label }}</button>
           </div>
         </form>
       </div>

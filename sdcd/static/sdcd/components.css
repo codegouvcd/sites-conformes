@@ -66,6 +66,27 @@
    BOUTONS
    ============================================================ */
 
+/* Groupe de boutons. Le systeme n'en avait pas : chaque integration alignait ses
+   actions a la main. Vertical par defaut — c'est la disposition qui tient sur un
+   telephone — et horizontal a partir du point de rupture demande. Prevu pour un
+   <ul> comme pour un <div>, d'ou le retrait des puces. */
+.sdcd-boutons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--sdcd-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sdcd-boutons--enligne { flex-direction: row; }
+.sdcd-boutons--centre { justify-content: center; }
+.sdcd-boutons--droite { justify-content: flex-end; }
+.sdcd-boutons--icones { align-items: center; }
+@media (min-width: 641px)  { .sdcd-boutons--enligne-sm { flex-direction: row; } }
+@media (min-width: 901px)  { .sdcd-boutons--enligne-md { flex-direction: row; } }
+@media (min-width: 1025px) { .sdcd-boutons--enligne-lg { flex-direction: row; } }
+
 .sdcd-button {
   display: inline-flex;
   align-items: center;
@@ -91,6 +112,20 @@
 .sdcd-button--tertiaire { background: transparent; color: var(--sdcd-action); }
 .sdcd-button--tertiaire:hover { background: var(--sdcd-bleu-pale); color: var(--sdcd-action-survol); }
 .sdcd-button--tertiaire:active { color: var(--sdcd-action-appui); }
+/* Tertiaire bordee. Le systeme n'avait que la variante sans bordure. Le DSFR
+   distingue les deux a raison : bordee, l'action se lit comme un bouton ; sans
+   bordure, comme un lien. Lacune relevee en portant le CMS, qui emploie les
+   deux formes. */
+.sdcd-button--tertiaire-bordure {
+  background: transparent;
+  color: var(--sdcd-action);
+  border-color: var(--sdcd-ligne);
+}
+.sdcd-button--tertiaire-bordure:hover {
+  background: var(--sdcd-bleu-pale);
+  color: var(--sdcd-action-survol);
+  border-color: var(--sdcd-action);
+}
 
 .sdcd-button:disabled { cursor: not-allowed; color: var(--sdcd-inactif); }
 .sdcd-button--primaire:disabled { background: var(--sdcd-ligne); }

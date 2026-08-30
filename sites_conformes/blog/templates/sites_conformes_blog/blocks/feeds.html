@@ -2,7 +2,7 @@
 {% load wagtailroutablepage_tags i18n %}
 
 <div class="sdcd-mt-4">
-  <ul class="fr-btns-group fr-btns-group--inline-sm fr-btns-group--icon-left fr-btns-group--right">
+  <ul class="sdcd-boutons sdcd-boutons--enligne-sm sdcd-boutons--icones sdcd-boutons--droite">
     <li>
       <a class="fr-btn fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-rss-fill"
          href="{% routablepageurl page 'atom_feed' %}{% if current_category %}?category={{ current_category.slug }}{% endif %}">

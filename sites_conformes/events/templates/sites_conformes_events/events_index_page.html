@@ -167,21 +167,21 @@
               {% endif %}
 
               <h3 class="fr-h6">{% translate "Export" %}</h3>
-              <ul class="fr-btns-group sdcd-mt-2">
+              <ul class="sdcd-boutons sdcd-mt-2">
                 <li>
                   <a type="button"
                      href="{% routablepageurl page 'ical_view' %}"
-                     class="fr-btn fr-btn--secondary">{% translate "Add to your calendar (iCal)" %}</a>
+                     class="sdcd-button sdcd-button--secondaire">{% translate "Add to your calendar (iCal)" %}</a>
                 </li>
               </ul>
 
               {% if page.past_events.count %}
                 <h3 class="fr-h6">{% translate "Archives" %}</h3>
 
-                <ul class="fr-btns-group sdcd-mt-2">
+                <ul class="sdcd-boutons sdcd-mt-2">
                   <li>
                     <a href="{% routablepageurl page 'archives_view' %}"
-                       class="fr-btn fr-btn--tertiary">{% translate "See archives" %}</a>
+                       class="sdcd-button sdcd-button--tertiaire-bordure">{% translate "See archives" %}</a>
                   </li>
                 </ul>
               {% endif %}
