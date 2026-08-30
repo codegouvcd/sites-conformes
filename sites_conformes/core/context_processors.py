@@ -5,7 +5,16 @@ def skiplinks(request) -> dict:
     return {
         "skiplinks": [
             {"link": "#content", "label": "Contenu"},
-            {"link": "#fr-navigation", "label": "Menu"},
+            # Cible renommee avec le portage de l en-tete vers le SDCD. Un lien
+            # d evitement pointant dans le vide est pire que pas de lien : il est
+            # le premier element atteint au clavier et ne mene nulle part.
+            #
+            # Limite connue, heritee de la conception amont a cible unique :
+            # #sdcd-navigation est la navigation grand ecran, masquee sous 900 px.
+            # Sur mobile ce lien reste donc sans effet ; le menu y est atteint par
+            # son bouton, deux tabulations plus loin. Corriger demanderait deux
+            # liens conditionnes au point de rupture.
+            {"link": "#sdcd-navigation", "label": "Menu"},
         ]
     }
 

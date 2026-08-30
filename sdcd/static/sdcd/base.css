@@ -3,8 +3,11 @@
    specificite la plus faible : toute classe fixant `display` la supplante — a plus
    forte raison les utilitaires responsive, qui l'imposent en !important. L'element
    restait alors visible tout en etant annonce masque aux technologies d'assistance.
-   Concerne les huit points d'appel de afficher() : accordeon, onglets, menu, etc. */
-[hidden]{display:none!important}
+   Concerne les huit points d'appel de afficher() : accordeon, onglets, menu, etc.
+   Le selecteur est double a dessein : les utilitaires responsive portent eux aussi
+   !important, et a !important egal c'est la specificite qui tranche. [hidden] seul
+   vaut 0-1-0, comme .sdcd-mobile-only, et perdait donc sur l'ordre des feuilles. */
+[hidden][hidden]{display:none!important}
 body{margin:0;font-family:var(--sdcd-font);font-size:var(--sdcd-corps);line-height:var(--sdcd-lh);color:var(--sdcd-texte);background:var(--sdcd-fond);-webkit-font-smoothing:antialiased}
 h1,h2,h3,h4{line-height:var(--sdcd-lh-titre);font-weight:700;letter-spacing:var(--sdcd-tracking-titre);color:var(--sdcd-texte);margin:0 0 var(--sdcd-4);text-wrap:balance}
 h1{font-size:var(--sdcd-h1)}h2{font-size:var(--sdcd-h2)}h3{font-size:var(--sdcd-h3)}h4{font-size:var(--sdcd-h4)}
