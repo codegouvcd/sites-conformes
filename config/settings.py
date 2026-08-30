@@ -45,6 +45,19 @@ DEBUG = getenv_bool("DEBUG", False)
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,.localhost").replace(" ", "").split(",")
 USE_X_FORWARDED_HOST = getenv_bool("USE_X_FORWARDED_HOST", False)
+USE_X_FORWARDED_PORT = getenv_bool("USE_X_FORWARDED_PORT", False)
+
+# Derriere un proxy qui termine TLS — Traefik, nginx — le conteneur voit du HTTP
+# sur son port interne. Django construit alors des URL absolues fausses : le plan
+# du site annoncait `http://hote:8000/`, et un lien de reinitialisation de mot de
+# passe aurait renvoye vers cette adresse injoignable.
+#
+# Ce reglage n'est PAS active par defaut, et ce n'est pas un oubli : faire
+# confiance a `X-Forwarded-Proto` alors que l'application est joignable
+# directement permettrait a un client de se declarer en HTTPS. Il ne doit etre
+# active que lorsque le conteneur n'est atteignable QUE par le proxy.
+if getenv_bool("TRUST_PROXY_SSL_HEADER", False):
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 HOST_PROTO = os.getenv("HOST_PROTO", "https")
 HOST_URL = os.getenv("HOST_URL", "localhost")
