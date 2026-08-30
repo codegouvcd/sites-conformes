@@ -1022,7 +1022,14 @@
    ============================================================ */
 
 .sdcd-card {
-  display: block;
+  /* Colonne flex plutot que bloc, pour que `order` puisse remonter le media.
+     Le composant React place le media en premier dans la source ; une
+     integration en gabarit le place souvent en dernier, parce que le titre est
+     l'element principal et qu'on l'ecrit d'abord. Les deux ordres doivent
+     rendre la meme chose — sans quoi chaque integration devrait restructurer
+     son balisage, ce qui est exactement ce qu'un systeme de design doit eviter. */
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   font-family: var(--sdcd-font);
   background: var(--sdcd-fond);
@@ -1033,6 +1040,8 @@
 }
 .sdcd-card:hover { border-color: var(--sdcd-action); }
 .sdcd-card__media {
+  /* Remonte le media quelle que soit sa position dans la source. */
+  order: -1;
   height: 160px;
   background: var(--sdcd-bleu-pale);
   display: flex;
@@ -1051,6 +1060,30 @@
 .sdcd-card__meta { font-size: var(--sdcd-xs); color: var(--sdcd-muet); }
 .sdcd-card__fleche { color: var(--sdcd-action); font-size: 18px; transition: transform var(--sdcd-transition); }
 .sdcd-card:hover .sdcd-card__fleche { transform: translateX(3px); }
+
+/* Modificateurs et elements releves en portant le CMS, ou le rediger choisit la
+   presentation de chaque carte : fond, bordure, ombre, disposition. Sans eux le
+   portage aurait supprime une capacite editoriale existante — ce qui aurait ete
+   une regression deguisee en migration. */
+.sdcd-card--horizontal { display: flex; }
+.sdcd-card--horizontal .sdcd-card__media { width: 33%; height: auto; flex-shrink: 0; }
+.sdcd-card--horizontal .sdcd-card__corps { flex: 1; min-width: 0; }
+.sdcd-card--gris { background: var(--sdcd-fond-alt); }
+.sdcd-card--sans-fond { background: transparent; }
+.sdcd-card--sans-bordure { border: none; }
+.sdcd-card--ombre { box-shadow: var(--sdcd-ombre); border-color: transparent; }
+.sdcd-card--telechargement .sdcd-card__titre::after { content: " 93"; }
+
+/* Zone d'actions : boutons ou liens au bas de la carte. Distincte de __pied,
+   qui porte la metadonnee et la fleche. */
+.sdcd-card__actions { margin-top: var(--sdcd-4); }
+
+/* Carte entierement cliquable a partir du lien qu'elle contient. Le composant
+   React fait de la carte un <a> ; une integration en gabarit ne le peut pas
+   toujours — le titre porte deja son propre lien. Ce modificateur etend la zone
+   de clic sans dupliquer le lien, ce qu'un lecteur d'ecran annoncerait deux fois. */
+.sdcd-card--cliquable { position: relative; }
+.sdcd-card--cliquable a::after { content: ""; position: absolute; inset: 0; }
 
 .sdcd-tile {
   display: flex;

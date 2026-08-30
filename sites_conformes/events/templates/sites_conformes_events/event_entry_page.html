@@ -90,11 +90,11 @@
 
   <div class="sdcd-conteneur sdcd-my-7">
 
-    <div class="fr-card{% if page.header_image %} fr-card--horizontal{% else %} fr-card--download{% endif %}">
-      <div class="fr-card__body">
-        <div class="fr-card__content">
-          <h2 class="fr-card__title">{{ page.title }}</h2>
-          <ul class="fr-card__desc">
+    <div class="sdcd-card{% if page.header_image %} sdcd-card--horizontal{% else %} sdcd-card--telechargement{% endif %}">
+      <div class="sdcd-card__corps">
+        <div>
+          <h2 class="sdcd-card__titre">{{ page.title }}</h2>
+          <ul class="sdcd-card__description">
             <li>
               <strong>{% translate "Date:" %}</strong>{{ page.event_date_start }} - {{ page.event_date_end }}
             </li>
@@ -108,7 +108,7 @@
             {% endif %}
           </ul>
 
-          <div class="fr-card__start">
+          <div class="sdcd-card__sur-titre">
             <ul class="sdcd-tags">
               {% for tag in page.tags.all|dictsort:"slug" %}
                 <a class="sdcd-tag"
@@ -119,7 +119,7 @@
           </div>
         </div>
 
-        <div class="fr-card__footer">
+        <div class="sdcd-card__actions">
           <div class="sdcd-boutons sdcd-boutons--enligne-lg">
             <a href="{% routablepageurl page 'ical_view' %}"
                class="sdcd-button sdcd-button--secondaire">{% translate "Add to your calendar (iCal)" %}</a>
@@ -127,8 +127,8 @@
         </div>
       </div>
 
-      <div class="fr-card__header">
-        <div class="fr-card__img">
+      <div class="sdcd-card__media">
+        <div>
           {% if page.cover %}
             {% image page.cover width-450 as header_image %}
             <img class="fr-responsive-img" src="{{ header_image.url}}" alt="" />

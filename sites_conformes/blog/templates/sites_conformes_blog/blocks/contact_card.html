@@ -3,21 +3,21 @@
 {# to display Person items #}
 <div class="sdcd-conteneur sdcd-my-5">
   <div class="sdcd-grille sdcd-grille--gouttieres">
-    <div class="fr-card fr-card--horizontal sdcd-col-12 sdcd-col-md-6">
-      <div class="fr-card__body">
-        <div class="fr-card__content">
-          <h3 class="fr-card__title">{{ value.name }}</h3>
-          <p class="fr-card__desc">{{ value.role }} – {{ value.organization }}</p>
+    <div class="sdcd-card sdcd-card--horizontal sdcd-col-12 sdcd-col-md-6">
+      <div class="sdcd-card__corps">
+        <div>
+          <h3 class="sdcd-card__titre">{{ value.name }}</h3>
+          <p class="sdcd-card__description">{{ value.role }} – {{ value.organization }}</p>
           {% if value.contact_info %}
-            <div class="fr-card__end">
-              <p class="fr-card__detail">{{ value.contact_info }}</p>
+            <div class="sdcd-card__pied">
+              <p class="sdcd-card__meta">{{ value.contact_info }}</p>
             </div>
           {% endif %}
         </div>
       </div>
       {% if value.image %}
-        <div class="cmsfr-author_card__header fr-card__header">
-          <div class="fr-card__img">
+        <div class="cmsfr-author_card__header sdcd-card__media">
+          <div>
             {% image value.image fill-200x200 as contact_image %}
             <img class="fr-responsive-img cmsfr-author-img"
                  src="{{ contact_image.url }}"
