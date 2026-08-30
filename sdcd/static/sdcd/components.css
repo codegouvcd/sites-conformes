@@ -729,6 +729,19 @@
 }
 .sdcd-footer__langue:last-child { border-right: none; }
 .sdcd-footer__langue--active { color: var(--sdcd-texte); font-weight: 700; }
+/* Conteneur des mentions de bas de page. Les elements .sdcd-footer__legal sont
+   des freres separes par un filet ; il leur fallait une liste, faute de quoi une
+   integration les posait en <li> hors liste — balisage invalide, et le
+   navigateur affichait leurs puces. Releve sur le pied de page du CMS. */
+.sdcd-footer__legaux {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .sdcd-footer__legal {
   font-size: var(--sdcd-xs);
   color: var(--sdcd-muet);

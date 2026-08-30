@@ -31,12 +31,23 @@
     </div>
 
     <div class="sdcd-footer__colonnes sdcd-grid">
-      {% block footer_links %}{% endblock footer_links %}
+      {% block footer_columns %}{% endblock footer_columns %}
     </div>
   </div>
 
   <div class="sdcd-footer__bande">
     <div class="sdcd-footer__bande-corps">
+      {% comment %}
+        `footer_links` recoit des <li> nus : c'est ce que le CMS y place, et ce
+        que faisait django-dsfr. Il lui faut donc une liste. Une version
+        anterieure de ce gabarit le rendait dans la grille des colonnes, ou les
+        <li> se retrouvaient hors liste — balisage invalide, et le navigateur
+        affichait leurs puces. Ce sont des mentions de bas de page, pas des
+        colonnes de liens.
+      {% endcomment %}
+      <ul class="sdcd-footer__legaux">
+        {% block footer_links %}{% endblock footer_links %}
+      </ul>
       {% block footer_bottom_extra %}{% endblock footer_bottom_extra %}
     </div>
   </div>
