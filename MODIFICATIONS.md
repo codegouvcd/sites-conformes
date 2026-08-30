@@ -393,6 +393,57 @@ pouvait voir ce defaut : les gabarits *compilaient* sans erreur et toutes les
 references statiques *resolvaient*. Seul un regard sur la page rendue le revelait —
 ce qui est exactement ce que l'utilisateur a fait.
 
+### Cinquieme tour : l'en-tete n'etait pas au SDCD
+
+Signale par l'utilisateur — « le modele de site ne semble pas 100 % conforme ».
+Mesure faite plutot que discutee, sur la page rendue.
+
+**Etat initial** : 51 % des classes de la page d'accueil etaient encore `fr-*`,
+et **neuf classes n'avaient aucune regle**, donc s'affichaient sans style.
+
+Parmi elles, **sept `sdcd-header__*` inventees** par le portage : `__bloc`,
+`__lien-marque`, `__marque`, `__mention`, `__navigation`, `__outils`,
+`__utilitaire`. Aucune n'existe dans le systeme de design. L'en-tete s'affichait
+donc en vrac — armoiries, titre et bouton empiles verticalement — et le bouton
+« Fermer » du menu mobile restait visible en permanence.
+
+C'est la **troisieme fois** que ce portage invente des noms de classes au lieu de
+lire l'API. Le controle 3 existait pour cela, mais ne parcourait que
+`sdcd/templates/` : l'en-tete vit dans `dsfr/templates/`, le shim d'alias, et lui
+echappait entierement. Il examine desormais **tous** les gabarits suivis — 141
+classes au lieu de 99.
+
+**Trois defauts du SDCD lui-meme, decouverts par ce portage**
+
+| Version | Defaut |
+|---|---|
+| 0.9.1 | Le bouton de menu de l'en-tete n'avait **aucun comportement** dans la couche JavaScript autonome. `Header.jsx` gere cet etat en React ; Django, WordPress et FastAPI n'avaient rien, donc **le menu ne s'ouvrait pas sur mobile**. |
+| 0.9.2 | `hidden` ne masquait pas : sa regle navigateur a la specificite la plus faible et toute classe fixant `display` la supplantait. Touchait les **huit** points d'appel de `afficher()`. |
+| 0.9.3 | La garde 0.9.2 ne suffisait pas — a `!important` egal, `[hidden]` et `.sdcd-mobile-only` valent toutes deux 0-1-0, l'ordre des feuilles decidait. Selecteur double, `[hidden][hidden]`. |
+
+Le 0.9.2 illustre le risque de conclure trop vite : j'avais annonce la correction
+avant de la verifier sur le site, et elle etait insuffisante.
+
+**Resultat mesure sur la page d'accueil**
+
+| | Avant | Apres |
+|---|---|---|
+| Classes `sdcd-*` | 27 | **38** |
+| Classes `fr-*` | 31 | 23 |
+| `sdcd-*` sans regle | 7 | **0** |
+| `fr-*` sans regle | 5 | **0** |
+
+Menu mobile verifie dans un vrai navigateur : ouverture, permutation d'icone,
+fermeture.
+
+**Ce qui reste**
+
+Sur les 163 gabarits, **252 classes `fr-*` sont emises, 200 couvertes, 52 sans
+regle** (20 %). Elles concernent des pages non rendues lors de ce controle :
+index de blog, pages protegees par mot de passe, menus lateraux, cartes,
+listes d'evenements, fils de syndication. Ces pages presentent donc encore des
+elements sans style.
+
 ---
 
 ## À venir
