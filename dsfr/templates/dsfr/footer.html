@@ -44,6 +44,16 @@
   <div class="sdcd-footer__licence">
     <div class="sdcd-footer__licence-corps">
       {% blocktranslate %}Sauf mention contraire, tous les contenus de ce site sont sous licence ouverte de l’État congolais.{% endblocktranslate %}
+      {% comment %}
+        AGPL-3.0 article 13 : quiconque utilise ce service a travers un reseau
+        doit se voir offrir les sources correspondantes. Publier le depot ne
+        suffit pas — le lien doit etre atteignable depuis le site lui-meme.
+        Ne pas retirer sans avoir verifie que la licence du projet a change.
+      {% endcomment %}
+      <a class="sdcd-lien sdcd-lien--sm"
+         href="https://github.com/codegouvcd/sites-conformes"
+         rel="noopener"
+         target="_blank">{% translate "Code source de ce site (AGPL-3.0)" %}</a>
     </div>
   </div>
 </footer>
