@@ -2454,6 +2454,10 @@
 .sdcd-lien--icone-droite,
 .sdcd-button--icone-droite { flex-direction: row-reverse; }
 .sdcd-lien--fermer { text-decoration: none; }
+/* Lien de telechargement : la fleche descendante signale que le clic ouvre un
+   fichier plutot qu'une page. Le poids et le format sont du contenu, pas du
+   style — c'est au gabarit de les afficher. */
+.sdcd-lien--telechargement::after { content: " 93"; }
 .sdcd-lien--aligne { margin-left: calc(-1 * var(--sdcd-2)); }
 
 /* --- boutons de partage par reseau --------------------------------------------
@@ -2476,6 +2480,91 @@
   .sdcd-affiche-lg { display: initial; }
 }
 .sdcd-affiche-lg { display: none; }
+
+/* Teintes des citations et des bandeaux — meme regle que les autres : la teinte
+   ne porte que l'accent, jamais le texte. Ces classes etaient offertes au
+   rediger et n'existaient nulle part : le choix de couleur ne produisait rien. */
+.sdcd-quote--chart-1 { border-left-color: var(--sdcd-chart-1); }
+.sdcd-quote--chart-2 { border-left-color: var(--sdcd-chart-2); }
+.sdcd-quote--chart-3 { border-left-color: var(--sdcd-chart-3); }
+.sdcd-quote--chart-4 { border-left-color: var(--sdcd-chart-4); }
+.sdcd-quote--chart-5 { border-left-color: var(--sdcd-chart-5); }
+.sdcd-quote--chart-6 { border-left-color: var(--sdcd-chart-6); }
+.sdcd-notice--chart-1 { border-left: 4px solid var(--sdcd-chart-1); }
+.sdcd-notice--chart-2 { border-left: 4px solid var(--sdcd-chart-2); }
+.sdcd-notice--chart-3 { border-left: 4px solid var(--sdcd-chart-3); }
+.sdcd-notice--chart-4 { border-left: 4px solid var(--sdcd-chart-4); }
+.sdcd-notice--chart-5 { border-left: 4px solid var(--sdcd-chart-5); }
+.sdcd-notice--chart-6 { border-left: 4px solid var(--sdcd-chart-6); }
+
+/* Icone agrandie, et tuile compacte. */
+.sdcd-icone--lg { font-size: 1.5em; }
+.sdcd-tile--sm { padding: var(--sdcd-3); }
+/* La tuile offre les memes reglages de presentation que la carte : le rediger
+   choisit fond, bordure, ombre et disposition sans avoir a savoir lequel des
+   deux composants il emploie. */
+.sdcd-tile--horizontal { flex-direction: row; align-items: center; }
+.sdcd-tile--gris { background: var(--sdcd-fond-alt); }
+.sdcd-tile--sans-fond { background: transparent; }
+.sdcd-tile--sans-bordure { border: none; }
+.sdcd-tile--ombre { box-shadow: var(--sdcd-ombre); border-color: transparent; }
+.sdcd-tile--telechargement .sdcd-tile__titre::after { content: " 93"; }
+
+/* Onglet actif : le systeme stylise deja `.sdcd-tabs__onglet[aria-selected]`,
+   mais pas le panneau correspondant. Une integration en gabarit a besoin de
+   nommer le panneau visible. */
+.sdcd-tabs__panneau--actif { display: block; }
+
+/* Etiquette compacte. */
+.sdcd-tag--sm { font-size: 11px; padding: 3px 10px; }
+
+/* Video responsive : le conteneur impose la proportion, l'iframe la remplit.
+   Sans quoi une video deborde sur mobile, ce que la doctrine responsive du
+   systeme interdit. */
+.sdcd-video { position: relative; aspect-ratio: 16 / 9; }
+.sdcd-video iframe,
+.sdcd-video video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* Mise en deuil national : le site passe en niveaux de gris. Le filtre est pose
+   sur la racine et non sur le corps, pour couvrir aussi les elements en surcouche. */
+/* Deuil national : le site passe en niveaux de gris. Accepte la classe comme
+   l'attribut — une integration pose souvent l'etat sur <html>, ou un attribut
+   se lit mieux qu'une classe. Le filtre est sur la racine pour couvrir aussi
+   les elements en surcouche. */
+.sdcd-deuil,
+[data-sdcd-deuil] { filter: grayscale(1); }
+
+/* --- teintes d'illustration -----------------------------------------------
+   Le rediger choisit une teinte parmi les six couleurs de graphique. Ces
+   classes n'existaient nulle part : le choix etait offert dans
+   l'administration et ne produisait rien.
+
+   La teinte ne porte QUE l'accent — filet, bordure — jamais le texte ni un
+   aplat. C'est une contrainte d'accessibilite, pas une preference :
+   --sdcd-chart-1 ne fait que 3,0:1 sur blanc et echouerait le contrat de
+   contraste s'il servait de couleur de texte. Une bordure, elle, releve de
+   WCAG 1.4.11 et n'a besoin que de 3:1. */
+.sdcd-exergue--chart-1 { border-left-color: var(--sdcd-chart-1); }
+.sdcd-exergue--chart-2 { border-left-color: var(--sdcd-chart-2); }
+.sdcd-exergue--chart-3 { border-left-color: var(--sdcd-chart-3); }
+.sdcd-exergue--chart-4 { border-left-color: var(--sdcd-chart-4); }
+.sdcd-exergue--chart-5 { border-left-color: var(--sdcd-chart-5); }
+.sdcd-exergue--chart-6 { border-left-color: var(--sdcd-chart-6); }
+.sdcd-highlight--chart-1 { border-left-color: var(--sdcd-chart-1); }
+.sdcd-highlight--chart-2 { border-left-color: var(--sdcd-chart-2); }
+.sdcd-highlight--chart-3 { border-left-color: var(--sdcd-chart-3); }
+.sdcd-highlight--chart-4 { border-left-color: var(--sdcd-chart-4); }
+.sdcd-highlight--chart-5 { border-left-color: var(--sdcd-chart-5); }
+.sdcd-highlight--chart-6 { border-left-color: var(--sdcd-chart-6); }
+.sdcd-badge--chart-1 { border: 1px solid var(--sdcd-chart-1); background: transparent; color: var(--sdcd-texte); }
+.sdcd-badge--chart-2 { border: 1px solid var(--sdcd-chart-2); background: transparent; color: var(--sdcd-texte); }
+.sdcd-badge--chart-3 { border: 1px solid var(--sdcd-chart-3); background: transparent; color: var(--sdcd-texte); }
+.sdcd-badge--chart-4 { border: 1px solid var(--sdcd-chart-4); background: transparent; color: var(--sdcd-texte); }
+.sdcd-badge--chart-5 { border: 1px solid var(--sdcd-chart-5); background: transparent; color: var(--sdcd-texte); }
+.sdcd-badge--chart-6 { border: 1px solid var(--sdcd-chart-6); background: transparent; color: var(--sdcd-texte); }
+
+/* Badge sans icone : le composant en pose une par defaut selon sa variante. */
+.sdcd-badge--sans-icone::before { content: none; }
 
 /* --- proportions d'une carte horizontale ------------------------------
    Le rediger choisit la part que prend l'image. `--horizontal` seule vaut un

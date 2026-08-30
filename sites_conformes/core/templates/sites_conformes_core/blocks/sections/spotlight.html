@@ -3,7 +3,7 @@
 {% block children %}
   <div class="sdcd-conteneur">
     <div class="sdcd-grille sdcd-grille--gouttieres sdcd-py-5">
-      {% for item in value.items %}<div class="fr-col-md-{{ value.items_per_row }} sdcd-col-sm-12">{{ item }}</div>{% endfor %}
+      {% for item in value.items %}<div class="sdcd-col-md-{{ value.items_per_row }} sdcd-col-sm-12">{{ item }}</div>{% endfor %}
     </div>
     {% if value.link.url and value.link.text %}
       {% if value.link == "external" %}

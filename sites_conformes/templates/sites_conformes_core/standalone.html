@@ -2,8 +2,14 @@
 
 <!DOCTYPE html>
 <html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}"
-      {% if settings.sites_conformes_core.CmsDsfrConfig.theme_modale_button %}data-fr-scheme="system"{% else %}data-fr-scheme="light"{% endif %}
-      {% if settings.sites_conformes_core.CmsDsfrConfig.mourning %}data-fr-mourning{% endif %}>
+      {% comment %}
+        sdcd.js lit `data-theme`. L'absence d'attribut vaut « suivre le systeme »,
+        ce qui evite d'ecrire une preference que l'utilisateur n'a pas exprimee.
+        Le gabarit posait `data-fr-scheme`, que plus rien ne lisait : la
+        preference rendue par le serveur etait donc ignoree.
+      {% endcomment %}
+      {% if not settings.sites_conformes_core.CmsDsfrConfig.theme_modale_button %}data-theme="light"{% endif %}
+      {% if settings.sites_conformes_core.CmsDsfrConfig.mourning %}data-sdcd-deuil{% endif %}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport"

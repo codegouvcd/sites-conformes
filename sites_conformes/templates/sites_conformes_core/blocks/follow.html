@@ -3,7 +3,7 @@
 
 {% block follow_newsletter %}
   {% if settings.sites_conformes_core.CmsDsfrConfig.show_newsletter_block %}
-    <div class="fr-col-12{% if settings.sites_conformes_core.CmsDsfrConfig.show_social_block %} fr-col-md-8{% endif %}">
+    <div class="sdcd-col-12{% if settings.sites_conformes_core.CmsDsfrConfig.show_social_block %} sdcd-col-md-8{% endif %}">
       <div class="sdcd-suivre__lettre">
         <div>
           <h2 class="sdcd-h5">{% translate "Subscribe to our newsletter" context "Section title" %}</h2>
@@ -24,7 +24,7 @@
 
 {% block follow_social %}
   {% if settings.sites_conformes_core.CmsDsfrConfig.show_social_block %}
-    <div class="fr-col-12{% if settings.sites_conformes_core.CmsDsfrConfig.show_newsletter_block %} fr-col-md-4{% endif %}">
+    <div class="sdcd-col-12{% if settings.sites_conformes_core.CmsDsfrConfig.show_newsletter_block %} sdcd-col-md-4{% endif %}">
       <div class="sdcd-suivre__reseaux">
         <h2 class="sdcd-h5">
           {% blocktranslate trimmed %}

@@ -192,7 +192,7 @@ class CenteredImageStructValue(StructValue):
         image_ratio = self.get("image_ratio")
 
         if image_ratio:
-            return f"fr-responsive-img {image_ratio}"
+            return f"sdcd-image-fluide {image_ratio}"
         else:
             return "sdcd-image-fluide"
 

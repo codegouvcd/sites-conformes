@@ -2,7 +2,7 @@
 {% translate "Hide message" as hide_message %}
 {% translate "Consultation link" as consultation_link %}
 {% translate "Opens a new window" as new_window_label %}
-<div class="sdcd-notice fr-notice--{{ settings.sites_conformes_core.CmsDsfrConfig.notice_type|default:'info' }}">
+<div class="sdcd-notice sdcd-notice--{{ settings.sites_conformes_core.CmsDsfrConfig.notice_type|default:'info' }}">
   <div class="sdcd-conteneur">
     <div class="sdcd-notice__corps">
       {{ settings.sites_conformes_core.CmsDsfrConfig.notice_title | richtext | richtext_p_add_class:"sdcd-notice__titre" | richtext_p_add_class:settings.sites_conformes_core.CmsDsfrConfig.notice_icon_class }}

@@ -3,7 +3,7 @@
 {# maîtriser le libellé du lien et l'affichage de la date, sans surcharger le template DSFR partagé #}
 {# avec le site public. Le style vient du CSS scopé dsfr/dist/component/notice/notice.min.css. #}
 {% for item in notifications %}
-  <div class="sdcd-notice fr-notice--{{ item.type|default:"info" }} sf-notice">
+  <div class="sdcd-notice sdcd-notice--{{ item.type|default:"info" }} sf-notice">
     <div class="sdcd-notice__corps">
       <p>
         <span class="sdcd-notice__titre">{{ item.title }}{% if item.start_date %} <span class="sf-notice-date">— {{ item.start_date|date:"j F Y" }}</span>{% endif %}</span>

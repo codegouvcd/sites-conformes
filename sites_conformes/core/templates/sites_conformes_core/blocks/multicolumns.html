@@ -16,7 +16,7 @@
     <div class="sdcd-grille sdcd-grille--gouttieres {{ value.grid_position }} sdcd-py-5">
       {% for subblock in value.columns %}
         {% if subblock.block_type == "column" %}
-          <div class="fr-col-12{% if subblock.value.width %} fr-col-lg-{{ subblock.value.width }}{% endif %}">
+          <div class="sdcd-col-12{% if subblock.value.width %} sdcd-col-lg-{{ subblock.value.width }}{% endif %}">
             {% include_block subblock.value.content %}
           </div>
         {% elif subblock.block_type == "text" %}

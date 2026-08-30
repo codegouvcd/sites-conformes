@@ -2,9 +2,9 @@
 <div class="sdcd-conteneur sdcd-my-7 cmsfr-block-image-and-text">
   <div class="sdcd-grille sdcd-grille--gouttieres">
     {% if value.image_side == "left" or value.image_side == "left_below" %}
-      <div class="sdcd-col-12 fr-col-sm-{{ value.image_ratio }}{% if value.image_side == "left_below" %} cmsfr-order-mobile__2{% endif %}">
+      <div class="sdcd-col-12 sdcd-col-sm-{{ value.image_ratio }}{% if value.image_side == "left_below" %} cmsfr-order-mobile__2{% endif %}">
         <div class="bordered sdcd-px-4">
-          {% include "sites_conformes_core/blocks/image_svg_or_raster.html" with extra_classes="fr-responsive-img" %}
+          {% include "sites_conformes_core/blocks/image_svg_or_raster.html" with extra_classes="sdcd-image-fluide" %}
         </div>
       </div>
       <div class="sdcd-col-12 sdcd-col-sm-12{{ -12|add:value.image_ratio }}">
@@ -34,9 +34,9 @@
              href="{{ value.link_url }}">{{ value.link_label }}</a>
         {% endif %}
       </div>
-      <div class="sdcd-col-12 fr-col-sm-{{ value.image_ratio }}">
+      <div class="sdcd-col-12 sdcd-col-sm-{{ value.image_ratio }}">
         <div class="bordered sdcd-px-4">
-          {% include "sites_conformes_core/blocks/image_svg_or_raster.html" with extra_classes="fr-responsive-img" %}
+          {% include "sites_conformes_core/blocks/image_svg_or_raster.html" with extra_classes="sdcd-image-fluide" %}
         </div>
       </div>
     {% endif %}

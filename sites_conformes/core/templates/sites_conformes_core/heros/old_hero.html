@@ -8,7 +8,7 @@
     {% if value.header_with_title or value.header_cta_buttons or value.header_cta_link and value.header_cta_label %}
       <div class="sdcd-conteneur sdcd-py-8">
         <div class="sdcd-grille sdcd-grille--gouttieres">
-          <div class="sdcd-col  {% if not value.header_large %}fr-col-md-6{% else %} sdcd-col-12 cmsfr-hero-column {% endif %}">
+          <div class="sdcd-col  {% if not value.header_large %}sdcd-col-md-6{% else %} sdcd-col-12 cmsfr-hero-column {% endif %}">
             {% if value.header_with_title %}
               <h1 {% if block.value.large %}class="sdcd-h2"{% endif %}>
                 {{ page.title }}

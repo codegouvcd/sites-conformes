@@ -273,7 +273,7 @@ for _f4 in subprocess.run(
     _txt4 = io.open(_f4, encoding="utf-8", errors="replace").read()
     # Deux sources de classes, pas une : l'attribut litteral, et le filtre
     # add_class de django-widget-tweaks. Ce second cas echappait au controle,
-    # et fr-password__input est reste sans regle jusqu'a ce que la page de
+    # et sdcd-motdepasse__champ est reste sans regle jusqu'a ce que la page de
     # connexion s'affiche de travers.
     for _m4 in re.finditer(r'class="([^"]*)"|add_class:"([^"]+)"', _txt4):
         for _c4 in (_m4.group(1) or _m4.group(2) or "").split():

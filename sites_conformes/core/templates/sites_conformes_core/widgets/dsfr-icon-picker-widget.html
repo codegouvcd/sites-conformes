@@ -19,7 +19,7 @@
           onSelect: function (jsonIconData) {
             if (jsonIconData.iconClass) {
               widgetInput.value = jsonIconData.iconClass;
-              widgetIcon.classList.add(jsonIconData.iconClass, "fr-icon--lg", "fr-mt-1w");
+              widgetIcon.classList.add(jsonIconData.iconClass, "sdcd-icone--lg", "sdcd-mt-2");
             } else {
               widgetInput.value = "";
               widgetIcon.className = "icon-wrapper";
@@ -41,7 +41,7 @@
           let widgetIcon = document.getElementById('{{ widget_id }}-icon');
 
           if (widgetInput.value) {
-          widgetIcon.classList.add(widgetInput.value, "fr-icon--lg", "fr-mt-1w");
+          widgetIcon.classList.add(widgetInput.value, "sdcd-icone--lg", "sdcd-mt-2");
           }
         }, false);
 

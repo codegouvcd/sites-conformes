@@ -30,7 +30,7 @@ class HeroImageStructValue(StructValue):
         image_positioning = self.get("image_positioning")
         extra_class = ""
         if image_ratio:
-            extra_class += f"fr-responsive-img {image_ratio} "
+            extra_class += f"sdcd-image-fluide {image_ratio} "
         else:
             extra_class += "sdcd-image-fluide"
 

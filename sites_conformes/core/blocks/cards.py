@@ -54,7 +54,7 @@ class CardstructValue(StructValue):
         ratio_class = self.get("image_ratio")
 
         if ratio_class:
-            image_classes = f"fr-responsive-img {ratio_class}"
+            image_classes = f"sdcd-image-fluide {ratio_class}"
         else:
             image_classes = "sdcd-image-fluide"
 

@@ -57,11 +57,17 @@
   {% endif %}
   {% if settings.sites_conformes_core.CmsDsfrConfig.theme_modale_button %}
     <li class="sdcd-footer__legal">
+      {% comment %}
+        Le bouton portait `data-fr-opened` et pointait sur `fr-theme-modal` :
+        deux crochets du JavaScript du DSFR, parti avec lui. Il etait donc
+        inerte. sdcd.js ouvre une modale par `data-sdcd-ouvre`, qui nomme
+        l'identifiant de la cible.
+      {% endcomment %}
       <button id="footer__bottom-link__parametres-affichage"
-              aria-controls="fr-theme-modal"
-              data-fr-opened="false"
-              class="ri-theme-fill sdcd-lien--icone-gauche sdcd-footer__lien"
-              data-fr-js-modal-button="true">{% translate "Display settings" %}</button>
+              type="button"
+              data-sdcd-ouvre="sdcd-theme-modale"
+              aria-haspopup="dialog"
+              class="ri-theme-fill sdcd-lien--icone-gauche sdcd-footer__lien">{% translate "Display settings" %}</button>
     </li>
   {% endif %}
 {% endblock footer_links %}

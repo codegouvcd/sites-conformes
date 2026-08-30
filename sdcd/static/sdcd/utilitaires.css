@@ -227,6 +227,8 @@
 .sdcd-grille--milieu { align-items: center; }
 .sdcd-grille--gauche { justify-items: start; }
 .sdcd-grille--droite { justify-items: end; }
+.sdcd-grille--haut { align-items: start; }
+.sdcd-grille--bas { align-items: end; }
 
 /* Defaut mobile d'abord : toute colonne occupe la ligne entiere tant qu'aucune
    largeur ne s'applique. Doit preceder les classes chiffrees, qui ont la meme

@@ -11,7 +11,7 @@
     </{{ value.heading_tag | default:"h2" }}>
     <div class="sdcd-stepper__jauge"
          data-fr-current-step="{{ value.current }}"
-         data-fr-steps="{{ value.total }}"></div>
+         data-sdcd-stepper__jauge="{{ value.total }}"></div>
     <dl class="sdcd-grille sdcd-grille--gouttieres cmsfr-stepper__details">
       {% for step in value.steps %}
         <div class="sdcd-col-12 sdcd-col-sm-12">

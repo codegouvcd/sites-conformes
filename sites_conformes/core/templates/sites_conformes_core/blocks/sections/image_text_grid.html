@@ -4,7 +4,7 @@
   <div class="sdcd-conteneur sdcd-pt-4">
     <div class="sdcd-grille cmsfr-text-content--{{ value.items_alignement }}">
       {% for item in rendered_items %}
-        <div class="sdcd-col-12 fr-col-md-{{ value.items_per_row }} sdcd-pb-2 sdcd-pr-4">
+        <div class="sdcd-col-12 sdcd-col-md-{{ value.items_per_row }} sdcd-pb-2 sdcd-pr-4">
           <div>
             <img src="{{ item.rendition.full_url }}" alt={{ item.rendition.alt }} />
           </div>

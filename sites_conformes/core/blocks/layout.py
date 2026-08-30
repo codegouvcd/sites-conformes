@@ -39,17 +39,34 @@ class BackgroundColorChoiceBlock(blocks.ChoiceBlock):
         icon = "view"
 
 
+# Le DSFR compte les marges en `w` (1w = 8 px) ; le SDCD a sa propre echelle.
+# Le rediger choisit toujours un nombre de `w` dans l'administration — changer
+# cette interface reformerait toutes les pages existantes — mais la classe
+# emise est ramenee au pas du systeme le plus proche. C'est le role d'une
+# echelle : normaliser, plutot que laisser proliferer des valeurs arbitraires.
+_PAS_SDCD = {0: 0, 1: 4, 2: 8, 3: 12, 4: 16, 5: 24, 6: 32, 7: 40, 8: 64}
+
+
+def pas_sdcd(unites_w):
+    """Convertit un nombre d'unites `w` du DSFR en pas de l'echelle SDCD."""
+    px = unites_w * 8
+    # Une marge demandee ne doit jamais retomber a zero : la normaliser est une
+    # chose, la supprimer en est une autre.
+    candidats = [k for k, v in _PAS_SDCD.items() if v > 0] if px > 0 else list(_PAS_SDCD)
+    return min(candidats, key=lambda k: (abs(_PAS_SDCD[k] - px), k))
+
+
 class BlockMarginStructValue(blocks.StructValue):
     def vertical_margin(self):
         margin = []
 
         top_margin = self.get("top_margin", None)
         if top_margin:
-            margin.append(f"fr-mt-{top_margin}w")
+            margin.append(f"sdcd-mt-{pas_sdcd(top_margin)}")
 
         bottom_margin = self.get("bottom_margin", None)
         if bottom_margin:
-            margin.append(f"fr-mb-{bottom_margin}w")
+            margin.append(f"sdcd-mb-{pas_sdcd(bottom_margin)}")
 
         return " ".join(margin)
 
@@ -135,17 +152,23 @@ class ColumnBlock(CommonStreamBlock):
     card = VerticalCardBlock(label=_("Vertical card"), group=_("DSFR components"))
 
 
+# Les valeurs stockees restent en anglais — les changer reformerait toutes les
+# pages existantes pour un gain nul. Seule la classe emise passe a la langue du
+# systeme, dont les modificateurs sont en francais.
+_ALIGNEMENTS = {
+    "left": "gauche", "center": "centre", "right": "droite",
+    "top": "haut", "middle": "milieu", "bottom": "bas",
+}
+
+
 class GridPositionStructValue(blocks.StructValue):
     def grid_position(self):
         position = []
 
-        horizontal_align = self.get("horizontal_align", None)
-        if horizontal_align:
-            position.append(f"fr-grid-row--{horizontal_align}")
-
-        vertical_align = self.get("vertical_align", None)
-        if vertical_align:
-            position.append(f"fr-grid-row--{vertical_align}")
+        for cle in ("horizontal_align", "vertical_align"):
+            valeur = self.get(cle, None)
+            if valeur and valeur in _ALIGNEMENTS:
+                position.append(f"sdcd-grille--{_ALIGNEMENTS[valeur]}")
 
         return " ".join(position)
 

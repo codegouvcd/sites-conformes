@@ -17,7 +17,7 @@
   </ul>
   {% for tab_block in block.value %}
     <div id="tabpanel-{{ block.id }}-{{ forloop.counter }}-panel"
-         class="fr-tabs__panel{% if forloop.first %} fr-tabs__panel--selected{% endif %}"
+         class="sdcd-tabs__panneau{% if forloop.first %} sdcd-tabs__panneau--actif{% endif %}"
          role="tabpanel"
          aria-labelledby="tabpanel-{{ block.id }}-{{ forloop.counter }}"
          tabindex="0">
