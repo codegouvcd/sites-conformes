@@ -74,40 +74,48 @@
 {% endblock header_search %}
 
 {% block burger_menu %}
+  {% comment %}
+    Bouton de menu du SDCD. L'ancien balisage etait celui du DSFR
+    (.fr-btn--menu, data-fr-opened) et dependait du JavaScript du DSFR, parti
+    avec lui : aucun script ne pilotait plus ces boutons, si bien que le menu
+    ne s'ouvrait pas sur mobile et que le bouton « Fermer » restait affiche en
+    permanence sur grand ecran. sdcd.js prend le relais via aria-expanded.
+  {% endcomment %}
   {% translate "Search" as search_label %}
-  <nav role=navigation class="fr-header__navbar">
-    {% if settings.sites_conformes_core.CmsDsfrConfig.search_bar %}
-      <button class="fr-btn--search fr-btn"
-              data-fr-opened="false"
-              aria-controls="modal-search"
-              id="fr-btn-search-mobile"
-              title="{{ search_label }}">{{ search_label }}</button>
-    {% endif %}
-    {% translate "Menu" as menu_label %}
-    <button class="fr-btn--menu fr-btn"
-            data-fr-opened="false"
-            aria-controls="fr-menu-mobile"
-            id="fr-btn-menu-mobile"
-            title="{{ menu_label }}">{{ menu_label }}</button>
-  </nav>
+  {% if settings.sites_conformes_core.CmsDsfrConfig.search_bar %}
+    <button type="button"
+            class="sdcd-header__menu sdcd-mobile-only"
+            aria-expanded="false"
+            aria-controls="modal-search"
+            id="sdcd-btn-recherche-mobile"
+            title="{{ search_label }}"><i class="ri-search-line" aria-hidden="true"></i>{{ search_label }}</button>
+  {% endif %}
+  {% translate "Menu" as menu_label %}
+  <button type="button"
+          class="sdcd-header__menu sdcd-mobile-only"
+          aria-expanded="false"
+          aria-controls="sdcd-nav-mobile"
+          id="sdcd-btn-menu-mobile"
+          title="{{ menu_label }}"><i class="ri-menu-line" aria-hidden="true"></i>{{ menu_label }}</button>
 {% endblock burger_menu %}
 
 {% block main_menu %}
   {% if request %}
-    <div class="fr-header__menu fr-modal"
-         id="fr-menu-mobile"
-         aria-labelledby="fr-btn-menu-mobile">
-      <div class="fr-container">
-        {% translate "Close" as close_label %}
-        <button type="button"
-                class="fr-btn--close fr-btn"
-                aria-controls="fr-menu-mobile">{{ close_label }}</button>
-        <div class="fr-header__menu-links"></div>
-        {% translate "Main menu" as main_menu_label %}
-        <nav class="fr-nav" id="fr-navigation" aria-label="{{ main_menu_label }}">
-          {% main_menu %}
-        </nav>
-      </div>
-    </div>
+    {% translate "Main menu" as main_menu_label %}
+    {% comment %}
+      Deux navigations, comme Header.jsx : l'une pour grand ecran, l'autre
+      deployee par le bouton de menu. La version mobile porte `hidden` au
+      depart — sdcd.js le retire en basculant aria-expanded — pour qu'un
+      lecteur d'ecran ne l'annonce pas tant qu'elle est fermee.
+    {% endcomment %}
+    <nav class="sdcd-header__nav sdcd-desktop-only" id="sdcd-navigation" aria-label="{{ main_menu_label }}">
+      {% main_menu %}
+    </nav>
+    <nav class="sdcd-header__nav sdcd-header__nav--mobile sdcd-mobile-only"
+         id="sdcd-nav-mobile"
+         aria-label="{{ main_menu_label }}"
+         hidden>
+      {% main_menu %}
+    </nav>
   {% endif %}
 {% endblock main_menu %}

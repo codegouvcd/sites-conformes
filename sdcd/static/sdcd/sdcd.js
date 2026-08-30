@@ -161,6 +161,20 @@
   // Deux écritures acceptées : <details> natif — rien à faire — ou un bouton
   // portant aria-expanded et aria-controls.
 
+  // ------------------------------------------------- menu de l'en-tête
+  //
+  // Header.jsx tient cet état dans React ; les intégrations en HTML simple
+  // — Django, WordPress, FastAPI — n'avaient rien, si bien que le menu ne
+  // s'ouvrait pas du tout sur mobile. L'état vit dans `aria-expanded`, et la
+  // cible est masquée par l'attribut `hidden` plutôt que par une classe :
+  // un lecteur d'écran ne l'annonce alors pas non plus.
+  surClic(".sdcd-header__menu[aria-controls]", function (el) {
+    var ouvert = basculer(el, "aria-expanded");
+    afficher(el.getAttribute("aria-controls"), ouvert);
+    var icone = el.querySelector("i");
+    if (icone) icone.className = ouvert ? "ri-close-line" : "ri-menu-line";
+  });
+
   surClic(".sdcd-accordion__entete[aria-expanded]", function (el) {
     var ouvert = basculer(el, "aria-expanded");
     afficher(el.getAttribute("aria-controls"), ouvert);

@@ -65,8 +65,11 @@
       </div>
     </div>
 
-    <nav class="sdcd-header__nav" aria-label="{% translate 'Menu principal' %}">
-      {% block main_menu %}{% endblock main_menu %}
-    </nav>
+    {% comment %}
+      Le bloc fournit ses propres <nav> — un pour grand écran, un pour mobile,
+      comme Header.jsx. Les envelopper ici imbriquerait deux landmarks de
+      navigation l'un dans l'autre.
+    {% endcomment %}
+    {% block main_menu %}{% endblock main_menu %}
   </div>
 </header>
