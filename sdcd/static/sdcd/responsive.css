@@ -150,3 +150,11 @@ pre{overflow-x:auto}
   .sdcd-actions-collantes{position:sticky;bottom:0;z-index:20;background:var(--sdcd-fond);
     padding:var(--sdcd-3) var(--sdcd-gouttiere);box-shadow:0 -4px 16px rgba(22,26,29,.12)}
 }
+
+/* Le bouton de depliage du fil d'Ariane n'a de sens que la ou le fil ne tient
+   pas : au-dessus de 640 px il est masque et la liste reste visible. Sans cette
+   regle, la page affichait a la fois « Voir le fil d'Ariane » et le fil lui-meme. */
+.sdcd-breadcrumb__bouton { display: none; }
+@media (max-width: 640px) {
+  .sdcd-breadcrumb__bouton { display: inline-block; }
+}

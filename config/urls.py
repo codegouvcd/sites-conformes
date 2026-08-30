@@ -23,6 +23,11 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("api/v2/", api_router.urls),
     path("favicon.ico", RedirectView.as_view(url="/static/sdcd/assets/armoiries-rdc.png", permanent=True)),
+    # Les navigateurs sondent ces deux chemins a la racine meme lorsque la page
+    # declare un `apple-touch-icon`. Sans redirection, chaque visite laisse deux
+    # 404 dans la console et dans le journal du serveur.
+    path("apple-touch-icon.png", RedirectView.as_view(url="/static/sdcd/assets/armoiries-rdc.png", permanent=True)),
+    path("apple-touch-icon-precomposed.png", RedirectView.as_view(url="/static/sdcd/assets/armoiries-rdc.png", permanent=True)),
     path(
         "robots.txt",
         TemplateView.as_view(template_name="sites_conformes_core/robots.txt", content_type="text/plain"),

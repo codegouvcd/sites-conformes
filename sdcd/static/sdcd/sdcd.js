@@ -172,6 +172,15 @@
   // porte aria-expanded et aria-controls, la cible est masquee par `hidden`.
   // Sans ce comportement, une integration en HTML simple se retrouvait avec un
   // bouton inerte — le JavaScript du DSFR le pilotait, il n'a pas ete remplace.
+  // Depliage du fil d'Ariane sur petit ecran. Troisieme bouton de cette famille
+  // — apres le menu d'en-tete et le menu lateral — a porter aria-expanded et
+  // aria-controls sans que rien ne les pilote. Le JavaScript du DSFR s'en
+  // chargeait ; son retrait a laisse trois commandes inertes.
+  surClic(".sdcd-breadcrumb__bouton[aria-controls]", function (el) {
+    var ouvert = basculer(el, "aria-expanded");
+    afficher(el.getAttribute("aria-controls"), ouvert);
+  });
+
   surClic(".sdcd-sidemenu__entete[aria-controls]", function (el) {
     var ouvert = basculer(el, "aria-expanded");
     afficher(el.getAttribute("aria-controls"), ouvert);
