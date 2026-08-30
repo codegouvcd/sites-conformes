@@ -445,7 +445,11 @@ label.fr-tag[aria-pressed="false"] {
    Selecteur double a dessein : la feuille de la bibliotheque se charge apres la
    notre, et a specificite egale c'est l'ordre qui tranche. */
 input[data-whf_name][data-whf_name] {
-  margin-left: 0;
+  /* `!important` sur cette seule propriete : le gabarit de la bibliotheque pose
+     `margin-left: 100%` en style EN LIGNE, qu'aucun selecteur ne peut battre.
+     C'est le seul cas ou la regle se justifie — et il est circonscrit a une
+     declaration. */
+  margin-left: 0 !important;
   width: 1px;
   height: 1px;
   padding: 0;
