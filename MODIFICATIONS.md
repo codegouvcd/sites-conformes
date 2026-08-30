@@ -537,6 +537,47 @@ Ces deux classes sont injectees par le filtre `add_class` de
 Le controle ne lisait que ces attributs. Il lit desormais les deux sources :
 **169 classes vues au lieu de 164**. Teste a l'envers.
 
+### Portage des composants : 78 % du chemin
+
+| | Classes | Occurrences |
+|---|---|---|
+| `sdcd-*` | **237** | **1 063** |
+| `fr-*` | 122 | 283 |
+
+Familles portees dans cette passe : **cartes** (84 occurrences, 11 gabarits),
+**menu lateral** (28), **titres h5/h6, images fluides, bandeaux, tuiles, fils
+d'Ariane, badges** (74).
+
+### Sept lacunes de plus dans le systeme (0.12.0 et 0.13.0)
+
+| | |
+|---|---|
+| Carte | Six modificateurs — `--horizontal`, `--gris`, `--sans-fond`, `--sans-bordure`, `--ombre`, `--telechargement` — plus `__actions` et `--cliquable` |
+| Carte | `__media` porte `order: -1` : le composant React place le media en premier, un gabarit le place souvent en dernier. Les deux ordres rendent la meme chose |
+| Typographie | `h5` et `h6` : l'echelle s'arretait a `h4`, le CMS emploie 27 titres de ces niveaux |
+| Utilitaire | `.sdcd-image-fluide` — present dans dix-huit gabarits sans que le systeme le fournisse |
+| Menu lateral | `--collant` |
+| Bandeau, tuile, fil d'Ariane, badge | elements manquants : `__titre`, `__lien`, `__media`, `__meta`, `__liste`, `__bouton`, `.sdcd-badges`, `--sm` |
+
+**Sans les modificateurs de carte, le portage aurait supprime une capacite
+editoriale existante** — le rediger choisit fond, bordure et ombre pour chaque
+carte. Une regression deguisee en migration.
+
+### Deux decisions de fond
+
+- **`fr-card__body > fr-card__content` se replie en un seul `__corps`.** La
+  classe est gardee sur le div exterieur et retiree de l'interieur : la laisser
+  aurait double le rembourrage.
+- **`fr-sidemenu__item--active` est simplement retire.** Le gabarit pose deja
+  `aria-current="page"` sur le lien, que le systeme stylise. Une classe qui
+  double un etat ARIA finit toujours par diverger de lui.
+
+### Ce qui reste — 283 occurrences
+
+`fr-col` (20, exclu a dessein), `fr-link` et `fr-btn` (39, variantes d'icone et
+reseaux sociaux sans equivalent), `fr-nav` (15), `fr-fieldset` (14), `fr-footer`
+(13), `fr-collapse` (11), `fr-menu` et `fr-password` (16).
+
 ---
 
 ## À venir
