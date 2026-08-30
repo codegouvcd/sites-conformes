@@ -199,7 +199,15 @@
    1. `grid-column-end` et non le raccourci `grid-column`. Le raccourci
       reinitialise `grid-column-start`, donc ecrasait le decalage pose par
       .sdcd-col-decale-*.
-   2. Une colonne qualifiee d'un point de rupture doit occuper toute la ligne
+   2. Le decalage (.sdcd-col-decale-*) place la colonne a une position ABSOLUE
+      dans la grille, alors que le DSFR decale relativement au flux. Il ne
+      convient donc qu'a une colonne qui OUVRE sa ligne. Placee apres une autre
+      colonne, elle basculerait a la ligne suivante. Trois implementations d'un
+      decalage relatif ont ete mesurees au navigateur — `grid-column-start:span`,
+      marge en pourcentage, marge calculee — aucune ne tient : la premiere
+      retrecit la colonne, les autres resolvent le pourcentage contre la zone de
+      la colonne et non contre la grille. CSS Grid n'exprime pas cette notion.
+   3. Une colonne qualifiee d'un point de rupture doit occuper toute la ligne
       EN DESSOUS de ce point. Sans regle de base elle retombait sur `span 1`,
       et cinq colonnes se serraient sur une seule ligne a 375 px.
 
