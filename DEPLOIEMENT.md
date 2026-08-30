@@ -1,12 +1,69 @@
 # Déploiement sur Dokploy
 
-Cible : **bgvps3.beinng.tech** — instance Dokploy vérifiée accessible et saine
-(`/api/health` → `{"ok":true}`).
+**Déploiement effectué et vérifié.** Site en ligne :
+<https://sdcd-72-60-188-156.sslip.io>
 
-> **Ce document décrit une procédure non exécutée.** Le déploiement demande un
-> accès à Dokploy — clé d'API ou session dans l'interface — dont je ne dispose
-> pas. Tout ce qui pouvait être vérifié en amont l'a été (voir « Vérifié avant
-> déploiement »).
+| Élément | Valeur |
+|---|---|
+| Serveur | `bgvps3.beinng.tech` / `72.60.188.156` (`srv1032376`) |
+| Dokploy | v0.30.2, port 3000 |
+| Projet | **CODE.GOUV.CD**, environnement `production` |
+| Application | `sdcd-cms` |
+| Base | PostgreSQL 16, service `sdcd-db`, hôte interne `sdcd-db-ckpbyy` |
+| Source | `git@github.com:codegouvcd/sites-conformes.git`, branche `sdcd` |
+| Accès dépôt | Clé de déploiement **lecture seule** |
+| Construction | `Dockerfile` |
+| Domaine | `sdcd-72-60-188-156.sslip.io`, Let's Encrypt |
+| Volume médias | Volume nommé **`sdcd-medias`**, uid 1000 |
+| Administration | `/cms-admin/` (et non `/admin/`) |
+
+## Secrets
+
+Aucun secret ne figure dans ce dépôt ni dans les échanges. Sur le serveur :
+
+| Fichier | Contenu |
+|---|---|
+| `/root/.dokploy-token` | Jeton d'API Dokploy |
+| `/root/.sdcd-dbpass` | Mot de passe PostgreSQL, 32 caractères |
+| `/root/.sdcd-admin-pass` | Mot de passe du compte `admin` Wagtail, 24 caractères |
+| `/root/.ssh/dokploy_sdcd_deploy` | Clé privée de déploiement |
+
+La `SECRET_KEY` Django, 60 caractères, est dans les variables d'environnement de
+l'application, générée sur le serveur.
+
+## Ce que le premier déploiement a coûté
+
+**Cinq cycles**, cinq causes distinctes, toutes invisibles hors d'une exécution
+réelle en configuration de production :
+
+1. Chevron DSFR dans un `url()` — `collectstatic` échouait, conteneur en boucle
+2. Quatre références DSFR dans le code Python — dont deux qui auraient renvoyé
+   **500 sur l'administration**, sans empêcher le démarrage
+3. Volume `/app/medias` appartenant à `root`, conteneur en uid 1000 — et volume
+   **anonyme**, donc médias perdus à chaque redéploiement
+4. Pictogrammes absents non tolérés par l'import des gabarits
+5. Cinq références `{% static %}` mortes — dont le favicon, inclus par le gabarit
+   de base, qui renvoyait **500 sur tout le site**
+
+Les points 1, 2 et 5 relèvent du même mécanisme : `ManifestStaticFilesStorage`
+échoue durement sur un fichier absent, à la collecte comme au rendu. Deux contrôles
+ont été ajoutés à `verifier_sdcd.py` pour couvrir cette classe entière, **tous deux
+testés à l'envers**.
+
+## Reste à faire
+
+- **Le dépôt est privé.** L'AGPL-3.0 impose de publier les sources de tout service
+  accessible en réseau. Ce déploiement étant public, l'obligation est **déclenchée**.
+- **Aucune politique de sécurité de contenu.** `request.csp_nonce` est référencé,
+  `django-csp` n'est pas installé.
+- **Dokploy est servi en HTTP nu** sur le port 3000 : session d'administration et
+  jeton d'API circulent en clair.
+- Le sélecteur d'icônes de l'administration est réduit à un champ texte.
+- Les 61 gabarits du CMS emploient encore les classes `fr-*` via `compat-dsfr.css`.
+
+---
+
+## Annexe — procédure d'origine
 
 ## Prérequis à régler avant de commencer
 
