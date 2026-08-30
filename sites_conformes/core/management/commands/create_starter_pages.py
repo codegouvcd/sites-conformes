@@ -90,9 +90,13 @@ class Command(BaseCommand):
 
                 alert_block = {
                     "title": title,
-                    "description": """Entrez ici la déclaration d’accessibilité.<br />
-                    <a href="https://betagouv.github.io/a11y-generateur-declaration/#create">
-                    Générateur de déclaration d’accessibilité</a>""",
+                    # Le gabarit amont renvoyait au generateur francais de declaration
+                    # d'accessibilite, qui produit un texte citant le RGAA et le droit
+                    # francais. Sur un site d'Etat congolais, cela ferait declarer une
+                    # conformite a une norme etrangere. Retire.
+                    "description": """Entrez ici la déclaration d’accessibilité du site.<br />
+                    Elle doit indiquer le référentiel appliqué, le niveau de conformité
+                    constaté et les moyens de signaler un défaut d’accessibilité.""",  # noqa
                     "level": "info",
                     "heading_tag": "h2",
                 }
