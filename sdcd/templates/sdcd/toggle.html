@@ -1,6 +1,6 @@
-{# Interrupteur. Le CSS pilote l'apparence par aria-checked sur la piste ;
+{% comment %} Interrupteur. Le CSS pilote l'apparence par aria-checked sur la piste ;
    sdcd.js pose l'attribut au clic. Un <button role="switch"> et non une case
-   a cocher : c'est ce que le style attend, et le motif ARIA correspondant. #}
+   a cocher : c'est ce que le style attend, et le motif ARIA correspondant. {% endcomment %}
 <div class="sdcd-champ{% if self.extra_classes %} {{ self.extra_classes }}{% endif %}">
   <label class="sdcd-toggle" for="{{ self.id }}">
     <button type="button" class="sdcd-toggle__piste" role="switch"

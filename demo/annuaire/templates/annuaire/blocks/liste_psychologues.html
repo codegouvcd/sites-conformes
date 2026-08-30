@@ -1,10 +1,10 @@
 {% load static %}
 
-{# Bloc StaticBlock — voir annuaire/blocks.py.
+{% comment %} Bloc StaticBlock — voir annuaire/blocks.py.
    La carte est dessinée par Carte Facile (https://fab-geocommuns.github.io/carte-facile-site)
    en s'appuyant sur maplibre-gl. Les coordonnées des psychologues sont
    sérialisées via `{{ value|json_script }}` (échappement JSON correct par
-   défaut) puis lues par le module ESM. #}
+   défaut) puis lues par le module ESM. {% endcomment %}
 
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css">
 <link rel="stylesheet" href="https://unpkg.com/carte-facile@0.9.0/dist/carte-facile.css">

@@ -366,6 +366,33 @@ plutot que de parcourir les repertoires a la main. Mon premier balayage, artisan
 produisait trois faux positifs sur des statiques fournis par les applications
 installees (`wagtail_honeypot`, l'application `events`). **Teste a l'envers.**
 
+### Quatrieme tour : commentaires Django rendus aux visiteurs
+
+Signale par l'utilisateur depuis le site en ligne : le texte de plusieurs
+commentaires s'affichait **en haut de chaque page**.
+
+Cause : en Django, `{# ... #}` ne vaut que sur **une seule ligne**. Des qu'il en
+couvre plusieurs, le moteur cesse de le reconnaitre et le rend litteralement. Cinq
+commentaires ecrits pendant le portage etaient dans ce cas, dont ceux de
+`favicon.html` et `global_css.html`, inclus par le gabarit de base — donc visibles
+partout.
+
+| Gabarit | |
+|---|---|
+| `sdcd/favicon.html` | **Notre portage** |
+| `sdcd/global_css.html` | idem |
+| `sdcd/theme_modale.html` | idem |
+| `sdcd/toggle.html` | idem |
+| `dsfr/header.html` | idem |
+| `demo/annuaire/.../liste_psychologues.html` | amont |
+
+Les six sont convertis en `{% comment %}`, seule forme valide sur plusieurs lignes.
+
+**Controle 7 ajoute**, teste a l'envers. Aucun des six controles precedents ne
+pouvait voir ce defaut : les gabarits *compilaient* sans erreur et toutes les
+references statiques *resolvaient*. Seul un regard sur la page rendue le revelait —
+ce qui est exactement ce que l'utilisateur a fait.
+
 ---
 
 ## À venir

@@ -221,5 +221,26 @@ for _f2, _r2 in _morts2:
     print("    INTROUVABLE %s -> %s" % (_f2, _r2))
 echecs += len(_morts2)
 
+
+
+titre("7. Commentaires Django multilignes")
+# {# ... #} ne vaut que sur UNE ligne. Des qu'il en couvre plusieurs, Django cesse de
+# le reconnaitre et le rend tel quel : le texte du commentaire s'affiche aux visiteurs.
+# Cinq commentaires ecrits pendant le portage etaient dans ce cas, visibles en haut de
+# chaque page du site en production. La forme multiligne valide est {% comment %}.
+_multi = []
+for _f3 in subprocess.run(
+    ["git", "ls-files", "*.html"], capture_output=True, text=True
+).stdout.split():
+    for _i3, _l3 in enumerate(
+        io.open(_f3, encoding="utf-8", errors="replace").read().split("\n"), 1
+    ):
+        if "{#" in _l3 and "#}" not in _l3[_l3.index("{#"):]:
+            _multi.append((_f3, _i3))
+print("  %d commentaire(s) multiligne(s)" % len(_multi))
+for _f3, _i3 in _multi:
+    print("    RENDU LITTERAL %s:%d" % (_f3, _i3))
+echecs += len(_multi)
+
 print("\n%s" % ("Aucun defaut." if echecs == 0 else "%d defaut(s)." % echecs))
 raise SystemExit(1 if echecs else 0)

@@ -1,8 +1,8 @@
 {% load static %}
-{# Pas de favicon.ico : un .ico ne s'écrit pas à la main, et plus aucun navigateur
+{% comment %} Pas de favicon.ico : un .ico ne s'écrit pas à la main, et plus aucun navigateur
    supporté n'en a besoin dès lors qu'une icône SVG est déclarée. L'icône Apple
    réutilise les armoiries, seul bitmap dont le SDCD dispose aujourd'hui.
    Les trois fichiers references auparavant n'existaient pas : avec
-   ManifestStaticFilesStorage, chaque page du site renvoyait 500. #}
+   ManifestStaticFilesStorage, chaque page du site renvoyait 500. {% endcomment %}
 <link rel="icon" href="{% static 'sdcd/favicon/favicon.svg' %}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{% static 'sdcd/assets/armoiries-rdc.png' %}">
