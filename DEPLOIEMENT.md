@@ -52,8 +52,12 @@ testés à l'envers**.
 
 ## Reste à faire
 
-- **Le dépôt est privé.** L'AGPL-3.0 impose de publier les sources de tout service
-  accessible en réseau. Ce déploiement étant public, l'obligation est **déclenchée**.
+- ~~Le dépôt est privé.~~ **Réglé le 2026-08-30.** Le dépôt est public et le pied
+  de page offre le lien vers les sources, comme l'exige l'article 13 de l'AGPL —
+  publier le dépôt ne suffisait pas, le lien devait être atteignable depuis le
+  site. Vérifié avant bascule : `.env` jamais commité, aucune chaîne à forte
+  entropie dans l'historique, et la seule `SECRET_KEY` en dur porte le préfixe
+  `django-insecure-` de Django, dans `demo/` qui est exclu de l'image.
 - **Aucune politique de sécurité de contenu.** `request.csp_nonce` est référencé,
   `django-csp` n'est pas installé.
 - **Dokploy est servi en HTTP nu** sur le port 3000 : session d'administration et
