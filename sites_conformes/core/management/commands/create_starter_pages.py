@@ -56,16 +56,22 @@ class Command(BaseCommand):
 
                 alert_block = {
                     "title": title,
+                    # Le gabarit amont renvoyait ici a francenum.gouv.fr, un guide du
+                    # gouvernement francais : une reference etrangere comme fondement
+                    # juridique d'un site d'Etat congolais. Retiree. Aucune reference
+                    # congolaise n'est proposee a la place : ce n'est pas au systeme de
+                    # design de designer le texte applicable, mais au service juridique
+                    # de l entite qui publie le site.
                     "description": """Entrez ici les mentions légales du site.<br />
-                    <a href="https://www.francenum.gouv.fr/guides-et-conseils/developpement-commercial/site-web/quelles-sont-les-mentions-legales-pour-un-site">
-                    Que doivent-elles obligatoirement contenir ?</a>""",  # noqa
+                    Rapprochez-vous du service juridique de votre entité pour connaître
+                    les mentions rendues obligatoires par le droit congolais.""",  # noqa
                     "level": "info",
                     "heading_tag": "h2",
                 }
                 body.append(("alert", alert_block))
 
                 text_raw = """
-                <p>D’après la <a href="https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/pied-de-page">documentation du système de design</a>,
+                <p>D’après la <a href="https://github.com/codegouvcd/sdcd">documentation du système de design</a>,
                 le pied de page doit contenir a minima les quatre liens suivants :</p>
                 <ul>
                     <li>Accessibilité : non/partiellement/totalement conforme</li>
@@ -237,7 +243,7 @@ class Command(BaseCommand):
                 "required": True,
                 "choices": "",
                 "default_value": "",
-                "help_text": "Format attendu : nom@domaine.fr",
+                "help_text": "Format attendu : nom@domaine.cd",
                 "page": contact_page,
                 "field_type": "email",
             },

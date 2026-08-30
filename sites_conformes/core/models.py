@@ -323,7 +323,7 @@ class CustomScriptsSettings(BaseSiteSetting):
         _("Use Tarteaucitron?"),
         default=False,
         help_text=mark_safe(
-            _('See <a href="https://sites.beta.gouv.fr/documentation/gestion-des-cookies/">Documentation</a>')
+            _('Voir la <a href="https://github.com/codegouvcd/sites-conformes/blob/sdcd/README.md">documentation</a>')
         ),
     )
 
@@ -416,7 +416,7 @@ class CmsDsfrConfig(ClusterableModel, BaseSiteSetting):
         help_text=mark_safe(
             _(
                 'Use is strictly regulated, see \
-            <a href="https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/bandeau-d-information-importante/">documentation</a>.'
+            <a href="https://github.com/codegouvcd/sdcd">documentation</a>.'
             )
         ),
     )

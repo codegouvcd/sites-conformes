@@ -171,7 +171,7 @@ TEMPLATE_EXAMPLE_BUTTON_LIST = [
     {
         "link_type": "external_url",
         "text": "Nous contacter",
-        "external_url": "https://sites.beta.gouv.fr/contactez-nous/",
+        "external_url": "https://github.com/codegouvcd/sites-conformes/issues",
         "button_type": "sdcd-button sdcd-button--primaire",
         "icon_side": "--",
         "anchor": "",
