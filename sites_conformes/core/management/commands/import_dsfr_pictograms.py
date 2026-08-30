@@ -26,6 +26,18 @@ class Command(BaseCommand):
         force_update = kwargs.get("force")
 
         picto_root = "staticfiles/dsfr/dist/artwork/pictograms/"
+
+        # Les pictogrammes du DSFR sont l'iconographie de l'Etat francais : le portage
+        # SDCD les a retires, pour la meme raison de licence que le reste du DSFR. Il
+        # n'y a donc plus rien a importer. On sort proprement plutot que de lever une
+        # FileNotFoundError, qui faisait echouer `deploy` et boucler le conteneur.
+        if not os.path.isdir(picto_root):
+            if verbosity:
+                self.stdout.write(
+                    "Pictogrammes DSFR absents (portage SDCD) : import ignore."
+                )
+            return
+
         picto_folders = os.listdir(picto_root)
         picto_folders.sort()
 

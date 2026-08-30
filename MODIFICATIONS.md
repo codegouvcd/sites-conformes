@@ -285,6 +285,45 @@ Le controle 5 parcourt les `url()` de toutes les feuilles sous
 `sites_conformes/static` et echoue si l'une pointe dans le vide. **Teste a l'envers** :
 une reference fantome injectee le fait passer en defaut, son retrait le remet au vert.
 
+### Deuxieme tour : quatre vestiges DSFR de plus
+
+`collectstatic` passait, mais `create_starter_pages` tombait sur :
+
+```
+FileNotFoundError: 'staticfiles/dsfr/dist/artwork/pictograms/'
+```
+
+Un balayage de tout le code Python a revele **quatre** references DSFR mortes, pas
+une. Les trois autres n'auraient pas fait tomber le deploiement : elles auraient
+casse l'administration a l'usage.
+
+| Fichier | Reference morte | Consequence si non corrigee |
+|---|---|---|
+| `core/management/commands/import_dsfr_pictograms.py` | `os.listdir` sur les pictogrammes | **Conteneur en boucle** |
+| `core/widgets.py` | `dsfr/dist/utility/utility.min.css` et le JS du selecteur d'icones | **500 sur toute page d'edition a champ d'icone** |
+| `dashboard/wagtail_hooks.py` | `static("dsfr/dist/component/notice/notice.min.css")` | **500 sur toute page d'administration** |
+| `config/urls.py` | favicon DSFR | 404 sur `/favicon.ico` |
+
+Les deux 500 viennent du meme mecanisme que le chevron : `ManifestStaticFilesStorage`
+leve une exception quand `static()` vise un fichier absent — au rendu cette fois,
+pas a la collecte.
+
+**Decisions prises**
+
+- *Pictogrammes* : import ignore proprement si le repertoire est absent. Ce sont les
+  pictogrammes de l'Etat francais ; le portage devait les retirer, il n'y a rien a
+  importer. Les reintroduire aurait ete fautif au-dela de la technique.
+- *Selecteur d'icones* : la bibliotheque venait de `django-dsfr`, desinstalle. Le
+  widget redevient un champ texte ou le rediger saisit la classe. **Regression
+  d'ergonomie assumee**, preferable a un 500.
+- *Notice d'administration* : le lien mort est retire sans remplacement.
+  `components.css` du SDCD vise le site public et deborderait sur le back-office —
+  ce que le commentaire d'origine cherchait deja a eviter. Les notices perdent leur
+  fond colore, rien de plus.
+- *Favicon* : pointe desormais sur les **armoiries de la RDC**.
+
+`manage.py check` : 0 erreur, 9 avertissements `treebeard.E001` preexistants.
+
 ---
 
 ## À venir

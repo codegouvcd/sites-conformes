@@ -12,7 +12,10 @@ class DsfrIconPickerWidget(widgets.TextInput):
 
     @property
     def media(self):
+        # La bibliotheque de selection d'icones venait de django-dsfr, desinstalle.
+        # Sans elle le widget reste un champ texte fonctionnel : le rediger saisit la
+        # classe d'icone a la main. Regression d'ergonomie assumee, preferable a un 500
+        # sur toute page d'edition comportant un champ d'icone.
         return Media(
-            css={"all": ["css/icon-picker.css", "dsfr/dist/utility/utility.min.css"]},
-            js=["django-dsfr/icon-picker/assets/js/universal-icon-picker.min.js"],
+            css={"all": ["css/icon-picker.css", "sdcd/utilitaires.css"]},
         )
