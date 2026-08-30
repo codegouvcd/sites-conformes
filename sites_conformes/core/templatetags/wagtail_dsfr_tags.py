@@ -42,7 +42,12 @@ def canonical_url(context):
 
     if site:
         hostname = site.hostname
-        if site.port != 80:
+        # Le port n'etait omis que s'il valait 80 : un site en HTTPS sur 443
+        # produisait donc une URL canonique `https://hote:443/`, valide mais
+        # fautive pour le referencement, qui la traite comme une adresse
+        # distincte de `https://hote/`. On omet le port par defaut du schema.
+        port_par_defaut = 443 if scheme == "https" else 80
+        if site.port != port_par_defaut:
             hostname = f"{hostname}:{site.port}"
     else:
         hostname = request.get_host()

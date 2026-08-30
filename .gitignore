@@ -156,3 +156,4 @@ blob-report
 verif.sqlite3
 rendu_*.html
 apercu/
+.gstack/
