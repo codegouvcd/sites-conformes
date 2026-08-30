@@ -240,8 +240,8 @@ label.fr-tag[aria-pressed="false"] {
 
 .fr-usermenu .fr-usermenu__btn:after {
   margin-left: auto;
-  -webkit-mask-image: url("../dsfr/dist/icons/arrows/arrow-down-s-line.svg");
-  mask-image: url("../dsfr/dist/icons/arrows/arrow-down-s-line.svg");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 13.172l4.95-4.95 1.414 1.414L12 16l-6.364-6.364L7.05 8.222z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 13.172l4.95-4.95 1.414 1.414L12 16l-6.364-6.364L7.05 8.222z%22/%3E%3C/svg%3E");
   transition: transform .3s
 }
 
@@ -386,7 +386,7 @@ label.fr-tag[aria-pressed="false"] {
   }
 
   .fr-usermenu .fr-usermenu__btn:after {
-    background-image: url("../dsfr/dist/icons/arrows/arrow-down-s-line.svg")
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 13.172l4.95-4.95 1.414 1.414L12 16l-6.364-6.364L7.05 8.222z%22/%3E%3C/svg%3E")
   }
 
   .fr-usermenu .fr-usermenu__btn[aria-expanded=true] {

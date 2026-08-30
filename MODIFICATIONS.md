@@ -245,6 +245,48 @@ releve du CMS.
 
 ---
 
+## 2026-08-30 — Premier deploiement : chevron DSFR residuel
+
+| Fichier | Modification |
+|---|---|
+| `sites_conformes/static/css/style.css` | 3 `url()` vers `dsfr/dist/icons/arrows/arrow-down-s-line.svg` remplacees par un `data:` URI |
+| `verifier_sdcd.py` | Nouveau controle 5 : references `url()` mortes |
+
+### Ce qui s'est passe
+
+Le premier deploiement a **boucle en redemarrage**, exit 1 repete. Cause :
+
+```
+whitenoise.storage.MissingFileError: The file
+'dsfr/dist/icons/arrows/arrow-down-s-line.svg' could not be found
+```
+
+En production, `SF_USE_WHITENOISE=1` active `CompressedManifestStaticFilesStorage`,
+qui **resout chaque `url()`** au moment de `collectstatic` et leve une erreur fatale
+sur une reference morte. `just deploy` echouait donc avant `gunicorn`, et le
+conteneur mourait en boucle.
+
+Le chevron etait le dernier vestige du DSFR dans les feuilles de style. Mes controles
+precedents portaient sur les *fichiers* DSFR collectes — aucun ne restait — mais pas
+sur les *references* pointant vers eux depuis un CSS.
+
+### Pourquoi un `data:` URI plutot qu'un fichier SDCD
+
+Un fichier de remplacement aurait recree la meme dependance, donc le meme mode de
+panne. Le chevron est integre au CSS : plus aucun fichier a resoudre.
+
+Les deux premieres occurrences sont des `mask-image`, la troisieme vit dans un
+`@media (min-width:0 )` — un hack IE, code mort pour tout navigateur moderne, mais
+que `collectstatic` analyse quand meme.
+
+### Controle ajoute
+
+Le controle 5 parcourt les `url()` de toutes les feuilles sous
+`sites_conformes/static` et echoue si l'une pointe dans le vide. **Teste a l'envers** :
+une reference fantome injectee le fait passer en defaut, son retrait le remet au vert.
+
+---
+
 ## À venir
 
 Les entrées suivantes seront ajoutées au fil du portage :

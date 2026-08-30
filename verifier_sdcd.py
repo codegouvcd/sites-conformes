@@ -162,5 +162,33 @@ for n, m in casses:
 echecs += len(casses)
 
 
+
+
+titre("5. References url() des feuilles de style")
+# WhiteNoise resout chaque url() au moment de collectstatic et leve MissingFileError
+# sur une reference morte : le conteneur refuse alors de demarrer, en boucle. Un seul
+# fichier DSFR oublie dans un url() a suffi a faire echouer le premier deploiement.
+# Ce controle attrape la classe entiere du probleme, pas ce cas precis.
+import re as _re
+from pathlib import Path as _Path
+
+_racine = _Path("sites_conformes/static")
+_motif = _re.compile(r"""url\(\s*["']?(?!data:|https?:|//|\#)([^"')]+)["']?\s*\)""")
+_morts = []
+_vus = 0
+for _css in sorted(_racine.rglob("*.css")):
+    _txt = _css.read_text(encoding="utf-8", errors="replace")
+    for _m in _motif.finditer(_txt):
+        _ref = _m.group(1).split("?")[0].split("#")[0].strip()
+        if not _ref:
+            continue
+        _vus += 1
+        if not (_css.parent / _ref).resolve().exists():
+            _morts.append((str(_css).replace("\\", "/"), _ref))
+print("  %d reference(s) examinee(s), %d morte(s)" % (_vus, len(_morts)))
+for _f, _r in _morts:
+    print("    MORTE %s -> %s" % (_f, _r))
+echecs += len(_morts)
+
 print("\n%s" % ("Aucun defaut." if echecs == 0 else "%d defaut(s)." % echecs))
 raise SystemExit(1 if echecs else 0)
