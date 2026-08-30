@@ -251,19 +251,15 @@ echecs += len(_multi)
 
 
 
-titre("8. Classes fr-* emises et couverture de la compatibilite")
-# Une classe fr-* sans regle s'affiche sans style. Le defaut ne casse rien
-# — pas d'erreur, pas de 500 — il degrade silencieusement la page, ce qui le
-# rend d'autant plus facile a laisser passer : 52 classes etaient dans ce cas,
-# reparties sur des pages qu'aucun controle ne rendait.
+titre("8. Aucune classe DSFR ne doit subsister")
+# La couche de compatibilite a ete retiree : plus aucune classe `fr-*` ne
+# trouverait de regle. Ce controle ne mesure donc plus une couverture, il
+# interdit purement et simplement l'emission d'une classe DSFR.
 #
-# Ce compteur mesure aussi l'avancement du portage : chaque gabarit passe aux
-# classes sdcd-* fait baisser le total emis. Objectif : zero.
-_css = io.open(
-    os.path.join(RACINE, "sdcd", "static", "sdcd", "compat-dsfr.css"),
-    encoding="utf-8", errors="replace",
-).read()
-_couvertes = set(re.findall(r"\.(fr-[A-Za-z0-9_-]+)", _css))
+# Il lit deux sources : l'attribut `class` litteral, et le filtre `add_class` de
+# django-widget-tweaks. Ce second cas lui avait echappe une fois, et deux classes
+# etaient restees sans regle jusqu'a ce que la page de connexion s'affiche de
+# travers.
 _emises = {}
 for _f4 in subprocess.run(
     ["git", "ls-files", "*.html"], capture_output=True, text=True
@@ -271,19 +267,15 @@ for _f4 in subprocess.run(
     if _f4.startswith("demo/"):
         continue
     _txt4 = io.open(_f4, encoding="utf-8", errors="replace").read()
-    # Deux sources de classes, pas une : l'attribut litteral, et le filtre
-    # add_class de django-widget-tweaks. Ce second cas echappait au controle,
-    # et sdcd-motdepasse__champ est reste sans regle jusqu'a ce que la page de
-    # connexion s'affiche de travers.
     for _m4 in re.finditer(r'class="([^"]*)"|add_class:"([^"]+)"', _txt4):
         for _c4 in (_m4.group(1) or _m4.group(2) or "").split():
+            # `cmsfr-*` est un prefixe propre au CMS, pas du DSFR.
             if _c4.startswith("fr-") and "{" not in _c4 and "}" not in _c4:
                 _emises.setdefault(_c4, _f4)
-_orph = sorted(c for c in _emises if c not in _couvertes)
-print("  %d classe(s) fr-* encore emise(s), %d sans regle" % (len(_emises), len(_orph)))
-for _c4 in _orph:
-    print("    SANS REGLE %s  (%s)" % (_c4, _emises[_c4]))
-echecs += len(_orph)
+print("  %d classe(s) DSFR emise(s)" % len(_emises))
+for _c4, _f4 in sorted(_emises.items()):
+    print("    DSFR RESIDUELLE %s  (%s)" % (_c4, _f4))
+echecs += len(_emises)
 
 print("\n%s" % ("Aucun defaut." if echecs == 0 else "%d defaut(s)." % echecs))
 raise SystemExit(1 if echecs else 0)
