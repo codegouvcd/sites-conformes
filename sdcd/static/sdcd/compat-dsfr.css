@@ -774,6 +774,13 @@ a.fr-tag:hover, button.fr-tag:hover { background: var(--sdcd-bleu-teinte); }
 .fr-link--align-on-content { vertical-align: baseline; }
 .fr-text--lg { font-size: 1.0625rem; }
 .fr-input--error { border-color: var(--sdcd-erreur); }
+/* Dans un groupe de case ou de bouton radio, l'intitule accompagne la commande :
+   il ne doit pas passer a la ligne. La regle generale `.fr-label { display:block }`
+   le posait en bloc, d'ou une case et son intitule empiles sur la page de
+   connexion. Le groupe devient une ligne et son intitule redevient en ligne. */
+.fr-checkbox-group, .fr-radio-group { display: flex; align-items: center; gap: var(--sdcd-2); }
+.fr-checkbox-group > label, .fr-radio-group > label,
+.fr-checkbox-group > .fr-label, .fr-radio-group > .fr-label { display: inline; margin-bottom: 0; }
 .fr-checkbox-group--sm label { font-size: var(--sdcd-sm); }
 .fr-quote--column { flex-direction: column; }
 .fr-highlight--sm { font-size: var(--sdcd-sm); }
