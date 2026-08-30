@@ -6,14 +6,14 @@
         class="fr-nav__btn">{{ self.label }}</button>
 
 <div class="fr-collapse fr-mega-menu" id="{{ self.id }}">
-  <div class="fr-container fr-container--fluid fr-container-lg">
+  <div class="sdcd-conteneur sdcd-conteneur--fluide sdcd-conteneur">
     <button class="fr-link--close fr-link"
             aria-controls="{{ self.id }}"
             data-fr-js-collapse-button="true">{% translate "Close" %}</button>
-    <div class="fr-grid-row fr-grid-row-lg--gutters">
-      <div class="fr-col-12 fr-col-lg-8 fr-col-offset-lg-4--right">
+    <div class="sdcd-grille sdcd-grille--gouttieres">
+      <div class="sdcd-col-12 sdcd-col-lg-8 fr-col-offset-lg-4--right">
         <div class="fr-mega-menu__leader">
-          <h4 class="fr-h4 fr-mb-2v">{{ self.label }}</h4>
+          <h4 class="sdcd-h4 sdcd-mb-2">{{ self.label }}</h4>
           {% if self.description %}
           <p class="fr-hidden fr-displayed-lg">{{ self.description }}</p>
           {% endif %}

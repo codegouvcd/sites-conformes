@@ -8,7 +8,7 @@
           <a href="{{ value.link.url }}" {% if value.link.url.0 != '/' and request.get_host not in value.link.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
             {{ value.title }}
             {% if value.link.url.0 != '/' and request.get_host not in value.link.url %}
-            <span class="fr-sr-only">{% translate "Opens a new window" %}</span>
+            <span class="sdcd-lecteur-seul">{% translate "Opens a new window" %}</span>
             {% endif %}
           </a>
         {% else %}

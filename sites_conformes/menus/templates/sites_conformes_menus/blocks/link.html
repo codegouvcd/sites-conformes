@@ -6,7 +6,7 @@
    {% if value.page and value.page.id == current_page.id %}aria-current="page"{% endif %}>
   {{ value.label }}
   {% if value.url.0 != '/' and request.get_host not in value.url %}
-    <span class="fr-sr-only">{% translate "Opens a new window" %}</span>
+    <span class="sdcd-lecteur-seul">{% translate "Opens a new window" %}</span>
   {% endif %}
   {% if value.document %}
     <span class="fr-link__detail">

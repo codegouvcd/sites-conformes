@@ -30,7 +30,7 @@
 {% endblock social_media %}
 
 {% block content %}
-  <div class="fr-container fr-my-6w">
+  <div class="sdcd-conteneur sdcd-my-7">
     {% if page %}
       {% include "sites_conformes_core/blocks/breadcrumbs.html" %}
     {% else %}
@@ -49,7 +49,7 @@
 
     {% include "sites_conformes_core/blocks/messages.html" %}
 
-    <nav role="navigation" class="fr-mb-2w">
+    <nav role="navigation" class="sdcd-mb-4">
       {% for first_letter in sorted_tags.keys|dictsort:0 %}
         <a href="#{{ first_letter }}" class="fr-tag">{{ first_letter }}</a>
       {% endfor %}

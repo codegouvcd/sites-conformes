@@ -11,28 +11,28 @@
 
 {% block content %}
   {% translate "Submit form" as submit_form %}
-  <div class="fr-container fr-pt-4w">
+  <div class="sdcd-conteneur sdcd-pt-6">
     {% include "sites_conformes_core/blocks/breadcrumbs.html" %}
     <h1>{{ page.title }}</h1>
   </div>
 
   {% include "sites_conformes_core/blocks/messages.html" %}
 
-  <div class="fr-container fr-pb-6w">
+  <div class="sdcd-conteneur sdcd-pb-7">
     {{ page.intro|richtext }}
 
     <form action="{% pageurl page %}" method="post" autocomplete="on">
       <div class="fr-fieldset__element">
         {% if page.all_fields_required %}
-          <p class="fr-text--sm">{% translate "All fields are mandatory." %}</p>
+          <p class="sdcd-texte-sm">{% translate "All fields are mandatory." %}</p>
         {% else %}
-          <p class="fr-text--sm">{% translate "Fields marked with an asterisk (*) are mandatory." %}</p>
+          <p class="sdcd-texte-sm">{% translate "Fields marked with an asterisk (*) are mandatory." %}</p>
         {% endif %}
       </div>
 
       {% csrf_token %}
       {% if form.non_field_errors %}
-        <section class="fr-my-4v fr-input-group fr-input-group--error">
+        <section class="sdcd-my-4 fr-input-group fr-input-group--error">
           {{ form.non_field_errors }}
         </section>
       {% endif %}

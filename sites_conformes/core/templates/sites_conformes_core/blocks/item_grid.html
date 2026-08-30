@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
-<div class="fr-grid-row fr-grid-row--gutters {{ value.grid_position }} fr-mb-2w">
+<div class="sdcd-grille sdcd-grille--gouttieres {{ value.grid_position }} sdcd-mb-4">
   {% for item in value.items %}
-    <div class="fr-col-12 fr-col-md-{{ value.column_width }}">{% include_block item %}</div>
+    <div class="sdcd-col-12 fr-col-md-{{ value.column_width }}">{% include_block item %}</div>
   {% endfor %}
 </div>

@@ -62,7 +62,7 @@
 {% block content %}
   {% include "sites_conformes_core/blocks/heading.html" %}
 
-  <div class="fr-container fr-pt-4w">
+  <div class="sdcd-conteneur sdcd-pt-6">
     {% include "sites_conformes_core/blocks/breadcrumbs.html" %}
     {% if page.show_title %}
       <h1>
@@ -74,14 +74,14 @@
     {% include "sites_conformes_core/blocks/messages.html" %}
 
     {% if current_category.description %}
-      <div class="fr-mb-4w">{{ current_category.description|richtext }}</div>
+      <div class="sdcd-mb-6">{{ current_category.description|richtext }}</div>
     {% else %}
-      <div class="fr-mb-4w">{{ page.body }}</div>
+      <div class="sdcd-mb-6">{{ page.body }}</div>
     {% endif %}
 
-    <div class="fr-grid-row fr-grid-row--gutters fr-mb-3w">
-      <div class="fr-col fr-col-md-4 fr-col-12">
-        <nav class="fr-sidemenu fr-sidemenu--sticky-full-height fr-mb-0-5v">
+    <div class="sdcd-grille sdcd-grille--gouttieres sdcd-mb-5">
+      <div class="fr-col sdcd-col-md-4 sdcd-col-12">
+        <nav class="fr-sidemenu fr-sidemenu--sticky-full-height sdcd-mb-1">
           <div class="fr-sidemenu__inner">
             <button class="fr-sidemenu__btn"
                     hidden
@@ -95,9 +95,9 @@
               {{ form }}
 
               {% if categories and page.filter_by_category %}
-                <div class="fr-my-3w">
+                <div class="sdcd-my-5">
                   <h3 class="fr-h6">{% translate "Filter by category" %}</h3>
-                  <ul class="fr-tags-group fr-mt-1w">
+                  <ul class="fr-tags-group sdcd-mt-2">
                     {% for category in categories %}
                       <li>
                         <a type="button"
@@ -114,9 +114,9 @@
               {% endif %}
 
               {% if tags and page.filter_by_tag %}
-                <div class="fr-my-3w">
+                <div class="sdcd-my-5">
                   <h3 class="fr-h6">{% translate "Filter by tag" %}</h3>
-                  <ul class="fr-tags-group fr-mt-1w">
+                  <ul class="fr-tags-group sdcd-mt-2">
                     {% for tag in tags %}
                       <li>
                         <a type="button"
@@ -133,9 +133,9 @@
               {% endif %}
 
               {% if authors and page.filter_by_author %}
-                <div class="fr-my-3w">
+                <div class="sdcd-my-5">
                   <h3 class="fr-h6">{% translate "Filter by author" %}</h3>
-                  <ul class="fr-tags-group fr-mt-1w">
+                  <ul class="fr-tags-group sdcd-mt-2">
                     {% for author in authors %}
                       <li>
                         <a type="button"
@@ -150,9 +150,9 @@
               {% endif %}
 
               {% if sources and page.filter_by_source %}
-                <div class="fr-my-3w">
+                <div class="sdcd-my-5">
                   <h3 class="fr-h6">{% translate "Filter by source" %}</h3>
-                  <ul class="fr-tags-group fr-mt-1w">
+                  <ul class="fr-tags-group sdcd-mt-2">
                     {% for source in sources %}
                       <li>
                         <a type="button"
@@ -167,7 +167,7 @@
               {% endif %}
 
               <h3 class="fr-h6">{% translate "Export" %}</h3>
-              <ul class="fr-btns-group fr-mt-1w">
+              <ul class="fr-btns-group sdcd-mt-2">
                 <li>
                   <a type="button"
                      href="{% routablepageurl page 'ical_view' %}"
@@ -178,7 +178,7 @@
               {% if page.past_events.count %}
                 <h3 class="fr-h6">{% translate "Archives" %}</h3>
 
-                <ul class="fr-btns-group fr-mt-1w">
+                <ul class="fr-btns-group sdcd-mt-2">
                   <li>
                     <a href="{% routablepageurl page 'archives_view' %}"
                        class="fr-btn fr-btn--tertiary">{% translate "See archives" %}</a>
@@ -191,11 +191,11 @@
         </nav>
       </div>
 
-      <div class="fr-col fr-col-md-8 fr-col-12" id="posts-list">
+      <div class="fr-col sdcd-col-md-8 sdcd-col-12" id="posts-list">
         <h2>{% translate "Events" %}</h2>
-        <div class="fr-grid-row fr-grid-row--gutters">{% include "sites_conformes_events/blocks/events_index_posts_list.html" %}</div>
+        <div class="sdcd-grille sdcd-grille--gouttieres">{% include "sites_conformes_events/blocks/events_index_posts_list.html" %}</div>
         {% if posts.paginator.num_pages > 1 %}
-          <div class="fr-container fr-grid-row fr-grid-row--center fr-mt-6w">{% dsfr_pagination posts %}</div>
+          <div class="sdcd-conteneur sdcd-grille sdcd-grille--centre sdcd-mt-7">{% dsfr_pagination posts %}</div>
         {% endif %}
       </div>
     </div>

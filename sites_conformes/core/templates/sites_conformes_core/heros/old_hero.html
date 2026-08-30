@@ -6,9 +6,9 @@
               {% elif value.header_color_class %}background-color: var(--background-alt-{{ value.header_color_class }});
               {% endif %} min-height: 350px">
     {% if value.header_with_title or value.header_cta_buttons or value.header_cta_link and value.header_cta_label %}
-      <div class="fr-container fr-py-8w">
-        <div class="fr-grid-row fr-grid-row--gutters">
-          <div class="fr-col  {% if not value.header_large %}fr-col-md-6{% else %} fr-col-12 cmsfr-hero-column {% endif %}">
+      <div class="sdcd-conteneur sdcd-py-8">
+        <div class="sdcd-grille sdcd-grille--gouttieres">
+          <div class="fr-col  {% if not value.header_large %}fr-col-md-6{% else %} sdcd-col-12 cmsfr-hero-column {% endif %}">
             {% if value.header_with_title %}
               <h1 {% if block.value.large %}class="fr-display--sm"{% endif %}>
                 {{ page.title }}

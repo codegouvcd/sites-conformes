@@ -40,9 +40,9 @@
 
   {% with categories=page.event_categories.all %}
 
-    <div class="fr-container fr-mt-6w">
-      <div class="fr-grid-row fr-grid-row--gutters">
-        <div class="fr-col-12">
+    <div class="sdcd-conteneur sdcd-mt-7">
+      <div class="sdcd-grille sdcd-grille--gouttieres">
+        <div class="sdcd-col-12">
           {% include "sites_conformes_core/blocks/breadcrumbs.html" %}
           {% if page.show_title %}
             <h1 class="fr-display--sm">{{ page.title }}</h1>
@@ -70,9 +70,9 @@
 
     {% with authors=page.authors.all %}
       {% if authors %}
-        <div class="fr-container fr-my-6w">
+        <div class="sdcd-conteneur sdcd-my-7">
           <h2>{% translate "Posted by:" %}</h2>
-          <div class="fr-grid-row fr-grid-row--gutters">
+          <div class="sdcd-grille sdcd-grille--gouttieres">
             {% for author in authors %}
               {% include "sites_conformes_blog/blocks/contact_card.html" with value=author %}
             {% endfor %}
@@ -88,7 +88,7 @@
     {% endif %}
   {% endwith %}
 
-  <div class="fr-container fr-my-6w">
+  <div class="sdcd-conteneur sdcd-my-7">
 
     <div class="fr-card{% if page.header_image %} fr-card--horizontal{% else %} fr-card--download{% endif %}">
       <div class="fr-card__body">

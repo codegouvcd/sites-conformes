@@ -59,7 +59,7 @@
 {% block content %}
   {% include "sites_conformes_core/blocks/heading.html" %}
 
-  <div class="fr-container fr-pt-4w">
+  <div class="sdcd-conteneur sdcd-pt-6">
     {% include "sites_conformes_core/blocks/breadcrumbs.html" %}
     {% if page.show_title %}
       <h1>
@@ -72,15 +72,15 @@
     {% include "sites_conformes_core/blocks/messages.html" %}
 
     {% if current_category.description %}
-      <div class="fr-mb-4w">{{ current_category.description|richtext }}</div>
+      <div class="sdcd-mb-6">{{ current_category.description|richtext }}</div>
     {% else %}
-      <div class="fr-mb-4w">{{ page.body }}</div>
+      <div class="sdcd-mb-6">{{ page.body }}</div>
     {% endif %}
 
     {% if page.show_filters %}
-      <div class="fr-grid-row fr-grid-row--gutters fr-mb-3w">
-        <div class="fr-col fr-col-md-4 fr-col-12">
-          <nav class="fr-sidemenu fr-sidemenu--sticky-full-height fr-mb-0-5v">
+      <div class="sdcd-grille sdcd-grille--gouttieres sdcd-mb-5">
+        <div class="fr-col sdcd-col-md-4 sdcd-col-12">
+          <nav class="fr-sidemenu fr-sidemenu--sticky-full-height sdcd-mb-1">
             <div class="fr-sidemenu__inner">
               <button class="fr-sidemenu__btn"
                       hidden
@@ -89,7 +89,7 @@
               <div class="fr-collapse" id="fr-sidemenu-wrapper-{{ page.slug }}">
                 <h2 class="fr-sidemenu__title" id="fr-sidemenu-title">{% translate "Filters" %}</h2>
                 {% if categories and page.filter_by_category %}
-                  <div class="fr-my-3w">
+                  <div class="sdcd-my-5">
                     <h3 class="fr-h6">{% translate "Filter by category" %}</h3>
                     <ul class="fr-tags-group">
                       {% for category in categories %}
@@ -107,7 +107,7 @@
                 {% endif %}
 
                 {% if tags and page.filter_by_tag %}
-                  <div class="fr-my-3w">
+                  <div class="sdcd-my-5">
                     <h3 class="fr-h6">{% translate "Filter by tag" %}</h3>
                     {% if page.filter_selection == page.SINGLE_FILTER %}
                       <ul class="fr-tags-group">
@@ -154,7 +154,7 @@
                 {% endif %}
 
                 {% if authors and page.filter_by_author %}
-                  <div class="fr-my-3w">
+                  <div class="sdcd-my-5">
                     <h3 class="fr-h6">{% translate "Filter by author" %}</h3>
                     <ul class="fr-tags-group">
                       {% for author in authors %}
@@ -170,7 +170,7 @@
                 {% endif %}
 
                 {% if sources and page.filter_by_source %}
-                  <div class="fr-my-3w">
+                  <div class="sdcd-my-5">
                     <h3 class="fr-h6">{% translate "Filter by source" %}</h3>
                     <ul class="fr-tags-group">
                       {% for source in sources %}
@@ -189,24 +189,24 @@
           </nav>
         </div>
 
-        <div class="fr-col fr-col-md-8 fr-col-12" id="posts-list">
+        <div class="fr-col sdcd-col-md-8 sdcd-col-12" id="posts-list">
           <h2>{% translate "Pages" %}</h2>
-          <div class="fr-grid-row fr-grid-row--gutters">
+          <div class="sdcd-grille sdcd-grille--gouttieres">
             {% include "sites_conformes_core/blocks/catalog_index_entries_list.html" %}
           </div>
           {% if entries.paginator.num_pages > 1 %}
-            <div class="fr-container fr-grid-row fr-grid-row--center fr-mt-6w">{% dsfr_pagination entries %}</div>
+            <div class="sdcd-conteneur sdcd-grille sdcd-grille--centre sdcd-mt-7">{% dsfr_pagination entries %}</div>
           {% endif %}
         </div>
       </div>
     {% else %}
       <div id="posts-list">
         <h2>{% translate "Pages" %}</h2>
-        <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
+        <div class="sdcd-grille sdcd-grille--gouttieres sdcd-mb-6">
           {% include "sites_conformes_core/blocks/catalog_index_entries_list.html" %}
         </div>
         {% if entries.paginator.num_pages > 1 %}
-          <div class="fr-container fr-grid-row fr-grid-row--center fr-mt-6w">{% dsfr_pagination entries %}</div>
+          <div class="sdcd-conteneur sdcd-grille sdcd-grille--centre sdcd-mt-7">{% dsfr_pagination entries %}</div>
         {% endif %}
       </div>
     {% endif %}

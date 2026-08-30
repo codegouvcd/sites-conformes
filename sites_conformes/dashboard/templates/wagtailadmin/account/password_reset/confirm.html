@@ -1,13 +1,13 @@
 {% extends "sites_conformes_core/base.html" %}
 {% load widget_tweaks wagtailadmin_tags i18n static dsfr_tags %}
 {% block content %}
-  <div class="fr-container fr-container--fluid fr-my-md-14v">
+  <div class="sdcd-conteneur sdcd-conteneur--fluide sdcd-my-md-8">
     {% if validlink %}
-      <div class="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
-        <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
-          <div class="fr-container fr-background-alt--grey fr-px-md-0 fr-py-10v fr-py-md-14v">
-            <div class="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
-              <div class="fr-col-12 fr-col-md-9 fr-col-lg-8">
+      <div class="sdcd-grille sdcd-grille--gouttieres sdcd-grille--centre">
+        <div class="sdcd-col-12 sdcd-col-md-8 sdcd-col-lg-6">
+          <div class="sdcd-conteneur fr-background-alt--grey sdcd-px-md-0 sdcd-py-7 sdcd-py-md-8">
+            <div class="sdcd-grille sdcd-grille--gouttieres sdcd-grille--centre">
+              <div class="sdcd-col-12 sdcd-col-md-9 sdcd-col-lg-8">
                 <h1>{% translate "Set your new password" %}</h1>
 
                 <div class="fr-callout fr-icon-lock-unlock-line">
@@ -33,7 +33,7 @@
       </div>
     {% else %}
       <h1>{% translate "Invalid password reset link" %}</h1>
-      <div role="alert" class="fr-alert fr-alert--error fr-alert--sm fr-my-2w">
+      <div role="alert" class="fr-alert fr-alert--error fr-alert--sm sdcd-my-4">
         <p>{% translate "The password reset link was invalid, possibly because it has already been used." %}</p>
       </div>
 

@@ -9,7 +9,7 @@
     {% if value.url %}
       <a href="{{ value.url }}">
         {% image value.image original class=value.extra_classes alt=value.alt %}
-        <span class="fr-sr-only">{% translate "Go to page" %} {{ value.url }}</span>
+        <span class="sdcd-lecteur-seul">{% translate "Go to page" %} {{ value.url }}</span>
       </a>
     {% else %}
       {% image value.image original class=value.extra_classes alt=value.alt %}

@@ -3,7 +3,7 @@
 {% translate "Consultation link" as consultation_link %}
 {% translate "Opens a new window" as new_window_label %}
 <div class="fr-notice fr-notice--{{ settings.sites_conformes_core.CmsDsfrConfig.notice_type|default:'info' }}">
-  <div class="fr-container">
+  <div class="sdcd-conteneur">
     <div class="fr-notice__body">
       {{ settings.sites_conformes_core.CmsDsfrConfig.notice_title | richtext | richtext_p_add_class:"fr-notice__title" | richtext_p_add_class:settings.sites_conformes_core.CmsDsfrConfig.notice_icon_class }}
       {% if settings.sites_conformes_core.CmsDsfrConfig.notice_description %}

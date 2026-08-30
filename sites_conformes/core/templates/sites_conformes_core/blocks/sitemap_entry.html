@@ -11,7 +11,7 @@
               title="{{ restricted_access_label }}"></span>
       {% endif %}
       <a href="{% pageurl subpage %}">{{ subpage.title }}</a>
-      {% if subpage.get_view_restrictions %}<span class="fr-sr-only">({{ restricted_access_label }})</span>{% endif %}
+      {% if subpage.get_view_restrictions %}<span class="sdcd-lecteur-seul">({{ restricted_access_label }})</span>{% endif %}
       {% if subpage.get_children.count > 0 %}
         <ul>
           {% include "sites_conformes_core/blocks/sitemap_entry.html" with pagelist=subpage %}

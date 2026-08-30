@@ -11,7 +11,7 @@
           <a href="{{ value.link.url }}" {% if value.link.url.0 != '/' and request.get_host not in value.link.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
             {{ value.display.name }}
             {% if value.link.url.0 != '/' and request.get_host not in value.link.url %}
-            <span class="fr-sr-only">{% translate "Opens a new window" %}</span>
+            <span class="sdcd-lecteur-seul">{% translate "Opens a new window" %}</span>
             {% endif %}
           </a>
         {% elif value.url %}
@@ -43,9 +43,9 @@
   {% if value.display.image %}
     <div class="fr-card__header">
       <div class="fr-card__img">
-        <div class="cmsfr-vertical_contact_card__header fr-py-2w">
+        <div class="cmsfr-vertical_contact_card__header sdcd-py-4">
           {% image value.display.image fill-200x200 as contact_image %}
-          <img class="cmsfr-vertical_contact_card-img fr-py-2w"
+          <img class="cmsfr-vertical_contact_card-img sdcd-py-4"
                src="{{ contact_image.url }}"
                width="4.5em"
                height="4.5em"
