@@ -120,6 +120,29 @@ pre{overflow-x:auto}
     min-height:var(--sdcd-cible-tactile)
   }
   button.sdcd-compact,[role="button"].sdcd-compact{min-height:32px}
+
+  /* La hauteur ne suffit pas : un bouton d'icône reste étroit. Ceux-ci sont
+     carrés par nature, on leur impose aussi la largeur. */
+  .sdcd-fermer,.sdcd-iconbutton,.sdcd-datatable__bouton,.sdcd-calendar__nav,
+  .sdcd-carousel__fleche,.sdcd-gallery__commande,.sdcd-modal__fermer{
+    min-width:var(--sdcd-cible-tactile)
+  }
+
+  /* Liens qui commandent une navigation plutôt qu'ils ne ponctuent une phrase :
+     on agrandit la zone d'appui par le remplissage, sans passer en inline-flex
+     — cela romprait le flux du texte. Les liens au fil du texte (.sdcd-lien),
+     les titres de carte et de tuile en sont exclus : WCAG 2.5.8 réserve
+     explicitement une exception aux liens insérés dans un bloc de texte, et
+     les agrandir dégraderait la typographie sans rien gagner. */
+  .sdcd-breadcrumb__lien,.sdcd-connectbutton__aide,.sdcd-sidemenu__lien,
+  .sdcd-footer__lien,.sdcd-footer__institution,.sdcd-tabnav__lien{
+    padding-block:var(--sdcd-3)
+  }
+
+  /* Sur un élément en ligne, un remplissage vertical agrandit la zone d'appui
+     sans toucher à l'interligne : le lien gagne en surface, le paragraphe ne
+     bouge pas. C'est ce qui permet de tenir les 24 px sans dégrader le texte. */
+  .sdcd-lien{padding-block:3px}
 }
 
 /* ---------- Barre d’actions collante (mobile) ---------- */

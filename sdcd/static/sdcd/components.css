@@ -1172,7 +1172,16 @@
 .sdcd-lien__detail { color: var(--sdcd-muet); font-weight: 400; font-size: 0.85em; text-decoration: none; margin-left: 6px; }
 .sdcd-lien__icone { font-size: 0.95em; align-self: center; }
 
-.sdcd-pagination { display: flex; gap: 6px; align-items: center; font-family: var(--sdcd-font); }
+/* `flex-wrap` n'est pas cosmétique : sans lui, une pagination de douze pages
+   déborde dès 375 px, ce que la doctrine responsive interdit. */
+.sdcd-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  align-items: center;
+  font-family: var(--sdcd-font);
+}
 .sdcd-pagination__lien {
   min-width: 36px;
   height: 36px;
