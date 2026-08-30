@@ -194,7 +194,10 @@ class ImportPages:
             local_image_id = self.image_importer.image_data[source_image_id]["local_id"]
 
             # We need to replace the dictionary with the image itself
-            page["header_image"] = Image.objects.get(pk=local_image_id)
+            # local_image_id vaut None quand l'image etait un pictogramme DSFR absent.
+            page["header_image"] = (
+                Image.objects.filter(pk=local_image_id).first() if local_image_id else None
+            )
 
         page["body"] = update_streamfield_image_ids(page["body"], self.image_importer.image_data)
 
@@ -272,7 +275,14 @@ class ImportExportImages:
             filename = image_data["filename"]
 
             if image_data["is_pictogram"]:
+                # Les pictogrammes venaient du DSFR, retire par le portage SDCD : la
+                # recherche ne renvoie plus rien. On enregistre None et on laisse les
+                # deux consommateurs de local_id s'en accommoder, plutot que de faire
+                # echouer l'import de tous les gabarits pour une illustration absente.
                 pictogram = Image.objects.filter(title=filename).first()
+                if pictogram is None:
+                    image_data["local_id"] = None
+                    continue
                 image_data["local_id"] = pictogram.id
             else:
                 image = self.get_or_create_image(image_data)
@@ -320,7 +330,9 @@ def update_streamfield_image_ids(json_object, image_ids):
         for k, v in json_object.items():
             v_str = str(v)
             if k in ["image", "bg_image"] and v_str in image_ids:
-                json_object[k] = image_ids[v_str]["local_id"]
+                # None quand le pictogramme DSFR n'a pas ete importe : le bloc rend
+                # sans illustration plutot que de pointer un identifiant fantome.
+                json_object[k] = image_ids[v_str].get("local_id")
             else:
                 update_streamfield_image_ids(v, image_ids)
     elif isinstance(json_object, list):
