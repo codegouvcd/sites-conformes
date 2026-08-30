@@ -1,10 +1,10 @@
 
 {% load i18n dsfr_tags wagtailcore_tags wagtailimages_tags wagtail_dsfr_tags %}
-<div class="fr-tile{% if value.is_small %} fr-tile--sm{% endif %}{% if value.enlarge_link %} fr-enlarge-link{% endif %}{% if value.is_horizontal %} fr-tile--horizontal{% endif %}{% if value.grey_background %} fr-tile--grey{% elif value.no_background %} fr-tile--no-background{% endif %}{% if value.no_border %} fr-tile--no-border{% endif %}{% if value.shadow %} fr-tile--shadow{% endif %}{% if value.link.document %} fr-tile--download{% endif %}">
-  <div class="fr-tile__body">
-    <div class="fr-tile__content">
+<div class="sdcd-tile{% if value.is_small %} fr-tile--sm{% endif %}{% if value.enlarge_link %} fr-enlarge-link{% endif %}{% if value.is_horizontal %} fr-tile--horizontal{% endif %}{% if value.grey_background %} fr-tile--grey{% elif value.no_background %} fr-tile--no-background{% endif %}{% if value.no_border %} fr-tile--no-border{% endif %}{% if value.shadow %} fr-tile--shadow{% endif %}{% if value.link.document %} fr-tile--download{% endif %}">
+  <div>
+    <div>
       {# djlint: off #}
-      <{{ value.heading_tag | default:"h3" }} class="fr-tile__title">
+      <{{ value.heading_tag | default:"h3" }} class="sdcd-tile__titre">
         {% if value.link and value.link.url %}
           <a href="{{ value.link.url }}" {% if value.link.url.0 != '/' and request.get_host not in value.link.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
             {{ value.title }}
@@ -17,16 +17,16 @@
         {% endif %}
       </{{ value.heading_tag | default:"h3" }}>
       {# djlint: on #}
-      {% if value.description %}{{ value.description | richtext_p_add_class:"fr-tile__desc" }}{% endif %}
+      {% if value.description %}{{ value.description | richtext_p_add_class:"sdcd-tile__description" }}{% endif %}
       {% if value.detail_text %}
-        <p class="fr-tile__detail">{{ value.detail_text }}</p>
+        <p class="sdcd-tile__meta">{{ value.detail_text }}</p>
       {% elif value.link.document %}
-        <p class="fr-tile__detail">
+        <p class="sdcd-tile__meta">
           {% include "sites_conformes_core/blocks/download_info.html" with document=value.link.document %}
         </p>
       {% endif %}
       {% if value.top_detail_badges_tags %}
-        <div class="fr-tile__start">
+        <div>
           {% for block in value.top_detail_badges_tags %}
             {% include_block block %}
           {% endfor %}
@@ -35,12 +35,12 @@
     </div>
   </div>
   {% if value.image %}
-    <div class="fr-tile__header">
+    <div>
       {% image value.image original as pictogram %}
       {% settings_value "SF_SCHEME_DEPENDENT_SVGS" as scheme_dependent_svgs %}
 
       {% if scheme_dependent_svgs and pictogram.file.name|slice:"-4:" == ".svg" %}
-        <div class="fr-tile__pictogram">
+        <div class="sdcd-tile__media">
           <svg aria-hidden="true"
                class="fr-artwork"
                viewBox="0 0 80 80"
@@ -52,7 +52,7 @@
           </svg>
         </div>
       {% else %}
-        <div class="fr-tile__img">{% image value.image width-80 alt="" %}</div>
+        <div class="sdcd-tile__media">{% image value.image width-80 alt="" %}</div>
       {% endif %}
     </div>
   {% endif %}

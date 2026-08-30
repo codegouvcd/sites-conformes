@@ -7,6 +7,12 @@
   --sdcd-h2:clamp(1.375rem,1.19rem + .95vw,1.75rem);
   --sdcd-h3:clamp(1.1875rem,1.11rem + .4vw,1.375rem);
   --sdcd-h4:clamp(1.0625rem,1.03rem + .18vw,1.125rem);
+  /* L'echelle s'arretait a h4. Le portage du CMS a rencontre 27 titres de
+     niveau 5 et 6 : les rabattre sur h4 les aurait grossis. Deux crans
+     supplementaires, de meme graisse et de meme interligne — seule la taille
+     descend, jusqu'au corps de texte pour h6. */
+  --sdcd-h5:1rem;
+  --sdcd-h6:.9375rem;
   --sdcd-corps:1rem; --sdcd-sm:.875rem; --sdcd-xs:.75rem;
   --sdcd-lh:1.5; --sdcd-lh-titre:1.12; --sdcd-tracking-titre:-0.022em;
 }

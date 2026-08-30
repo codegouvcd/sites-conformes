@@ -6,7 +6,7 @@
     <div class="fr-col-12{% if settings.sites_conformes_core.CmsDsfrConfig.show_social_block %} fr-col-md-8{% endif %}">
       <div class="fr-follow__newsletter">
         <div>
-          <h2 class="fr-h5">{% translate "Subscribe to our newsletter" context "Section title" %}</h2>
+          <h2 class="sdcd-h5">{% translate "Subscribe to our newsletter" context "Section title" %}</h2>
           <p class="sdcd-texte-sm">{{ settings.sites_conformes_core.CmsDsfrConfig.newsletter_description | safe }}</p>
         </div>
         <div class="sdcd-boutons sdcd-boutons--enligne-md">
@@ -26,7 +26,7 @@
   {% if settings.sites_conformes_core.CmsDsfrConfig.show_social_block %}
     <div class="fr-col-12{% if settings.sites_conformes_core.CmsDsfrConfig.show_newsletter_block %} fr-col-md-4{% endif %}">
       <div class="fr-follow__social">
-        <h2 class="fr-h5">
+        <h2 class="sdcd-h5">
           {% blocktranslate trimmed %}
             Follow us
             <br />

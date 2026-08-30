@@ -8,7 +8,7 @@
   {% if value.show_filters %}
     {% if value.category_filter and value.blog.get_categories.count %}
       <div class="sdcd-my-5">
-        <{{ value.sub_heading_tag }} class="fr-h6">{% translate "Filter by category" %}</{{ value.sub_heading_tag }}>
+        <{{ value.sub_heading_tag }} class="sdcd-h6">{% translate "Filter by category" %}</{{ value.sub_heading_tag }}>
         <ul class="sdcd-tags">
           {% for category in value.blog.get_categories %}
             <li>
@@ -25,7 +25,7 @@
 
     {% if value.tag_filter and value.blog.get_tags.count %}
       <div class="sdcd-my-5">
-        <{{ value.sub_heading_tag }} class="fr-h6">{% translate "Filter by tag" %}</{{ value.sub_heading_tag }}>
+        <{{ value.sub_heading_tag }} class="sdcd-h6">{% translate "Filter by tag" %}</{{ value.sub_heading_tag }}>
         <ul class="sdcd-tags">
           {% for tag in value.blog.get_tags %}
             <li>
@@ -42,7 +42,7 @@
 
     {% if value.author_filter and value.blog.get_authors.count %}
       <div class="sdcd-my-5">
-        <{{ value.sub_heading_tag }} class="fr-h6">{% translate "Filter by author" %}</{{ value.sub_heading_tag }}>
+        <{{ value.sub_heading_tag }} class="sdcd-h6">{% translate "Filter by author" %}</{{ value.sub_heading_tag }}>
         <ul class="sdcd-tags">
           {% for author in value.blog.get_authors %}
             <li>
@@ -57,7 +57,7 @@
 
     {% if value.source_filter and value.blog.get_sources.count %}
       <div class="sdcd-my-5">
-        <{{ value.sub_heading_tag }} class="fr-h6">{% translate "Filter by source" %}</{{ value.sub_heading_tag }}>
+        <{{ value.sub_heading_tag }} class="sdcd-h6">{% translate "Filter by source" %}</{{ value.sub_heading_tag }}>
         <ul class="sdcd-tags">
           {% for source in value.blog.get_sources %}
             <li>
@@ -97,7 +97,7 @@
           {% if post.cover %}
             <div class="sdcd-card__media">
               <div>
-                <img class="fr-responsive-img" src="{{ post.cover.file.url }}" alt="">
+                <img class="sdcd-image-fluide" src="{{ post.cover.file.url }}" alt="">
               </div>
             </div>
           {% endif %}

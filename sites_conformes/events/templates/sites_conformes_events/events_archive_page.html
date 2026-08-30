@@ -65,17 +65,17 @@
 
     <div class="sdcd-grille sdcd-grille--gouttieres sdcd-mb-5">
       <div class="fr-col sdcd-col-md-4 sdcd-col-12">
-        <nav class="fr-sidemenu fr-sidemenu--sticky-full-height sdcd-mb-1">
-          <div class="fr-sidemenu__inner">
-            <button class="fr-sidemenu__btn"
+        <nav class="sdcd-sidemenu sdcd-sidemenu--collant sdcd-mb-1">
+          <div>
+            <button class="sdcd-sidemenu__entete"
                     hidden
                     aria-controls="fr-sidemenu-wrapper-{{ page.slug }}"
                     aria-expanded="false">{% translate "Filters" %}</button>
             <div class="fr-collapse" id="fr-sidemenu-wrapper-{{ page.slug }}">
-              <h2 class="fr-sidemenu__title" id="fr-sidemenu-title">{% translate "Filters and export" %}</h2>
+              <h2 class="sdcd-sidemenu__titre" id="fr-sidemenu-title">{% translate "Filters and export" %}</h2>
 
               <div class="sdcd-my-5">
-                <h3 class="fr-h6">{% translate "Filter by year" %}</h3>
+                <h3 class="sdcd-h6">{% translate "Filter by year" %}</h3>
                 <ul class="sdcd-tags sdcd-mt-2">
                   {% for year in years %}
                     <li>

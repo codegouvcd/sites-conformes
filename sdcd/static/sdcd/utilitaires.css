@@ -148,6 +148,12 @@
 .sdcd-h2 { font-size: var(--sdcd-h2); line-height: var(--sdcd-lh-titre); letter-spacing: var(--sdcd-tracking-titre); font-weight: 700; }
 .sdcd-h3 { font-size: var(--sdcd-h3); line-height: var(--sdcd-lh-titre); letter-spacing: var(--sdcd-tracking-titre); font-weight: 700; }
 .sdcd-h4 { font-size: var(--sdcd-h4); line-height: var(--sdcd-lh-titre); letter-spacing: var(--sdcd-tracking-titre); font-weight: 700; }
+.sdcd-h5 { font-size: var(--sdcd-h5); line-height: var(--sdcd-lh-titre); letter-spacing: var(--sdcd-tracking-titre); font-weight: 700; }
+.sdcd-h6 { font-size: var(--sdcd-h6); line-height: var(--sdcd-lh-titre); letter-spacing: var(--sdcd-tracking-titre); font-weight: 700; }
+
+/* Image fluide. Motif si courant qu'il figurait dans dix-huit gabarits du CMS
+   sans que le systeme le fournisse : chacun le reecrivait. */
+.sdcd-image-fluide { max-width: 100%; height: auto; display: block; }
 .sdcd-texte-sm { font-size: var(--sdcd-sm); }
 .sdcd-texte-xs { font-size: var(--sdcd-xs); }
 .sdcd-texte-mono { font-family: var(--sdcd-font-mono); }

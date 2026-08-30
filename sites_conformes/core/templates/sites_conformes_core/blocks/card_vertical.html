@@ -16,7 +16,7 @@
     <div class="sdcd-card__media">
       {% image value.image width-1200 class=value.image_classes alt="" %}
       {% if value.image_badge %}
-        <ul class="fr-badges-group">
+        <ul class="sdcd-badges">
           {% for badge in value.image_badge %}
             <li>{% include_block badge %}</li>
           {% endfor %}

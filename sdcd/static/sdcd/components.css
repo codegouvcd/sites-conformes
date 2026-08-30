@@ -253,6 +253,9 @@
 }
 .sdcd-notice__icone { color: var(--sdcd-bleu-profond); font-size: 18px; margin-top: 1px; }
 .sdcd-notice__texte { flex: 1; font-size: var(--sdcd-sm); font-weight: 500; color: var(--sdcd-encre); }
+/* Un bandeau peut porter un titre et un lien distincts de son texte. */
+.sdcd-notice__titre { font-weight: 700; }
+.sdcd-notice__lien { color: var(--sdcd-action-survol); text-decoration: underline; font-weight: 600; }
 /* Le bandeau est posé sur --sdcd-bleu-teinte : la couleur d'action n'y tient
    que 4,43:1. Les liens y passent donc sur la teinte de survol (6,01:1). */
 .sdcd-notice a { color: var(--sdcd-action-survol); }
@@ -733,6 +736,10 @@
   flex-wrap: wrap;
 }
 .sdcd-breadcrumb__separateur { color: var(--sdcd-inactif); font-size: 14px; }
+/* La liste et le bouton de repli du fil d'Ariane. Le composant React rend le
+   fil entier ; une integration en gabarit a besoin de nommer ses parties. */
+.sdcd-breadcrumb__liste { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sdcd-2); list-style: none; margin: 0; padding: 0; }
+.sdcd-breadcrumb__bouton { background: none; border: none; font-family: inherit; font-size: var(--sdcd-sm); color: var(--sdcd-action); cursor: pointer; padding: 0; }
 .sdcd-breadcrumb__lien { color: var(--sdcd-muet); text-decoration: none; }
 .sdcd-breadcrumb__courant { color: var(--sdcd-texte); font-weight: 500; }
 
@@ -791,6 +798,16 @@
   border-right: 1px solid var(--sdcd-ligne);
   padding-right: 20px;
   min-width: 230px;
+}
+/* Menu lateral qui suit le defilement. Releve en portant le CMS, ou les pages
+   d'index l'emploient pour garder la navigation a portee sur une longue liste.
+   `top` reprend la hauteur du bandeau d'en-tete plus une marge. */
+.sdcd-sidemenu--collant {
+  position: sticky;
+  top: var(--sdcd-5);
+  align-self: start;
+  max-height: calc(100vh - var(--sdcd-6));
+  overflow-y: auto;
 }
 .sdcd-sidemenu__titre { margin-bottom: 14px; }
 .sdcd-sidemenu__section { margin-bottom: 6px; }
@@ -1100,6 +1117,10 @@
 }
 .sdcd-tile:hover { border-color: var(--sdcd-action); }
 .sdcd-tile__icone { font-size: 26px; color: var(--sdcd-action); }
+/* Une tuile peut porter une illustration plutot qu'une icone, et une
+   metadonnee sous son intitule. */
+.sdcd-tile__media { max-width: 80px; height: auto; }
+.sdcd-tile__meta { font-size: var(--sdcd-xs); color: var(--sdcd-muet); }
 .sdcd-tile__titre { font-weight: 600; font-size: var(--sdcd-corps); color: var(--sdcd-texte); }
 .sdcd-tile:hover .sdcd-tile__titre { text-decoration: underline; }
 .sdcd-tile__description { font-size: var(--sdcd-xs); color: var(--sdcd-muet); margin-top: var(--sdcd-1); line-height: 1.5; }
@@ -1121,6 +1142,9 @@
 .sdcd-badge--alerte  { background: var(--sdcd-alerte-pale);  color: var(--sdcd-alerte); }
 .sdcd-badge--erreur  { background: var(--sdcd-erreur-pale);  color: var(--sdcd-erreur); }
 .sdcd-badge--nouveau { background: var(--sdcd-nouveau-pale); color: var(--sdcd-nouveau); }
+/* Groupe de badges, et variante compacte. */
+.sdcd-badges { display: flex; flex-wrap: wrap; gap: var(--sdcd-2); list-style: none; margin: 0; padding: 0; }
+.sdcd-badge--sm { font-size: 10px; padding: 2px 6px; }
 
 /* Conteneur d'etiquettes. Le systeme avait .sdcd-tagcloud — un nuage pondere,
    autre chose — mais rien pour poser simplement une serie d'etiquettes cote a

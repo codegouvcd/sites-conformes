@@ -16,7 +16,7 @@
         {{ settings.sites_conformes_core.CmsDsfrConfig.site_title }}
       {% endif %}
       {% if settings.sites_conformes_core.CmsDsfrConfig.beta_tag %}
-        <span class="fr-badge fr-badge--sm fr-badge--green-emeraude">BETA</span>
+        <span class="sdcd-badge sdcd-badge--sm fr-badge--green-emeraude">BETA</span>
       {% endif %}
     </p>
   </a>
@@ -31,7 +31,7 @@
     {% image settings.sites_conformes_core.CmsDsfrConfig.operator_logo_file original as logo_img %}
 
     <div class="fr-header__operator">
-      <img class="fr-responsive-img"
+      <img class="sdcd-image-fluide"
            src="{{ logo_img.url }}"
            alt="{{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_alt }}"
            {% if settings.sites_conformes_core.CmsDsfrConfig.operator_logo_width >= 1 %}style="max-width:{{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_width|floatformat:"1u" }}rem;"{% endif %} />

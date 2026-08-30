@@ -8,15 +8,15 @@
   <div class="sdcd-conteneur">
     <div class="sdcd-grille sdcd-grille--gouttieres sdcd-mb-5">
       <div class="fr-col sdcd-col-md-4 sdcd-col-12">
-        <nav class="fr-sidemenu sdcd-mb-1">
-          <div class="fr-sidemenu__inner">
-            <button class="fr-sidemenu__btn"
+        <nav class="sdcd-sidemenu sdcd-mb-1">
+          <div>
+            <button class="sdcd-sidemenu__entete"
                     hidden
                     aria-controls="fr-sidemenu-wrapper-{{ block.id }}"
                     aria-expanded="false">{% translate "In this section" %}</button>
             <div class="fr-collapse" id="fr-sidemenu-wrapper-{{ block.id }}">
               {% if value.sidemenu_title %}
-                <div class="fr-sidemenu__title" id="fr-sidemenu-title">{{ value.sidemenu_title }}</div>
+                <div class="sdcd-sidemenu__titre" id="fr-sidemenu-title">{{ value.sidemenu_title }}</div>
               {% endif %}
               {% include "sites_conformes_core/blocks/blocks_stream.html" with stream=value.sidemenu_content %}
             </div>
