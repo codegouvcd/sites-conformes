@@ -22,7 +22,7 @@
     {{ page.intro|richtext }}
 
     <form action="{% pageurl page %}" method="post" autocomplete="on">
-      <div class="fr-fieldset__element">
+      <div class="sdcd-fieldset__element">
         {% if page.all_fields_required %}
           <p class="sdcd-texte-sm">{% translate "All fields are mandatory." %}</p>
         {% else %}
@@ -40,11 +40,11 @@
       {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
 
       {% for field in form.visible_fields %}
-        <div class="fr-fieldset__element">{% dsfr_form_field field %}</div>
+        <div class="sdcd-fieldset__element">{% dsfr_form_field field %}</div>
       {% endfor %}
 
       {% honeypot_fields page.honeypot %}
-      <div class="fr-fieldset__element">
+      <div class="sdcd-fieldset__element">
         <input class="sdcd-button sdcd-button--primaire" type="submit" value="{{ submit_form }}" />
       </div>
     </form>

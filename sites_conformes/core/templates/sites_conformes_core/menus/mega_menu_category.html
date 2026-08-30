@@ -1,9 +1,9 @@
 {% load menu_tags %}
 {% if menu_items %}
-  <ul class="fr-menu__list">
+  <ul class="sdcd-dropdown__liste">
     {% for item in menu_items %}
       <li>
-        <a class="fr-nav__link"
+        <a class="sdcd-header__lien"
            href="{{ item.href }}"
            {% if item.href == request.path %}aria-current="page"{% endif %}
            target="_self">{{ item.text }}</a>

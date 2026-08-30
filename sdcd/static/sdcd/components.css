@@ -302,6 +302,19 @@
 
 .sdcd-champ { font-family: var(--sdcd-font); }
 .sdcd-champ__label { display: block; font-size: var(--sdcd-corps); font-weight: 500; color: var(--sdcd-texte); margin-bottom: 6px; }
+
+/* Jeu de champs. Primitive de formulaire que le systeme n'avait pas : le CMS
+   groupe ses champs par intention — identifiants, preferences — et attend une
+   legende. Relevee en portant la page de connexion. */
+.sdcd-fieldset { border: none; margin: 0; padding: 0; min-width: 0; }
+.sdcd-fieldset__legende { font-weight: 700; font-size: var(--sdcd-corps); margin-bottom: var(--sdcd-3); padding: 0; }
+.sdcd-fieldset__element { margin-bottom: var(--sdcd-4); }
+.sdcd-fieldset__element:last-child { margin-bottom: 0; }
+
+/* Bloc media : une illustration et sa legende, dans le fil du contenu. */
+.sdcd-media { margin: 0 0 var(--sdcd-5); }
+.sdcd-media__image { max-width: 100%; height: auto; display: block; }
+.sdcd-media__legende { font-size: var(--sdcd-xs); color: var(--sdcd-muet); margin-top: var(--sdcd-2); }
 .sdcd-champ__aide { font-size: var(--sdcd-xs); color: var(--sdcd-muet); margin: 2px 0 6px; }
 .sdcd-champ__erreur {
   display: flex;
@@ -597,6 +610,22 @@
   min-height: var(--sdcd-cible-tactile);
 }
 .sdcd-header__menu i { font-size: 18px; }
+/* Liste de navigation. Le composant React rend les liens directement dans le
+   <nav> ; une integration en gabarit les enveloppe presque toujours dans un
+   <ul>, qui est le balisage correct pour une liste de liens et ce qu'attend un
+   lecteur d'ecran. La liste reprend donc la disposition du nav, au lieu de
+   forcer les integrations a renoncer a la semantique. */
+.sdcd-header__nav > ul,
+.sdcd-nav__liste {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 22px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sdcd-nav__item { display: inline-flex; align-items: center; }
+
 .sdcd-header__nav {
   max-width: var(--sdcd-maxw);
   margin: 0 auto;
@@ -978,6 +1007,9 @@
   z-index: 60;
   padding: var(--sdcd-1);
 }
+/* Un menu deroulant en gabarit enveloppe ses entrees dans un <ul>. */
+.sdcd-dropdown__liste { list-style: none; margin: 0; padding: 0; }
+
 .sdcd-dropdown__item {
   display: flex;
   width: 100%;

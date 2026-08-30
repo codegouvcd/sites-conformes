@@ -5,15 +5,15 @@
   {% translate "Back to home page" as back_to_home_label %}
   {% if settings.sites_conformes_core.CmsDsfrConfig.operator_logo_file and settings.sites_conformes_core.CmsDsfrConfig.operator_logo_display == "header-footer" %}
     {% image settings.sites_conformes_core.CmsDsfrConfig.operator_logo_file original as logo_img %}
-    <div class="fr-footer__brand fr-enlarge-link">
+    <div class="sdcd-footer__marque sdcd-card--cliquable">
       <p class="fr-logo"
          title="{{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand|default:'république française' }}">
         {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand_html| default_if_none:'république<br />française' | safe }}
       </p>
-      <a class="fr-footer__brand-link"
+      <a
          href="{% root_url %}"
          title="{{ back_to_home_label }} - {{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_alt }} - {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand|default:'république française' }}">
-        <img class="fr-footer__logo"
+        <img class="sdcd-footer__armoiries"
              src="{{ logo_img.url }}"
              alt="{{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_alt }}"
              {% if settings.sites_conformes_core.CmsDsfrConfig.operator_logo_width >= 1 %}style="max-width:{{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_width|floatformat:"1u" }}rem;"{% endif %} />
@@ -21,7 +21,7 @@
       </a>
     </div>
   {% else %}
-    <div class="fr-footer__brand fr-enlarge-link">
+    <div class="sdcd-footer__marque sdcd-card--cliquable">
       <a id="footer-operator"
          href="{% root_url %}"
          title="{{ back_to_home_label }} - {{ settings.sites_conformes_core.CmsDsfrConfig.site_title }} - {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand|default:'république française' }}">
@@ -36,31 +36,31 @@
 {% endblock footer_brand %}
 
 {% block footer_description %}
-  {{ settings.sites_conformes_core.CmsDsfrConfig.footer_description | richtext | richtext_p_add_class:"fr-footer__content-desc" }}
+  {{ settings.sites_conformes_core.CmsDsfrConfig.footer_description | richtext | richtext_p_add_class:"sdcd-footer__description" }}
 {% endblock footer_description %}
 
 {% block footer_links %}
   {% if request %}
     {% footer_bottom_menu %}
   {% endif %}
-  <li class="fr-footer__bottom-item">
-    <a class="fr-footer__bottom-link" href="{% url 'readable_sitemap' %}">{% translate "Sitemap" %}</a>
+  <li class="sdcd-footer__legal">
+    <a class="sdcd-footer__lien" href="{% url 'readable_sitemap' %}">{% translate "Sitemap" %}</a>
   </li>
   {% if settings.sites_conformes_core.CustomScriptsSettings.use_tarteaucitron %}
-    <li class="fr-footer__bottom-item">
+    <li class="sdcd-footer__legal">
       <button id="tarteaucitronManager"
               aria-controls="tarteaucitron"
               data-fr-opened="false"
-              class="fr-footer__bottom-link"
+              class="sdcd-footer__lien"
               data-fr-js-modal-button="true">{% translate "Cookie settings" %}</button>
     </li>
   {% endif %}
   {% if settings.sites_conformes_core.CmsDsfrConfig.theme_modale_button %}
-    <li class="fr-footer__bottom-item">
+    <li class="sdcd-footer__legal">
       <button id="footer__bottom-link__parametres-affichage"
               aria-controls="fr-theme-modal"
               data-fr-opened="false"
-              class="fr-icon-theme-fill fr-link--icon-left fr-footer__bottom-link"
+              class="fr-icon-theme-fill fr-link--icon-left sdcd-footer__lien"
               data-fr-js-modal-button="true">{% translate "Display settings" %}</button>
     </li>
   {% endif %}

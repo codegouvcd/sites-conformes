@@ -39,13 +39,13 @@
               {% if not disable_local_login %}
                 <div>
                   <form id="login-form" action="{% url 'wagtailadmin_login' %}" method="post">
-                    <fieldset class="fr-fieldset"
+                    <fieldset class="sdcd-fieldset"
                               id="login-form-fieldset"
                               aria-labelledby="login-form-fieldset-legend login-form-fieldset-messages">
-                      <legend class="fr-fieldset__legend" id="login-form-fieldset-legend">
+                      <legend class="sdcd-fieldset__legende" id="login-form-fieldset-legend">
                         <h2>{% translate "Log in with your account" %}</h2>
                       </legend>
-                      <div class="fr-fieldset__element">
+                      <div class="sdcd-fieldset__element">
                         <p class="sdcd-texte-sm">{% translate "Unless otherwise stated, all fields are mandatory." %}</p>
                         <div class="fr-messages-group"
                              id="login-form-fieldset-messages"
@@ -67,18 +67,18 @@
                           {% dsfr_django_messages %}
                         </div>
                       </div>
-                      <div class="fr-fieldset__element">
+                      <div class="sdcd-fieldset__element">
                         {% csrf_token %}
                         {% url 'wagtailadmin_home' as home_url %}
                         <input type="hidden" name="next" value="{{ next|default:home_url }}" />
                         <div class="fr-input-group">
-                          <label class="fr-label" for="id_username">{% translate "Username:" %}</label>
+                          <label class="sdcd-champ__label" for="id_username">{% translate "Username:" %}</label>
                           {{ form.username |attr:"autocomplete:username" |add_class:"fr-input" }}
                         </div>
                       </div>
-                      <div class="fr-fieldset__element">
+                      <div class="sdcd-fieldset__element">
                         <div class="fr-password">
-                          <label class="fr-label" for="id_password">{% translate "Password:" %}</label>
+                          <label class="sdcd-champ__label" for="id_password">{% translate "Password:" %}</label>
                           {{ form.password |attr:"autocomplete:current-password" |add_class:"fr-password__input fr-input" }}
                           <div class="fr-password__checkbox fr-checkbox-group fr-checkbox-group--sm">
                             {% translate "Show password" as show_password %}
@@ -86,7 +86,7 @@
                                    id="id_password-show"
                                    type="checkbox"
                                    aria-describedby="id_password-show-messages">
-                            <label class="fr-password__checkbox fr-label" for="id_password-show">{% translate "Show" %}</label>
+                            <label class="fr-password__checkbox sdcd-champ__label" for="id_password-show">{% translate "Show" %}</label>
                             <div class="fr-messages-group"
                                  id="id_password-show-messages"
                                  aria-live="assertive"></div>
@@ -96,15 +96,15 @@
                           {% endif %}
                         </div>
                       </div>
-                      <div class="fr-fieldset__element">
+                      <div class="sdcd-fieldset__element">
                         <div class="fr-checkbox-group fr-checkbox-group--sm">
                           <div class="fr-checkbox-group">
                             {{ form.remember }}
-                            <label for="{{ form.remember.id_for_label }}" class="fr-label">{% translate "Remember me" %}</label>
+                            <label for="{{ form.remember.id_for_label }}" class="sdcd-champ__label">{% translate "Remember me" %}</label>
                           </div>
                         </div>
                       </div>
-                      <div class="fr-fieldset__element">
+                      <div class="sdcd-fieldset__element">
                         <div class="sdcd-boutons">
                           {% translate "Connect" as connect_label %}
                           <input class="sdcd-button sdcd-button--primaire" type="submit" value="{{ connect_label }}" />

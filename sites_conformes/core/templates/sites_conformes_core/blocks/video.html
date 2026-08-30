@@ -1,11 +1,11 @@
 {% load i18n wagtailcore_tags %}
-<figure role="group" class="fr-content-media {{ value.width }}">
+<figure role="group" class="sdcd-media {{ value.width }}">
   <iframe title="{{ value.title }}"
           class="fr-responsive-vid{% if value.video_ratio %} {{ value.video_ratio }}{% endif %}"
           src="{{ value.url }}"
           allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen></iframe>
-  <figcaption class="fr-content-media__caption">
+  <figcaption class="sdcd-media__legende">
     {{ value.caption }}
     <a class="sdcd-lien" href="{{ value.url }}">{% translate "Watch on the site" %}</a>
   </figcaption>

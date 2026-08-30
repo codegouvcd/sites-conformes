@@ -2,10 +2,10 @@
 {% if value.title %}
   <{{ value.heading_tag|default:"h3" }}>{{ value.title }}</{{ value.heading_tag|default:"h3" }}>
 {% endif %}
-<figure class="fr-content-media {{ value.width }}{% if value.url %} fr-enlarge-link{% endif %}"
+<figure class="sdcd-media {{ value.width }}{% if value.url %} sdcd-card--cliquable{% endif %}"
         role="group"
         aria-label="{{ value.caption }}">
-  <div class="fr-content-media__img">
+  <div class="sdcd-media__image">
     {% if value.url %}
       <a href="{{ value.url }}">
         {% image value.image original class=value.extra_classes alt=value.alt %}
@@ -15,5 +15,5 @@
       {% image value.image original class=value.extra_classes alt=value.alt %}
     {% endif %}
   </div>
-  {% if value.caption %}<figcaption class="fr-content-media__caption">{{ value.caption }}</figcaption>{% endif %}
+  {% if value.caption %}<figcaption class="sdcd-media__legende">{{ value.caption }}</figcaption>{% endif %}
 </figure>

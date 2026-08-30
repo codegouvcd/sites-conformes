@@ -1,9 +1,9 @@
 {% load wagtailcore_tags %}
 <button{% if current_page.url in self.menu_urls %} aria-current="true"{% endif %} aria-expanded="false" aria-controls="{{ self.id }}" type="menu" class="fr-nav__btn">{{ self.label }}</button>
-<div class="fr-collapse fr-menu" id="{{ self.id }}">
-  <ul class="fr-menu__list">
+<div class="fr-collapse sdcd-dropdown__menu" id="{{ self.id }}">
+  <ul class="sdcd-dropdown__liste">
     {% for link in self.links %}
-      <li class="fr-nav__item">
+      <li class="sdcd-nav__item">
         {% include_block link %}
       </li>
     {% endfor %}

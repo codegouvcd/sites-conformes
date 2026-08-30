@@ -2,8 +2,8 @@
 
 {% if user.is_authenticated %}
 {% translate "My user space" as user_menu_label %}
-<li class="fr-usermenu fr-nav">
-  <div class="fr-nav__item">
+<li class="fr-usermenu sdcd-header__nav">
+  <div class="sdcd-nav__item">
     <button
       aria-controls="user-menu"
       aria-expanded="false"
@@ -12,8 +12,8 @@
       class="fr-usermenu__btn sdcd-button sdcd-button--tertiaire-bordure fr-icon-account-circle-fill">
       {{ user_menu_label }}
     </button>
-    <div class="fr-collapse fr-usermenu__menu fr-menu" id="user-menu">
-      <ul class="fr-menu__list">
+    <div class="fr-collapse fr-usermenu__menu sdcd-dropdown__menu" id="user-menu">
+      <ul class="sdcd-dropdown__liste">
         <li>
           <div class="fr-usermenu__item">
             <strong>{{ user.get_full_name }}</strong>
@@ -23,7 +23,7 @@
         </li>
         <li>
           {% if perms.wagtailadmin.access_admin %}
-            <a class="fr-nav__link sdcd-button sdcd-button--primaire fr-icon-user-setting-fill" href="{% url 'wagtailadmin_account' %}">
+            <a class="sdcd-header__lien sdcd-button sdcd-button--primaire fr-icon-user-setting-fill" href="{% url 'wagtailadmin_account' %}">
               {% translate "Account settings" %}
             </a>
           {% endif %}
