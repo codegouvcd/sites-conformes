@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="République démocratique du Congo">
+  <title>République démocratique du Congo</title>
+  <!-- Drapeau national simplifié pour un rendu lisible à 16 px : champ bleu ciel,
+       bande rouge bordée de jaune, étoile au canton. Les teintes sont celles des
+       jetons invariants du SDCD (--sdcd-bleu, --sdcd-jaune, --sdcd-rouge), qui ne
+       sont jamais redéfinies en thème sombre. -->
+  <rect width="64" height="64" fill="#0095C9"/>
+  <path d="M0 56 L56 0 H64 V8 L8 64 H0 Z" fill="#FFF24B"/>
+  <path d="M0 52 L52 0 H60 L0 60 Z" fill="#DB3832"/>
+  <path d="M16 8 l2.35 7.24h7.61l-6.16 4.47 2.36 7.24L16 22.48l-6.16 4.47 2.36-7.24-6.16-4.47h7.61Z" fill="#FFF24B"/>
+</svg>

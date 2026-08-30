@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" role="presentation">
+  <!-- Pictogramme décoratif du SDCD. Il remplace le pictogramme DSFR, retiré avec le
+       reste du système de design de l'État français. Les couleurs sont figées en dur :
+       le fichier est servi par <img>, donc hors de portée des variables CSS. Teintes :
+       --sdcd-bleu-action #00729A et --sdcd-jaune #FFF24B. -->
+  <circle cx="34" cy="34" r="20" fill="none" stroke="#00729A" stroke-width="4"/>
+  <circle cx="34" cy="34" r="20" fill="#FFF24B" opacity=".18"/>
+  <line x1="48.5" y1="48.5" x2="66" y2="66" stroke="#00729A" stroke-width="6" stroke-linecap="round"/>
+  <path d="M26 32a8 8 0 0 1 8-8" fill="none" stroke="#FFF24B" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

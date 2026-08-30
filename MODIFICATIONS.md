@@ -324,6 +324,48 @@ pas a la collecte.
 
 `manage.py check` : 0 erreur, 9 avertissements `treebeard.E001` preexistants.
 
+### Troisieme tour : cinq references statiques mortes dans les gabarits
+
+Le conteneur tenait enfin debout, mais chaque page renvoyait 500 :
+
+```
+ValueError: Missing staticfiles manifest entry for 'sdcd/favicon/favicon.svg'
+```
+
+Meme mecanisme que les fois precedentes, dans les gabarits cette fois — ce qu'un
+balayage du code Python ne pouvait pas voir.
+
+| Reference morte | Origine |
+|---|---|
+| `sdcd/favicon/favicon.svg` | **Notre portage** : `favicon.html` pointait trois fichiers jamais crees |
+| `sdcd/favicon/favicon.ico` | idem |
+| `sdcd/favicon/apple-touch-icon.png` | idem |
+| `dsfr/dist/artwork/pictograms/digital/search.svg` | Vestige DSFR |
+| `dsfr/dist/artwork/pictograms/digital/calendar.svg` | Vestige DSFR |
+
+Le favicon etait le plus grave : `favicon.html` est inclus par le gabarit de base,
+donc **tout le site** renvoyait 500, pas seulement une page.
+
+**Pieces creees plutot que references supprimees**
+
+- `sdcd/static/sdcd/favicon/favicon.svg` — drapeau national simplifie, lisible a 16 px
+- `sdcd/static/sdcd/pictogrammes/recherche.svg`
+- `sdcd/static/sdcd/pictogrammes/calendrier.svg`
+
+Les pictogrammes sont decoratifs (`alt=""`). Les supprimer aurait laisse des colonnes
+vides dans deux mises en page ; les redessiner aux couleurs du SDCD preserve la
+composition et amorce un jeu de pictogrammes propre au systeme.
+
+Pas de `favicon.ico` : un `.ico` ne s'ecrit pas a la main, et il est inutile des lors
+qu'une icone SVG est declaree. L'icone Apple reutilise les armoiries.
+
+### Controle 6 ajoute
+
+Il interroge les **finders de Django** — ceux que `static()` consulte reellement —
+plutot que de parcourir les repertoires a la main. Mon premier balayage, artisanal,
+produisait trois faux positifs sur des statiques fournis par les applications
+installees (`wagtail_honeypot`, l'application `events`). **Teste a l'envers.**
+
 ---
 
 ## À venir

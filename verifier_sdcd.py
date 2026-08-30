@@ -190,5 +190,36 @@ for _f, _r in _morts:
     print("    MORTE %s -> %s" % (_f, _r))
 echecs += len(_morts)
 
+
+
+titre("6. Appels {% static %} des gabarits")
+# Meme mecanisme que le controle 5, mais au rendu : ManifestStaticFilesStorage leve
+# ValueError quand static() vise un fichier absent. Une seule reference morte dans un
+# gabarit de base suffit a renvoyer 500 sur tout le site — c'est exactement ce qui est
+# arrive avec sdcd/favicon/favicon.svg. On interroge les finders de Django plutot que
+# de parcourir les repertoires a la main : ce sont eux que static() consulte, donc le
+# controle voit ce que voit la production, sans faux positif sur les statiques
+# fournis par les applications installees.
+from django.contrib.staticfiles import finders as _finders
+import re as _re2
+
+_motif2 = _re2.compile(r"""\{%\s*static\s+["']([^"']+)["']""")
+_fichiers2 = subprocess.run(
+    ["git", "ls-files", "*.html"], capture_output=True, text=True
+).stdout.split()
+_morts2 = []
+_vus2 = 0
+for _f2 in _fichiers2:
+    _txt2 = io.open(_f2, encoding="utf-8", errors="replace").read()
+    for _m2 in _motif2.finditer(_txt2):
+        _ref2 = _m2.group(1)
+        _vus2 += 1
+        if not _finders.find(_ref2):
+            _morts2.append((_f2, _ref2))
+print("  %d appel(s) examines, %d introuvable(s)" % (_vus2, len(_morts2)))
+for _f2, _r2 in _morts2:
+    print("    INTROUVABLE %s -> %s" % (_f2, _r2))
+echecs += len(_morts2)
+
 print("\n%s" % ("Aucun defaut." if echecs == 0 else "%d defaut(s)." % echecs))
 raise SystemExit(1 if echecs else 0)
