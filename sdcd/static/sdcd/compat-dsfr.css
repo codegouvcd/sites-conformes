@@ -2793,3 +2793,34 @@ a.fr-tag:hover, button.fr-tag:hover { background: var(--sdcd-bleu-teinte); }
   }
   .fr-menu-mobile.fr-opened { transform: none; }
 }
+
+/* Pied de page — classes emises par les gabarits du CMS et restees sans regle.
+   Reperees en mesurant la page rendue : quatre classes fr-* du pied de page
+   n'avaient aucune declaration, et s'affichaient donc sans style sur chaque
+   page du site. Elles reprennent ici les valeurs des classes SDCD equivalentes
+   (.sdcd-footer__lien, .sdcd-footer__bande-corps), pour que la bande basse ait
+   la meme apparence quel que soit le gabarit qui l'emet. */
+.fr-footer__brand { display: flex; align-items: center; gap: var(--sdcd-3); }
+.fr-footer__bottom-item { display: inline-flex; align-items: center; }
+.fr-footer__bottom-item:not(:last-child)::after {
+  content: "";
+  width: 1px;
+  height: 14px;
+  margin: 0 var(--sdcd-3);
+  background: var(--sdcd-ligne);
+}
+.fr-footer__bottom-link {
+  font-size: var(--sdcd-sm);
+  color: var(--sdcd-encre-2);
+  text-decoration: none;
+  padding-block: var(--sdcd-2);
+}
+.fr-footer__bottom-link:hover { color: var(--sdcd-action); text-decoration: underline; }
+/* Icone cadenas des liens proteges. Remix Icon est deja charge par le SDCD ;
+   on se contente d'y renvoyer plutot que d'embarquer une seconde iconographie. */
+.fr-icon-lock-line::before {
+  font-family: "remixicon";
+  content: "\eece";
+  margin-right: var(--sdcd-2);
+  font-style: normal;
+}
