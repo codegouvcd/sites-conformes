@@ -249,5 +249,38 @@ for _f3, _i3 in _multi:
     print("    RENDU LITTERAL %s:%d" % (_f3, _i3))
 echecs += len(_multi)
 
+
+
+titre("8. Classes fr-* emises et couverture de la compatibilite")
+# Une classe fr-* sans regle s'affiche sans style. Le defaut ne casse rien
+# — pas d'erreur, pas de 500 — il degrade silencieusement la page, ce qui le
+# rend d'autant plus facile a laisser passer : 52 classes etaient dans ce cas,
+# reparties sur des pages qu'aucun controle ne rendait.
+#
+# Ce compteur mesure aussi l'avancement du portage : chaque gabarit passe aux
+# classes sdcd-* fait baisser le total emis. Objectif : zero.
+_css = io.open(
+    os.path.join(RACINE, "sdcd", "static", "sdcd", "compat-dsfr.css"),
+    encoding="utf-8", errors="replace",
+).read()
+_couvertes = set(re.findall(r"\.(fr-[A-Za-z0-9_-]+)", _css))
+_emises = {}
+for _f4 in subprocess.run(
+    ["git", "ls-files", "*.html"], capture_output=True, text=True
+).stdout.split():
+    if _f4.startswith("demo/"):
+        continue
+    for _m4 in re.finditer(
+        r'class="([^"]*)"', io.open(_f4, encoding="utf-8", errors="replace").read()
+    ):
+        for _c4 in _m4.group(1).split():
+            if _c4.startswith("fr-") and "{" not in _c4 and "}" not in _c4:
+                _emises.setdefault(_c4, _f4)
+_orph = sorted(c for c in _emises if c not in _couvertes)
+print("  %d classe(s) fr-* encore emise(s), %d sans regle" % (len(_emises), len(_orph)))
+for _c4 in _orph:
+    print("    SANS REGLE %s  (%s)" % (_c4, _emises[_c4]))
+echecs += len(_orph)
+
 print("\n%s" % ("Aucun defaut." if echecs == 0 else "%d defaut(s)." % echecs))
 raise SystemExit(1 if echecs else 0)

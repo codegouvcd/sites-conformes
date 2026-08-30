@@ -2824,3 +2824,229 @@ a.fr-tag:hover, button.fr-tag:hover { background: var(--sdcd-bleu-teinte); }
   margin-right: var(--sdcd-2);
   font-style: normal;
 }
+
+
+/* =====================================================================
+   Complement de compatibilite — les classes fr-* que les gabarits du CMS
+   emettaient sans qu'aucune regle ne les couvre.
+
+   Recensees en comparant les classes emises par les 163 gabarits aux
+   selecteurs declares ici : 52 n'avaient aucune declaration. Elles
+   s'affichaient donc sans style sur les pages concernees — index de blog,
+   pages protegees par mot de passe, menus lateraux, cartes, tuiles,
+   tableaux, selecteur de langue, menu utilisateur.
+
+   Toutes les valeurs viennent des jetons du SDCD. Cette couche reste
+   transitoire : elle disparaitra a mesure que les gabarits passeront aux
+   classes sdcd-*.
+   ===================================================================== */
+
+/* --- cartes -------------------------------------------------------- */
+.fr-card__header { margin: 0; }
+.fr-card__header img { width: 100%; display: block; object-fit: cover; }
+.fr-card__detail { font-size: var(--sdcd-xs); color: var(--sdcd-muet); }
+
+/* --- bouton de connexion ------------------------------------------- */
+.fr-connect__brand { font-weight: 700; }
+.fr-connect__login { font-size: var(--sdcd-sm); }
+
+/* --- media dans le contenu ----------------------------------------- */
+.fr-content-media__caption {
+  font-size: var(--sdcd-xs);
+  color: var(--sdcd-muet);
+  margin-top: var(--sdcd-2);
+}
+
+/* --- formulaires ---------------------------------------------------- */
+.fr-fieldset__element { margin-bottom: var(--sdcd-4); }
+.fr-fieldset__element:last-child { margin-bottom: 0; }
+.fr-password__checkbox { margin-top: var(--sdcd-2); }
+
+/* --- bloc « suivez-nous » ------------------------------------------- */
+.fr-follow__newsletter { padding: var(--sdcd-5) 0; }
+.fr-follow__social { padding: var(--sdcd-5) 0; }
+.fr-follow__social ul {
+  display: flex;
+  gap: var(--sdcd-3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- pied de page --------------------------------------------------- */
+.fr-footer__brand-link { display: inline-flex; align-items: center; text-decoration: none; }
+.fr-footer__logo { height: clamp(40px, 9vw, 56px); width: auto; }
+
+/* --- en-tete -------------------------------------------------------- */
+.fr-header__operator { display: flex; align-items: center; }
+.fr-header__operator img { max-height: 56px; width: auto; }
+.fr-header__search { margin-left: auto; }
+.fr-header__service-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--sdcd-texte);
+  text-decoration: none;
+}
+
+/* --- liens ---------------------------------------------------------- */
+.fr-link__detail {
+  display: block;
+  font-size: var(--sdcd-xs);
+  color: var(--sdcd-muet);
+  font-weight: 400;
+}
+
+/* --- mega-menu ------------------------------------------------------ */
+.fr-mega-menu__leader {
+  font-size: var(--sdcd-sm);
+  color: var(--sdcd-encre-2);
+  margin-bottom: var(--sdcd-4);
+}
+.fr-mega-menu__category {
+  font-weight: 700;
+  font-size: var(--sdcd-sm);
+  margin-bottom: var(--sdcd-2);
+}
+
+/* --- navigation ----------------------------------------------------- */
+.fr-nav__item { display: inline-flex; align-items: center; }
+.fr-nav__btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: var(--sdcd-sm);
+  font-weight: 500;
+  color: var(--sdcd-encre-2);
+  cursor: pointer;
+  padding: 11px 0;
+  border-bottom: 2px solid transparent;
+}
+.fr-nav__btn[aria-expanded="true"] {
+  color: var(--sdcd-action);
+  border-bottom-color: var(--sdcd-action);
+}
+
+/* --- bandeau de notification ---------------------------------------- */
+.fr-notice__link { color: inherit; text-decoration: underline; font-weight: 600; }
+
+/* --- partage -------------------------------------------------------- */
+.fr-share__title { font-size: var(--sdcd-sm); font-weight: 700; margin: 0 var(--sdcd-3) 0 0; }
+
+/* --- menu lateral --------------------------------------------------- */
+.fr-sidemenu__inner { padding: var(--sdcd-4); border: 1px solid var(--sdcd-ligne); }
+.fr-sidemenu__item { border-bottom: 1px solid var(--sdcd-ligne); }
+.fr-sidemenu__item:last-child { border-bottom: none; }
+.fr-sidemenu__item--active > a { font-weight: 700; color: var(--sdcd-action); }
+
+/* --- indicateur d'etapes -------------------------------------------- */
+.fr-stepper__steps { display: flex; gap: 4px; margin: var(--sdcd-2) 0; }
+
+/* --- tableaux ------------------------------------------------------- */
+.fr-table__wrapper { margin: 0 0 var(--sdcd-5); }
+.fr-table__container { border: 1px solid var(--sdcd-ligne); }
+.fr-table__content { overflow-x: auto; }
+.fr-table__content table { width: 100%; border-collapse: collapse; font-size: var(--sdcd-sm); }
+
+/* --- onglets -------------------------------------------------------- */
+.fr-tabs__tab--icon-left { display: inline-flex; align-items: center; gap: var(--sdcd-2); }
+
+/* --- tuiles --------------------------------------------------------- */
+.fr-tile__header { margin: 0 0 var(--sdcd-3); }
+.fr-tile__img { max-width: 80px; height: auto; }
+.fr-tile__pictogram { width: 80px; height: 80px; }
+.fr-tile__content { display: flex; flex-direction: column; gap: var(--sdcd-2); }
+.fr-tile__start { font-size: var(--sdcd-xs); color: var(--sdcd-muet); }
+.fr-tile__detail { font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); }
+
+/* --- selecteur de langue -------------------------------------------- */
+.fr-translate__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sdcd-2);
+  background: none;
+  border: 1px solid var(--sdcd-ligne);
+  color: var(--sdcd-action);
+  font-family: inherit;
+  font-size: var(--sdcd-sm);
+  padding: 6px 10px;
+  cursor: pointer;
+  min-height: var(--sdcd-cible-tactile);
+}
+.fr-translate__menu {
+  background: var(--sdcd-fond);
+  border: 1px solid var(--sdcd-ligne);
+  box-shadow: var(--sdcd-ombre);
+  padding: var(--sdcd-2) 0;
+  min-width: 160px;
+}
+.fr-translate__language {
+  display: block;
+  padding: var(--sdcd-2) var(--sdcd-4);
+  font-size: var(--sdcd-sm);
+  color: var(--sdcd-texte);
+  text-decoration: none;
+}
+.fr-translate__language:hover { background: var(--sdcd-fond-alt); }
+
+/* --- menu utilisateur ------------------------------------------------ */
+.fr-usermenu__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sdcd-2);
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: var(--sdcd-sm);
+  color: var(--sdcd-action);
+  cursor: pointer;
+  min-height: var(--sdcd-cible-tactile);
+}
+.fr-usermenu__menu {
+  background: var(--sdcd-fond);
+  border: 1px solid var(--sdcd-ligne);
+  box-shadow: var(--sdcd-ombre);
+  padding: var(--sdcd-2) 0;
+  min-width: 200px;
+}
+.fr-usermenu__item > a,
+.fr-usermenu__item > button {
+  display: flex;
+  align-items: center;
+  gap: var(--sdcd-2);
+  width: 100%;
+  padding: var(--sdcd-2) var(--sdcd-4);
+  font-size: var(--sdcd-sm);
+  color: var(--sdcd-texte);
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.fr-usermenu__item > a:hover,
+.fr-usermenu__item > button:hover { background: var(--sdcd-fond-alt); }
+
+/* --- icones ----------------------------------------------------------
+   Les points de code sont releves dans assets/icones.css, jamais devines :
+   deux des dix noms divergent entre le DSFR et Remix Icon
+   (theme-fill -> contrast-fill, user-setting -> user-settings). Remix Icon
+   est deja chargee par le SDCD ; on y renvoie plutot que d'embarquer une
+   seconde iconographie. */
+[class*="fr-icon-"]::before {
+  font-family: "remixicon";
+  font-style: normal;
+  font-weight: normal;
+  margin-right: var(--sdcd-2);
+  vertical-align: middle;
+}
+.fr-icon-account-circle-fill::before { content: "\ea08"; }   /* ri-account-circle-fill */
+.fr-icon-arrow-right-line::before { content: "\ea6c"; }   /* ri-arrow-right-line */
+.fr-icon-calendar-event-fill::before { content: "\eb24"; }   /* ri-calendar-event-fill */
+.fr-icon-checkbox-line::before { content: "\eb85"; }   /* ri-checkbox-line */
+.fr-icon-eye-off-line::before { content: "\ecb7"; }   /* ri-eye-off-line */
+.fr-icon-lock-unlock-line::before { content: "\eed2"; }   /* ri-lock-unlock-line */
+.fr-icon-logout-box-r-line::before { content: "\eeda"; }   /* ri-logout-box-r-line */
+.fr-icon-rss-fill::before { content: "\f09e"; }   /* ri-rss-fill */
+.fr-icon-theme-fill::before { content: "\ebd9"; }   /* ri-contrast-fill */
+.fr-icon-user-setting-fill::before { content: "\f26d"; }   /* ri-user-settings-fill */
