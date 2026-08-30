@@ -790,7 +790,16 @@ a.fr-tag:hover, button.fr-tag:hover { background: var(--sdcd-bleu-teinte); }
 }
 .fr-menu__list a, .fr-links-group a { display: block; padding: var(--sdcd-2) 0; color: var(--sdcd-encre-2); text-decoration: none; }
 .fr-menu__list a:hover, .fr-links-group a:hover { color: var(--sdcd-action); text-decoration: underline; }
-.fr-password, .fr-search-bar { display: flex; align-items: stretch; }
+/* .fr-password et .fr-search-bar etaient regroupees ici, ce qui posait le champ
+   de mot de passe et sa case « Afficher » cote a cote : ils se chevauchaient sur
+   la page de connexion. La barre de recherche est bien une ligne, le bloc mot de
+   passe une colonne. */
+.fr-search-bar { display: flex; align-items: stretch; }
+.fr-password { display: flex; flex-direction: column; }
+.fr-password__input { width: 100%; }
+/* Injectee par add_class, comme fr-password__input : ces classes n'apparaissent
+   dans aucun attribut class= litteral et echappaient donc au controle 8. */
+.fr-footer__content-desc { font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); margin: 0 0 var(--sdcd-4); }
 .fr-search-bar .fr-input { border-right: none; }
 .fr-content-media { margin: var(--sdcd-5) 0; }
 .fr-content-media__img { margin: 0; }
