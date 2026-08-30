@@ -1531,6 +1531,11 @@
 .sdcd-tooltip:focus-within .sdcd-tooltip__bulle { visibility: visible; opacity: 1; }
 
 /* Modale. Largeur pilotée par --sdcd-modal-largeur (défaut 560px). */
+/* Un <dialog> ferme est masque par la feuille du navigateur, mais la regle
+   `display: flex` ci-dessous la supplante : la modale fermee laissait un
+   fragment de 54 x 6 px sur la page. On retablit le comportement attendu. */
+dialog.sdcd-modal__voile:not([open]) { display: none; }
+
 .sdcd-modal__voile {
   position: fixed;
   inset: 0;

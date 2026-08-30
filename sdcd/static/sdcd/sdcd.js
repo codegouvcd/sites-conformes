@@ -95,7 +95,12 @@
   }
 
   surClic(".sdcd-display__option", function (el) {
-    var mode = el.getAttribute("data-sdcd-theme") || el.value || "systeme";
+    // `el` est le <label> : il n'a pas de propriete `value`, si bien que le mode
+    // retombait toujours sur « systeme » et le choix du visiteur restait sans
+    // effet. On lit d'abord l'attribut explicite, puis le bouton radio contenu,
+    // qui est le balisage naturel d'un choix exclusif.
+    var champ = el.querySelector("input[type=radio]");
+    var mode = el.getAttribute("data-sdcd-theme") || (champ && champ.value) || el.value || "systeme";
     exclusif(el, ".sdcd-display", "aria-checked");
     appliquerTheme(mode);
     try { localStorage.setItem(CLE_THEME, mode); } catch (err) {}
