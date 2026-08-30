@@ -432,3 +432,25 @@ label.fr-tag[aria-pressed="false"] {
     display: none
   }
 }
+/* wagtail-honeypot masque son champ piege avec `margin-left: 100vw` : il le
+   pousse d'une largeur d'ecran vers la droite. Toute page portant un formulaire
+   deborde donc horizontalement — mesure a 375 px, ou la page defilait jusqu'a
+   552. La doctrine responsive du systeme l'interdit.
+
+   On le decoupe sur place : sans surface, sans contribution au flux, et
+   toujours soumis avec le formulaire, ce qui est tout l'interet du piege. Il
+   porte deja aria-hidden et tabindex="-1", donc lecteurs d'ecran et clavier
+   l'ignorent.
+
+   Selecteur double a dessein : la feuille de la bibliotheque se charge apres la
+   notre, et a specificite egale c'est l'ordre qui tranche. */
+input[data-whf_name][data-whf_name] {
+  margin-left: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
