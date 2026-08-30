@@ -118,16 +118,23 @@ except Exception as e:
 
 
 titre("3. Classes sdcd-* emises par les gabarits")
+# Tous les gabarits suivis, pas seulement sdcd/templates/. L'en-tete vit dans
+# dsfr/templates/ — le shim d'alias — et echappait donc entierement a ce controle :
+# sept classes sdcd-header__* inventees y sont restees jusqu'a ce que l'en-tete
+# s'affiche sans mise en page en production.
 emises = set()
-for racine, _, fichiers in os.walk(os.path.join(RACINE, "sdcd", "templates")):
-    for f in fichiers:
-        if not f.endswith(".html"):
-            continue
-        s = io.open(os.path.join(racine, f), encoding="utf-8").read()
-        for m in re.finditer(r'class="([^"]*)"', s):
-            for c in m.group(1).split():
-                if c.startswith("sdcd-") and "{" not in c:
-                    emises.add(c)
+_ou = {}
+for _f in subprocess.run(
+    ["git", "ls-files", "*.html"], capture_output=True, text=True
+).stdout.split():
+    if _f.startswith("demo/"):
+        continue
+    s = io.open(_f, encoding="utf-8", errors="replace").read()
+    for m in re.finditer(r'class="([^"]*)"', s):
+        for c in m.group(1).split():
+            if c.startswith("sdcd-") and "{" not in c:
+                emises.add(c)
+                _ou.setdefault(c, _f)
 definies = set()
 for f in ("components.css", "base.css", "utilitaires.css", "responsive.css"):
     chemin = os.path.join(RACINE, "sdcd", "static", "sdcd", f)
@@ -135,7 +142,7 @@ for f in ("components.css", "base.css", "utilitaires.css", "responsive.css"):
 manquantes = sorted(emises - definies)
 print("  emises : %d   manquantes : %d" % (len(emises), len(manquantes)))
 for c in manquantes:
-    print("    MANQUANTE %s" % c)
+    print("    MANQUANTE %s  (%s)" % (c, _ou.get(c, "?")))
 echecs += len(manquantes)
 
 
