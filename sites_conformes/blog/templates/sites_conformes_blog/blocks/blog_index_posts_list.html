@@ -10,10 +10,10 @@
           <p class="fr-card__desc">{% translate "Published on" %} {{ post.date |date:'l j F Y' }}</p>
           {% if post.blog_categories.all %}
             <div class="fr-card__start">
-              <ul class="fr-tags-group">
+              <ul class="sdcd-tags">
                 {% for cat in post.blog_categories.all %}
                   <li>
-                    <p class="fr-tag">{{ cat.name }}</p>
+                    <p class="sdcd-tag">{{ cat.name }}</p>
                   </li>
                 {% endfor %}
               </ul>

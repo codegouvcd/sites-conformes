@@ -12,10 +12,10 @@
           </p>
           {% if post.event_categories.all %}
             <div class="fr-card__start">
-              <ul class="fr-tags-group">
+              <ul class="sdcd-tags">
                 {% for cat in post.event_categories.all %}
                   <li>
-                    <p class="fr-tag">{{ cat.name }}</p>
+                    <p class="sdcd-tag">{{ cat.name }}</p>
                   </li>
                 {% endfor %}
               </ul>

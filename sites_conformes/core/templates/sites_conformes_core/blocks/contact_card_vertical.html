@@ -28,7 +28,7 @@
       {% if value.contact_info or value.tags %}
         <div class="fr-card__end">
           {% if value.tags %}
-            <ul class="fr-tags-group">
+            <ul class="sdcd-tags">
               {% for tag in value.tags %}
                 <li>{% include_block tag %}</li>
               {% endfor %}

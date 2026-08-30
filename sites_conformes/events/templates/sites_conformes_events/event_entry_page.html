@@ -109,9 +109,9 @@
           </ul>
 
           <div class="fr-card__start">
-            <ul class="fr-tags-group">
+            <ul class="sdcd-tags">
               {% for tag in page.tags.all|dictsort:"slug" %}
-                <a class="fr-tag"
+                <a class="sdcd-tag"
                    target="_self"
                    href="{% pageurl page.get_parent %}?tag={{ tag.slug }}">{{ tag }}</a>
               {% endfor %}

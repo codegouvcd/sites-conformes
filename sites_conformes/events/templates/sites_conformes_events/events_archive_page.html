@@ -76,10 +76,10 @@
 
               <div class="sdcd-my-5">
                 <h3 class="fr-h6">{% translate "Filter by year" %}</h3>
-                <ul class="fr-tags-group sdcd-mt-2">
+                <ul class="sdcd-tags sdcd-mt-2">
                   {% for year in years %}
                     <li>
-                      <a class="fr-tag"
+                      <a class="sdcd-tag"
                          href="{% routablepageurl page 'archives_view' %}{% toggle_url_filter year=year %}#posts-list"
                          {% if year == current_year %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>
                         {{ year }}

@@ -88,10 +88,10 @@
   {% endwith %}
 
   <div class="sdcd-conteneur sdcd-my-6">
-    <ul class="fr-tags-group">
+    <ul class="sdcd-tags">
       {% for tag in page.tags.all|dictsort:"slug" %}
         <li>
-          <a class="fr-tag"
+          <a class="sdcd-tag"
              target="_self"
              href="{% pageurl page.get_parent %}{% toggle_url_filter tag=tag %}">{{ tag }}</a>
         </li>

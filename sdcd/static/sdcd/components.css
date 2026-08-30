@@ -1050,6 +1050,19 @@
 .sdcd-badge--erreur  { background: var(--sdcd-erreur-pale);  color: var(--sdcd-erreur); }
 .sdcd-badge--nouveau { background: var(--sdcd-nouveau-pale); color: var(--sdcd-nouveau); }
 
+/* Conteneur d'etiquettes. Le systeme avait .sdcd-tagcloud — un nuage pondere,
+   autre chose — mais rien pour poser simplement une serie d'etiquettes cote a
+   cote. Lacune relevee en portant le CMS, dont chaque liste d'articles en
+   affiche une. Prevu pour un <ul>, d'ou le retrait des puces. */
+.sdcd-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sdcd-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .sdcd-tag {
   display: inline-flex;
   align-items: center;

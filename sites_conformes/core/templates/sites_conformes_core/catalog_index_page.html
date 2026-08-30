@@ -91,10 +91,10 @@
                 {% if categories and page.filter_by_category %}
                   <div class="sdcd-my-5">
                     <h3 class="fr-h6">{% translate "Filter by category" %}</h3>
-                    <ul class="fr-tags-group">
+                    <ul class="sdcd-tags">
                       {% for category in categories %}
                         <li>
-                          <a class="fr-tag"
+                          <a class="sdcd-tag"
                              type="button"
                              href="{% pageurl page %}{% toggle_url_filter category=category %}#posts-list"
                              {% if category.slug == current_category.slug %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>
@@ -110,10 +110,10 @@
                   <div class="sdcd-my-5">
                     <h3 class="fr-h6">{% translate "Filter by tag" %}</h3>
                     {% if page.filter_selection == page.SINGLE_FILTER %}
-                      <ul class="fr-tags-group">
+                      <ul class="sdcd-tags">
                         {% for tag in tags %}
                           <li>
-                            <a class="fr-tag"
+                            <a class="sdcd-tag"
                                type="button"
                                href="{% pageurl page %}{% toggle_url_filter tag=tag %}#posts-list"
                                title="{% if tag.slug in selected_tag_slugs %}{% translate 'selected' %}{% else %}{% translate 'unselected' %}{% endif %}"
@@ -127,7 +127,7 @@
                       <form method="GET"
                             action="{% pageurl page %}#posts-list"
                             id="tag-filter-form">
-                        <ul class="fr-tags-group">
+                        <ul class="sdcd-tags">
                           {% for tag in tags %}
                             <li>
                               <input type="checkbox"
@@ -139,7 +139,7 @@
                                      style="position: absolute;
                                             opacity: 0;
                                             pointer-events: none">
-                              <label class="fr-tag"
+                              <label class="sdcd-tag"
                                      for="tag-{{ tag.slug }}"
                                      aria-pressed="{% if tag.slug in selected_tag_slugs %}true{% else %}false{% endif %}"
                                      title="{% if tag.slug in selected_tag_slugs %}{% translate 'selected' %}{% else %}{% translate 'unselected' %}{% endif %}">
@@ -156,10 +156,10 @@
                 {% if authors and page.filter_by_author %}
                   <div class="sdcd-my-5">
                     <h3 class="fr-h6">{% translate "Filter by author" %}</h3>
-                    <ul class="fr-tags-group">
+                    <ul class="sdcd-tags">
                       {% for author in authors %}
                         <li>
-                          <a class="fr-tag"
+                          <a class="sdcd-tag"
                              type="button"
                              href="{% pageurl page %}{% toggle_url_filter author=author %}#posts-list"
                              {% if author == current_author %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>{{ author.name }}</a>
@@ -172,10 +172,10 @@
                 {% if sources and page.filter_by_source %}
                   <div class="sdcd-my-5">
                     <h3 class="fr-h6">{% translate "Filter by source" %}</h3>
-                    <ul class="fr-tags-group">
+                    <ul class="sdcd-tags">
                       {% for source in sources %}
                         <li>
-                          <a class="fr-tag"
+                          <a class="sdcd-tag"
                              type="button"
                              href="{% pageurl page %}{% toggle_url_filter source=source %}#posts-list"
                              {% if source == current_source %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>{{ source.name }}</a>

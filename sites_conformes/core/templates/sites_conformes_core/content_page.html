@@ -53,7 +53,7 @@
 
   <ul class="sdcd-conteneur sdcd-my-6">
     {% for tag in page.tags.all|dictsort:"slug" %}
-      <a class="fr-tag" target="_self" href="{% url 'global_tag' tag.slug %}">{{ tag }}</a>
+      <a class="sdcd-tag" target="_self" href="{% url 'global_tag' tag.slug %}">{{ tag }}</a>
     {% endfor %}
   </ul>
 

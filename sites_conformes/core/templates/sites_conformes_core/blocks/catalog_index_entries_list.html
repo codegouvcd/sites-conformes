@@ -10,10 +10,10 @@
           <p class="fr-card__desc">{{ entry.search_description |truncatewords:20 }}</p>
           {% if entry.tags.all %}
             <div class="fr-card__start">
-              <ul class="fr-tags-group">
+              <ul class="sdcd-tags">
                 {% for tag in entry.tags.all %}
                   <li>
-                    <p class="fr-tag">{{ tag.name }}</p>
+                    <p class="sdcd-tag">{{ tag.name }}</p>
                   </li>
                 {% endfor %}
               </ul>
