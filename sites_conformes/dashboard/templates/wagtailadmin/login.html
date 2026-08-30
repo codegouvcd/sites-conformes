@@ -9,7 +9,7 @@
   <div class="sdcd-conteneur sdcd-conteneur--fluide sdcd-my-md-8">
     <div class="sdcd-grille sdcd-grille--gouttieres sdcd-grille--centre">
       <div class="sdcd-col-12 sdcd-col-md-8 sdcd-col-lg-6">
-        <div class="sdcd-conteneur fr-background-alt--grey sdcd-px-md-0 sdcd-py-7 sdcd-py-md-8">
+        <div class="sdcd-conteneur sdcd-fond-alt sdcd-px-md-0 sdcd-py-7 sdcd-py-md-8">
           <div class="sdcd-grille sdcd-grille--gouttieres sdcd-grille--centre">
             <div class="sdcd-col-12 sdcd-col-md-9 sdcd-col-lg-8">
               <h1>{% translate "Connection" %}</h1>
@@ -18,9 +18,9 @@
               {% if use_proconnect %}
                 <div class="sdcd-mb-5">
                   <h2>{% translate "Login with ProConnect" %}</h2>
-                  <div class="fr-connect-group">
-                    <a class="fr-connect" href="{% url 'oidc_authentication_init' %}">
-                      <span class="fr-connect__login">{% translate "Login with" %}</span> <span class="fr-connect__brand">ProConnect</span>
+                  <div class="sdcd-connexion-groupe">
+                    <a class="sdcd-connectbutton" href="{% url 'oidc_authentication_init' %}">
+                      <span class="sdcd-connectbutton__connexion">{% translate "Login with" %}</span> <span class="sdcd-connectbutton__marque">ProConnect</span>
                     </a>
                     <p>
                       {% translate "What is ProConnect?" as what_is_pro_connect %}
@@ -34,7 +34,7 @@
                 </div>
               {% endif %}
               {% if use_proconnect and not disable_local_login %}
-                <p class="fr-hr-or">{% translate "or" %}</p>
+                <p class="sdcd-separateur-ou">{% translate "or" %}</p>
               {% endif %}
               {% if not disable_local_login %}
                 <div>
@@ -47,7 +47,7 @@
                       </legend>
                       <div class="sdcd-fieldset__element">
                         <p class="sdcd-texte-sm">{% translate "Unless otherwise stated, all fields are mandatory." %}</p>
-                        <div class="fr-messages-group"
+                        <div class="sdcd-messages"
                              id="login-form-fieldset-messages"
                              aria-live="assertive">
                           {% if form.errors %}
@@ -71,23 +71,23 @@
                         {% csrf_token %}
                         {% url 'wagtailadmin_home' as home_url %}
                         <input type="hidden" name="next" value="{{ next|default:home_url }}" />
-                        <div class="fr-input-group">
+                        <div class="sdcd-champ">
                           <label class="sdcd-champ__label" for="id_username">{% translate "Username:" %}</label>
-                          {{ form.username |attr:"autocomplete:username" |add_class:"fr-input" }}
+                          {{ form.username |attr:"autocomplete:username" |add_class:"sdcd-input__champ" }}
                         </div>
                       </div>
                       <div class="sdcd-fieldset__element">
-                        <div class="fr-password">
+                        <div class="sdcd-motdepasse">
                           <label class="sdcd-champ__label" for="id_password">{% translate "Password:" %}</label>
-                          {{ form.password |attr:"autocomplete:current-password" |add_class:"fr-password__input fr-input" }}
-                          <div class="fr-password__checkbox fr-checkbox-group fr-checkbox-group--sm">
+                          {{ form.password |attr:"autocomplete:current-password" |add_class:"sdcd-motdepasse__champ sdcd-input__champ" }}
+                          <div class="sdcd-motdepasse__case sdcd-case-groupe sdcd-case-groupe--sm">
                             {% translate "Show password" as show_password %}
                             <input aria-label="{{ show_password }}"
                                    id="id_password-show"
                                    type="checkbox"
                                    aria-describedby="id_password-show-messages">
-                            <label class="fr-password__checkbox sdcd-champ__label" for="id_password-show">{% translate "Show" %}</label>
-                            <div class="fr-messages-group"
+                            <label class="sdcd-motdepasse__case sdcd-champ__label" for="id_password-show">{% translate "Show" %}</label>
+                            <div class="sdcd-messages"
                                  id="id_password-show-messages"
                                  aria-live="assertive"></div>
                           </div>
@@ -97,8 +97,8 @@
                         </div>
                       </div>
                       <div class="sdcd-fieldset__element">
-                        <div class="fr-checkbox-group fr-checkbox-group--sm">
-                          <div class="fr-checkbox-group">
+                        <div class="sdcd-case-groupe sdcd-case-groupe--sm">
+                          <div class="sdcd-case-groupe">
                             {{ form.remember }}
                             <label for="{{ form.remember.id_for_label }}" class="sdcd-champ__label">{% translate "Remember me" %}</label>
                           </div>

@@ -4,7 +4,7 @@
 <div class="sdcd-mt-4">
   <ul class="sdcd-boutons sdcd-boutons--enligne-sm sdcd-boutons--icones sdcd-boutons--droite">
     <li>
-      <a class="fr-btn fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-rss-fill"
+      <a class="sdcd-button sdcd-button--primaire sdcd-button--tertiaire sdcd-button--icone-gauche ri-rss-fill"
          href="{% routablepageurl page 'atom_feed' %}{% if current_category %}?category={{ current_category.slug }}{% endif %}">
         {% if current_category %}
           {% translate "Atom feed for the category" %}
@@ -14,7 +14,7 @@
       </a>
     </li>
     <li>
-      <a class="fr-btn fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-rss-fill"
+      <a class="sdcd-button sdcd-button--primaire sdcd-button--tertiaire sdcd-button--icone-gauche ri-rss-fill"
          href="{% routablepageurl page 'rss_feed' %}{% if current_category %}?category={{ current_category.slug }}{% endif %}">
         {% if current_category %}
           {% translate "RSS feed for the category" %}

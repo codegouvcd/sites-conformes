@@ -1,11 +1,11 @@
 {% load i18n wagtailcore_tags %}
-<div class="fr-tabs sdcd-mb-4">
+<div class="sdcd-tabs sdcd-mb-4">
   {% translate "Tabs group" as tabs_group %}
-  <ul class="fr-tabs__list" role="tablist" aria-label="{{ tabs_group }}">
+  <ul class="sdcd-tabs__liste" role="tablist" aria-label="{{ tabs_group }}">
     {% for tab_block in block.value %}
       <li role="presentation">
         <button id="tabpanel-{{ block.id }}-{{ forloop.counter }}"
-                class="fr-tabs__tab fr-icon-checkbox-line fr-tabs__tab--icon-left"
+                class="sdcd-tabs__onglet ri-checkbox-line sdcd-tabs__onglet--icone-gauche"
                 tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
                 role="tab"
                 aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"

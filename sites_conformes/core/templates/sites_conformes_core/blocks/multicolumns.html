@@ -20,14 +20,14 @@
             {% include_block subblock.value.content %}
           </div>
         {% elif subblock.block_type == "text" %}
-          <div class="sdcd-col-12 fr-col-sm">{{ subblock.value|richtext }}</div>
+          <div class="sdcd-col-12 sdcd-col-sm-12">{{ subblock.value|richtext }}</div>
         {% elif subblock.block_type == "video" %}
-          <div class="sdcd-col-12 fr-col-sm">
+          <div class="sdcd-col-12 sdcd-col-sm-12">
             <h2>{{ subblock.value.title }}</h2>
             {% include_block subblock %}
           </div>
         {% else %}
-          <div class="sdcd-col-12 fr-col-sm">{% include_block subblock %}</div>
+          <div class="sdcd-col-12 sdcd-col-sm-12">{% include_block subblock %}</div>
         {% endif %}
       {% endfor %}
     </div>

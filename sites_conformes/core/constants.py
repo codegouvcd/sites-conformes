@@ -11,22 +11,22 @@ HEADER_FIELDS = [
 ]
 
 BUTTON_TYPE_CHOICES = (
-    ("fr-btn", _("Primary")),
-    ("fr-btn fr-btn--secondary", _("Secundary")),
-    ("fr-btn fr-btn--tertiary", _("Tertiary")),
-    ("fr-btn fr-btn--tertiary-no-outline", _("Tertiary without border")),
+    ("sdcd-button sdcd-button--primaire", _("Primary")),
+    ("sdcd-button sdcd-button--secondaire", _("Secundary")),
+    ("sdcd-button sdcd-button--tertiaire-bordure", _("Tertiary")),
+    ("sdcd-button sdcd-button--tertiaire", _("Tertiary without border")),
 )
 
 BUTTON_ICON_SIDE = (
-    ("fr-btn--icon-left", _("Left")),
-    ("fr-btn--icon-right", _("Right")),
+    ("sdcd-button--icone-gauche", _("Left")),
+    ("sdcd-button--icone-droite", _("Right")),
 )
 
 BUTTONS_ALIGN_CHOICES = (
     ("", _("Left")),
-    ("fr-btns-group--center", _("Center")),
-    ("fr-btns-group--right", _("Right")),
-    ("fr-btns-group--right fr-btns-group--inline-reverse", _("Right (reverse order on desktop)")),
+    ("sdcd-boutons--centre", _("Center")),
+    ("sdcd-boutons--droite", _("Right")),
+    ("sdcd-boutons--droite sdcd-boutons--enligne-inverse", _("Right (reverse order on desktop)")),
 )
 
 GRID_3_4_6_CHOICES = [
@@ -70,8 +70,8 @@ HEADING_CHOICES_2_5 = [
 ]
 
 HORIZONTAL_CARD_IMAGE_RATIOS = [
-    ("fr-card--horizontal-tier", "1/3"),
-    ("fr-card--horizontal-half", "50/50"),
+    ("sdcd-card--horizontal-tiers", "1/3"),
+    ("sdcd-card--horizontal-moitie", "50/50"),
 ]
 
 LEVEL_CHOICES = [
@@ -121,27 +121,27 @@ LIMITED_RICHTEXTFIELD_FEATURES_WITH_HEADINGS = [
 ]
 
 LINK_SIZE_CHOICES = [
-    ("fr-link--sm", _("Small")),
+    ("sdcd-lien--sm", _("Small")),
     ("", _("Medium")),
-    ("fr-link--lg", _("Large")),
+    ("sdcd-lien--lg", _("Large")),
 ]
 
 LINK_ICON_CHOICES = [
     ("", _("No icon")),
-    ("fr-icon-arrow-right-line fr-link--icon-right", _("Icon on the right side")),
-    ("fr-icon-arrow-right-line fr-link--icon-left", _("Icon on the left side")),
+    ("ri-arrow-right-line sdcd-lien--icone-droite", _("Icon on the right side")),
+    ("ri-arrow-right-line sdcd-lien--icone-gauche", _("Icon on the left side")),
 ]
 
 MEDIA_WIDTH_CHOICES = [
-    ("fr-content-media--sm", _("Small")),
+    ("sdcd-media--sm", _("Small")),
     ("", _("Medium")),
-    ("fr-content-media--lg", _("Large")),
+    ("sdcd-media--lg", _("Large")),
 ]
 
 TEXT_SIZE_CHOICES = [
-    ("fr-text--sm", _("Small")),
+    ("sdcd-texte-sm", _("Small")),
     ("", _("Medium")),
-    ("fr-text--lg", _("Large")),
+    ("sdcd-texte-lg", _("Large")),
 ]
 
 ALIGN_HORIZONTAL_CHOICES = [
@@ -172,7 +172,7 @@ TEMPLATE_EXAMPLE_BUTTON_LIST = [
         "link_type": "external_url",
         "text": "Nous contacter",
         "external_url": "https://sites.beta.gouv.fr/contactez-nous/",
-        "button_type": "fr-btn",
+        "button_type": "sdcd-button sdcd-button--primaire",
         "icon_side": "--",
         "anchor": "",
     },
@@ -180,7 +180,7 @@ TEMPLATE_EXAMPLE_BUTTON_LIST = [
         "link_type": "external_url",
         "text": "Voir la vidéo",
         "external_url": "https://tube.numerique.gouv.fr/",
-        "button_type": "fr-btn fr-btn--secondary",
+        "button_type": "sdcd-button sdcd-button--secondaire",
         "icon_side": "--",
         "anchor": "",
     },

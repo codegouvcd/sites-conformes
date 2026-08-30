@@ -42,13 +42,12 @@
       {% if scheme_dependent_svgs and pictogram.file.name|slice:"-4:" == ".svg" %}
         <div class="sdcd-tile__media">
           <svg aria-hidden="true"
-               class="fr-artwork"
                viewBox="0 0 80 80"
                width="80px"
                height="80px">
-            <use class="fr-artwork-decorative" href="{{ pictogram.full_url }}#artwork-decorative"></use>
-            <use class="fr-artwork-minor" href="{{ pictogram.full_url }}#artwork-minor"></use>
-            <use class="fr-artwork-major" href="{{ pictogram.full_url }}#artwork-major"></use>
+            <use href="{{ pictogram.full_url }}#artwork-decorative"></use>
+            <use href="{{ pictogram.full_url }}#artwork-minor"></use>
+            <use href="{{ pictogram.full_url }}#artwork-major"></use>
           </svg>
         </div>
       {% else %}

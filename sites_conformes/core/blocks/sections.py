@@ -46,8 +46,8 @@ class ResizedStructValue(StructValue):
         }
 
         offsets = {
-            "": {"8": "fr-col-offset-md-2", "6": "fr-col-offset-md-3"},
-            "right": {"8": "fr-col-offset-md-4", "6": "fr-col-offset-md-6"},
+            "": {"8": "sdcd-col-decale-md-2", "6": "sdcd-col-decale-md-3"},
+            "right": {"8": "sdcd-col-decale-md-4", "6": "sdcd-col-decale-md-6"},
         }
 
         base_class = base_classes.get(alignment, "")
@@ -111,7 +111,7 @@ class ImageTextCTASection(blocks.StructBlock):
             "link_type": "external_url",
             "text": "Appel à l'action",
             "external_url": "https://tube.numerique.gouv.fr/",
-            "button_type": "fr-btn fr-btn--secondary",
+            "button_type": "sdcd-button sdcd-button--secondaire",
             "icon_side": "--",
         },
     )
@@ -236,7 +236,7 @@ class CTASection(BaseSection):
             "link_type": "external_url",
             "text": "Appel à l'action",
             "external_url": "https://tube.numerique.gouv.fr/",
-            "button_type": "fr-btn",
+            "button_type": "sdcd-button sdcd-button--primaire",
             "icon_side": "--",
         },
     )

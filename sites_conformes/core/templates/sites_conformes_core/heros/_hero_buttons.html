@@ -1,5 +1,5 @@
 {% with value.buttons.0.icon_side as icons_side %}
-  <ul class="cmsfr-hero-btns {% if value.text_content.position == 'left' %} cmsfr-hero-btns--left {% elif value.text_content.position == 'right' %} cmsfr-hero-btns--right {% else %} cmsfr-hero-btns--center {% endif %} sdcd-boutons sdcd-boutons--enligne-lg {% if icons_side == 'fr-btn--icon-left' %} sdcd-boutons--icones {% elif icons_side == 'fr-btn--icon-right' %} sdcd-boutons--icones {% endif %}">
+  <ul class="cmsfr-hero-btns {% if value.text_content.position == 'left' %} cmsfr-hero-btns--left {% elif value.text_content.position == 'right' %} cmsfr-hero-btns--right {% else %} cmsfr-hero-btns--center {% endif %} sdcd-boutons sdcd-boutons--enligne-lg {% if icons_side == 'sdcd-button--icone-gauche' %} sdcd-boutons--icones {% elif icons_side == 'sdcd-button--icone-droite' %} sdcd-boutons--icones {% endif %}">
     {% for button in value.buttons %}
       <li>{% include "sites_conformes_core/blocks/button.html" with button=button %}</li>
     {% endfor %}

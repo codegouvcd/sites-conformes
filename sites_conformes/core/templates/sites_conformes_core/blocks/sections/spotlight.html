@@ -3,16 +3,16 @@
 {% block children %}
   <div class="sdcd-conteneur">
     <div class="sdcd-grille sdcd-grille--gouttieres sdcd-py-5">
-      {% for item in value.items %}<div class="fr-col-md-{{ value.items_per_row }} fr-col-sm">{{ item }}</div>{% endfor %}
+      {% for item in value.items %}<div class="fr-col-md-{{ value.items_per_row }} sdcd-col-sm-12">{{ item }}</div>{% endfor %}
     </div>
     {% if value.link.url and value.link.text %}
       {% if value.link == "external" %}
-        <a class="fr-btn--icon-right fr-icon-arrow-right-line"
+        <a class="sdcd-button--icone-droite ri-arrow-right-line"
            href="{{ value.link.url }}"
            target="_blank"
            rel="noopener external">{{ value.link.text }}</a>
       {% else %}
-        <a class="fr-btn--icon-right fr-icon-arrow-right-line"
+        <a class="sdcd-button--icone-droite ri-arrow-right-line"
            href="{{ value.link.url }}">{{ value.link.text }}</a>
       {% endif %}
     {% endif %}

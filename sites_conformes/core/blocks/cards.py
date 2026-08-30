@@ -56,7 +56,7 @@ class CardstructValue(StructValue):
         if ratio_class:
             image_classes = f"fr-responsive-img {ratio_class}"
         else:
-            image_classes = "fr-responsive-img"
+            image_classes = "sdcd-image-fluide"
 
         return image_classes
 

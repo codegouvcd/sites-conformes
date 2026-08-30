@@ -439,7 +439,7 @@ class Command(BaseCommand):
                                     "button",
                                     {
                                         "text": "Appel à l'action",
-                                        "button_type": "fr-btn",
+                                        "button_type": "sdcd-button sdcd-button--primaire",
                                         "link_type": "external_url",
                                         "external_url": fake.url(),
                                         "page": None,
@@ -564,7 +564,7 @@ class Command(BaseCommand):
                             "button",
                             {
                                 "text": "Bouton primaire",
-                                "button_type": "fr-btn",
+                                "button_type": "sdcd-button sdcd-button--primaire",
                                 "link_type": "external_url",
                                 "external_url": fake.url(),
                                 "page": None,
@@ -578,7 +578,7 @@ class Command(BaseCommand):
                             "button",
                             {
                                 "text": "Bouton secondaire",
-                                "button_type": "fr-btn fr-btn--secondary",
+                                "button_type": "sdcd-button sdcd-button--secondaire",
                                 "link_type": "external_url",
                                 "external_url": fake.url(),
                                 "page": None,
@@ -790,7 +790,7 @@ class Command(BaseCommand):
         body.append(
             (
                 "html",
-                f'<div class="fr-p-2w fr-background-alt--grey"><p>{fake.paragraph()}</p></div>',
+                f'<div class="sdcd-p-4 sdcd-fond-alt"><p>{fake.paragraph()}</p></div>',
             )
         )
 
@@ -986,7 +986,7 @@ class Command(BaseCommand):
                     "position": "left",
                     "button": {
                         "text": "En savoir plus",
-                        "button_type": "fr-btn fr-btn--secondary",
+                        "button_type": "sdcd-button sdcd-button--secondaire",
                         "link_type": "external_url",
                         "external_url": fake.url(),
                         "page": None,
@@ -1011,7 +1011,7 @@ class Command(BaseCommand):
                     "text": RichText(f"<p>{fake.paragraph()}</p>"),
                     "button": {
                         "text": "Appel à l'action",
-                        "button_type": "fr-btn",
+                        "button_type": "sdcd-button sdcd-button--primaire",
                         "link_type": "external_url",
                         "external_url": fake.url(),
                         "page": None,
@@ -1142,7 +1142,7 @@ class Command(BaseCommand):
                                 "buttons": [
                                     {
                                         "text": "Découvrir",
-                                        "button_type": "fr-btn",
+                                        "button_type": "sdcd-button sdcd-button--primaire",
                                         "link_type": "external_url",
                                         "external_url": fake.url(),
                                         "page": None,
@@ -1199,7 +1199,7 @@ class Command(BaseCommand):
                                 "buttons": [
                                     {
                                         "text": "En savoir plus",
-                                        "button_type": "fr-btn",
+                                        "button_type": "sdcd-button sdcd-button--primaire",
                                         "link_type": "external_url",
                                         "external_url": fake.url(),
                                         "page": None,
@@ -1212,8 +1212,8 @@ class Command(BaseCommand):
                                 "image": {
                                     "image": {"image": img_banner, "alt_text": "Bannière", "decorative": False},
                                     "image_positioning": "bottom",
-                                    "image_width": "fr-content-media--lg",
-                                    "image_ratio": "fr-ratio-32x9",
+                                    "image_width": "sdcd-media--lg",
+                                    "image_ratio": "sdcd-ratio-32x9",
                                 },
                             },
                         )
@@ -1247,7 +1247,7 @@ class Command(BaseCommand):
                                 "buttons": [
                                     {
                                         "text": "Commencer",
-                                        "button_type": "fr-btn",
+                                        "button_type": "sdcd-button sdcd-button--primaire",
                                         "link_type": "external_url",
                                         "external_url": fake.url(),
                                         "page": None,
@@ -1297,7 +1297,7 @@ class Command(BaseCommand):
                                         "button",
                                         {
                                             "text": "Action principale",
-                                            "button_type": "fr-btn",
+                                            "button_type": "sdcd-button sdcd-button--primaire",
                                             "link_type": "external_url",
                                             "external_url": fake.url(),
                                             "page": None,

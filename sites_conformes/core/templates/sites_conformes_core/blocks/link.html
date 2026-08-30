@@ -1,7 +1,7 @@
 {% load i18n dsfr_tags wagtailcore_tags wagtail_dsfr_tags %}
 {% settings_value "WAGTAILADMIN_PATH" as admin_path %}
 <div class="sdcd-mb-6">
-  <a class="fr-link {{ value.size }}{% if admin_path in value.url %} fr-icon-lock-line fr-link--icon-right{% elif value.document %} fr-link--download{% else %} {{ value.icon }}{% endif %}"
+  <a class="sdcd-lien {{ value.size }}{% if admin_path in value.url %} ri-lock-line sdcd-lien--icone-droite{% elif value.document %} fr-link--download{% else %} {{ value.icon }}{% endif %}"
      href="{{ value.url }}"
      {% if value.url.0 != '/' and request.get_host not in value.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
     {{ value.label }}

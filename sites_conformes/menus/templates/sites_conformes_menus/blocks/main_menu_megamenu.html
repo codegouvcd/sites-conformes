@@ -3,22 +3,22 @@
         aria-expanded="false"
         aria-controls="{{ self.id }}"
         type="menu"
-        class="fr-nav__btn">{{ self.label }}</button>
+        class="sdcd-header__lien">{{ self.label }}</button>
 
-<div class="fr-collapse fr-mega-menu" id="{{ self.id }}">
+<div class="sdcd-repli sdcd-megamenu" id="{{ self.id }}">
   <div class="sdcd-conteneur sdcd-conteneur--fluide">
-    <button class="fr-link--close fr-link"
+    <button class="sdcd-lien--fermer sdcd-lien"
             aria-controls="{{ self.id }}"
             data-fr-js-collapse-button="true">{% translate "Close" %}</button>
     <div class="sdcd-grille sdcd-grille--gouttieres">
       <div class="sdcd-col-12 sdcd-col-lg-8 sdcd-col-decale-lg-4">
-        <div class="fr-mega-menu__leader">
+        <div class="sdcd-megamenu__intro">
           <h4 class="sdcd-h4 sdcd-mb-2">{{ self.label }}</h4>
           {% if self.description %}
-          <p class="fr-hidden fr-displayed-lg">{{ self.description }}</p>
+          <p class="sdcd-masque sdcd-affiche-lg">{{ self.description }}</p>
           {% endif %}
           {% if self.main_link.url %}
-          <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right fr-link--align-on-content" href="{{ self.main_link.url }}">{{ self.main_link.label }}</a>
+          <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite sdcd-lien--aligne" href="{{ self.main_link.url }}">{{ self.main_link.label }}</a>
           {% endif %}
         </div>
       </div>

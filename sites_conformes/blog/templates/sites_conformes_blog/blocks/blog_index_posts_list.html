@@ -1,6 +1,6 @@
 {% load i18n %}
 {% for post in posts %}
-  <div class="fr-col sdcd-col-md-6">
+  <div class="sdcd-col sdcd-col-md-6">
     <div class="sdcd-card sdcd-card--cliquable">
       <div class="sdcd-card__corps">
         <div>
@@ -31,7 +31,7 @@
     </div>
   </div>
 {% empty %}
-  <div class="fr-col">
+  <div class="sdcd-col">
     <p>{% translate "No article found." %}</p>
   </div>
 {% endfor %}

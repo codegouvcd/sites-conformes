@@ -7,14 +7,14 @@
      {% if value.bg_color_class or bg_img or value.bg_color %};"{% endif %}>
   <div class="sdcd-conteneur">
     <div class="sdcd-grille sdcd-grille--gouttieres sdcd-mb-5">
-      <div class="fr-col sdcd-col-md-4 sdcd-col-12">
+      <div class="sdcd-col sdcd-col-md-4 sdcd-col-12">
         <nav class="sdcd-sidemenu sdcd-mb-1">
           <div>
             <button class="sdcd-sidemenu__entete"
                     hidden
                     aria-controls="fr-sidemenu-wrapper-{{ block.id }}"
                     aria-expanded="false">{% translate "In this section" %}</button>
-            <div class="fr-collapse" id="fr-sidemenu-wrapper-{{ block.id }}">
+            <div class="sdcd-repli" id="fr-sidemenu-wrapper-{{ block.id }}">
               {% if value.sidemenu_title %}
                 <div class="sdcd-sidemenu__titre" id="fr-sidemenu-title">{{ value.sidemenu_title }}</div>
               {% endif %}
@@ -23,7 +23,7 @@
           </div>
         </nav>
       </div>
-      <div class="fr-col sdcd-col-md-8 sdcd-col-12">
+      <div class="sdcd-col sdcd-col-md-8 sdcd-col-12">
         {% include "sites_conformes_core/blocks/blocks_stream.html" with stream=value.main_content %}
       </div>
     </div>

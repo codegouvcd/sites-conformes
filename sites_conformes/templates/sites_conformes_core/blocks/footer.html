@@ -6,7 +6,7 @@
   {% if settings.sites_conformes_core.CmsDsfrConfig.operator_logo_file and settings.sites_conformes_core.CmsDsfrConfig.operator_logo_display == "header-footer" %}
     {% image settings.sites_conformes_core.CmsDsfrConfig.operator_logo_file original as logo_img %}
     <div class="sdcd-footer__marque sdcd-card--cliquable">
-      <p class="fr-logo"
+      <p class="sdcd-logo"
          title="{{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand|default:'république française' }}">
         {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand_html| default_if_none:'république<br />française' | safe }}
       </p>
@@ -26,7 +26,7 @@
          href="{% root_url %}"
          title="{{ back_to_home_label }} - {{ settings.sites_conformes_core.CmsDsfrConfig.site_title }} - {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand|default:'république française' }}">
         {% block brand %}
-          <p class="fr-logo">
+          <p class="sdcd-logo">
             {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand_html| default_if_none:'république<br />française' | safe }}
           </p>
         {% endblock brand %}
@@ -60,7 +60,7 @@
       <button id="footer__bottom-link__parametres-affichage"
               aria-controls="fr-theme-modal"
               data-fr-opened="false"
-              class="fr-icon-theme-fill fr-link--icon-left sdcd-footer__lien"
+              class="ri-theme-fill sdcd-lien--icone-gauche sdcd-footer__lien"
               data-fr-js-modal-button="true">{% translate "Display settings" %}</button>
     </li>
   {% endif %}

@@ -1,20 +1,20 @@
 {% load i18n %}
 <div class="sdcd-conteneur sdcd-my-5">
-  <div class="fr-stepper">
-    <{{ value.heading_tag | default:"h2" }} class="fr-stepper__title">
+  <div class="sdcd-stepper">
+    <{{ value.heading_tag | default:"h2" }} class="sdcd-stepper__titre">
     {{ value.title }}
-    <span class="fr-stepper__state">
+    <span class="sdcd-stepper__etat">
       {% with current_step=value.current total_steps=value.total %}
         {% blocktranslate %}Step {{ current_step }} of {{ total_steps }}{% endblocktranslate %}
       {% endwith %}
     </span>
     </{{ value.heading_tag | default:"h2" }}>
-    <div class="fr-stepper__steps"
+    <div class="sdcd-stepper__jauge"
          data-fr-current-step="{{ value.current }}"
          data-fr-steps="{{ value.total }}"></div>
     <dl class="sdcd-grille sdcd-grille--gouttieres cmsfr-stepper__details">
       {% for step in value.steps %}
-        <div class="sdcd-col-12 fr-col-sm">
+        <div class="sdcd-col-12 sdcd-col-sm-12">
           <dt>
             <span class="sdcd-gras">{{ step.value.title }}</span>
           </dt>

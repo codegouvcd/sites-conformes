@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
-<button{% if current_page.url in self.menu_urls %} aria-current="true"{% endif %} aria-expanded="false" aria-controls="{{ self.id }}" type="menu" class="fr-nav__btn">{{ self.label }}</button>
-<div class="fr-collapse sdcd-dropdown__menu" id="{{ self.id }}">
+<button{% if current_page.url in self.menu_urls %} aria-current="true"{% endif %} aria-expanded="false" aria-controls="{{ self.id }}" type="menu" class="sdcd-header__lien">{{ self.label }}</button>
+<div class="sdcd-repli sdcd-dropdown__menu" id="{{ self.id }}">
   <ul class="sdcd-dropdown__liste">
     {% for link in self.links %}
       <li class="sdcd-nav__item">

@@ -46,7 +46,7 @@ class FormsTestCase(WagtailPageTestCase):
         self.assertEqual(response.status_code, 200)
 
         self.assertInHTML(
-            """<li class="fr-error-text">Saisissez une adresse e-mail valide.</li>""",
+            """<li class="sdcd-champ__erreur">Saisissez une adresse e-mail valide.</li>""",
             response.content.decode(),
         )
 

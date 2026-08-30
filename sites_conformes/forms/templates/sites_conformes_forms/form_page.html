@@ -32,7 +32,7 @@
 
       {% csrf_token %}
       {% if form.non_field_errors %}
-        <section class="sdcd-my-4 fr-input-group fr-input-group--error">
+        <section class="sdcd-my-4 sdcd-champ sdcd-champ--erreur">
           {{ form.non_field_errors }}
         </section>
       {% endif %}

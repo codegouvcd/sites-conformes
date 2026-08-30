@@ -1144,7 +1144,12 @@
    React fait de la carte un <a> ; une integration en gabarit ne le peut pas
    toujours — le titre porte deja son propre lien. Ce modificateur etend la zone
    de clic sans dupliquer le lien, ce qu'un lecteur d'ecran annoncerait deux fois. */
+/* Le motif « tout le bloc est cliquable » ne concerne pas que les cartes : une
+   marque de pied de page, une tuile ou un encadre l'emploient aussi. La classe
+   generique porte la regle, le modificateur de carte s'y rattache. */
+.sdcd-cliquable,
 .sdcd-card--cliquable { position: relative; }
+.sdcd-cliquable a::after,
 .sdcd-card--cliquable a::after { content: ""; position: absolute; inset: 0; }
 
 .sdcd-tile {
@@ -2309,3 +2314,217 @@
   .sdcd-footer__bande-corps { padding-top: var(--sdcd-2); padding-bottom: var(--sdcd-2); }
   .sdcd-footer__licence-corps { padding-top: var(--sdcd-2); padding-bottom: var(--sdcd-2); }
 }
+
+
+/* =====================================================================
+   Complement 0.15.0 — ce qu'il manquait pour achever le portage du CMS.
+
+   Chaque regle repond a un usage constate dans un gabarit reel, et reprend
+   les valeurs que la couche de compatibilite avait fixees : il ne s'agit pas
+   de redessiner, mais de nommer dans la langue du systeme ce qu'il faisait
+   deja sous des noms empruntes.
+   ===================================================================== */
+
+/* --- grille : colonnes a parts egales -------------------------------
+   `fr-col` sans numero signifie « part egale » en flexbox. Une grille a 12
+   colonnes ne l'exprime pas : c'est ce qui avait fait exclure vingt colonnes
+   du portage mecanique. `grid-auto-flow: column` le dit, lui — chaque enfant
+   prend une colonne automatique de largeur egale. A ne poser que sur une
+   rangee dont TOUS les enfants sont a parts egales. */
+.sdcd-grille--egales {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+}
+@media (max-width: 640px) {
+  /* Sous 640 px, des colonnes egales deviennent illisibles : on empile. */
+  .sdcd-grille--egales { grid-auto-flow: row; }
+}
+
+/* --- exergue --------------------------------------------------------- */
+.sdcd-exergue {
+  background: var(--sdcd-fond-alt);
+  border-left: 4px solid var(--sdcd-action);
+  padding: var(--sdcd-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sdcd-2);
+  font-family: var(--sdcd-font);
+}
+.sdcd-exergue__titre { font-size: var(--sdcd-h4); font-weight: 700; margin: 0; }
+.sdcd-exergue__texte { margin: 0; font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); }
+
+/* --- infobulle -------------------------------------------------------
+   `.sdcd-ancre` porte le positionnement relatif : une infobulle se place par
+   rapport a l'element qui la declenche, pas a la page. */
+.sdcd-ancre { position: relative; }
+.sdcd-infobulle {
+  position: absolute;
+  z-index: 60;
+  background: var(--sdcd-encre);
+  color: var(--sdcd-sur-encre);
+  font-size: var(--sdcd-xs);
+  padding: 6px 10px;
+  border-radius: var(--sdcd-rayon);
+  font-family: var(--sdcd-font);
+}
+
+/* --- separateur « ou » ----------------------------------------------- */
+.sdcd-separateur-ou {
+  display: flex;
+  align-items: center;
+  gap: var(--sdcd-3);
+  color: var(--sdcd-muet);
+  font-size: var(--sdcd-sm);
+}
+.sdcd-separateur-ou::before,
+.sdcd-separateur-ou::after { content: ""; flex: 1; border-top: 1px solid var(--sdcd-ligne); }
+
+/* --- mega-menu -------------------------------------------------------- */
+.sdcd-megamenu {
+  background: var(--sdcd-fond);
+  border-top: 1px solid var(--sdcd-ligne);
+  padding: var(--sdcd-5) 0;
+}
+.sdcd-megamenu__intro { font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); margin-bottom: var(--sdcd-4); }
+.sdcd-megamenu__categorie { font-weight: 700; font-size: var(--sdcd-sm); margin-bottom: var(--sdcd-2); }
+
+/* --- champ de mot de passe --------------------------------------------
+   Une colonne : le champ, puis la case « Afficher ». Les grouper en ligne
+   les faisait se chevaucher sur la page de connexion. */
+.sdcd-motdepasse { display: flex; flex-direction: column; }
+.sdcd-motdepasse__champ { width: 100%; }
+.sdcd-motdepasse__case { margin-top: var(--sdcd-2); }
+
+/* --- groupe de cases a cocher -----------------------------------------
+   L'intitule accompagne la commande et ne passe pas a la ligne. */
+.sdcd-case-groupe { display: flex; align-items: center; gap: var(--sdcd-2); }
+.sdcd-case-groupe > label { display: inline; margin-bottom: 0; }
+.sdcd-case-groupe--sm > label { font-size: var(--sdcd-sm); }
+
+/* --- etats d'erreur d'un champ ----------------------------------------- */
+.sdcd-champ--erreur .sdcd-input__champ,
+.sdcd-input__champ--erreur { border-color: var(--sdcd-erreur); }
+
+/* --- groupes ----------------------------------------------------------- */
+.sdcd-messages { display: flex; flex-direction: column; gap: var(--sdcd-3); }
+.sdcd-liens { display: flex; flex-direction: column; gap: var(--sdcd-2); list-style: none; margin: 0; padding: 0; }
+.sdcd-connexion-groupe { display: inline-flex; flex-direction: column; gap: var(--sdcd-2); }
+
+/* --- logotype textuel --------------------------------------------------- */
+.sdcd-logo {
+  font-family: var(--sdcd-font);
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  font-size: var(--sdcd-sm);
+}
+
+/* --- en-tete : parties complementaires ----------------------------------- */
+.sdcd-header__operateur { display: flex; align-items: center; }
+.sdcd-header__operateur img { max-height: 56px; width: auto; }
+.sdcd-header__recherche { margin-left: auto; }
+.sdcd-header__service { font-weight: 600; font-size: 15px; color: var(--sdcd-texte); text-decoration: none; }
+
+/* --- tableau : enveloppes ------------------------------------------------
+   Le conteneur defile horizontalement plutot que de deborder : la doctrine
+   responsive du systeme interdit un debordement de page. */
+.sdcd-table__enveloppe { margin: 0 0 var(--sdcd-5); }
+.sdcd-table__conteneur { border: 1px solid var(--sdcd-ligne); }
+.sdcd-table__contenu { overflow-x: auto; }
+
+/* --- onglet a icone ------------------------------------------------------- */
+.sdcd-tabs__onglet--icone-gauche { display: inline-flex; align-items: center; gap: var(--sdcd-2); }
+
+/* --- partage --------------------------------------------------------------- */
+.sdcd-share__titre { font-size: var(--sdcd-sm); font-weight: 700; margin: 0 var(--sdcd-3) 0 0; }
+
+/* --- bouton de connexion : parties ------------------------------------------ */
+.sdcd-connectbutton__marque { font-weight: 700; }
+.sdcd-connectbutton__connexion { font-size: var(--sdcd-sm); }
+
+/* --- liens et boutons a icone ------------------------------------------------
+   Le systeme place l'icone dans un element (`__icone`). Une integration en
+   gabarit n'a souvent qu'un modificateur a poser sur le lien lui-meme : ces
+   variantes ne font que reserver l'espace et l'alignement. */
+.sdcd-lien--icone-gauche,
+.sdcd-lien--icone-droite,
+.sdcd-button--icone-gauche,
+.sdcd-button--icone-droite { display: inline-flex; align-items: center; gap: var(--sdcd-2); }
+.sdcd-lien--icone-droite,
+.sdcd-button--icone-droite { flex-direction: row-reverse; }
+.sdcd-lien--fermer { text-decoration: none; }
+.sdcd-lien--aligne { margin-left: calc(-1 * var(--sdcd-2)); }
+
+/* --- boutons de partage par reseau --------------------------------------------
+   Les couleurs de marque sont celles des plateformes, volontairement hors du
+   jeu de jetons : ce ne sont pas des couleurs du systeme, et les aligner sur
+   lui tromperait sur leur origine. */
+.sdcd-share__bouton--facebook { background: #1877F2; color: #FFFFFF; border-color: #1877F2; }
+.sdcd-share__bouton--x { background: #000000; color: #FFFFFF; border-color: #000000; }
+.sdcd-share__bouton--linkedin { background: #0A66C2; color: #FFFFFF; border-color: #0A66C2; }
+.sdcd-share__bouton--courriel,
+.sdcd-share__bouton--copier { background: var(--sdcd-fond-alt); color: var(--sdcd-texte); border-color: var(--sdcd-ligne); }
+
+/* --- etape : etat ---------------------------------------------------------- */
+.sdcd-stepper__etat { font-size: var(--sdcd-xs); color: var(--sdcd-muet); }
+
+/* --- visibilite ------------------------------------------------------------ */
+.sdcd-masque { display: none !important; }
+@media (min-width: 1025px) {
+  .sdcd-masque-lg { display: none !important; }
+  .sdcd-affiche-lg { display: initial; }
+}
+.sdcd-affiche-lg { display: none; }
+
+/* --- proportions d'une carte horizontale ------------------------------
+   Le rediger choisit la part que prend l'image. `--horizontal` seule vaut un
+   tiers ; ces deux variantes le disent explicitement. */
+.sdcd-card--horizontal-tiers .sdcd-card__media { width: 33%; }
+.sdcd-card--horizontal-moitie .sdcd-card__media { width: 50%; }
+
+/* --- tailles d'un bloc media ------------------------------------------- */
+.sdcd-media--sm { max-width: 480px; }
+.sdcd-media--lg { max-width: 100%; }
+
+/* --- proportions d'image ------------------------------------------------
+   `aspect-ratio` plutot qu'un remplissage en pourcentage : la propriete est
+   supportee partout depuis 2021, et elle dit ce qu'elle fait. */
+.sdcd-ratio-16x9 { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
+.sdcd-ratio-32x9 { aspect-ratio: 32 / 9; object-fit: cover; width: 100%; }
+
+/* --- ordre inverse d'un groupe de boutons -------------------------------
+   Sur grand ecran seulement : sur mobile la pile garde l'ordre du document,
+   qui est celui de la lecture. */
+@media (min-width: 1025px) {
+  .sdcd-boutons--enligne-inverse { flex-direction: row-reverse; }
+}
+
+/* --- etiquette a icone --------------------------------------------------- */
+.sdcd-tag--icone-gauche { flex-direction: row; }
+
+/* --- accroche du service dans l'en-tete ---------------------------------- */
+.sdcd-header__service-accroche { font-size: 12px; color: var(--sdcd-muet); }
+
+/* --- region repliable ---------------------------------------------------
+   Marque la region qu'un bouton de divulgation ouvre et ferme. Le masquage
+   lui-meme passe par l'attribut `hidden`, que `sdcd.js` bascule : la classe ne
+   fait que nommer la region et lui donner une transition. Poser le masquage
+   sur la classe aurait dedouble l'etat — un element pouvait alors etre visible
+   tout en etant annonce masque, ce que la 0.9.2 avait deja corrige ailleurs. */
+.sdcd-repli { transition: opacity var(--sdcd-transition); }
+
+/* --- bloc « suivez-nous » ------------------------------------------------ */
+.sdcd-suivre__lettre { padding: var(--sdcd-5) 0; }
+.sdcd-suivre__reseaux { padding: var(--sdcd-5) 0; }
+.sdcd-suivre__reseaux ul {
+  display: flex;
+  gap: var(--sdcd-3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- typographie complementaire --------------------------------------------- */
+.sdcd-texte-lead { font-size: 1.0625rem; color: var(--sdcd-muet); }
+.sdcd-texte-lg { font-size: 1.0625rem; }

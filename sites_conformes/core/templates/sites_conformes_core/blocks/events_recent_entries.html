@@ -73,14 +73,14 @@
 
   <div class="sdcd-grille sdcd-grille--gouttieres sdcd-mb-5">
     {% for post in value.posts %}
-      <div class="fr-col sdcd-col-md-3">
+      <div class="sdcd-col sdcd-col-md-3">
         <div class="sdcd-card sdcd-card--cliquable">
           <div class="sdcd-card__corps">
             <div>
               <h2 class="sdcd-card__titre">
                 <a href="{{ post.url }}">{{ post.title|truncatewords:8 }}</a>
               </h2>
-               <p class="sdcd-card__description fr-icon-calendar-event-fill">
+               <p class="sdcd-card__description ri-calendar-event-fill">
                 {% event_date_range post.event_date_start post.event_date_end %}
               </p>
               {% if post.event_categories.all %}

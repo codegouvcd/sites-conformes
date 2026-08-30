@@ -3,7 +3,7 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% translate "Select language" as select_language_label %}
 {% if language_selector.is_active %}
-  <li class="fr-translate sdcd-header__nav">
+  <li class="sdcd-langmenu sdcd-header__nav">
     <div class="sdcd-nav__item">
       <button
         aria-controls="translate-menu"
@@ -11,9 +11,9 @@
         title="{{ select_language_label }}"
         type="button"
         class="sdcd-dropdown__declencheur sdcd-button sdcd-button--tertiaire-bordure">
-        {{ LANGUAGE_CODE|upper }}<span class="fr-hidden-lg"> – {% get_language_info for LANGUAGE_CODE as current_lang %}{{ current_lang.name_local|capfirst }}</span>
+        {{ LANGUAGE_CODE|upper }}<span class="sdcd-masque-lg"> – {% get_language_info for LANGUAGE_CODE as current_lang %}{{ current_lang.name_local|capfirst }}</span>
       </button>
-      <div class="fr-collapse sdcd-dropdown__menu" id="translate-menu">
+      <div class="sdcd-repli sdcd-dropdown__menu" id="translate-menu">
         <ul class="sdcd-dropdown__liste">
           {% for item in language_selector.items %}
             <li>

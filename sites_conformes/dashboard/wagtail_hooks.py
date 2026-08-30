@@ -104,7 +104,7 @@ class NewWindowExternalLinkHandler(LinkHandler):
         # See https://github.com/whatwg/html/issues/4078.
         new_window = _("(Opens a new window)")
         return f"""<a href="{escape(href)}" target="_blank" rel="noopener noreferrer">
-                <span class="fr-sr-only">{new_window}</span> """
+                <span class="sdcd-lecteur-seul">{new_window}</span> """
 
 
 @hooks.register("register_rich_text_features")

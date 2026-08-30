@@ -64,14 +64,14 @@
     {% endif %}
 
     <div class="sdcd-grille sdcd-grille--gouttieres sdcd-mb-5">
-      <div class="fr-col sdcd-col-md-4 sdcd-col-12">
+      <div class="sdcd-col sdcd-col-md-4 sdcd-col-12">
         <nav class="sdcd-sidemenu sdcd-sidemenu--collant sdcd-mb-1">
           <div>
             <button class="sdcd-sidemenu__entete"
                     hidden
                     aria-controls="fr-sidemenu-wrapper-{{ page.slug }}"
                     aria-expanded="false">{% translate "Filters" %}</button>
-            <div class="fr-collapse" id="fr-sidemenu-wrapper-{{ page.slug }}">
+            <div class="sdcd-repli" id="fr-sidemenu-wrapper-{{ page.slug }}">
               <h2 class="sdcd-sidemenu__titre" id="fr-sidemenu-title">{% translate "Filters and export" %}</h2>
 
               <div class="sdcd-my-5">
@@ -93,7 +93,7 @@
         </nav>
       </div>
 
-      <div class="fr-col sdcd-col-md-8 sdcd-col-12" id="posts-list">
+      <div class="sdcd-col sdcd-col-md-8 sdcd-col-12" id="posts-list">
         <h2>{% translate "Events" %}</h2>
         <div class="sdcd-grille sdcd-grille--gouttieres">{% include "sites_conformes_events/blocks/events_index_posts_list.html" %}</div>
         {% if posts.paginator.num_pages > 1 %}

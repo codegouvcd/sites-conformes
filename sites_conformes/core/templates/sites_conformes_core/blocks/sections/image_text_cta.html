@@ -7,7 +7,7 @@
   <div class="sdcd-grille sdcd-grille--milieu sdcd-grille--centre {{ value.layout.vertical_margin }}">
     <div class="sdcd-col-md-6 {% if value.position == 'right' %} cmsfr-order__2 sdcd-pl-md-6 {% else %} sdcd-pr-md-6 {% endif %}">
       {{ value.text }}
-      <ul class="sdcd-boutons sdcd-boutons--enligne-lg{% if icons_side == 'fr-btn--icon-left' %} sdcd-boutons--icones{% elif icons_side == 'fr-btn--icon-right' %} sdcd-boutons--icones {% endif %} {{ value.position }}">
+      <ul class="sdcd-boutons sdcd-boutons--enligne-lg{% if icons_side == 'sdcd-button--icone-gauche' %} sdcd-boutons--icones{% elif icons_side == 'sdcd-button--icone-droite' %} sdcd-boutons--icones {% endif %} {{ value.position }}">
         <li>{% include "sites_conformes_core/blocks/button.html" with button=value.button %}</li>
       </ul>
 

@@ -1,13 +1,13 @@
 {% load i18n %}
 {% translate "Opens a new window" as new_window %}
 <div class="sdcd-conteneur sdcd-mb-6">
-  <div class="fr-share" id="share-{{ block.id }}">
-    <p class="fr-share__title">{% translate "Share this page" %}</p>
+  <div class="sdcd-share" id="share-{{ block.id }}">
+    <p class="sdcd-share__titre">{% translate "Share this page" %}</p>
     <ul class="sdcd-boutons">
       {% if settings.sites_conformes_core.CmsDsfrConfig.share_links_facebook %}
         <li>
           {% translate "Share on Facebook" as share_facebook %}
-          <a class="fr-btn--facebook fr-btn"
+          <a class="sdcd-share__bouton--facebook sdcd-button sdcd-button--primaire"
              target="_blank"
              rel="noopener"
              title="{{ share_facebook }} - {{ new_window }}"
@@ -19,7 +19,7 @@
       {% if settings.sites_conformes_core.CmsDsfrConfig.share_links_twitter %}
         <li>
           {% translate "Share on X (previously Twitter)" as share_twitter %}
-          <a class="fr-btn--twitter-x fr-btn"
+          <a class="sdcd-share__bouton--x sdcd-button sdcd-button--primaire"
              target="_blank"
              rel="noopener"
              title="{{ share_twitter }} - {{ new_window }}"
@@ -33,7 +33,7 @@
       {% if settings.sites_conformes_core.CmsDsfrConfig.share_links_linkedin %}
         <li>
           {% translate "Share on LinkedIn" as share_linkedin %}
-          <a class="fr-btn--linkedin fr-btn"
+          <a class="sdcd-share__bouton--linkedin sdcd-button sdcd-button--primaire"
              target="_blank"
              rel="noopener"
              title="{{ share_linkedin }} - {{ new_window }}"
@@ -47,7 +47,7 @@
       {% if settings.sites_conformes_core.CmsDsfrConfig.share_links_email %}
         <li>
           {% translate "Share via email" as share_email %}
-          <a class="fr-btn--mail fr-btn"
+          <a class="sdcd-share__bouton--courriel sdcd-button sdcd-button--primaire"
              target="_blank"
              rel="noopener external"
              title="{{ share_email }} - {{ new_window }}"
@@ -60,7 +60,7 @@
       {% if settings.sites_conformes_core.CmsDsfrConfig.share_links_clipboard %}
         <li>
           {% translate "Page URL copied to clipboard." as copied_to_clipboard %}
-          <button class="fr-btn--copy fr-btn"
+          <button class="sdcd-share__bouton--copier sdcd-button sdcd-button--primaire"
                   id="share-{{ block.id }}-clipboard"
                   onclick="navigator.clipboard.writeText(window.location).then(function() {alert('{{ copied_to_clipboard }}')});">
             {% translate "Copy to clipboard" %}

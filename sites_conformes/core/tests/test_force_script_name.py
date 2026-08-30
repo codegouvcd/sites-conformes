@@ -50,7 +50,7 @@ class ContentPageTestCase(WagtailPageTestCase):
         self.assertInHTML(
             """
               <a href="/test_subpath/" title="Accueil — Titre du site">
-                <p class="fr-header__service-title">Titre du site</p>
+                <p class="sdcd-header__service">Titre du site</p>
               </a>
             """,
             response.content.decode(),

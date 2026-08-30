@@ -31,7 +31,7 @@ class TopMenuLinkBlockTestCase(WagtailPageTestCase):
                rel="noopener external"
                title="info.gouv.fr - Ouvre une nouvelle fenêtre"
                id="footer__content-link-gouvernement"
-               class="fr-footer__content-link"
+               class="sdcd-footer__lien"
                href="https://www.info.gouv.fr">info.gouv.fr</a>
             """,
             html,
@@ -45,10 +45,10 @@ class TopMenuLinkBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            f'<a class="fr-btn" href="{self.content_page.url}" aria-current="page">Page de test</a>', html
+            f'<a class="sdcd-button sdcd-button--primaire" href="{self.content_page.url}" aria-current="page">Page de test</a>', html
         )
         self.assertNotInHTML(
-            f"""<a class="fr-btn" href="{self.content_page.url}"
+            f"""<a class="sdcd-button sdcd-button--primaire" href="{self.content_page.url}"
             target="_blank" aria-current="page">Page de test</a>""",
             html,
         )
@@ -77,9 +77,9 @@ class FooterBottomMenuLinkBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            '<a class="fr-footer__bottom-link" href="https://info.gouv.fr" target="_blank" rel="noopener noreferrer">'
+            '<a class="sdcd-footer__lien" href="https://info.gouv.fr" target="_blank" rel="noopener noreferrer">'
             "Mentions légales"
-            '<span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>'
+            '<span class="sdcd-lecteur-seul">Ouvre une nouvelle fenêtre</span>'
             "</a>",
             html,
         )
@@ -90,7 +90,7 @@ class FooterBottomMenuLinkBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            """<a class="fr-footer__bottom-link" href="/plan-du-site/">Plan du site</a>""",
+            """<a class="sdcd-footer__lien" href="/plan-du-site/">Plan du site</a>""",
             html,
         )
 
@@ -115,9 +115,9 @@ class MainMenuLinkBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            '<a class="fr-nav__link" href="https://info.gouv.fr" target="_blank" rel="noopener noreferrer">'
+            '<a class="sdcd-header__lien" href="https://info.gouv.fr" target="_blank" rel="noopener noreferrer">'
             "Info Gouv"
-            '<span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>'
+            '<span class="sdcd-lecteur-seul">Ouvre une nouvelle fenêtre</span>'
             "</a>",
             html,
         )
@@ -130,12 +130,12 @@ class MainMenuLinkBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            f'<a class="fr-nav__link" href="{self.content_page.url}" aria-current="page">Page de test</a>',
+            f'<a class="sdcd-header__lien" href="{self.content_page.url}" aria-current="page">Page de test</a>',
             html,
         )
 
         self.assertNotInHTML(
-            f"""<a class="fr-nav__link" href="{self.content_page.url}"
+            f"""<a class="sdcd-header__lien" href="{self.content_page.url}"
             target="_blank" aria-current="page">Page de test</a>""",
             html,
         )
@@ -169,7 +169,7 @@ class MainMenuSubmenuBlockTestCase(WagtailPageTestCase):
 
         self.assertInHTML(
             '<button aria-expanded="false" aria-controls="collapse-menu-mon-sous-menu"'
-            ' type="menu" class="fr-nav__btn">Mon sous-menu</button>',
+            ' type="menu" class="sdcd-header__lien">Mon sous-menu</button>',
             html,
         )
 
@@ -178,10 +178,10 @@ class MainMenuSubmenuBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            '<div class="fr-collapse fr-menu" id="collapse-menu-mon-sous-menu">'
-            '<ul class="fr-menu__list">'
-            '<li class="fr-nav__item">'
-            f'<a class="fr-nav__link" href="{self.linked_page.url}">Page liée</a>'
+            '<div class="sdcd-repli sdcd-dropdown__menu" id="collapse-menu-mon-sous-menu">'
+            '<ul class="sdcd-dropdown__liste">'
+            '<li class="sdcd-nav__item">'
+            f'<a class="sdcd-header__lien" href="{self.linked_page.url}">Page liée</a>'
             "</li>"
             "</ul>"
             "</div>",
@@ -194,7 +194,7 @@ class MainMenuSubmenuBlockTestCase(WagtailPageTestCase):
 
         self.assertInHTML(
             '<button aria-current="true" aria-expanded="false" aria-controls="collapse-menu-mon-sous-menu"'
-            ' type="menu" class="fr-nav__btn">Mon sous-menu</button>',
+            ' type="menu" class="sdcd-header__lien">Mon sous-menu</button>',
             html,
         )
 
@@ -203,7 +203,7 @@ class MainMenuSubmenuBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertNotInHTML(
-            '<button aria-current="true" class="fr-nav__btn">Mon sous-menu</button>',
+            '<button aria-current="true" class="sdcd-header__lien">Mon sous-menu</button>',
             html,
         )
 
@@ -257,7 +257,7 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
 
         self.assertInHTML(
             '<button aria-expanded="false" aria-controls="collapse-menu-ma-section"'
-            ' type="menu" class="fr-nav__btn">Ma section</button>',
+            ' type="menu" class="sdcd-header__lien">Ma section</button>',
             html,
         )
 
@@ -267,10 +267,10 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
 
         self.assertInHTML(
             f"""
-            <div class="fr-mega-menu__leader">
-            <h4 class="fr-h4 fr-mb-2v">Ma section</h4>
-            <p class="fr-hidden fr-displayed-lg">Description de la section</p>
-            <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right fr-link--align-on-content"
+            <div class="sdcd-megamenu__intro">
+            <h4 class="sdcd-h4 sdcd-mb-2">Ma section</h4>
+            <p class="sdcd-masque sdcd-affiche-lg">Description de la section</p>
+            <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite sdcd-lien--aligne"
                           href="{self.section_page.url}">Voir la section</a>
             </div>""",
             html,
@@ -281,11 +281,11 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            '<div class="fr-col-12 fr-col-lg-3">'
-            '<h5 class="fr-mega-menu__category"><a class="fr-nav__link" href="#" target="_self">Colonne 1</a></h5>'
-            '<ul class="fr-menu__list">'
+            '<div class="sdcd-col-12 sdcd-col-lg-3">'
+            '<h5 class="sdcd-megamenu__categorie"><a class="sdcd-header__lien" href="#" target="_self">Colonne 1</a></h5>'
+            '<ul class="sdcd-dropdown__liste">'
             "<li>"
-            f'<a class="fr-nav__link" href="{self.column_page.url}">Page de colonne</a>'
+            f'<a class="sdcd-header__lien" href="{self.column_page.url}">Page de colonne</a>'
             "</li>"
             "</ul>"
             "</div>",
@@ -298,7 +298,7 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
 
         self.assertInHTML(
             '<button aria-current="true" aria-expanded="false" aria-controls="collapse-menu-ma-section"'
-            ' type="menu" class="fr-nav__btn">Ma section</button>',
+            ' type="menu" class="sdcd-header__lien">Ma section</button>',
             html,
         )
 
@@ -307,7 +307,7 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertNotInHTML(
-            '<button aria-current="true" class="fr-nav__btn">Ma section</button>',
+            '<button aria-current="true" class="sdcd-header__lien">Ma section</button>',
             html,
         )
 
@@ -316,7 +316,7 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            '<button class="fr-link--close fr-link" aria-controls="collapse-menu-ma-section"'
+            '<button class="sdcd-lien--fermer sdcd-lien" aria-controls="collapse-menu-ma-section"'
             ' data-fr-js-collapse-button="true">Fermer</button>',
             html,
         )

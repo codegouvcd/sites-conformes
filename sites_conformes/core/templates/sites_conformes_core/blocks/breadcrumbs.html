@@ -7,7 +7,7 @@
     <button class="sdcd-breadcrumb__bouton"
             aria-expanded="false"
             aria-controls="page-breadcrumb">{% translate "See breadcrumb" %}</button>
-    <div class="fr-collapse" id="page-breadcrumb">
+    <div class="sdcd-repli" id="page-breadcrumb">
       <ol class="sdcd-breadcrumb__liste">
         {% for p in self.get_ancestors %}
           {% if p.is_site_root %}

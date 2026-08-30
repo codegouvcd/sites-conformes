@@ -134,11 +134,11 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
 
         self.assertContains(
             response,
-            "fr-card fr-card--horizontal",
+            "sdcd-card sdcd-card--horizontal",
         )
-        self.assertInHTML("""<h3 class="fr-card__title">Sample card</h3>""", response.content.decode())
+        self.assertInHTML("""<h3 class="sdcd-card__titre">Sample card</h3>""", response.content.decode())
         self.assertInHTML(
-            """<p class="fr-card__desc" data-block-key="test">This is a sample card.</p>""", response.content.decode()
+            """<p class="sdcd-card__description" data-block-key="test">This is a sample card.</p>""", response.content.decode()
         )
 
     def test_card_with_no_link_does_not_have_enlarge_class(self):
@@ -147,7 +147,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
 
         # The page header and footer have the class on the bloc-marque,
         # The card with no link should not, so count should be 2
-        self.assertContains(response, "fr-enlarge-link", count=2)
+        self.assertContains(response, "sdcd-cliquable", count=2)
 
     def test_card_with_main_link(self):
         body = [
@@ -173,11 +173,11 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         # Count = 3 (page header and footer, card)
-        self.assertContains(response, "fr-enlarge-link", count=3)
+        self.assertContains(response, "sdcd-cliquable", count=3)
 
         self.assertInHTML(
             """<a href="https://www.info.gouv.fr" target="_blank" rel="noopener noreferrer">Sample card
-            <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span></a>""",
+            <span class="sdcd-lecteur-seul">Ouvre une nouvelle fenêtre</span></a>""",
             response.content.decode(),
         )
 
@@ -220,16 +220,16 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         # Count = 3 (page header and footer, but not the card as it has several links)
-        self.assertContains(response, "fr-enlarge-link", count=2)
+        self.assertContains(response, "sdcd-cliquable", count=2)
 
         self.assertInHTML(
             """<a href="https://www.info.gouv.fr" target="_blank" rel="noopener noreferrer">Sample card
-            <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span></a>""",
+            <span class="sdcd-lecteur-seul">Ouvre une nouvelle fenêtre</span></a>""",
             response.content.decode(),
         )
 
         self.assertInHTML(
-            """<ul class="fr-links-group">
+            """<ul class="sdcd-liens">
                 <li>
                     <a href="https://numerique.gouv.fr" target="_blank" rel="noopener external">Lien externe</a>
                 </li>
@@ -260,7 +260,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
                                     "value": {
                                         "page": None,
                                         "text": "Label",
-                                        "button_type": "fr-btn fr-btn--secondary",
+                                        "button_type": "sdcd-button sdcd-button--secondaire",
                                         "external_url": "https://numerique.gouv.fr",
                                     },
                                 },
@@ -277,20 +277,20 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         # Count = 3 (page header and footer, but not the card as it has several links)
-        self.assertContains(response, "fr-enlarge-link", count=2)
+        self.assertContains(response, "sdcd-cliquable", count=2)
 
         self.assertInHTML(
             """<a href="https://www.info.gouv.fr" target="_blank" rel="noopener noreferrer">Sample card
-            <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span></a>""",
+            <span class="sdcd-lecteur-seul">Ouvre une nouvelle fenêtre</span></a>""",
             response.content.decode(),
         )
 
         self.assertInHTML(
-            """<div class="fr-btns-group fr-btns-group--inline-lg">
-                  <a class="fr-btn fr-btn--secondary"
+            """<div class="sdcd-boutons sdcd-boutons--enligne-lg">
+                  <a class="sdcd-button sdcd-button--secondaire"
                   href="https://numerique.gouv.fr"
                   target="_blank"
-                  rel="noopener external">Label <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span></a>
+                  rel="noopener external">Label <span class="sdcd-lecteur-seul">Ouvre une nouvelle fenêtre</span></a>
             </div>""",
             response.content.decode(),
         )
@@ -320,7 +320,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
                                         "color": "purple-glycine",
                                         "label": "Tag 1",
                                         "is_small": False,
-                                        "icon_class": "fr-icon-community-fill",
+                                        "icon_class": "ri-community-fill",
                                     },
                                 },
                             ],
@@ -336,18 +336,18 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         # Count = 3 (page header and footer, card)
-        self.assertContains(response, "fr-enlarge-link", count=3)
+        self.assertContains(response, "sdcd-cliquable", count=3)
 
         self.assertInHTML(
             """<a href="https://www.info.gouv.fr" target="_blank" rel="noopener noreferrer">Sample card
-            <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span></a>""",
+            <span class="sdcd-lecteur-seul">Ouvre une nouvelle fenêtre</span></a>""",
             response.content.decode(),
         )
 
         self.assertInHTML(
-            """<ul class="fr-tags-group">
+            """<ul class="sdcd-tags">
                 <li>
-                    <p class="fr-tag fr-tag--purple-glycine fr-icon-community-fill fr-tag--icon-left">Tag 1</p>
+                    <p class="sdcd-tag ri-community-fill sdcd-tag--icone-gauche">Tag 1</p>
                 </li>
             </ul>""",
             response.content.decode(),
@@ -378,7 +378,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
                                         "color": "purple-glycine",
                                         "label": "Tag 1",
                                         "is_small": False,
-                                        "icon_class": "fr-icon-community-fill",
+                                        "icon_class": "ri-community-fill",
                                     },
                                 },
                             ],
@@ -394,19 +394,19 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         # Count = 3 (page header and footer, but not the card as it has several links)
-        self.assertContains(response, "fr-enlarge-link", count=2)
+        self.assertContains(response, "sdcd-cliquable", count=2)
 
         self.assertInHTML(
             """<a href="https://www.info.gouv.fr" target="_blank" rel="noopener noreferrer">Sample card
-            <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span></a>""",
+            <span class="sdcd-lecteur-seul">Ouvre une nouvelle fenêtre</span></a>""",
             response.content.decode(),
         )
 
         self.assertInHTML(
-            """<ul class="fr-tags-group">
+            """<ul class="sdcd-tags">
                 <li>
                     <a href="https://numerique.gouv.fr"
-                    class="fr-tag fr-tag--purple-glycine fr-icon-community-fill fr-tag--icon-left">Tag 1</a>
+                    class="sdcd-tag ri-community-fill sdcd-tag--icone-gauche">Tag 1</a>
                 </li>
             </ul>""",
             response.content.decode(),
@@ -441,7 +441,7 @@ class TileBlockTestCase(WagtailPageTestCase):
 
         response = self.client.get(url)
 
-        self.assertNotContains(response, "fr-tile__header")
+        self.assertNotContains(response, "sdcd-tile__media")
 
     def test_tile_with_image_has_div(self):
         image_file = "sites_conformes/static/artwork/technical-error.svg"
@@ -465,7 +465,7 @@ class TileBlockTestCase(WagtailPageTestCase):
 
         response = self.client.get(url)
 
-        self.assertContains(response, "fr-tile__header")
+        self.assertContains(response, "sdcd-tile__media")
 
     @override_settings(SF_SCHEME_DEPENDENT_SVGS=True)
     def test_tile_manages_svg_image_if_setting_allows(self):
@@ -490,7 +490,7 @@ class TileBlockTestCase(WagtailPageTestCase):
 
         response = self.client.get(url)
 
-        self.assertContains(response, "fr-tile__pictogram")
+        self.assertContains(response, "sdcd-tile__media")
 
 
 class BlogRecentEntriesBlockTestCase(WagtailPageTestCase):

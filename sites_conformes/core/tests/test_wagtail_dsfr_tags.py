@@ -43,7 +43,7 @@ class LanguageSelectorTagDisabledTestCase(LanguageSelectorTagBaseTestCase):
 
     def test_widget_not_rendered(self):
         response = self.client.get(self.content_page.url)
-        self.assertNotContains(response, "fr-translate")
+        self.assertNotContains(response, "sdcd-langmenu")
 
 
 class LanguageSelectorTagSimpleTestCase(LanguageSelectorTagBaseTestCase):
@@ -88,7 +88,7 @@ class LanguageSelectorTagSimpleTestCase(LanguageSelectorTagBaseTestCase):
 
     def test_widget_rendered(self):
         response = self.client.get(self.content_page.url)
-        self.assertContains(response, "fr-translate")
+        self.assertContains(response, "sdcd-langmenu")
 
 
 class LanguageSelectorTagManualTestCase(LanguageSelectorTagBaseTestCase):
@@ -144,7 +144,7 @@ class LanguageSelectorTagManualTestCase(LanguageSelectorTagBaseTestCase):
         response = self.client.get(self.content_page.url)
         html = response.content.decode()
         self.assertInHTML(
-            '<a class="fr-translate__language fr-nav__link"'
+            '<a class="sdcd-dropdown__item sdcd-header__lien"'
             ' hreflang="en" lang="en" href="https://en.example.com">'
             "EN - English"
             "</a>",
@@ -155,7 +155,7 @@ class LanguageSelectorTagManualTestCase(LanguageSelectorTagBaseTestCase):
         response = self.client.get(self.content_page.url)
         html = response.content.decode()
         self.assertInHTML(
-            f'<a class="fr-translate__language fr-nav__link"'
+            f'<a class="sdcd-dropdown__item sdcd-header__lien"'
             f' hreflang="fr" lang="fr" href="{self.fr_page.full_url}"'
             f' aria-current="true">'
             "FR - Français"

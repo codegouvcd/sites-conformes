@@ -4,13 +4,13 @@
   {% if buttons %}
     {% with icons_side=buttons.0.value.icon_side %}
       {% if buttons|length > 1 %}
-        <ul class="sdcd-boutons sdcd-boutons--enligne-lg{% if icons_side == 'fr-btn--icon-left' %} sdcd-boutons--icones{% elif icons_side == 'fr-btn--icon-right' %} sdcd-boutons--icones{% endif %}">
+        <ul class="sdcd-boutons sdcd-boutons--enligne-lg{% if icons_side == 'sdcd-button--icone-gauche' %} sdcd-boutons--icones{% elif icons_side == 'sdcd-button--icone-droite' %} sdcd-boutons--icones{% endif %}">
           {% for button in buttons %}
             <li>{% include "sites_conformes_core/blocks/button.html" with button=button.value %}</li>
           {% endfor %}
         </ul>
       {% else %}
-        <div class="sdcd-boutons sdcd-boutons--enligne-lg{% if icons_side == 'fr-btn--icon-left' %} sdcd-boutons--icones{% elif icons_side == 'fr-btn--icon-right' %} sdcd-boutons--icones{% endif %}">
+        <div class="sdcd-boutons sdcd-boutons--enligne-lg{% if icons_side == 'sdcd-button--icone-gauche' %} sdcd-boutons--icones{% elif icons_side == 'sdcd-button--icone-droite' %} sdcd-boutons--icones{% endif %}">
           {% include "sites_conformes_core/blocks/button.html" with button=buttons.0.value %}
         </div>
       {% endif %}

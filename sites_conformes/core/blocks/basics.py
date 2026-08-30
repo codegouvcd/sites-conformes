@@ -194,7 +194,7 @@ class CenteredImageStructValue(StructValue):
         if image_ratio:
             return f"fr-responsive-img {image_ratio}"
         else:
-            return "fr-responsive-img"
+            return "sdcd-image-fluide"
 
 
 class CenteredImageBlock(blocks.StructBlock):

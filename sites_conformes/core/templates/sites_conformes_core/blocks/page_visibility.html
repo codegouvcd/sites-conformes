@@ -9,11 +9,11 @@
   {% else %}
     {% translate "Page with restricted visibility" as page_visibility %}
   {% endif %}
-  <button class="fr-icon-eye-off-line sdcd-button sdcd-button--tertiaire"
+  <button class="ri-eye-off-line sdcd-button sdcd-button--tertiaire"
           type="button"
           id="cmsfr-page-visibility-btn"
           aria-describedby="cmsfr-page-visibility">{{ page_visibility }}</button>
-  <span class="fr-tooltip fr-placement"
+  <span class="sdcd-infobulle sdcd-ancre"
         id="cmsfr-page-visibility"
         role="tooltip"
         aria-hidden="true">{{ page_visibility }}</span>

@@ -40,8 +40,8 @@ class TranslationImageBlockExtractionTestCase(WagtailPageTestCase):
                     "buttons": [],
                     "image": {
                         "image": {"image": image, "alt_text": "Photo description", "decorative": False},
-                        "image_ratio": "fr-ratio-16x9",
-                        "image_width": "fr-content-media--sm",
+                        "image_ratio": "sdcd-ratio-16x9",
+                        "image_width": "sdcd-media--sm",
                         "image_positioning": "",
                     },
                 },

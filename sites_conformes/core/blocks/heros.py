@@ -32,7 +32,7 @@ class HeroImageStructValue(StructValue):
         if image_ratio:
             extra_class += f"fr-responsive-img {image_ratio} "
         else:
-            extra_class += "fr-responsive-img"
+            extra_class += "sdcd-image-fluide"
 
         if image_positioning:
             extra_class += f"cmsfr-image-focus-{image_positioning}"
@@ -57,14 +57,14 @@ class HeroImageBlockWithRatioWidth(HeroImageBlock):
         label=_("Image width"),
         choices=MEDIA_WIDTH_CHOICES,
         required=False,
-        default="fr-content-media--lg",
+        default="sdcd-media--lg",
         help_text=_("Select image width"),
     )
     image_ratio = blocks.ChoiceBlock(
         label=_("Image ratio"),
         choices=IMAGE_RATIOS,
         required=False,
-        default="fr-ratio-32x9",
+        default="sdcd-ratio-32x9",
         help_text=_(
             "Select the right ratio for your image. "
             "The size will be adjusted on mobile phones, so make sure you don't include any text in the image."

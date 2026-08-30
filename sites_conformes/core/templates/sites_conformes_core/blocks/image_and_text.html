@@ -7,30 +7,30 @@
           {% include "sites_conformes_core/blocks/image_svg_or_raster.html" with extra_classes="fr-responsive-img" %}
         </div>
       </div>
-      <div class="sdcd-col-12 fr-col-sm{{ -12|add:value.image_ratio }}">
+      <div class="sdcd-col-12 sdcd-col-sm-12{{ -12|add:value.image_ratio }}">
         {{ value.text|richtext }}
 
         {% if value.link is not None and value.link.url %}
           {% include_block value.link %}
         {% elif value.page and value.link_label %}
-          <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
+          <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite"
              href="{{ value.page.url }}">{{ value.link_label }}</a>
         {% elif value.link_url and value.link_label %}
-          <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
+          <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite"
              href="{{ value.link_url }}">{{ value.link_label }}</a>
         {% endif %}
       </div>
     {% else %}
-      <div class="sdcd-col-12 fr-col-sm{{ -12|add:value.image_ratio }}{% if value.image_side == "right_above" %} cmsfr-order-mobile__2{% endif %}">
+      <div class="sdcd-col-12 sdcd-col-sm-12{{ -12|add:value.image_ratio }}{% if value.image_side == "right_above" %} cmsfr-order-mobile__2{% endif %}">
         {{ value.text|richtext }}
 
         {% if value.link is not None and value.link.url %}
           {% include_block value.link %}
         {% elif value.page and value.link_label %}
-          <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
+          <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite"
              href="{{ value.page.url }}">{{ value.link_label }}</a>
         {% elif value.link_url and value.link_label %}
-          <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
+          <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite"
              href="{{ value.link_url }}">{{ value.link_label }}</a>
         {% endif %}
       </div>

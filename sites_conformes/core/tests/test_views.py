@@ -229,7 +229,7 @@ class ConfigTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         self.assertInHTML(
-            """<p class="fr-logo">République<br />française</p>""",
+            """<p class="sdcd-logo">République<br />française</p>""",
             response.content.decode(),
         )
 
@@ -238,11 +238,11 @@ class ConfigTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         self.assertInHTML(
-            """<div class="fr-footer__brand fr-enlarge-link">
+            """<div class="sdcd-footer__marque sdcd-cliquable">
                     <a id="footer-operator"
                     href="/"
                     title="Retourner à l’accueil - Site title - République française">
-                    <p class="fr-logo">
+                    <p class="sdcd-logo">
                         République<br />française
                     </p>
                 </a>
@@ -255,11 +255,11 @@ class ConfigTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         self.assertInHTML(
-            """<div class="fr-header__service">
+            """<div class="sdcd-header__entite-bloc">
                 <a href="/" title="Accueil — Site title">
-                    <p class="fr-header__service-title">Site title</p>
+                    <p class="sdcd-header__service">Site title</p>
                 </a>
-                <p class="fr-header__service-tagline">Site tagline</p>
+                <p class="sdcd-header__service-accroche">Site tagline</p>
             </div>""",
             response.content.decode(),
         )
@@ -270,7 +270,7 @@ class ConfigTestCase(WagtailPageTestCase):
 
         self.assertNotContains(
             response,
-            "fr-notice__body",
+            "sdcd-notice__corps",
         )
 
     def test_notice_can_be_set(self):
@@ -288,7 +288,7 @@ class ConfigTestCase(WagtailPageTestCase):
 
         self.assertNotContains(
             response,
-            '<span class="fr-badge fr-badge--sm fr-badge--green-emeraude">BETA</span>',
+            '<span class="sdcd-badge sdcd-badge--sm sdcd-badge--succes">BETA</span>',
         )
 
     def test_beta_tag_can_be_set(self):
@@ -300,7 +300,7 @@ class ConfigTestCase(WagtailPageTestCase):
 
         self.assertContains(
             response,
-            '<span class="fr-badge fr-badge--sm fr-badge--green-emeraude">BETA</span>',
+            '<span class="sdcd-badge sdcd-badge--sm sdcd-badge--succes">BETA</span>',
         )
 
     def test_footer_description_uses_conf(self):
