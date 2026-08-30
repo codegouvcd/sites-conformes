@@ -578,6 +578,56 @@ carte. Une regression deguisee en migration.
 reseaux sociaux sans equivalent), `fr-nav` (15), `fr-fieldset` (14), `fr-footer`
 (13), `fr-collapse` (11), `fr-menu` et `fr-password` (16).
 
+### Portage acheve — plus aucune classe DSFR
+
+| | Avant | Apres |
+|---|---|---|
+| Classes `fr-*` emises | 251 | **0** |
+| Classes `sdcd-*` | 99 | **plus de 260** |
+| `compat-dsfr.css` | 2 682 regles, 134 Ko | **supprimee** |
+
+Ne subsistent que des identifiants (`fr-sidemenu-wrapper-*`) et des attributs
+`data-fr-*`, qui ne sont pas des classes : les renommer casserait des liens
+`aria-controls` sans rien apporter.
+
+### Ce que le portage a exige au-dela des gabarits
+
+**Le code Python stockait des classes comme donnees.** Cent vingt valeurs —
+type de bouton, taille de lien, icone, proportion d'image — proposees au rediger
+dans l'administration puis ecrites en base. Les porter demandait deux gestes :
+changer ce que le code propose, et **reecrire ce que la base contient deja**.
+La migration `0081` s'en charge, avec une garde : une chaine n'est traduite que
+si TOUS ses jetons sont des classes connues. Un texte redactionnel ou une URL
+contenant « fr-btn » n'est pas touche — teste sur neuf cas dont quatre negatifs.
+
+**L'echelle de marges ne coincide pas.** Le DSFR compte en `w` (1w = 8 px), le
+SDCD a ses propres pas. Le rediger continue de choisir un nombre de `w` — changer
+cette interface reformerait toutes les pages — mais la classe emise est ramenee
+au pas du systeme le plus proche.
+
+### Trois defauts fonctionnels, anterieurs au portage
+
+Aucun n'etait cause par la migration ; tous ont ete mis au jour par elle.
+
+- **La preference de theme rendue par le serveur etait ignoree.** Le gabarit
+  posait `data-fr-scheme` sur `<html>` ; `sdcd.js` lit `data-theme`.
+- **Le bouton « Reglages d'affichage » etait inerte.** Il portait
+  `data-fr-opened` et pointait sur `fr-theme-modal`, deux crochets du JavaScript
+  du DSFR parti avec lui.
+- **Dix-huit classes de teinte n'existaient nulle part.** Le rediger choisissait
+  une couleur pour un exergue, un badge ou une citation, et rien ne se
+  produisait. Le defaut vivait dans le CMS depuis l'origine.
+
+Les teintes sont desormais implementees **en accent seulement** — filet,
+bordure, jamais le texte. Ce n'est pas une preference : `--sdcd-chart-1` ne fait
+que 3,0:1 sur blanc et echouerait le contrat de contraste comme couleur de
+texte. Une bordure releve de WCAG 1.4.11 et n'a besoin que de 3:1.
+
+### Le controle 8 change de nature
+
+Il ne mesure plus une couverture — il **interdit** l'emission d'une classe DSFR.
+Teste a l'envers.
+
 ---
 
 ## À venir
