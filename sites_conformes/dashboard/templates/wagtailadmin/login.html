@@ -51,13 +51,13 @@
                              id="login-form-fieldset-messages"
                              aria-live="assertive">
                           {% if form.errors %}
-                            <div class="fr-alert fr-alert--error fr-alert--sm">
+                            <div class="sdcd-alert sdcd-alert--erreur sdcd-alert--sm">
                               <p>{% translate "Error: Your username and password do not match, please try again." %}</p>
                             </div>
                           {% endif %}
                           {% if next %}
                             {% if user.is_authenticated %}
-                              <div class="fr-alert fr-alert--error fr-alert--sm">
+                              <div class="sdcd-alert sdcd-alert--erreur sdcd-alert--sm">
                                 <p>
                                   {% translate "Error: Your account does not have access to this page. To continue, please log in with an authorized account." %}
                                 </p>
@@ -92,7 +92,7 @@
                                  aria-live="assertive"></div>
                           </div>
                           {% if show_password_reset %}
-                            <a class="fr-link" href="{% url 'wagtailadmin_password_reset' %}">{% translate "Forgotten password?" %}</a>
+                            <a class="sdcd-lien" href="{% url 'wagtailadmin_password_reset' %}">{% translate "Forgotten password?" %}</a>
                           {% endif %}
                         </div>
                       </div>

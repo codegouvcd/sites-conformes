@@ -233,6 +233,10 @@
 .sdcd-alert--alerte { --sdcd-alert-teinte: var(--sdcd-alerte); --sdcd-alert-fond: var(--sdcd-alerte-pale); }
 .sdcd-alert--erreur { --sdcd-alert-teinte: var(--sdcd-erreur); --sdcd-alert-fond: var(--sdcd-erreur-pale); }
 .sdcd-alert__icone { color: var(--sdcd-alert-teinte); font-size: 20px; flex-shrink: 0; }
+/* Variante compacte : le texte passe au petit corps. Le DSFR la distingue, et
+   le CMS l'emploie pour ses messages de formulaire. */
+.sdcd-alert--sm { font-size: var(--sdcd-xs); }
+.sdcd-alert--sm p { font-size: var(--sdcd-xs); margin: 0; }
 .sdcd-alert__corps { flex: 1; }
 .sdcd-alert__titre { font-weight: 700; color: var(--sdcd-texte); }
 .sdcd-alert__texte { font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); line-height: 1.55; }
@@ -1214,7 +1218,14 @@
   font-family: var(--sdcd-font);
   font-size: 0.9375rem;
   font-weight: 500;
+  /* Couleur et soulignement poses ici et non laisses a la balise : un bouton
+     presente comme un lien est un motif courant — « masquer », « tout voir » —
+     et il n'heritait de rien. La regle de base.css ne vise que <a>. */
+  color: var(--sdcd-action);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
+.sdcd-lien:hover { color: var(--sdcd-action-survol); }
 .sdcd-lien--sm { font-size: 0.8125rem; }
 .sdcd-lien--lg { font-size: 1.0625rem; }
 .sdcd-lien__detail { color: var(--sdcd-muet); font-weight: 400; font-size: 0.85em; text-decoration: none; margin-left: 6px; }

@@ -5,16 +5,16 @@
       <div class="sdcd-col-12">
         {% for message in messages %}
           {% if message.tags == "success" %}
-            <div class="fr-alert fr-alert--success fr-alert--sm sdcd-mb-7"
+            <div class="sdcd-alert sdcd-alert--succes sdcd-alert--sm sdcd-mb-7"
                  role="status">
               <p>{{ message }}</p>
             </div>
           {% elif message.tags == "info" %}
-            <div class="fr-alert fr-alert--info fr-alert--sm sdcd-mb-7" role="status">
+            <div class="sdcd-alert sdcd-alert--info sdcd-alert--sm sdcd-mb-7" role="status">
               <p>{{ message }}</p>
             </div>
           {% elif message.tags == "error" %}
-            <div class="fr-alert fr-alert--error fr-alert--sm sdcd-mb-7" role="alert">
+            <div class="sdcd-alert sdcd-alert--erreur sdcd-alert--sm sdcd-mb-7" role="alert">
               <p>{{ message }}</p>
             </div>
           {% endif %}
