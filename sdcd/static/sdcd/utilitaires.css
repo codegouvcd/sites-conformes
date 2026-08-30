@@ -233,6 +233,14 @@
 /* Defaut mobile d'abord : toute colonne occupe la ligne entiere tant qu'aucune
    largeur ne s'applique. Doit preceder les classes chiffrees, qui ont la meme
    specificite et l'emportent donc par l'ordre. */
+/* Un enfant direct sans classe de colonne occupe la ligne entiere. En flexbox
+   il prenait sa largeur naturelle ; dans une grille a douze pistes il serait
+   ecrase sur une seule — c'est ce qui arrivait a la liste du plan du site, dont
+   le libelle se brisait mot par mot. Le defaut n'existait pas avant le passage
+   a la grille : il fallait donc le traiter dans la grille, et non gabarit par
+   gabarit, ou il serait revenu au premier oubli. */
+.sdcd-grille > *:not([class*="sdcd-col"]) { grid-column: 1 / -1; }
+
 .sdcd-col, [class*="sdcd-col-"] { grid-column-end: span 12; }
 
 .sdcd-col-1 { grid-column-end: span 1; }
