@@ -1,5 +1,12 @@
 {% load static dsfr_tags wagtailcore_tags wagtailimages_tags wagtailmarkdown %}
 
+{% comment %}
+  Le texte courant — paragraphe et markdown — est borne par `sdcd-mesure`.
+  Sans elle, il occupait toute la largeur du conteneur : 131 caracteres par
+  ligne mesures a 1440 px sur la page d'accueil, la ou l'oeil decroche des 75.
+  La classe borne sans centrer : le texte reste aligne a gauche, sous son titre,
+  qui peut rester plus large.
+{% endcomment %}
 {% for block in stream %}
   {% if block.block_type == "callout" %}
     <div class="sdcd-conteneur sdcd-mb-6 cmsfr-block-callout">{% include_block block %}</div>
@@ -16,7 +23,9 @@
   {% elif block.block_type == "fullwidthbackgroundwithsidemenu" %}
     {% include_block block %}
   {% elif block.block_type == "paragraph" %}
-    <div class="sdcd-conteneur cmsfr-block-paragraph">{{ block.value|richtext }}</div>
+    <div class="sdcd-conteneur cmsfr-block-paragraph">
+      <div class="sdcd-mesure">{{ block.value|richtext }}</div>
+    </div>
   {% elif block.block_type == "alert" %}
     <div class="sdcd-conteneur sdcd-mb-6 cmsfr-block-alert">{% include_block block %}</div>
   {% elif block.block_type == "card" %}
@@ -24,7 +33,9 @@
   {% elif block.block_type == "tile" %}
     <div class="sdcd-conteneur sdcd-mb-6 cmsfr-block-tile">{% include_block block %}</div>
   {% elif block.block_type == "markdown" %}
-    <div class="sdcd-conteneur cmsfr-block-markdown">{{ block.value|markdown }}</div>
+    <div class="sdcd-conteneur cmsfr-block-markdown">
+      <div class="sdcd-mesure">{{ block.value|markdown }}</div>
+    </div>
   {% elif block.block_type == "html" %}
     <div class="sdcd-conteneur cmsfr-block-raw-html">{{ block.value|safe }}</div>
   {% elif block.block_type in "hero_text_image,hero_text_wide_image,hero_text_background_image,old_hero" %}

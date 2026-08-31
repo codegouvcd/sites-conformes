@@ -31,9 +31,17 @@
           {% endblock brand %}
         </div>
       </div>
-      <p class="sdcd-footer__description">
-        {% block footer_description %}{% endblock footer_description %}
-      </p>
+      {% comment %}
+        Enveloppe neutre, et non un <p class="sdcd-footer__description"> : le
+        bloc rend du texte riche, qui produit ses propres <p>. Un <p> dans un <p>
+        est du HTML invalide, que le navigateur defait en fermant le premier —
+        la classe se serait alors appliquee a un paragraphe vide. Le defaut
+        n'apparaissait pas tant que la description restait vide.
+
+        Un <div> vide ne reserve par ailleurs aucune marge, la ou le <p> en
+        posait 28 px : le haut du pied de page gardait cet espace pour rien.
+      {% endcomment %}
+      <div>{% block footer_description %}{% endblock footer_description %}</div>
     </div>
 
     <div class="sdcd-footer__colonnes sdcd-grid">
@@ -67,10 +75,18 @@
         suffit pas — le lien doit etre atteignable depuis le site lui-meme.
         Ne pas retirer sans avoir verifie que la licence du projet a change.
       {% endcomment %}
+      {% comment %}
+        Le lien ouvre un nouvel onglet : il doit le dire. Un utilisateur de
+        lecteur d'ecran qui ne l'entend pas se retrouve dans un contexte qu'il
+        n'a pas demande, sans retour arriere. Tous les autres liens externes du
+        site portent deja cette mention ; celui-ci avait ete oublie.
+      {% endcomment %}
       <a class="sdcd-lien sdcd-lien--sm"
          href="https://github.com/codegouvcd/sites-conformes"
-         rel="noopener"
-         target="_blank">{% translate "Code source de ce site (AGPL-3.0)" %}</a>
+         rel="noopener external"
+         target="_blank">{% translate "Code source de ce site (AGPL-3.0)" %}
+        <span class="sdcd-lecteur-seul">{% translate "Ouvre une nouvelle fenêtre" %}</span>
+      </a>
     </div>
   </div>
 </footer>
