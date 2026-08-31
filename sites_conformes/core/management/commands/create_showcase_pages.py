@@ -22,9 +22,9 @@ from django.db import transaction
 from wagtail.models import Page
 from wagtail.rich_text import RichText
 
-from sites_conformes.core.models import ContentPage
+from sites_conformes.core.models import CmsDsfrConfig, ContentPage
 from sites_conformes.core.utils import get_default_site
-from sites_conformes.menus.models import MainMenu
+from sites_conformes.menus.models import FooterBottomMenu, MainMenu
 
 
 def rt(html):
@@ -686,6 +686,7 @@ class Command(BaseCommand):
             )
             return
 
+        self.configurer(site)
         self.ecrire_accueil(accueil, options["reinitialiser"])
 
         creees = []
@@ -698,6 +699,43 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Site vitrine en place."))
 
     # ------------------------------------------------------------------ outils
+    def configurer(self, site):
+        """Renseigne l'identite du site.
+
+        Sans cela, la demonstration affiche « Titre du site », « Sous-titre du
+        site » et « Intitulé officiel » : les valeurs d'usine. Un service qui
+        decouvre le CMS y verrait un site inacheve plutot qu'un exemple.
+        """
+        config = CmsDsfrConfig.for_site(site)
+        config.site_title = "Sites Conformes"
+        config.site_tagline = "Le gestionnaire de contenus de l’État"
+        config.header_brand = "République Démocratique du Congo"
+        config.header_brand_html = "République<br />Démocratique<br />du Congo"
+        config.footer_brand = "République Démocratique du Congo"
+        config.footer_brand_html = "République<br />Démocratique<br />du Congo"
+        config.footer_description = rt(
+            "<p>Sites Conformes est mis à disposition des services de l’État "
+            "congolais. Le code est libre ; chaque entité reste responsable de "
+            "ce qu’elle publie.</p>"
+        )
+        config.save()
+        self.stdout.write(self.style.SUCCESS("  configuration du site : renseignee"))
+
+        menu = FooterBottomMenu.objects.filter(site=site).first()
+        if menu:
+            liens = []
+            for slug, libelle in (
+                ("mentions-legales", "Mentions légales"),
+                ("accessibilite", "Accessibilité"),
+                ("contact", "Contact"),
+            ):
+                page = Page.objects.filter(slug=slug).first()
+                if page:
+                    liens.append(("link", {"text": libelle, "page": page, "link_type": "page"}))
+            menu.items = liens
+            menu.save()
+            self.stdout.write(self.style.SUCCESS(f"  bas de page : {len(liens)} liens"))
+
     def ecrire_accueil(self, accueil, forcer):
         accueil.title = "Sites Conformes"
         accueil.seo_title = "Sites Conformes — le gestionnaire de contenus de l’État congolais"

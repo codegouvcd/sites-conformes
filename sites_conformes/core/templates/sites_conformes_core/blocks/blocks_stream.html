@@ -22,7 +22,11 @@
     {% include_block block %}
   {% elif block.block_type == "fullwidthbackgroundwithsidemenu" %}
     {% include_block block %}
-  {% elif block.block_type == "paragraph" %}
+  {% elif block.block_type == "paragraph" or block.block_type == "text" %}
+    {# Le meme texte riche porte deux noms : « paragraph » dans le corps d'une #}
+    {# page, « text » dans les blocs de mise en page, qui reutilisent ce flux. #}
+    {# Sans la seconde branche, le texte d'un fond pleine largeur tombait dans #}
+    {# le cas general et n'etait pas borne : il reprenait toute la largeur. #}
     <div class="sdcd-conteneur cmsfr-block-paragraph">
       <div class="sdcd-mesure">{{ block.value|richtext }}</div>
     </div>

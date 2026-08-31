@@ -62,6 +62,21 @@ class ShowcasePagesTestCase(WagtailPageTestCase):
         call_command("create_showcase_pages", verbosity=0)
         self.assertEqual(ContentPage.objects.count(), avant)
 
+    def test_l_identite_du_site_est_renseignee(self):
+        """Sans cela, la demonstration affiche les valeurs d'usine."""
+        from sites_conformes.core.models import CmsDsfrConfig
+        from sites_conformes.core.utils import get_default_site
+
+        config = CmsDsfrConfig.for_site(get_default_site())
+        self.assertEqual(config.site_title, "Sites Conformes")
+        self.assertNotIn("Titre du site", config.site_title)
+        self.assertIn("Congo", config.footer_brand)
+
+        reponse = self.client.get(ContentPage.objects.get(slug="home").url)
+        contenu = reponse.content.decode()
+        self.assertNotIn("Sous-titre du site", contenu)
+        self.assertIn("Mentions légales", contenu)
+
     def test_le_menu_principal_pointe_vers_les_rubriques(self):
         reponse = self.client.get(ContentPage.objects.get(slug="home").url)
         contenu = reponse.content.decode()
