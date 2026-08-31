@@ -12,11 +12,35 @@
 */
 
 
+/* Ecart assume avec la feuille amont de Remix Icon.
+ *
+ * Elle pose `font-family: remixicon !important` sur l'ELEMENT. Un element qui
+ * porte a la fois la classe d'icone et du texte — un bouton, un lien, une
+ * etiquette, la ligne de detail d'une carte — voit alors son libelle rendu dans
+ * la police d'icones, qui n'a aucune lettre latine : le navigateur remplace
+ * caractere par caractere et le texte s'affiche a empattements, plus petit que
+ * le reste de la page.
+ *
+ * Ce motif est celui du CMS, herite du DSFR, ou les icones etaient des masques
+ * CSS : la classe posee sur l'element ne changeait pas sa police. Le passage a
+ * une police d'icones a rendu le defaut visible partout a la fois.
+ *
+ * Le glyphe vit de toute facon dans ::before. On y deplace la police, et
+ * l'element garde la sienne. */
 [class^="ri-"], [class*=" ri-"] {
-  font-family: 'remixicon' !important;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="ri-"]::before, [class*=" ri-"]::before {
+  font-family: 'remixicon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  speak: never;
 }
 
 .ri-lg { font-size: 1.3333em; line-height: 0.75em; vertical-align: -.0667em; }
