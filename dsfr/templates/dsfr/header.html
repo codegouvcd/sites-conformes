@@ -53,13 +53,28 @@
       {% block operator_logo %}{% endblock operator_logo %}
 
       <div class="sdcd-header__filet sdcd-sm-hide" aria-hidden="true"></div>
+      {% comment %}
+        Le bloc service_title fournit deja son <a> et son <p class="sdcd-header__service">.
+        Une enveloppe .sdcd-header__entite supplementaire portait exactement les
+        memes declarations : deux classes pour un seul role. On garde le nom
+        officiel du systeme, .sdcd-header__service, auquel la correspondance de
+        portage traduit fr-header__service-title.
+      {% endcomment %}
       <div class="sdcd-header__entite-bloc">
-        <div class="sdcd-header__entite">{% block service_title %}{% endblock service_title %}</div>
-        <div class="sdcd-header__sous-titre">{% block service_tagline %}{% endblock service_tagline %}</div>
+        {% block service_title %}{% endblock service_title %}
+        <p class="sdcd-header__service-accroche">{% block service_tagline %}{% endblock service_tagline %}</p>
       </div>
 
       <div class="sdcd-header__actions">
-        {% block header_tools %}{% endblock header_tools %}
+        {% comment %}
+          Les outils d'en-tete — menu haut, selecteur de langue, menu de compte —
+          ont chacun un <li> pour racine. Sans cette liste, ils flottaient comme
+          des <li> orphelins dans un <div> : balisage invalide, et les lecteurs
+          d'ecran n'annoncaient ni le nombre d'entrees ni leur regroupement.
+        {% endcomment %}
+        <ul class="sdcd-header__outils">
+          {% block header_tools %}{% endblock header_tools %}
+        </ul>
         {% block header_search %}{% endblock header_search %}
         {% block burger_menu %}{% endblock burger_menu %}
       </div>

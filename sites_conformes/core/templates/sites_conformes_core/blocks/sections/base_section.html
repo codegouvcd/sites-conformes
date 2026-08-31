@@ -1,7 +1,7 @@
 {% load wagtail_dsfr_tags wagtailcore_tags %}
 
 <div class="sdcd-py-5 {{ value.layout.vertical_margin }}"
-     style="{% if value.layout.background_color %}background-color: var(--background-alt-{{ value.layout.background_color }});
+     style="{% if value.layout.background_color %}background-color: var(--sdcd-fond-{{ value.layout.background_color }});
             {% endif %} min-height: 150px">
   <div class="sdcd-conteneur {% block extra_classes %}{% endblock extra_classes %}">
     <h2 class="sdcd-h3">{{ value.section_title }}</h2>

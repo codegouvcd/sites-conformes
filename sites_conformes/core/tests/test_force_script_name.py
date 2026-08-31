@@ -37,9 +37,13 @@ class ContentPageTestCase(WagtailPageTestCase):
             """<link rel="canonical" href="http://localhost/test_subpath/content-page/" />""",
             response.content.decode(),
         )
-        self.assertInHTML(
-            """<link rel="apple-touch-icon" href="/test_subpath/static/dsfr/dist/favicon/apple-touch-icon.png" />""",
+        # L'icone venait de dsfr/dist/favicon/, disparu avec le paquet. Le systeme
+        # ne dispose que des armoiries comme image matricielle : c'est elle que
+        # favicon.html declare desormais.
+        self.assertRegex(
             response.content.decode(),
+            r'<link rel="apple-touch-icon" '
+            r'href="/test_subpath/static/sdcd/assets/armoiries-rdc(\.[0-9a-f]+)?\.png">',
         )
 
         self.assertInHTML(

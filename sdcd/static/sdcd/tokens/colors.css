@@ -30,6 +30,18 @@
   /* Séries de graphiques — teintes distinctes, ≥ 3:1 sur le fond (WCAG 1.4.11) */
   --sdcd-chart-1:#0095C9; --sdcd-chart-2:#005D7C; --sdcd-chart-3:#8E5F08;
   --sdcd-chart-4:#197448; --sdcd-chart-5:#C42E29; --sdcd-chart-6:#56616B;
+  /* Fonds de section — la palette qu'un rédacteur choisit pour le fond d'un bloc.
+     Chaque teinte est assez claire pour porter --sdcd-texte à ≥ 4,5:1, en clair
+     comme en sombre : le fond d'une section est presque toujours sous du texte,
+     et proposer une couleur pleine reviendrait à offrir un choix illisible.
+     Les noms reprennent exactement les valeurs stockées par le CMS. */
+  --sdcd-fond-bleu:#EDF6FA;         --sdcd-fond-bleu-soutenu:#D6ECF5;
+  --sdcd-fond-gris:#F5F7F9;         --sdcd-fond-gris-soutenu:#E7EBEF;
+  --sdcd-fond-succes:#E7F4EC;       --sdcd-fond-info:#EDF6FA;
+  --sdcd-fond-alerte:#FBF3E3;       --sdcd-fond-erreur:#FCEEEE;
+  --sdcd-fond-chart-1:#E6F5FB;      --sdcd-fond-chart-2:#D6ECF5;
+  --sdcd-fond-chart-3:#FBF3E3;      --sdcd-fond-chart-4:#E7F4EC;
+  --sdcd-fond-chart-5:#FCEEEE;      --sdcd-fond-chart-6:#EEF1F3;
   /* Alias sémantiques */
   --sdcd-action:var(--sdcd-bleu-action); --sdcd-action-survol:var(--sdcd-bleu-sombre); --sdcd-action-appui:var(--sdcd-bleu-profond);
   --sdcd-texte:var(--sdcd-encre); --sdcd-texte-2:var(--sdcd-muet);
@@ -50,6 +62,14 @@
   --sdcd-nouveau:#E3CE55; --sdcd-nouveau-pale:#2A2611;
   --sdcd-chart-1:#4DB8DC; --sdcd-chart-2:#A6DDF0; --sdcd-chart-3:#E2A33C;
   --sdcd-chart-4:#4CC38A; --sdcd-chart-5:#F07470; --sdcd-chart-6:#96A0A9;
+  /* Fonds de section, versant sombre : assez foncés pour porter l'encre claire. */
+  --sdcd-fond-bleu:#12242C;         --sdcd-fond-bleu-soutenu:#173341;
+  --sdcd-fond-gris:#1B2025;         --sdcd-fond-gris-soutenu:#232A31;
+  --sdcd-fond-succes:#12251B;       --sdcd-fond-info:#12242C;
+  --sdcd-fond-alerte:#2A2113;       --sdcd-fond-erreur:#2C1514;
+  --sdcd-fond-chart-1:#12242C;      --sdcd-fond-chart-2:#173341;
+  --sdcd-fond-chart-3:#2A2113;      --sdcd-fond-chart-4:#12251B;
+  --sdcd-fond-chart-5:#2C1514;      --sdcd-fond-chart-6:#1F252B;
   --sdcd-action:var(--sdcd-bleu-action); --sdcd-action-survol:var(--sdcd-bleu-sombre); --sdcd-action-appui:var(--sdcd-bleu-profond);
   --sdcd-texte:var(--sdcd-encre); --sdcd-texte-2:var(--sdcd-muet);
   --sdcd-surface:var(--sdcd-fond);

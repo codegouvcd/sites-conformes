@@ -1,7 +1,7 @@
 {% load i18n %}
-{# Markup du composant Notice du DSFR écrit à la main (plutôt que le tag {% dsfr_notice %}) afin de #}
-{# maîtriser le libellé du lien et l'affichage de la date, sans surcharger le template DSFR partagé #}
-{# avec le site public. Le style vient du CSS scopé dsfr/dist/component/notice/notice.min.css. #}
+{# Bandeau de notification ecrit a la main, pour maitriser le libelle du lien et #}
+{# l'affichage de la date. Le style vient de css/admin.css, porte sous .sf-notice : #}
+{# components.css du SDCD n'est pas charge dans le back-office. #}
 {% for item in notifications %}
   <div class="sdcd-notice sdcd-notice--{{ item.type|default:"info" }} sf-notice">
     <div class="sdcd-notice__corps">

@@ -88,7 +88,7 @@ class ContentPageAccessorTestCase(WagtailPageTestCase):
 
         header_fields = {
             "header_image": image,
-            "header_color_class": "blue-france",
+            "header_color_class": "bleu",
             "header_with_title": True,
             "header_large": True,
             "header_darken": True,
@@ -100,7 +100,7 @@ class ContentPageAccessorTestCase(WagtailPageTestCase):
         )
 
         assert page_with_header.header_image.title == "Sample image"
-        assert page_with_header.header_color_class == "blue-france"
+        assert page_with_header.header_color_class == "bleu"
         assert page_with_header.header_with_title is True
         assert page_with_header.header_large is True
         assert page_with_header.header_darken is True

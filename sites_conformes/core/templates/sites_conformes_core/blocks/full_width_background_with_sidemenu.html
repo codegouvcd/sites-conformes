@@ -3,7 +3,7 @@
 <div class="sdcd-py-7 {{ value.vertical_margin }} cmsfr-block-full-width-background-with-sidemenu"
      {% if value.bg_color_class or bg_img or value.bg_color %}style="background:{% endif %}
      {% if bg_img %}no-repeat center url({{ bg_img.url }}){% endif %}
-     {% if value.bg_color_class %} var(--background-alt-{{ value.bg_color_class }}) {% elif value.bg_color %}{{ value.bg_color }}{% endif %}
+     {% if value.bg_color_class %} var(--sdcd-fond-{{ value.bg_color_class }}) {% elif value.bg_color %}{{ value.bg_color }}{% endif %}
      {% if value.bg_color_class or bg_img or value.bg_color %};"{% endif %}>
   <div class="sdcd-conteneur">
     <div class="sdcd-grille sdcd-grille--gouttieres sdcd-mb-5">
@@ -12,11 +12,11 @@
           <div>
             <button class="sdcd-sidemenu__entete"
                     hidden
-                    aria-controls="fr-sidemenu-wrapper-{{ block.id }}"
+                    aria-controls="sdcd-sidemenu-wrapper-{{ block.id }}"
                     aria-expanded="false">{% translate "In this section" %}</button>
-            <div class="sdcd-repli" id="fr-sidemenu-wrapper-{{ block.id }}">
+            <div class="sdcd-repli" id="sdcd-sidemenu-wrapper-{{ block.id }}">
               {% if value.sidemenu_title %}
-                <div class="sdcd-sidemenu__titre" id="fr-sidemenu-title">{{ value.sidemenu_title }}</div>
+                <div class="sdcd-sidemenu__titre" id="sdcd-sidemenu-titre">{{ value.sidemenu_title }}</div>
               {% endif %}
               {% include "sites_conformes_core/blocks/blocks_stream.html" with stream=value.sidemenu_content %}
             </div>

@@ -78,3 +78,19 @@ class SdcdBaseForm(forms.Form):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             sdcd_input_class_attr(visible)
+
+    def set_autofocus_on_first_error(self):
+        """Pose `autofocus` sur le premier champ en erreur.
+
+        Reprend le comportement de `DsfrBaseForm`, que la reecriture de cette
+        couche avait perdu : sans lui, apres un envoi refuse, le curseur reste
+        en haut de page et l'utilisateur — a la souris comme au clavier — doit
+        retrouver seul le champ fautif. `SitesFacilesBaseForm` l'appelle depuis
+        son `__init__`.
+        """
+        if not self.is_bound:
+            return
+        for nom in self.fields:
+            if self.errors.get(nom):
+                self.fields[nom].widget.attrs["autofocus"] = ""
+                return

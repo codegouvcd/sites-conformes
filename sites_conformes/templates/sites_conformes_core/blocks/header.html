@@ -50,25 +50,30 @@
 {% block header_search %}
   {% translate "Search" as search_label %}
   {% if settings.sites_conformes_core.CmsDsfrConfig.search_bar %}
-    <div class="sdcd-header__recherche sdcd-modal" id="modal-search">
-      <div class="sdcd-conteneur sdcd-conteneur--fluide">
-        {% translate "Close" as close_label %}
-        <button class="sdcd-fermer"
-                aria-controls="modal-search"
-                title="{{ close_label }}">{{ close_label }}</button>
-        <form action="{% url 'cms_search' %}" method="get">
-          <div class="sdcd-searchbar" id="search-bar" role="search">
-            <label class="sdcd-champ__label" for="query">{{ search_label }}</label>
-            <input class="sdcd-input__champ"
-                   placeholder="{{ search_label }}"
-                   type="search"
-                   id="query"
-                   name="q"
-                   value="{{ query|default_if_none:'' }}">
-            <button class="sdcd-button sdcd-button--primaire" title="{{ search_label }}">{{ search_label }}</button>
-          </div>
-        </form>
-      </div>
+    {% comment %}
+      Barre de recherche de l'en-tete.
+
+      Le balisage precedent venait du DSFR, ou la recherche s'ouvre en modale sur
+      mobile : un <div class="sdcd-modal"> assorti d'un bouton « Fermer ». Le
+      systeme de design n'a pas ce comportement, et .sdcd-modal donne une boite
+      blanche ombree de 560 px — la recherche s'affichait donc comme une fenetre
+      posee dans l'en-tete, avec un bouton de fermeture qu'aucun script ne
+      pilotait. Le champ et le bouton portent les classes du composant
+      searchbar ; l'etiquette reste lue par les technologies d'assistance.
+    {% endcomment %}
+    <div class="sdcd-header__recherche">
+      <form action="{% url 'cms_search' %}" method="get">
+        <div class="sdcd-searchbar" id="search-bar" role="search">
+          <label class="sdcd-lecteur-seul" for="query">{{ search_label }}</label>
+          <input class="sdcd-searchbar__champ"
+                 placeholder="{{ search_label }}"
+                 type="search"
+                 id="query"
+                 name="q"
+                 value="{{ query|default_if_none:'' }}">
+          <button class="sdcd-searchbar__bouton" title="{{ search_label }}">{{ search_label }}</button>
+        </div>
+      </form>
     </div>
   {% endif %}
 {% endblock header_search %}

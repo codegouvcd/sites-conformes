@@ -1,7 +1,8 @@
 {% load menu_tags i18n %}
 <div class="sdcd-repli sdcd-megamenu"
      id="mega-menu-{{ menu.parent_menu_item.id }}"
-     tabindex="-1">
+     tabindex="-1"
+     hidden>
   <div class="sdcd-conteneur sdcd-conteneur--fluide">
     <button class="sdcd-lien--fermer sdcd-lien"
             aria-controls="mega-menu-{{ menu.parent_menu_item.id }}">{% translate "Close" %}</button>

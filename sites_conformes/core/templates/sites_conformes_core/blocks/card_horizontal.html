@@ -1,5 +1,5 @@
 {% load i18n wagtailimages_tags wagtailcore_tags dsfr_tags wagtail_dsfr_tags %}
-<div class="sdcd-card sdcd-card--horizontal {% if value.image_ratio %}{{ value.image_ratio }}{% endif %} {% if value.enlarge_link %}sdcd-card--cliquable{% endif %} {% if value.grey_background %}sdcd-card--gris{% elif value.no_background %}sdcd-card--sans-fond{% endif %} {% if value.no_border %}sdcd-card--sans-bordure{% endif %} {% if value.shadow %}sdcd-card--ombre{% endif %} {% if value.document or value.link.document %}sdcd-card--telechargement{% endif %}">
+<div class="sdcd-card sdcd-card--horizontal {% if value.image_ratio %}{{ value.image_ratio }}{% endif %} {% if value.enlarge_link %}sdcd-cliquable{% endif %} {% if value.grey_background %}sdcd-card--gris{% elif value.no_background %}sdcd-card--sans-fond{% endif %} {% if value.no_border %}sdcd-card--sans-bordure{% endif %} {% if value.shadow %}sdcd-card--ombre{% endif %} {% if value.document or value.link.document %}sdcd-card--telechargement{% endif %}">
   <div class="sdcd-card__corps">
     <div>
       {# djlint: off #}

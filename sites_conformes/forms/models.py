@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from dsfr.forms import DsfrDjangoTemplates
+from dsfr.forms import DsfrBoundField, DsfrDjangoTemplates
 from dsfr.utils import dsfr_input_class_attr
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
@@ -62,6 +62,14 @@ class SitesFacilesCustomForm(BaseForm):
     """
 
     template_name = "dsfr/form_snippet.html"  # type: ignore
+
+    # Sans cette ligne, `as_field_group()` retombe sur le gabarit de champ par
+    # defaut de Django : etiquette sans classe, aide en `<div class="helptext">`,
+    # erreurs en `<ul class="errorlist">`. Aucune de ces trois classes n'est
+    # definie par le systeme de design, donc le formulaire de contact — la page
+    # interactive la plus visitee d'un site d'Etat — s'affichait sans mise en
+    # forme. La classe liee choisit le fragment SDCD adapte au widget.
+    bound_field_class = DsfrBoundField
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

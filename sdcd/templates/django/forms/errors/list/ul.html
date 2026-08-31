@@ -1,0 +1,12 @@
+{% comment %}
+  Liste d'erreurs de Django, habillee par le systeme de design.
+
+  Django rend `{{ form.non_field_errors }}` et les erreurs des formulaires qui
+  n'utilisent pas la classe liee SDCD avec `<ul class="errorlist"><li>...`.
+  Ni `errorlist` ni le `<li>` nu ne sont definis par le systeme : le message
+  s'affichait en puce noire, sans la couleur ni le pictogramme d'erreur.
+
+  Le gabarit est resolu par le moteur du renderer de formulaires, qui parcourt
+  les dossiers `templates/` des applications installees avant ceux de Django :
+  ce fichier supplante donc l'original sans reglage supplementaire.
+{% endcomment %}{% if errors %}<ul class="sdcd-champ__erreurs"{% if errors.field_id %} id="{{ errors.field_id }}_error"{% endif %}>{% for error in errors %}<li class="sdcd-champ__erreur">{{ error }}</li>{% endfor %}</ul>{% endif %}

@@ -316,6 +316,9 @@
 .sdcd-media__image { max-width: 100%; height: auto; display: block; }
 .sdcd-media__legende { font-size: var(--sdcd-xs); color: var(--sdcd-muet); margin-top: var(--sdcd-2); }
 .sdcd-champ__aide { font-size: var(--sdcd-xs); color: var(--sdcd-muet); margin: 2px 0 6px; }
+/* Django enveloppe les erreurs d'un champ dans un <ul>. Sans reinitialisation,
+   la puce noire du navigateur s'affichait a cote du message rouge. */
+.sdcd-champ__erreurs { list-style: none; margin: 0; padding: 0; }
 .sdcd-champ__erreur {
   display: flex;
   align-items: center;
@@ -593,9 +596,20 @@
 .sdcd-header__devise { font-size: 11.5px; font-style: italic; color: var(--sdcd-muet); margin-top: 2px; }
 .sdcd-header__filet { width: 1px; height: 44px; background: var(--sdcd-ligne); }
 .sdcd-header__entite-bloc { min-width: 0; }
-.sdcd-header__entite { font-weight: 600; font-size: 15px; color: var(--sdcd-texte); }
-.sdcd-header__sous-titre { font-size: 12px; color: var(--sdcd-muet); }
+/* .sdcd-header__entite et .sdcd-header__sous-titre ont ete retires : ils
+   repetaient mot pour mot .sdcd-header__service et .sdcd-header__service-accroche,
+   qui sont les noms du systeme. Deux noms pour un role, c'est une divergence qui
+   finit par se voir. */
 .sdcd-header__actions { margin-left: auto; display: flex; align-items: center; gap: var(--sdcd-3); }
+/* Les outils d'en-tete sont une liste : chaque outil a un <li> pour racine. */
+.sdcd-header__outils {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--sdcd-3);
+}
 .sdcd-header__menu {
   align-items: center;
   gap: var(--sdcd-2);
@@ -2567,6 +2581,20 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
 .sdcd-badge--chart-4 { border: 1px solid var(--sdcd-chart-4); background: transparent; color: var(--sdcd-texte); }
 .sdcd-badge--chart-5 { border: 1px solid var(--sdcd-chart-5); background: transparent; color: var(--sdcd-texte); }
 .sdcd-badge--chart-6 { border: 1px solid var(--sdcd-chart-6); background: transparent; color: var(--sdcd-texte); }
+/* Gris : le CMS le propose a cote de « Nouveau » dans la meme liste, et cette
+   variante n'existait pas — le badge s'affichait sans fond ni couleur. */
+.sdcd-badge--gris { background: var(--sdcd-fond-gris-soutenu); color: var(--sdcd-encre-2); }
+
+/* Couleurs d'etiquette. Le champ « Couleur de l'etiquette » du CMS proposait les
+   six teintes d'illustration alors qu'aucune n'etait definie ici : le choix du
+   redacteur restait sans effet visible. Le filet colore porte la distinction, le
+   texte garde --sdcd-texte pour tenir le contraste quelle que soit la teinte. */
+.sdcd-tag--chart-1 { border-color: var(--sdcd-chart-1); background: var(--sdcd-fond-chart-1); }
+.sdcd-tag--chart-2 { border-color: var(--sdcd-chart-2); background: var(--sdcd-fond-chart-2); }
+.sdcd-tag--chart-3 { border-color: var(--sdcd-chart-3); background: var(--sdcd-fond-chart-3); }
+.sdcd-tag--chart-4 { border-color: var(--sdcd-chart-4); background: var(--sdcd-fond-chart-4); }
+.sdcd-tag--chart-5 { border-color: var(--sdcd-chart-5); background: var(--sdcd-fond-chart-5); }
+.sdcd-tag--chart-6 { border-color: var(--sdcd-chart-6); background: var(--sdcd-fond-chart-6); }
 
 /* Badge sans icone : le composant en pose une par defaut selon sa variante. */
 .sdcd-badge--sans-icone::before { content: none; }

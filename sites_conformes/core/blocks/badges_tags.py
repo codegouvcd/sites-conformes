@@ -7,8 +7,12 @@ from .buttons_links import (
     LinkWithoutLabelBlock,
 )
 
+# Le gabarit rend `sdcd-badge--{{ value.color }}` : ces valeurs sont donc des noms
+# de variantes du systeme de design. « new » et « grey » n'en etaient pas — le
+# badge s'affichait sans fond ni couleur des que le redacteur choisissait l'un
+# des deux.
 badge_level_choices = (
-    ("", [("new", _("New")), ("grey", _("Grey"))]),
+    ("", [("nouveau", _("New")), ("gris", _("Grey"))]),
     (_("System colors"), COLOR_CHOICES_SYSTEM),
     (_("Illustration colors"), COLOR_CHOICES_ILLUSTRATION),
 )

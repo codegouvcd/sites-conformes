@@ -6,15 +6,21 @@ les modèles Wagtail qui s'y réfèrent n'aient à changer que le module import�
 Les valeurs, elles, sont celles du SDCD.
 """
 
-# Couleurs porteuses de sens. Les libellés sont ceux présentés à l'éditeur.
+# Ces listes servent à choisir un FOND de section ou de bloc. Elles nommaient
+# jusqu'ici des couleurs pleines — « Bleu d'action », « Filet » — dont aucune
+# n'est lisible sous du texte ; et les gabarits construisaient de toute façon une
+# variable `--background-alt-<valeur>` héritée du DSFR, que le système ne définit
+# pas : le fond choisi par le rédacteur ne s'affichait donc pas du tout. Les
+# valeurs correspondent désormais aux jetons `--sdcd-fond-<valeur>`, tous
+# vérifiés à ≥ 4,5:1 sous --sdcd-texte, en clair comme en sombre.
 COLOR_CHOICES_PRIMARY = [
-    ("bleu-action", "Bleu d'action"),
-    ("bleu-aplat", "Bleu profond"),
+    ("bleu", "Bleu"),
+    ("bleu-soutenu", "Bleu soutenu"),
 ]
 
 COLOR_CHOICES_NEUTRAL = [
-    ("fond-alt", "Fond secondaire"),
-    ("ligne", "Filet"),
+    ("gris", "Gris"),
+    ("gris-soutenu", "Gris soutenu"),
 ]
 
 # Couleurs système : ces quatre-là ont un sens normé, ne pas les employer

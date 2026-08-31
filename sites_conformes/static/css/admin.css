@@ -102,36 +102,69 @@
     vertical-align: baseline;
 }
 
-/* Notice DSFR du panneau de notifications de l'admin. Le composant est chargé de façon scopée via
-   dsfr/dist/component/notice/notice.min.css (cf. wagtail_hooks.global_admin_css) : ce fichier ne cible
-   que les classes .fr-notice*, sans toucher au reste de l'admin Wagtail (contrairement à dsfr.min.css complet).
-   Toutes nos règles ci-dessous sont scopées sous .sf-notice (classe ajoutée uniquement à nos notices admin)
-   afin de ne jamais affecter d'autres notices DSFR — notamment celles utilisées côté site public. */
+/* Bandeau de notification du tableau de bord.
+   Le composant tirait sa mise en forme de dsfr/dist/component/notice/notice.min.css,
+   charge a part pour ne pas deborder sur l'administration Wagtail. Ce fichier est
+   parti avec le DSFR, et les variables definies ici n'etaient plus lues par
+   personne : le bandeau s'affichait sans fond, sans marge et sans distinction
+   entre une information et une alerte.
 
-/* Variables de thème DSFR requises par le composant (le core DSFR, qui les fournirait, n'est pas chargé)
-   + quelques ajustements d'espacement propres au panneau. */
+   Les regles sont ecrites en dur plutot qu'en reprenant components.css du SDCD :
+   cette feuille vise le site public et son import complet reglerait la typographie
+   de tout le back-office. Tout est donc porte sous .sf-notice, classe presente sur
+   nos seules notices d'administration. Les couleurs reprennent les jetons du
+   systeme, recopies faute de pouvoir charger tokens/colors.css ici. */
+
 .sf-notice {
-    --background-contrast-grey: #eee;
-    --text-title-grey: #161616;
-    --background-contrast-info: #e8edff;
-    --text-default-info: #0063cb;
-    --background-contrast-warning: #ffe9e6;
-    --text-default-warning: #b34000;
-    --background-contrast-error: #ffe9e9;
-    --text-default-error: #ce0500;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    display: block;
+    padding: 0.75rem 1rem;
     margin-bottom: 1rem;
     border-radius: 4px;
+    border-left: 4px solid var(--sf-notice-accent);
+    background: var(--sf-notice-fond);
+    color: #161616;
     overflow: hidden;
+
+    /* Information : bleu du systeme. Valeur par defaut du gabarit. */
+    --sf-notice-fond: #e8edff;
+    --sf-notice-accent: #0063cb;
+}
+
+.sf-notice.sdcd-notice--warning {
+    --sf-notice-fond: #fff4e5;
+    --sf-notice-accent: #b34000;
+}
+
+.sf-notice.sdcd-notice--alert {
+    --sf-notice-fond: #ffe9e9;
+    --sf-notice-accent: #ce0500;
+}
+
+.sf-notice p {
+    margin: 0;
+}
+
+.sf-notice .sdcd-notice__titre {
+    display: block;
+    font-weight: 700;
+}
+
+.sf-notice .sdcd-notice__texte {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.sf-notice .sdcd-notice__lien {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--sf-notice-accent);
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 .sf-notice .sf-notice-date {
     font-weight: normal;
     opacity: 0.7;
     font-size: 0.875rem;
-}
-
-.sf-notice .fr-notice__title {
-    display: block;
 }

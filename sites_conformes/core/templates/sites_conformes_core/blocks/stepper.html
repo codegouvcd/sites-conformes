@@ -9,9 +9,18 @@
       {% endwith %}
     </span>
     </{{ value.heading_tag | default:"h2" }}>
-    <div class="sdcd-stepper__jauge"
-         data-fr-current-step="{{ value.current }}"
-         data-sdcd-stepper__jauge="{{ value.total }}"></div>
+    {% comment %}
+      La jauge etait un <div> vide portant `data-fr-current-step` : c'est le
+      JavaScript du DSFR qui y dessinait les segments. Parti avec lui, l'indicateur
+      d'etape ne montrait plus rien — un bloc « Etape 2 sur 5 » sans jauge.
+      Le systeme attend les segments dans le balisage, un par etape, marques
+      --fait jusqu'a l'etape courante incluse.
+    {% endcomment %}
+    <div class="sdcd-stepper__jauge" role="presentation">
+      {% for fait in segments %}
+        <div class="sdcd-stepper__segment{% if fait %} sdcd-stepper__segment--fait{% endif %}"></div>
+      {% endfor %}
+    </div>
     <dl class="sdcd-grille sdcd-grille--gouttieres cmsfr-stepper__details">
       {% for step in value.steps %}
         <div class="sdcd-col-12 sdcd-col-sm-12">

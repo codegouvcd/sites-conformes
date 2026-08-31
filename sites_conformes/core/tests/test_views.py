@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
+from django.templatetags.static import static
 from django.urls import reverse
 from wagtail.models import Page
 from wagtail.test.utils import WagtailPageTestCase
@@ -215,10 +216,10 @@ class ConfigTestCase(WagtailPageTestCase):
             defaults={
                 "site_title": "Site title",
                 "site_tagline": "Site tagline",
-                "header_brand": "République française",
-                "header_brand_html": "République<br />française",
-                "footer_brand": "République française",
-                "footer_brand_html": "République<br />française",
+                "header_brand": "République Démocratique du Congo",
+                "header_brand_html": "République<br />Démocratique<br />du Congo",
+                "footer_brand": "République Démocratique du Congo",
+                "footer_brand_html": "République<br />Démocratique<br />du Congo",
                 "footer_description": "Site <b>description</b>.",
             },
         )
@@ -229,7 +230,7 @@ class ConfigTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         self.assertInHTML(
-            """<p class="sdcd-logo">République<br />française</p>""",
+            """<p class="sdcd-logo">République<br />Démocratique<br />du Congo</p>""",
             response.content.decode(),
         )
 
@@ -237,16 +238,22 @@ class ConfigTestCase(WagtailPageTestCase):
         url = self.content_page.url
         response = self.client.get(url)
 
+        # Le bloc-marque ne rend plus la marque a l'interieur du lien : le lien
+        # porte les armoiries, la marque vient a cote, et `sdcd-cliquable` sur le
+        # conteneur etend la zone cliquable a l'ensemble. Deux assertions plutot
+        # qu'un fragment entier : elles disent ce que le test verifie — le lien de
+        # retour et la marque viennent bien de la configuration.
         self.assertInHTML(
-            """<div class="sdcd-footer__marque sdcd-cliquable">
-                    <a id="footer-operator"
-                    href="/"
-                    title="Retourner à l’accueil - Site title - République française">
-                    <p class="sdcd-logo">
-                        République<br />française
-                    </p>
-                </a>
-            </div>""",
+            """<a id="footer-operator" href="/"
+                  title="Retourner à l’accueil - Site title - République Démocratique du Congo">
+                 <img class="sdcd-footer__armoiries"
+                      src="{}"
+                      alt="Armoiries de la République Démocratique du Congo">
+               </a>""".format(static("sdcd/assets/armoiries-rdc.png")),
+            response.content.decode(),
+        )
+        self.assertInHTML(
+            """<p class="sdcd-logo">République<br />Démocratique<br />du Congo</p>""",
             response.content.decode(),
         )
 

@@ -2,7 +2,7 @@
 {% if value.title %}
   <{{ value.heading_tag|default:"h3" }}>{{ value.title }}</{{ value.heading_tag|default:"h3" }}>
 {% endif %}
-<figure class="sdcd-media {{ value.width }}{% if value.url %} sdcd-card--cliquable{% endif %}"
+<figure class="sdcd-media {{ value.width }}{% if value.url %} sdcd-cliquable{% endif %}"
         role="group"
         aria-label="{{ value.caption }}">
   <div class="sdcd-media__image">

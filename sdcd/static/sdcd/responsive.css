@@ -158,3 +158,10 @@ pre{overflow-x:auto}
 @media (max-width: 640px) {
   .sdcd-breadcrumb__bouton { display: inline-block; }
 }
+/* Le gabarit pose `hidden` sur le fil pour qu'il demarre replie sur mobile.
+   Au-dessus de 640 px le bouton n'existe plus : plus rien ne pourrait le
+   deplier, donc on le reaffiche ici. Le selecteur double la specificite de
+   `[hidden][hidden]` de base.css, qui porte lui aussi !important. */
+@media (min-width: 641px) {
+  .sdcd-breadcrumb .sdcd-repli[hidden] { display: block !important; }
+}

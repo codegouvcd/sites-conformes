@@ -24,15 +24,19 @@ class TopMenuLinkBlockTestCase(WagtailPageTestCase):
         response = self.client.get(self.content_page.url)
         html = response.content.decode()
 
-        # class omitted: it has variable empty parts (size, icon_class) that produce trailing spaces
+        # L'assertion d'origine visait un lien du pied de page vers
+        # www.info.gouv.fr, present dans le contenu de demarrage amont. Ce lien a
+        # ete retire : un site d'Etat congolais n'a pas a renvoyer vers
+        # l'administration francaise. Le test verifie desormais ce qu'annonce son
+        # nom — le rendu de l'entree de menu haut creee juste au-dessus.
         self.assertInHTML(
             """
-            <a target="_blank"
-               rel="noopener external"
-               title="info.gouv.fr - Ouvre une nouvelle fenêtre"
-               id="footer__content-link-gouvernement"
-               class="sdcd-footer__lien"
-               href="https://www.info.gouv.fr">info.gouv.fr</a>
+            <a class="sdcd-button sdcd-button--primaire"
+               href="https://info.gouv.fr"
+               target="_blank"
+               rel="noopener noreferrer">Info Gouv
+              <span class="sdcd-lecteur-seul">Ouvre une nouvelle fenêtre</span>
+            </a>
             """,
             html,
         )
@@ -178,7 +182,7 @@ class MainMenuSubmenuBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            '<div class="sdcd-repli sdcd-dropdown__menu" id="collapse-menu-mon-sous-menu">'
+            '<div class="sdcd-repli sdcd-dropdown__menu" id="collapse-menu-mon-sous-menu" hidden>'
             '<ul class="sdcd-dropdown__liste">'
             '<li class="sdcd-nav__item">'
             f'<a class="sdcd-header__lien" href="{self.linked_page.url}">Page liée</a>'
@@ -315,8 +319,11 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
         response = self.client.get(self.other_page.url)
         html = response.content.decode()
 
+        # `data-fr-js-collapse-button` etait le crochet du JavaScript du DSFR,
+        # parti avec lui : le bouton ne fermait plus rien. sdcd.js replie la region
+        # nommee par `data-sdcd-replie`.
         self.assertInHTML(
-            '<button class="sdcd-lien--fermer sdcd-lien" aria-controls="collapse-menu-ma-section"'
-            ' data-fr-js-collapse-button="true">Fermer</button>',
+            '<button type="button" class="sdcd-lien--fermer sdcd-lien"'
+            ' data-sdcd-replie="collapse-menu-ma-section">Fermer</button>',
             html,
         )

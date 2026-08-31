@@ -1,6 +1,8 @@
-/*** Fixes to the DSFR classes ***/
+/*** Ajustements sur les classes du systeme de design ***/
 
-.fr-header__service-title em {
+/* Le gabarit met en <em> le suffixe « .fr » d'un titre de site qui se termine
+   ainsi. Le nom de la classe suit le portage : .sdcd-header__service. */
+.sdcd-header__service em {
     font-weight: lighter
 }
 
@@ -103,7 +105,7 @@ p:empty {
     margin-top: -40px;
 }
 
-:root[data-fr-theme=light] .cmsfr-background-dark .fr-btn--secondary {
+:root[data-theme="light"] .cmsfr-background-dark .sdcd-button--secondaire {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -184,254 +186,27 @@ p:empty {
 }
 
 /* Custom styling for multi-select filter tags */
-/* Override DSFR default behavior: pressed tags should appear active (colored) */
-label.fr-tag[aria-pressed="true"] {
-    --text-active-blue-france: var(--text-inverted-blue-france);
-    --bg-active-blue-france: var(--background-action-high-blue-france);
-    background-color: var(--bg-active-blue-france);
-    color: var(--text-active-blue-france);
+/* Une etiquette de filtre active doit se distinguer : le gabarit rend un <a>
+   porteur de aria-pressed, pas un <label>, et les couleurs viennent des jetons
+   du systeme. L'ancienne regle visait label.fr-tag et des variables du DSFR :
+   plus rien ne la declenchait, et tous les filtres avaient la meme apparence. */
+.sdcd-tag[aria-pressed="true"] {
+    background-color: var(--sdcd-action);
+    color: var(--sdcd-sur-action);
+    border-color: var(--sdcd-action);
 }
 
-label.fr-tag[aria-pressed="false"] {
-    --text-default-grey: var(--text-mention-grey);
-    --bg-default-grey: var(--background-contrast-grey);
-    background-color: var(--bg-default-grey);
-    color: var(--text-default-grey);
+.sdcd-tag[aria-pressed="false"] {
+    background-color: var(--sdcd-fond-alt);
+    color: var(--sdcd-encre-2);
 }
 
-/* Custom styling for user menu */
-
-.fr-usermenu {
-  --rows: 8;
-  position: relative
-}
-
-.fr-usermenu .fr-usermenu__btn {
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.5rem;
-  max-height: none;
-  max-width: 100%;
-  min-height: 2.5rem;
-  min-height: 3rem;
-  overflow: initial;
-  padding: .5rem 1rem;
-  width: 100%
-}
-
-.fr-usermenu .fr-usermenu__btn:before {
-  margin-left: -.125rem;
-  margin-right: .5rem;
-}
-
-.fr-usermenu .fr-usermenu__btn:after,
-.fr-usermenu .fr-usermenu__btn:before {
-  --icon-size: 1rem;
-  background-color: currentColor;
-  content: "";
-  display: inline-block;
-  flex: 0 0 auto;
-  height: var(--icon-size);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  vertical-align: calc((.75em - var(--icon-size))*.5);
-  width: var(--icon-size)
-}
-
-.fr-usermenu .fr-usermenu__btn:after {
-  margin-left: auto;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 13.172l4.95-4.95 1.414 1.414L12 16l-6.364-6.364L7.05 8.222z%22/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 13.172l4.95-4.95 1.414 1.414L12 16l-6.364-6.364L7.05 8.222z%22/%3E%3C/svg%3E");
-  transition: transform .3s
-}
-
-.fr-usermenu .fr-usermenu__btn[aria-expanded=true]:after {
-  transform: rotate(-180deg)
-}
-
-
-.fr-usermenu__menu {
-  margin: -.25rem 0
-}
-
-
-.fr-usermenu .fr-nav__item {
-  align-items: flex-start;
-}
-
-.fr-usermenu .fr-nav__item:before {
-  content: none
-}
-
-.fr-usermenu .fr-menu__list {
-  padding: 0;
-  width: auto
-}
-
-.fr-menu .fr-usermenu__item {
-  font-weight: 400;
-  height: auto;
-  min-height: auto;
-  padding: .75rem 1rem;
-  text-align: left;
-  width: 100%;
-}
-
-.fr-usermenu .fr-usermenu__btn[aria-expanded=true] {
-  --idle: transparent;
-  --hover: var(--background-open-blue-france-hover);
-  --active: var(--background-open-blue-france-active);
-  background-color: var(--background-open-blue-france);
-  color: var(--text-active-blue-france)
-}
-
-.fr-usermenu .fr-usermenu__btn[aria-expanded=true]:hover {
-  background-color: var(--hover-tint)
-}
-
-.fr-usermenu .fr-usermenu__btn[aria-expanded=true]:active {
-  background-color: var(--active-tint)
-}
-
-
-.fr-header .fr-header__menu-links .fr-usermenu {
-  margin-left: -.5rem;
-  margin-right: -.5rem
-}
-
-.fr-header .fr-header__menu-links .fr-usermenu__btn {
-  padding-left: .5rem;
-  padding-right: .5rem
-}
-
-.fr-header__menu #fr-navigation .fr-link__detail {
-  padding-left: .5rem;
-}
-
-@media (min-width:62em) {
- /*! media lg */
-  .fr-usermenu .fr-usermenu__btn {
-    font-size: .875rem;
-    line-height: 1.5rem;
-    min-height: auto;
-    padding: .25rem .75rem;
-    width: auto
-  }
-
-  .fr-usermenu .fr-usermenu__btn:after {
-    margin-left: .25rem;
-    margin-right: -.25rem
-  }
-
-  .fr-usermenu .fr-usermenu__btn:before {
-    --icon-size: 1rem
-  }
-
-  .fr-usermenu__menu {
-    margin: -.25rem -1rem
-  }
-
-  .fr-usermenu .fr-menu__list {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(var(--rows), auto)
-  }
-
-  .fr-btns-group .fr-usermenu__menu {
-    margin: -1.25rem -.75rem 0
-  }
-
-  .fr-header .fr-header__menu-links .fr-usermenu {
-    margin-bottom: -1rem;
-    margin-left: 0;
-    margin-right: 0
-  }
-}
-
-@media (-ms-high-contrast:active),
-(forced-colors:active) {
-
-  .fr-usermenu .fr-usermenu__btn:after,
-  .fr-usermenu .fr-usermenu__btn:before {
-    background-color: buttontext;
-    forced-color-adjust: none
-  }
-}
-
-
-@media (prefers-reduced-motion:reduce) {
-  .fr-usermenu .fr-usermenu__btn:after,
-  .fr-usermenu__menu {
-    transition: none
-  }
-}
-
-@media (min-width:62em) and (-ms-high-contrast:active),
-(min-width:62em) and (forced-colors:active) {
-
-  .fr-usermenu .fr-menu__list {
-    border-top: 1px solid
-  }
-}
-
-@media screen and (min-width:0\0) and (min-resolution:72dpi) {
-
-  .fr-usermenu .fr-usermenu__btn:after,
-  .fr-usermenu .fr-usermenu__btn:before {
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    height: 1rem;
-    width: 1rem
-  }
-
-  .fr-usermenu .fr-usermenu__btn:after {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 13.172l4.95-4.95 1.414 1.414L12 16l-6.364-6.364L7.05 8.222z%22/%3E%3C/svg%3E")
-  }
-
-  .fr-usermenu .fr-usermenu__btn[aria-expanded=true] {
-    background-color: #e3e3fd;
-    color: #000091
-  }
-
-  .fr-header__tools-links>.fr-usermenu:first-child:last-child .fr-btn {
-    background-color: transparent;
-    box-shadow: inset 0 0 0 1px #ddd;
-    color: #000091
-  }
-
-  .fr-header__tools-links>.fr-usermenu:first-child:last-child .fr-btn:hover {
-    background-color: rgba(0, 0, 0, .05)
-  }
-
-  .fr-header__tools-links>.fr-usermenu:first-child:last-child .fr-btn:active {
-    background-color: rgba(0, 0, 0, .1)
-  }
-
-  .fr-header__tools-links>.fr-usermenu:first-child:last-child .fr-btn:disabled,
-  .fr-header__tools-links>.fr-usermenu:first-child:last-child a.fr-btn:not([href]) {
-    background-color: transparent;
-    box-shadow: inset 0 0 0 1px #e5e5e5;
-    color: #929292
-  }
-
-  .fr-header__tools-links>.fr-usermenu:first-child:last-child .fr-btn:disabled:hover,
-  .fr-header__tools-links>.fr-usermenu:first-child:last-child a.fr-btn:not([href]):hover {
-    background-color: rgba(0, 0, 0, .05)
-  }
-
-  .fr-header__tools-links>.fr-usermenu:first-child:last-child .fr-btn:disabled:active,
-  .fr-header__tools-links>.fr-usermenu:first-child:last-child a.fr-btn:not([href]):active {
-    background-color: rgba(0, 0, 0, .1)
-  }
-}
-
-
-@media print {
-  .fr-usermenu {
-    display: none
-  }
-}
+/* La feuille du menu de compte du DSFR — 233 lignes ecrites contre
+   .fr-usermenu, .fr-menu et .fr-header__tools-links — a ete retiree : plus aucun
+   gabarit n'emet ces classes. Le menu rend maintenant .sdcd-dropdown, que le
+   systeme de design habille lui-meme, impression comprise. Garder ces regles
+   revenait a laisser croire que le composant etait style alors qu'il ne l'etait
+   plus. */
 /* wagtail-honeypot masque son champ piege avec `margin-left: 100vw` : il le
    pousse d'une largeur d'ecran vers la droite. Toute page portant un formulaire
    deborde donc horizontalement — mesure a 375 px, ou la page defilait jusqu'a

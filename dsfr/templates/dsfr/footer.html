@@ -10,7 +10,13 @@
 
   <div class="sdcd-footer__haut">
     <div>
-      <div class="sdcd-footer__marque">
+      {% comment %}
+        Tout le bloc-marque ramene a l'accueil : `sdcd-cliquable` etend la zone
+        du lien qu'il contient. La classe etait posee par le gabarit enfant, sur
+        un second div de meme classe imbrique dans celui-ci ; elle appartient au
+        conteneur, une seule fois.
+      {% endcomment %}
+      <div class="sdcd-footer__marque sdcd-cliquable">
         {% block footer_brand %}
           <a href="/" title="{{ retour_accueil }}">
             <img class="sdcd-footer__armoiries"

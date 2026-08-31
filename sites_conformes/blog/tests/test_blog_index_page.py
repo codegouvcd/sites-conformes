@@ -29,7 +29,7 @@ User = get_user_model()
 def get_post_titles_in_response(response) -> list[str]:
     return [
         link.get_text(strip=True)
-        for link in BeautifulSoup(response.content, "html.parser").select("#posts-list .fr-card__title a")
+        for link in BeautifulSoup(response.content, "html.parser").select("#posts-list .sdcd-card__titre a")
     ]
 
 
@@ -148,28 +148,28 @@ class BlogIndexPageSettingsTest(BlogIndexPageFilterTestBase):
             with self.subTest(filter_name):
                 self._set_filter_settings(**{setting_field: True})
                 response = self.client.get(self.index.url)
-                sidebar = BeautifulSoup(response.content, "html.parser").select_one("nav.fr-sidemenu")
+                sidebar = BeautifulSoup(response.content, "html.parser").select_one("nav.sdcd-sidemenu")
                 self.assertIsNotNone(sidebar)
                 self.assertIsNotNone(sidebar.find("h3", string=sidebar_heading))
-                sidebar_labels = [tag.get_text(strip=True) for tag in sidebar.select("a.fr-tag")]
+                sidebar_labels = [tag.get_text(strip=True) for tag in sidebar.select("a.sdcd-tag")]
                 self.assertIn(taxonomy.name, sidebar_labels)
 
         with self.subTest("author"):
             self._set_filter_settings(filter_by_author=True)
             response = self.client.get(self.index.url)
-            sidebar = BeautifulSoup(response.content, "html.parser").select_one("nav.fr-sidemenu")
+            sidebar = BeautifulSoup(response.content, "html.parser").select_one("nav.sdcd-sidemenu")
             self.assertIsNotNone(sidebar)
             self.assertIsNotNone(sidebar.find("h3", string=gettext("Filter by author")))
-            sidebar_labels = [tag.get_text(strip=True) for tag in sidebar.select("a.fr-tag")]
+            sidebar_labels = [tag.get_text(strip=True) for tag in sidebar.select("a.sdcd-tag")]
             self.assertIn(self.author.name, sidebar_labels)
 
         with self.subTest("source"):
             self._set_filter_settings(filter_by_source=True)
             response = self.client.get(self.index.url)
-            sidebar = BeautifulSoup(response.content, "html.parser").select_one("nav.fr-sidemenu")
+            sidebar = BeautifulSoup(response.content, "html.parser").select_one("nav.sdcd-sidemenu")
             self.assertIsNotNone(sidebar)
             self.assertIsNotNone(sidebar.find("h3", string=gettext("Filter by source")))
-            sidebar_labels = [tag.get_text(strip=True) for tag in sidebar.select("a.fr-tag")]
+            sidebar_labels = [tag.get_text(strip=True) for tag in sidebar.select("a.sdcd-tag")]
             self.assertIn(self.organization.name, sidebar_labels)
 
     def test_filter_hidden_when_disabled(self):
@@ -307,7 +307,7 @@ class BlogIndexPagePostsTest(BlogIndexPageFilterTestBase):
         response = self.client.get(self.index.url)  # no filters
         soup = BeautifulSoup(response.content, "html.parser")
 
-        cards_with_title = [card for card in soup.select("div.fr-card") if post.title in card.get_text()]
+        cards_with_title = [card for card in soup.select("div.sdcd-card") if post.title in card.get_text()]
         self.assertEqual(
             len(cards_with_title),
             1,
@@ -316,8 +316,8 @@ class BlogIndexPagePostsTest(BlogIndexPageFilterTestBase):
         matching_card = cards_with_title[0]
 
         def card_contains_category_tag(card, tag_name: str) -> bool:
-            """Look for any .fr-tag element with the expected category name."""
-            return any(tag.get_text(strip=True) == tag_name for tag in card.select(".fr-tag"))
+            """Look for any .sdcd-tag element with the expected category name."""
+            return any(tag.get_text(strip=True) == tag_name for tag in card.select(".sdcd-tag"))
 
         self.assertTrue(
             card_contains_category_tag(matching_card, self.category.name),

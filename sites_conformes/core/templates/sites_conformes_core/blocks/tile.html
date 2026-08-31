@@ -1,6 +1,6 @@
 
 {% load i18n dsfr_tags wagtailcore_tags wagtailimages_tags wagtail_dsfr_tags %}
-<div class="sdcd-tile{% if value.is_small %} sdcd-tile--sm{% endif %}{% if value.enlarge_link %} sdcd-card--cliquable{% endif %}{% if value.is_horizontal %} sdcd-tile--horizontal{% endif %}{% if value.grey_background %} sdcd-tile--gris{% elif value.no_background %} sdcd-tile--sans-fond{% endif %}{% if value.no_border %} sdcd-tile--sans-bordure{% endif %}{% if value.shadow %} sdcd-tile--ombre{% endif %}{% if value.link.document %} sdcd-tile--telechargement{% endif %}">
+<div class="sdcd-tile{% if value.is_small %} sdcd-tile--sm{% endif %}{% if value.enlarge_link %} sdcd-cliquable{% endif %}{% if value.is_horizontal %} sdcd-tile--horizontal{% endif %}{% if value.grey_background %} sdcd-tile--gris{% elif value.no_background %} sdcd-tile--sans-fond{% endif %}{% if value.no_border %} sdcd-tile--sans-bordure{% endif %}{% if value.shadow %} sdcd-tile--ombre{% endif %}{% if value.link.document %} sdcd-tile--telechargement{% endif %}">
   <div>
     <div>
       {# djlint: off #}

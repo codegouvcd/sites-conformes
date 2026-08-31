@@ -1,5 +1,5 @@
 {% load static wagtailcore_tags wagtailimages_tags %}
-<div style="{% if value.layout.background_color %}background-color: var(--background-alt-{{ value.layout.background_color }});
+<div style="{% if value.layout.background_color %}background-color: var(--sdcd-fond-{{ value.layout.background_color }});
             {% endif %} min-height: 350px">
   <div class="cmsfr-hero-column">
     <div class="{{ value.layout.vertical_margin }} cmsfr-hero-column {% if value.text_content.position == 'bottom' %}cmsfr-order__2{% endif %}">

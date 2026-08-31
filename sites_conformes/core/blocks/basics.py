@@ -278,6 +278,25 @@ class StepperBlock(blocks.StructBlock):
     current = blocks.IntegerBlock(label=_("Current step"), min_value=1, max_value=8)
     steps = StepsListBlock(label=_("Steps"))
 
+    def get_context(self, value, parent_context=None):
+        """Prepare les segments de la jauge.
+
+        Le gabarit laissait la jauge vide et confiait son dessin au JavaScript du
+        DSFR, via `data-fr-current-step`. Ce script est parti : l'indicateur
+        n'affichait plus rien. Les segments sont donc calcules ici plutot que dans
+        le gabarit, ou Django ne sait pas produire une plage d'entiers.
+
+        `total` et `steps` sont deux champs independants — le redacteur peut
+        annoncer six etapes et n'en decrire que quatre. La jauge suit `total`,
+        qui est ce que le composant annonce, et `current` est borne pour qu'une
+        saisie superieure ne remplisse pas plus de segments qu'il n'en existe.
+        """
+        contexte = super().get_context(value, parent_context)
+        total = value.get("total") or 0
+        courante = min(value.get("current") or 0, total)
+        contexte["segments"] = [rang <= courante for rang in range(1, total + 1)]
+        return contexte
+
     class Meta:
         template = "sites_conformes_core/blocks/stepper.html"
 

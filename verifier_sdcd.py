@@ -117,6 +117,57 @@ except Exception as e:
     print("  ECHEC alias/imports : %s" % e)
 
 
+# Repertoires que `git ls-files` ecartait d'office et que le parcours de secours
+# doit ecarter aussi : dependances, sorties de collecte, caches.
+_IGNORES = {
+    ".git", "node_modules", "staticfiles", "medias", "__pycache__",
+    ".venv", "venv", ".tox", ".mypy_cache", ".ruff_cache", "dist", "build",
+}
+
+
+def fichiers_suivis(*suffixes):
+    """Recense les fichiers du projet, en refusant une liste vide.
+
+    Les controles 3, 4, 6, 7, 8 et 9 partaient de `git ls-files`. Hors d'une
+    copie de travail — dans un conteneur ou l'arborescence est montee sans son
+    .git, ou simplement sur une machine sans git — la commande ne renvoie rien :
+    les controles annonçaient alors « 0 examine, 0 defaut » et le script sortait
+    vert. Un controle qui n'examine rien doit echouer, pas rassurer.
+
+    D'ou les deux niveaux : git quand il repond, parcours du disque sinon, et
+    dans tous les cas un arret si le recensement est vide.
+    """
+    motifs = ["*" + s for s in suffixes]
+    try:
+        sortie = subprocess.run(
+            ["git", "ls-files"] + motifs, capture_output=True, text=True, cwd=RACINE
+        )
+        fichiers = sortie.stdout.split()
+    except OSError:
+        fichiers = []
+
+    if not fichiers:
+        fichiers = []
+        for dossier, sous, noms in os.walk(RACINE):
+            sous[:] = [d for d in sous if d not in _IGNORES]
+            for nom in noms:
+                if nom.endswith(suffixes):
+                    fichiers.append(
+                        os.path.relpath(os.path.join(dossier, nom), RACINE).replace("\\", "/")
+                    )
+
+    if not fichiers:
+        raise SystemExit(
+            "  ARRET  aucun fichier %s recense, ni par git ni par parcours du "
+            "disque. Les controles suivants n'auraient rien examine et le script "
+            "serait sorti vert." % ", ".join(suffixes)
+        )
+    return sorted(fichiers)
+
+
+GABARITS = fichiers_suivis(".html")
+
+
 titre("3. Classes sdcd-* emises par les gabarits")
 # Tous les gabarits suivis, pas seulement sdcd/templates/. L'en-tete vit dans
 # dsfr/templates/ — le shim d'alias — et echappait donc entierement a ce controle :
@@ -124,11 +175,7 @@ titre("3. Classes sdcd-* emises par les gabarits")
 # s'affiche sans mise en page en production.
 emises = set()
 _ou = {}
-for _f in subprocess.run(
-    ["git", "ls-files", "*.html"], capture_output=True, text=True
-).stdout.split():
-    if _f.startswith("demo/"):
-        continue
+for _f in GABARITS:
     s = io.open(_f, encoding="utf-8", errors="replace").read()
     for m in re.finditer(r'class="([^"]*)"', s):
         for c in m.group(1).split():
@@ -147,7 +194,7 @@ echecs += len(manquantes)
 
 
 titre("4. Compilation des gabarits du CMS")
-fichiers = subprocess.run(["git", "ls-files", "*.html"], capture_output=True, text=True).stdout.split()
+fichiers = GABARITS
 cibles = [f for f in fichiers
           if "dsfr_tags" in io.open(f, encoding="utf-8", errors="ignore").read()]
 casses = []
@@ -211,9 +258,7 @@ from django.contrib.staticfiles import finders as _finders
 import re as _re2
 
 _motif2 = _re2.compile(r"""\{%\s*static\s+["']([^"']+)["']""")
-_fichiers2 = subprocess.run(
-    ["git", "ls-files", "*.html"], capture_output=True, text=True
-).stdout.split()
+_fichiers2 = GABARITS
 _morts2 = []
 _vus2 = 0
 for _f2 in _fichiers2:
@@ -236,9 +281,7 @@ titre("7. Commentaires Django multilignes")
 # Cinq commentaires ecrits pendant le portage etaient dans ce cas, visibles en haut de
 # chaque page du site en production. La forme multiligne valide est {% comment %}.
 _multi = []
-for _f3 in subprocess.run(
-    ["git", "ls-files", "*.html"], capture_output=True, text=True
-).stdout.split():
+for _f3 in GABARITS:
     for _i3, _l3 in enumerate(
         io.open(_f3, encoding="utf-8", errors="replace").read().split("\n"), 1
     ):
@@ -261,9 +304,7 @@ titre("8. Aucune classe DSFR ne doit subsister")
 # etaient restees sans regle jusqu'a ce que la page de connexion s'affiche de
 # travers.
 _emises = {}
-for _f4 in subprocess.run(
-    ["git", "ls-files", "*.html"], capture_output=True, text=True
-).stdout.split():
+for _f4 in GABARITS:
     if _f4.startswith("demo/"):
         continue
     _txt4 = io.open(_f4, encoding="utf-8", errors="replace").read()
@@ -276,6 +317,71 @@ print("  %d classe(s) DSFR emise(s)" % len(_emises))
 for _c4, _f4 in sorted(_emises.items()):
     print("    DSFR RESIDUELLE %s  (%s)" % (_c4, _f4))
 echecs += len(_emises)
+
+titre("9. Aucun jeton fr-* hors des commentaires")
+# Le controle 8 ne lit que les attributs `class` et `add_class`. C'est la ou vivent
+# les classes, mais pas les selecteurs CSS, les identifiants, les attributs
+# `data-fr-*` ni les chaines de selecteurs des tests. Le portage a donc laisse
+# passer, sans que rien ne le signale :
+#   - 233 lignes de feuille visant `.fr-usermenu`, que plus aucun gabarit
+#     n'emettait : le menu de compte s'affichait sans habillage ;
+#   - les identifiants `fr-sidemenu-wrapper-` et `fr-sidemenu-title` ;
+#   - les crochets `data-fr-js-collapse-button` et `data-fr-current-step`, inertes
+#     depuis le retrait du JavaScript du DSFR : le bouton « Fermer » d'un
+#     mega-menu ne fermait rien, la jauge d'un indicateur d'etape restait vide ;
+#   - les selecteurs `.fr-card__title` des tests du blog, qui ne trouvaient plus
+#     aucune carte et faisaient echouer treize tests.
+#
+# Les commentaires sont retires avant l'examen : ce fichier et plusieurs gabarits
+# expliquent legitimement ce qui a ete remplace, en le nommant.
+_SUIVIS9 = [
+    _f for _f in fichiers_suivis(".html", ".css", ".js", ".py")
+    if not _f.startswith("demo/")
+    # La table de correspondance du portage cite les deux vocabulaires : c'est son role.
+    and not _f.startswith("sdcd/portage/")
+    and "/migrations/" not in _f
+    and _f != "verifier_sdcd.py"
+]
+
+_BLOC_COMMENTAIRE = re.compile(r"/\*.*?\*/", re.S)
+_LIGNE_SLASH = re.compile(r"^\s*//.*$", re.M)
+_COMMENT_DJANGO = re.compile(r"\{%\s*comment\s*%\}.*?\{%\s*endcomment\s*%\}", re.S)
+_COMMENT_COURT = re.compile(r"\{#.*?#\}", re.S)
+_COMMENT_HTML = re.compile(r"<!--.*?-->", re.S)
+_DOCSTRING_D = re.compile(r'"""[\s\S]*?"""')
+_DOCSTRING_S = re.compile(r"'''[\s\S]*?'''")
+_DIESE = re.compile(r"^\s*#.*$", re.M)
+_JETON_FR = re.compile(r"\bfr-[a-z0-9_-]+")
+
+
+def _sans_commentaires(texte, suffixe):
+    if suffixe in (".css", ".js"):
+        return _LIGNE_SLASH.sub(" ", _BLOC_COMMENTAIRE.sub(" ", texte))
+    if suffixe == ".html":
+        texte = _COMMENT_DJANGO.sub(" ", texte)
+        texte = _COMMENT_COURT.sub(" ", texte)
+        return _COMMENT_HTML.sub(" ", texte)
+    if suffixe == ".py":
+        # Les docstrings d'abord : un `#` a l'interieur fausserait le decoupage.
+        texte = _DOCSTRING_D.sub(" ", texte)
+        texte = _DOCSTRING_S.sub(" ", texte)
+        return _DIESE.sub(" ", texte)
+    return texte
+
+
+_restes9 = []
+for _f9 in _SUIVIS9:
+    _suf9 = os.path.splitext(_f9)[1]
+    _txt9 = _sans_commentaires(
+        io.open(_f9, encoding="utf-8", errors="replace").read(), _suf9)
+    for _m9 in sorted(set(_JETON_FR.findall(_txt9))):
+        _restes9.append((_f9, _m9))
+print("  %d fichier(s) examines, %d jeton(s) fr-* restant(s)"
+      % (len(_SUIVIS9), len(_restes9)))
+for _f9, _m9 in _restes9:
+    print("    RESIDU %-32s %s" % (_m9, _f9))
+echecs += len(_restes9)
+
 
 print("\n%s" % ("Aucun defaut." if echecs == 0 else "%d defaut(s)." % echecs))
 raise SystemExit(1 if echecs else 0)

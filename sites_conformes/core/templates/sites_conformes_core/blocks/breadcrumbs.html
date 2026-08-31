@@ -7,7 +7,14 @@
     <button class="sdcd-breadcrumb__bouton"
             aria-expanded="false"
             aria-controls="page-breadcrumb">{% translate "See breadcrumb" %}</button>
-    <div class="sdcd-repli" id="page-breadcrumb">
+    {% comment %}
+      Le fil demarre replie : sous 640 px le bouton s'affiche et l'ouvre. Au-dessus,
+      la feuille responsive masque le bouton et reaffiche le fil malgre `hidden`.
+      Sans cet attribut, le mobile montrait a la fois le bouton « Voir le fil
+      d'Ariane » et le fil, et le bouton annoncait aria-expanded="false" alors que
+      la region etait ouverte.
+    {% endcomment %}
+    <div class="sdcd-repli" id="page-breadcrumb" hidden>
       <ol class="sdcd-breadcrumb__liste">
         {% for p in self.get_ancestors %}
           {% if p.is_site_root %}

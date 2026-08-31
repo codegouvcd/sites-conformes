@@ -1,19 +1,35 @@
-[class*=" fr-icon-"]::after,
-[class*=" fr-icon-"]::before,
-[class^="fr-icon-"]::after,
-[class^="fr-icon-"]::before {
-    --icon-size: 1.5rem;
-    background-color: currentColor;
-    display: inline-block;
-    flex: 0 0 auto;
-    height: var(--icon-size);
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
-    vertical-align: calc((.75em - var(--icon-size))*.5);
-    width: var(--icon-size);
+/* Champ de choix d'icone du back-office.
+ *
+ * Les regles precedentes visaient [class^="fr-icon-"] et dessinaient l'icone en
+ * masque CSS, technique du DSFR. Ni les classes ni les masques n'existent plus :
+ * elles ne s'appliquaient a rien. L'apercu utilise maintenant la police Remix
+ * Icon livree par le systeme, chargee avec le widget.
+ */
+
+.icon-picker-widget__ligne {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
-[class*=" fr-icon-"]::before,
-[class^="fr-icon-"]::before {
-    content: "";
+.icon-picker-widget__ligne input[type="text"] {
+    flex: 1;
+}
+
+.icon-picker-widget__apercu {
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #161616;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.icon-picker-widget__aide {
+    margin-top: 0.35rem;
 }

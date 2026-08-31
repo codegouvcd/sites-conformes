@@ -5,11 +5,16 @@
         type="menu"
         class="sdcd-header__lien">{{ self.label }}</button>
 
-<div class="sdcd-repli sdcd-megamenu" id="{{ self.id }}">
+<div class="sdcd-repli sdcd-megamenu" id="{{ self.id }}" hidden>
   <div class="sdcd-conteneur sdcd-conteneur--fluide">
-    <button class="sdcd-lien--fermer sdcd-lien"
-            aria-controls="{{ self.id }}"
-            data-fr-js-collapse-button="true">{% translate "Close" %}</button>
+    {% comment %}
+      `data-fr-js-collapse-button` etait le crochet du JavaScript du DSFR, parti
+      avec lui : le bouton n'avait plus aucun effet. sdcd.js replie la region
+      nommee par `data-sdcd-replie` et remet le declencheur a l'etat ferme.
+    {% endcomment %}
+    <button type="button"
+            class="sdcd-lien--fermer sdcd-lien"
+            data-sdcd-replie="{{ self.id }}">{% translate "Close" %}</button>
     <div class="sdcd-grille sdcd-grille--gouttieres">
       <div class="sdcd-col-12 sdcd-col-lg-8 sdcd-col-decale-lg-4">
         <div class="sdcd-megamenu__intro">

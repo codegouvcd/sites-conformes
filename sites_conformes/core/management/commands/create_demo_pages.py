@@ -898,7 +898,7 @@ class Command(BaseCommand):
                 "fullwidthbackground",
                 {
                     "bg_image": None,
-                    "bg_color_class": "blue-france",
+                    "bg_color_class": "bleu",
                     "top_margin": 5,
                     "bottom_margin": 5,
                     "content": [

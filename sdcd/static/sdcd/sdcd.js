@@ -299,6 +299,22 @@
     afficher(el.getAttribute("aria-controls"), ouvert);
   });
 
+  // Un bouton « Fermer » place a l'interieur d'une region depliee nomme celle-ci
+  // dans `data-sdcd-replie`. On remet aussi le declencheur — celui dont
+  // aria-controls vise la meme region — a aria-expanded="false" : sans cela le
+  // bouton annoncerait une region ouverte alors qu'elle vient d'etre fermee, et
+  // un second clic ne la rouvrirait pas.
+  surClic("[data-sdcd-replie]", function (el) {
+    var id = el.getAttribute("data-sdcd-replie");
+    if (!id) return;
+    afficher(id, false);
+    var declencheurs = document.querySelectorAll(
+      "[aria-expanded][aria-controls='" + id + "']");
+    for (var i = 0; i < declencheurs.length; i++) {
+      declencheurs[i].setAttribute("aria-expanded", "false");
+    }
+  });
+
   surClic(".sdcd-langmenu__option", function (el) {
     exclusif(el, ".sdcd-langmenu__liste, .sdcd-langmenu", "aria-current");
     fermerMenus();

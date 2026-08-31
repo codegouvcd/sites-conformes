@@ -3,7 +3,7 @@
 <div class="sdcd-py-7 {{ value.vertical_margin }} cmsfr-block-multicolumns"
      {% if value.bg_color_class or bg_img or value.bg_color %}style="background:{% endif %}
      {% if bg_img %}no-repeat center url({{ bg_img.url }}){% endif %}
-     {% if value.bg_color_class %} var(--background-alt-{{ value.bg_color_class }}) {% elif value.bg_color %}{{ value.bg_color }}{% endif %}
+     {% if value.bg_color_class %} var(--sdcd-fond-{{ value.bg_color_class }}) {% elif value.bg_color %}{{ value.bg_color }}{% endif %}
      {% if value.bg_color_class or bg_img or value.bg_color %};"{% endif %}>
   <div class="sdcd-conteneur">
     {% if value.title %}

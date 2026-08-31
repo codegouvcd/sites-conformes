@@ -45,14 +45,18 @@ class FormsTestCase(WagtailPageTestCase):
 
         self.assertEqual(response.status_code, 200)
 
+        # Le champ est rendu par le fragment SDCD : l'erreur est un <p>, pas un <li>
+        # dans une <ul class="errorlist"> — cette liste et sa puce noire etaient le
+        # rendu par defaut de Django, qu'aucune feuille du systeme n'habillait.
         self.assertInHTML(
-            """<li class="sdcd-champ__erreur">Saisissez une adresse e-mail valide.</li>""",
+            """<p class="sdcd-champ__erreur"
+                  id="id_votre_adresse_electronique-desc-error">Saisissez une adresse e-mail valide.</p>""",
             response.content.decode(),
         )
 
         self.assertRegex(
             response.content.decode(),
-            r"<li class=\"fr-error-text\">(\\n)?\s*(Ce champ est requis|Ce champ est obligatoire)\.(\\n)?\s*<\/li>",
+            r"<p class=\"sdcd-champ__erreur\"[^>]*>\s*(Ce champ est requis|Ce champ est obligatoire)\.\s*</p>",
         )
         # Updates sometimes mess with the order of the translations and so the displayed translation. Both are fine.
 

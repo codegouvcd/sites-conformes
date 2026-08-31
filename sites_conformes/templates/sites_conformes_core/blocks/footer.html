@@ -1,39 +1,51 @@
 {% extends "dsfr/footer.html" %}
-{% load i18n wagtailcore_tags wagtailimages_tags wagtail_dsfr_menus_tags wagtail_dsfr_tags %}
+{% load i18n static wagtailcore_tags wagtailimages_tags wagtail_dsfr_menus_tags wagtail_dsfr_tags %}
 
+{% comment %}
+  Bloc-marque du pied de page.
+
+  Trois defauts corriges ici :
+
+  1. Le logo s'affichait DEUX FOIS. Ce gabarit redefinissait `brand` a l'interieur
+     de sa surcharge de `footer_brand`. Le parent declare `brand` a un autre
+     endroit : Django rendait donc la meme marque aux deux emplacements. La
+     surcharge n'est plus imbriquee.
+  2. Le `<div class="sdcd-footer__marque">` du parent enveloppait un second
+     `<div class="sdcd-footer__marque">` — deux fois la meme classe, imbriquee.
+     Le conteneur appartient au parent ; ici on ne rend que son contenu.
+  3. Les valeurs par defaut disaient « republique francaise ». Sur un site d'Etat
+     congolais, un intitule non renseigne affichait donc le nom d'un autre Etat.
+{% endcomment %}
 {% block footer_brand %}
   {% translate "Back to home page" as back_to_home_label %}
+  {% translate "République Démocratique du Congo" as republique %}
   {% if settings.sites_conformes_core.CmsDsfrConfig.operator_logo_file and settings.sites_conformes_core.CmsDsfrConfig.operator_logo_display == "header-footer" %}
     {% image settings.sites_conformes_core.CmsDsfrConfig.operator_logo_file original as logo_img %}
-    <div class="sdcd-footer__marque sdcd-card--cliquable">
-      <p class="sdcd-logo"
-         title="{{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand|default:'république française' }}">
-        {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand_html| default_if_none:'république<br />française' | safe }}
-      </p>
-      <a
-         href="{% root_url %}"
-         title="{{ back_to_home_label }} - {{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_alt }} - {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand|default:'république française' }}">
-        <img class="sdcd-footer__armoiries"
-             src="{{ logo_img.url }}"
-             alt="{{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_alt }}"
-             {% if settings.sites_conformes_core.CmsDsfrConfig.operator_logo_width >= 1 %}style="max-width:{{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_width|floatformat:"1u" }}rem;"{% endif %} />
-        {# L’alternative de l’image (attribut alt) doit impérativement être renseignée et reprendre le texte visible dans l’image #}
-      </a>
-    </div>
+    <a href="{% root_url %}"
+       title="{{ back_to_home_label }} - {{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_alt }} - {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand|default:republique }}">
+      {# L'alternative de l'image doit reprendre le texte visible dans l'image. #}
+      <img class="sdcd-footer__armoiries"
+           src="{{ logo_img.url }}"
+           alt="{{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_alt }}"
+           {% if settings.sites_conformes_core.CmsDsfrConfig.operator_logo_width >= 1 %}style="max-width:{{ settings.sites_conformes_core.CmsDsfrConfig.operator_logo_width|floatformat:"1u" }}rem;"{% endif %} />
+    </a>
   {% else %}
-    <div class="sdcd-footer__marque sdcd-card--cliquable">
-      <a id="footer-operator"
-         href="{% root_url %}"
-         title="{{ back_to_home_label }} - {{ settings.sites_conformes_core.CmsDsfrConfig.site_title }} - {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand|default:'république française' }}">
-        {% block brand %}
-          <p class="sdcd-logo">
-            {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand_html| default_if_none:'république<br />française' | safe }}
-          </p>
-        {% endblock brand %}
-      </a>
-    </div>
+    <a id="footer-operator"
+       href="{% root_url %}"
+       title="{{ back_to_home_label }} - {{ settings.sites_conformes_core.CmsDsfrConfig.site_title }} - {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand|default:republique }}">
+      <img class="sdcd-footer__armoiries"
+           src="{% static 'sdcd/assets/armoiries-rdc.png' %}"
+           alt="{% translate 'Armoiries de la République Démocratique du Congo' %}">
+    </a>
   {% endif %}
 {% endblock footer_brand %}
+
+{% block brand %}
+  <p class="sdcd-logo">
+    {{ settings.sites_conformes_core.CmsDsfrConfig.footer_brand_html|default_if_none:"République<br />Démocratique<br />du Congo"|safe }}
+  </p>
+  <div class="sdcd-footer__devise">{% translate "Justice · Paix · Travail" %}</div>
+{% endblock brand %}
 
 {% block footer_description %}
   {{ settings.sites_conformes_core.CmsDsfrConfig.footer_description | richtext | richtext_p_add_class:"sdcd-footer__description" }}
@@ -48,11 +60,15 @@
   </li>
   {% if settings.sites_conformes_core.CustomScriptsSettings.use_tarteaucitron %}
     <li class="sdcd-footer__legal">
+      {% comment %}
+        `data-fr-opened` et `data-fr-js-modal-button` etaient des crochets du
+        JavaScript du DSFR : ils ne designent plus rien. C'est tarteaucitron qui
+        relie ce bouton a son panneau, par son identifiant.
+      {% endcomment %}
       <button id="tarteaucitronManager"
+              type="button"
               aria-controls="tarteaucitron"
-              data-fr-opened="false"
-              class="sdcd-footer__lien"
-              data-fr-js-modal-button="true">{% translate "Cookie settings" %}</button>
+              class="sdcd-footer__lien">{% translate "Cookie settings" %}</button>
     </li>
   {% endif %}
   {% if settings.sites_conformes_core.CmsDsfrConfig.theme_modale_button %}

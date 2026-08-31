@@ -145,9 +145,10 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         url = self.content_page.url
         response = self.client.get(url)
 
-        # The page header and footer have the class on the bloc-marque,
-        # The card with no link should not, so count should be 2
-        self.assertContains(response, "sdcd-cliquable", count=2)
+        # Seul le bloc-marque du pied de page porte la classe : dans l'en-tete,
+        # les armoiries et le titre de service sont de vrais liens, il n'y a pas
+        # de zone a etendre. La carte sans lien ne doit pas la porter.
+        self.assertContains(response, "sdcd-cliquable", count=1)
 
     def test_card_with_main_link(self):
         body = [
@@ -172,8 +173,8 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         url = self.content_page.url
         response = self.client.get(url)
 
-        # Count = 3 (page header and footer, card)
-        self.assertContains(response, "sdcd-cliquable", count=3)
+        # Deux : le bloc-marque du pied de page, et la carte devenue cliquable.
+        self.assertContains(response, "sdcd-cliquable", count=2)
 
         self.assertInHTML(
             """<a href="https://www.info.gouv.fr" target="_blank" rel="noopener noreferrer">Sample card
@@ -220,7 +221,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         # Count = 3 (page header and footer, but not the card as it has several links)
-        self.assertContains(response, "sdcd-cliquable", count=2)
+        self.assertContains(response, "sdcd-cliquable", count=1)
 
         self.assertInHTML(
             """<a href="https://www.info.gouv.fr" target="_blank" rel="noopener noreferrer">Sample card
@@ -277,7 +278,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         # Count = 3 (page header and footer, but not the card as it has several links)
-        self.assertContains(response, "sdcd-cliquable", count=2)
+        self.assertContains(response, "sdcd-cliquable", count=1)
 
         self.assertInHTML(
             """<a href="https://www.info.gouv.fr" target="_blank" rel="noopener noreferrer">Sample card
@@ -317,7 +318,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
                                     "type": "tag",
                                     "value": {
                                         "link": {"page": None, "external_url": ""},
-                                        "color": "purple-glycine",
+                                        "color": "chart-2",
                                         "label": "Tag 1",
                                         "is_small": False,
                                         "icon_class": "ri-community-fill",
@@ -335,8 +336,8 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         url = self.content_page.url
         response = self.client.get(url)
 
-        # Count = 3 (page header and footer, card)
-        self.assertContains(response, "sdcd-cliquable", count=3)
+        # Deux : le bloc-marque du pied de page, et la carte devenue cliquable.
+        self.assertContains(response, "sdcd-cliquable", count=2)
 
         self.assertInHTML(
             """<a href="https://www.info.gouv.fr" target="_blank" rel="noopener noreferrer">Sample card
@@ -347,7 +348,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         self.assertInHTML(
             """<ul class="sdcd-tags">
                 <li>
-                    <p class="sdcd-tag ri-community-fill sdcd-tag--icone-gauche">Tag 1</p>
+                    <p class="sdcd-tag sdcd-tag--chart-2 ri-community-fill sdcd-tag--icone-gauche">Tag 1</p>
                 </li>
             </ul>""",
             response.content.decode(),
@@ -375,7 +376,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
                                     "type": "tag",
                                     "value": {
                                         "link": {"page": None, "external_url": "https://numerique.gouv.fr"},
-                                        "color": "purple-glycine",
+                                        "color": "chart-2",
                                         "label": "Tag 1",
                                         "is_small": False,
                                         "icon_class": "ri-community-fill",
@@ -394,7 +395,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
         response = self.client.get(url)
 
         # Count = 3 (page header and footer, but not the card as it has several links)
-        self.assertContains(response, "sdcd-cliquable", count=2)
+        self.assertContains(response, "sdcd-cliquable", count=1)
 
         self.assertInHTML(
             """<a href="https://www.info.gouv.fr" target="_blank" rel="noopener noreferrer">Sample card
@@ -406,7 +407,7 @@ class HorizontalCardBlockTestCase(WagtailPageTestCase):
             """<ul class="sdcd-tags">
                 <li>
                     <a href="https://numerique.gouv.fr"
-                    class="sdcd-tag ri-community-fill sdcd-tag--icone-gauche">Tag 1</a>
+                    class="sdcd-tag sdcd-tag--chart-2 ri-community-fill sdcd-tag--icone-gauche">Tag 1</a>
                 </li>
             </ul>""",
             response.content.decode(),
@@ -631,7 +632,7 @@ class HeroBackgroundImageBlockTestCase(WagtailPageTestCase):
                     "buttons": [],
                     "background_color_or_image": "color",
                     "image": {},
-                    "background_color": "blue-france",
+                    "background_color": "bleu",
                 },
             )
         ]
@@ -642,7 +643,7 @@ class HeroBackgroundImageBlockTestCase(WagtailPageTestCase):
 
         response = self.client.get(self.content_page.url)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "background-color: var(--background-alt-blue-france)")
+        self.assertContains(response, "background-color: var(--sdcd-fond-bleu)")
 
     def test_hero_switched_to_color_admin_edit_does_not_500(self):
         """
@@ -666,7 +667,7 @@ class HeroBackgroundImageBlockTestCase(WagtailPageTestCase):
                     "buttons": [],
                     "background_color_or_image": "color",
                     "image": {},
-                    "background_color": "blue-france",
+                    "background_color": "bleu",
                 },
             )
         ]

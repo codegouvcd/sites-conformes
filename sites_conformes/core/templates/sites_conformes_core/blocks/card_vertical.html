@@ -11,7 +11,7 @@
   a partir de ce lien, sans le dupliquer — un lecteur d'ecran n'annonce donc qu'une
   seule destination.
 {% endcomment %}
-<div class="sdcd-card {% if value.enlarge_link %}sdcd-card--cliquable{% endif %} {% if value.grey_background %}sdcd-card--gris{% elif value.no_background %}sdcd-card--sans-fond{% endif %} {% if value.no_border %}sdcd-card--sans-bordure{% endif %} {% if value.shadow %}sdcd-card--ombre{% endif %}">
+<div class="sdcd-card {% if value.enlarge_link %}sdcd-cliquable{% endif %} {% if value.grey_background %}sdcd-card--gris{% elif value.no_background %}sdcd-card--sans-fond{% endif %} {% if value.no_border %}sdcd-card--sans-bordure{% endif %} {% if value.shadow %}sdcd-card--ombre{% endif %}">
   {% if value.image %}
     <div class="sdcd-card__media">
       {% image value.image width-1200 class=value.image_classes alt="" %}
