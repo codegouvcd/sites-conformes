@@ -61,7 +61,7 @@
                   "document": null,
                   "external_url": "",
                   "text": "Appel \u00e0 action",
-                  "button_type": "fr-btn",
+                  "button_type": "sdcd-button sdcd-button--primaire",
                   "icon_class": "",
                   "icon_side": ""
                 },
@@ -77,7 +77,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "grey",
+            "bg_color_class": "gris",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -161,7 +161,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "blue-france",
+            "bg_color_class": "bleu",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -303,7 +303,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "blue-france",
+            "bg_color_class": "bleu",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -346,7 +346,7 @@
                                 "value": {
                                   "label": "Exemple de tag 1",
                                   "is_small": true,
-                                  "color": "green-tilleul-verveine",
+                                  "color": "chart-4",
                                   "icon_class": "",
                                   "link": {
                                     "link_type": null,
@@ -396,7 +396,7 @@
                                 "value": {
                                   "label": "Exemple de tag 1",
                                   "is_small": true,
-                                  "color": "green-tilleul-verveine",
+                                  "color": "chart-4",
                                   "icon_class": "",
                                   "link": {
                                     "link_type": null,
@@ -411,7 +411,7 @@
                                 "value": {
                                   "label": "Exemple de tag 2",
                                   "is_small": true,
-                                  "color": "green-bourgeon",
+                                  "color": "chart-4",
                                   "icon_class": "",
                                   "link": {
                                     "link_type": null,
@@ -461,7 +461,7 @@
                                 "value": {
                                   "label": "Exemple de tag 2",
                                   "is_small": true,
-                                  "color": "green-bourgeon",
+                                  "color": "chart-4",
                                   "icon_class": "",
                                   "link": {
                                     "link_type": null,
@@ -476,7 +476,7 @@
                                 "value": {
                                   "label": "Exemple de tag 3",
                                   "is_small": true,
-                                  "color": "orange-terre-battue",
+                                  "color": "chart-3",
                                   "icon_class": "",
                                   "link": {
                                     "link_type": null,
@@ -526,7 +526,7 @@
                                 "value": {
                                   "label": "Exemple de tag 3",
                                   "is_small": true,
-                                  "color": "orange-terre-battue",
+                                  "color": "chart-3",
                                   "icon_class": "",
                                   "link": {
                                     "link_type": null,
@@ -558,7 +558,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "grey",
+            "bg_color_class": "gris",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -645,7 +645,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "grey",
+            "bg_color_class": "gris",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -707,9 +707,9 @@
                             "document": null,
                             "external_url": "",
                             "text": "Appel \u00e0 action",
-                            "button_type": "fr-btn fr-btn--secondary",
-                            "icon_class": "fr-icon-send-plane-fill",
-                            "icon_side": "fr-btn--icon-left"
+                            "button_type": "sdcd-button sdcd-button--secondaire",
+                            "icon_class": "ri-send-plane-fill",
+                            "icon_side": "sdcd-button--icone-gauche"
                           }
                         }
                       ]
@@ -748,7 +748,7 @@
                 "document": null,
                 "external_url": "",
                 "text": "Appel \u00e0 action",
-                "button_type": "fr-btn",
+                "button_type": "sdcd-button sdcd-button--primaire",
                 "icon_class": "",
                 "icon_side": ""
               },
@@ -911,7 +911,7 @@
                                 "type": "badge",
                                 "value": {
                                   "text": "Badge \"nouveau\"",
-                                  "color": "new",
+                                  "color": "nouveau",
                                   "hide_icon": false
                                 }
                               }
@@ -949,8 +949,8 @@
                                 "value": {
                                   "label": "Tag avec ic\u00f4ne",
                                   "is_small": false,
-                                  "color": "green-tilleul-verveine",
-                                  "icon_class": "fr-icon-chat-check-line",
+                                  "color": "chart-4",
+                                  "icon_class": "ri-chat-check-line",
                                   "link": {
                                     "link_type": null,
                                     "page": null,
@@ -1004,7 +1004,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "blue-france",
+            "bg_color_class": "bleu",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -1034,7 +1034,7 @@
                           "value": {
                             "label": "Tag 1",
                             "is_small": false,
-                            "color": "green-tilleul-verveine",
+                            "color": "chart-4",
                             "icon_class": "",
                             "link": {
                               "link_type": null,
@@ -1049,7 +1049,7 @@
                           "value": {
                             "label": "Tag 2",
                             "is_small": false,
-                            "color": "green-bourgeon",
+                            "color": "chart-4",
                             "icon_class": "",
                             "link": {
                               "link_type": null,
@@ -1064,7 +1064,7 @@
                           "value": {
                             "label": "Tag 3",
                             "is_small": false,
-                            "color": "green-emeraude",
+                            "color": "chart-4",
                             "icon_class": "",
                             "link": {
                               "link_type": null,
@@ -1160,7 +1160,7 @@
                   "document": null,
                   "external_url": "",
                   "text": "Bouton d'appel \u00e0 action",
-                  "button_type": "fr-btn",
+                  "button_type": "sdcd-button sdcd-button--primaire",
                   "icon_class": "",
                   "icon_side": ""
                 },
@@ -1200,9 +1200,9 @@
                             "document": null,
                             "external_url": "",
                             "text": "Bouton primaire avec ic\u00f4ne",
-                            "button_type": "fr-btn",
-                            "icon_class": "fr-icon-award-line",
-                            "icon_side": "fr-btn--icon-left"
+                            "button_type": "sdcd-button sdcd-button--primaire",
+                            "icon_class": "ri-award-line",
+                            "icon_side": "sdcd-button--icone-gauche"
                           }
                         }
                       ]
@@ -1219,7 +1219,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "grey",
+            "bg_color_class": "gris",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -1239,7 +1239,7 @@
                             "document": null,
                             "external_url": "",
                             "text": "Un bouton primaire",
-                            "button_type": "fr-btn",
+                            "button_type": "sdcd-button sdcd-button--primaire",
                             "icon_class": "",
                             "icon_side": ""
                           }
@@ -1252,7 +1252,7 @@
                             "document": null,
                             "external_url": "",
                             "text": "Un bouton secondaire",
-                            "button_type": "fr-btn fr-btn--secondary",
+                            "button_type": "sdcd-button sdcd-button--secondaire",
                             "icon_class": "",
                             "icon_side": ""
                           }
@@ -1265,7 +1265,7 @@
                             "document": null,
                             "external_url": "",
                             "text": "Un bouton tertiaire",
-                            "button_type": "fr-btn fr-btn--tertiary",
+                            "button_type": "sdcd-button sdcd-button--tertiaire-bordure",
                             "icon_class": "",
                             "icon_side": ""
                           }
@@ -1278,7 +1278,7 @@
                             "document": null,
                             "external_url": "",
                             "text": "Un bouton tertiaire sans bordure",
-                            "button_type": "fr-btn fr-btn--tertiary-no-outline",
+                            "button_type": "sdcd-button sdcd-button--tertiaire",
                             "icon_class": "",
                             "icon_side": ""
                           }
@@ -1297,7 +1297,7 @@
           "type": "multicolumns",
           "value": {
             "bg_image": null,
-            "bg_color_class": "beige-gris-galet",
+            "bg_color_class": "gris",
             "bg_color": "",
             "title": "Multi-colonnes",
             "heading_tag": "h3",
@@ -1321,7 +1321,7 @@
                             "document": null,
                             "external_url": "",
                             "text": "Bouton primaire",
-                            "button_type": "fr-btn",
+                            "button_type": "sdcd-button sdcd-button--primaire",
                             "icon_class": "",
                             "icon_side": ""
                           }
@@ -1340,8 +1340,8 @@
                   "heading_tag": "",
                   "image": 163,
                   "alt": "",
-                  "width": "fr-content-media--sm",
-                  "image_ratio": "fr-ratio-3x2",
+                  "width": "sdcd-media--sm",
+                  "image_ratio": "sdcd-ratio-3x2",
                   "caption": "",
                   "url": ""
                 }
@@ -1375,7 +1375,7 @@
                 "document": null,
                 "external_url": "",
                 "text": "Bouton d'appel \u00e0 action",
-                "button_type": "fr-btn",
+                "button_type": "sdcd-button sdcd-button--primaire",
                 "icon_class": "",
                 "icon_side": ""
               },
@@ -1408,7 +1408,7 @@
           "type": "fullwidthbackgroundwithsidemenu",
           "value": {
             "bg_image": null,
-            "bg_color_class": "blue-france",
+            "bg_color_class": "bleu",
             "top_margin": 5,
             "bottom_margin": 5,
             "main_content": [
@@ -1548,7 +1548,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "blue-france",
+            "bg_color_class": "bleu",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -1571,7 +1571,7 @@
             "image": 6,
             "alt": "Une image d'illustration.",
             "width": "",
-            "image_ratio": "fr-ratio-32x9",
+            "image_ratio": "sdcd-ratio-32x9",
             "caption": "Vous pouvez ajouter une l\u00e9gende ici.",
             "url": ""
           }
@@ -1679,7 +1679,7 @@
                 "value": {
                   "title": "Titre",
                   "heading_tag": "h4",
-                  "icon_class": "fr-icon-flag-line",
+                  "icon_class": "ri-flag-line",
                   "text": "<p data-block-key=\"0u10c\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>",
                   "button": {
                     "link_type": null,
@@ -1687,7 +1687,7 @@
                     "document": null,
                     "external_url": "",
                     "text": "Bouton secondaire",
-                    "button_type": "fr-btn fr-btn--secondary",
+                    "button_type": "sdcd-button sdcd-button--secondaire",
                     "icon_class": "",
                     "icon_side": ""
                   },
@@ -1791,7 +1791,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "blue-france",
+            "bg_color_class": "bleu",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -1813,7 +1813,7 @@
                         "heading_tag": "h3",
                         "description": "<p data-block-key=\"u0jo5\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>",
                         "image": null,
-                        "image_ratio": "fr-ratio-1x1",
+                        "image_ratio": "sdcd-ratio-1x1",
                         "image_badge": [],
                         "link": {
                           "link_type": null,
@@ -1977,8 +1977,8 @@
                         "heading_tag": "h3",
                         "image": 84,
                         "alt": "",
-                        "width": "fr-content-media--sm",
-                        "image_ratio": "fr-ratio-4x3",
+                        "width": "sdcd-media--sm",
+                        "image_ratio": "sdcd-ratio-4x3",
                         "caption": "",
                         "url": ""
                       }
@@ -2013,8 +2013,8 @@
                         "heading_tag": "h3",
                         "image": 81,
                         "alt": "",
-                        "width": "fr-content-media--sm",
-                        "image_ratio": "fr-ratio-4x3",
+                        "width": "sdcd-media--sm",
+                        "image_ratio": "sdcd-ratio-4x3",
                         "caption": "",
                         "url": ""
                       }
@@ -2049,8 +2049,8 @@
                         "heading_tag": "h3",
                         "image": 1,
                         "alt": "",
-                        "width": "fr-content-media--sm",
-                        "image_ratio": "fr-ratio-4x3",
+                        "width": "sdcd-media--sm",
+                        "image_ratio": "sdcd-ratio-4x3",
                         "caption": "",
                         "url": ""
                       }
@@ -2272,7 +2272,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "grey",
+            "bg_color_class": "gris",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -2294,7 +2294,7 @@
                         "heading_tag": "h3",
                         "description": "<p data-block-key=\"9vifq\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
                         "image": 84,
-                        "image_ratio": "fr-ratio-4x3",
+                        "image_ratio": "sdcd-ratio-4x3",
                         "image_badge": [],
                         "link": {
                           "link_type": null,
@@ -2305,7 +2305,7 @@
                         "url": "",
                         "document": null,
                         "top_detail_text": "D\u00e9tail du haut avec ic\u00f4ne",
-                        "top_detail_icon": "fr-icon-quote-line",
+                        "top_detail_icon": "ri-quote-line",
                         "top_detail_badges_tags": [],
                         "bottom_detail_text": "",
                         "bottom_detail_icon": "",
@@ -2323,7 +2323,7 @@
                         "heading_tag": "h3",
                         "description": "<p data-block-key=\"9vifq\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
                         "image": 84,
-                        "image_ratio": "fr-ratio-4x3",
+                        "image_ratio": "sdcd-ratio-4x3",
                         "image_badge": [],
                         "link": {
                           "link_type": null,
@@ -2334,10 +2334,10 @@
                         "url": "",
                         "document": null,
                         "top_detail_text": "",
-                        "top_detail_icon": "fr-icon-quote-line",
+                        "top_detail_icon": "ri-quote-line",
                         "top_detail_badges_tags": [],
                         "bottom_detail_text": "D\u00e9tail du bas avec ic\u00f4ne",
-                        "bottom_detail_icon": "fr-icon-attachment-line",
+                        "bottom_detail_icon": "ri-attachment-line",
                         "call_to_action": [],
                         "grey_background": false,
                         "no_background": false,
@@ -2352,7 +2352,7 @@
                         "heading_tag": "h3",
                         "description": "<p data-block-key=\"9vifq\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
                         "image": 84,
-                        "image_ratio": "fr-ratio-4x3",
+                        "image_ratio": "sdcd-ratio-4x3",
                         "image_badge": [
                           {
                             "type": "badge",
@@ -2372,10 +2372,10 @@
                         "url": "",
                         "document": null,
                         "top_detail_text": "",
-                        "top_detail_icon": "fr-icon-quote-line",
+                        "top_detail_icon": "ri-quote-line",
                         "top_detail_badges_tags": [],
                         "bottom_detail_text": "",
-                        "bottom_detail_icon": "fr-icon-attachment-line",
+                        "bottom_detail_icon": "ri-attachment-line",
                         "call_to_action": [
                           {
                             "type": "buttons",
@@ -2388,7 +2388,7 @@
                                   "document": null,
                                   "external_url": "",
                                   "text": "Bouton d'appel \u00e0 action",
-                                  "button_type": "fr-btn fr-btn--secondary",
+                                  "button_type": "sdcd-button sdcd-button--secondaire",
                                   "icon_class": "",
                                   "icon_side": ""
                                 }
@@ -2409,7 +2409,7 @@
                         "heading_tag": "h3",
                         "description": "<p data-block-key=\"9vifq\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
                         "image": 84,
-                        "image_ratio": "fr-ratio-4x3",
+                        "image_ratio": "sdcd-ratio-4x3",
                         "image_badge": [],
                         "link": {
                           "link_type": null,
@@ -2420,7 +2420,7 @@
                         "url": "",
                         "document": null,
                         "top_detail_text": "",
-                        "top_detail_icon": "fr-icon-quote-line",
+                        "top_detail_icon": "ri-quote-line",
                         "top_detail_badges_tags": [
                           {
                             "type": "tags",
@@ -2430,7 +2430,7 @@
                                 "value": {
                                   "label": "Tag 1",
                                   "is_small": false,
-                                  "color": "green-tilleul-verveine",
+                                  "color": "chart-4",
                                   "icon_class": "",
                                   "link": {
                                     "link_type": null,
@@ -2445,7 +2445,7 @@
                                 "value": {
                                   "label": "Tag 2",
                                   "is_small": false,
-                                  "color": "green-bourgeon",
+                                  "color": "chart-4",
                                   "icon_class": "",
                                   "link": {
                                     "link_type": null,
@@ -2459,7 +2459,7 @@
                           }
                         ],
                         "bottom_detail_text": "",
-                        "bottom_detail_icon": "fr-icon-attachment-line",
+                        "bottom_detail_icon": "ri-attachment-line",
                         "call_to_action": [
                           {
                             "type": "links",
@@ -2503,7 +2503,7 @@
           "type": "fullwidthbackground",
           "value": {
             "bg_image": null,
-            "bg_color_class": "blue-france",
+            "bg_color_class": "bleu",
             "top_margin": 5,
             "bottom_margin": 5,
             "content": [
@@ -2568,7 +2568,7 @@
                           "value": {
                             "label": "Tag 1",
                             "is_small": false,
-                            "color": "green-tilleul-verveine",
+                            "color": "chart-4",
                             "icon_class": "",
                             "link": {
                               "link_type": null,
@@ -2597,13 +2597,13 @@
                   "heading_tag": "h3",
                   "description": "<p data-block-key=\"ye5df\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
                   "image": 81,
-                  "image_ratio": "fr-card--horizontal-tier",
+                  "image_ratio": "sdcd-card--horizontal-tiers",
                   "image_badge": [
                     {
                       "type": "badge",
                       "value": {
                         "text": "Badge \"Succ\u00e8s\"",
-                        "color": "success",
+                        "color": "succes",
                         "hide_icon": false
                       }
                     }

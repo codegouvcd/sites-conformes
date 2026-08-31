@@ -642,7 +642,7 @@ class Command(BaseCommand):
                     "heading_tag": "h3",
                     "icon_class": "",
                     "text": RichText(f"<p>{fake.paragraph()}</p>"),
-                    "color": "blue-cumulus",
+                    "color": "chart-1",
                 },
             )
         )
@@ -653,7 +653,7 @@ class Command(BaseCommand):
                 "highlight",
                 {
                     "text": RichText(f"<p>{fake.paragraph()}</p>"),
-                    "color": "yellow-tournesol",
+                    "color": "chart-3",
                     "size": "",
                 },
             )
@@ -668,7 +668,7 @@ class Command(BaseCommand):
                     "quote": fake.sentence(nb_words=10),
                     "author_name": fake.name(),
                     "author_title": fake.job(),
-                    "color": "blue-cumulus",
+                    "color": "chart-1",
                 },
             )
         )

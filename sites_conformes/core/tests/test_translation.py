@@ -36,7 +36,7 @@ class TranslationImageBlockExtractionTestCase(WagtailPageTestCase):
                         "hero_title": "Sample hero",
                         "hero_subtitle": RichText("<p>Sample subtitle</p>"),
                     },
-                    "layout": {"top_margin": 5, "bottom_margin": 5, "background_color": "blue-ecume"},
+                    "layout": {"top_margin": 5, "bottom_margin": 5, "background_color": "bleu"},
                     "buttons": [],
                     "image": {
                         "image": {"image": image, "alt_text": "Photo description", "decorative": False},
@@ -85,7 +85,7 @@ class TranslationSimpleImageBlockExtractionTestCase(WagtailPageTestCase):
                     },
                     "buttons": [],
                     "image": {"image": image, "alt_text": "Photo description", "decorative": False},
-                    "layout": {"top_margin": 5, "bottom_margin": 5, "background_color": "blue-ecume"},
+                    "layout": {"top_margin": 5, "bottom_margin": 5, "background_color": "bleu"},
                 },
             )
         ]

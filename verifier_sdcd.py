@@ -334,14 +334,31 @@ titre("9. Aucun jeton fr-* hors des commentaires")
 #
 # Les commentaires sont retires avant l'examen : ce fichier et plusieurs gabarits
 # expliquent legitimement ce qui a ete remplace, en le nommant.
+# Les fixes JSON comptent : `sites_conformes/core/page_templates/pages_data.json`
+# est reimporte a chaque deploiement par `just deploy`. Il a garde 47 jetons
+# `fr-*` et sept couleurs du DSFR bien apres le portage — la migration nettoyait
+# la base, l'import la repeuplait aussitot avec les anciennes valeurs.
 _SUIVIS9 = [
-    _f for _f in fichiers_suivis(".html", ".css", ".js", ".py")
+    _f for _f in fichiers_suivis(".html", ".css", ".js", ".py", ".json")
     if not _f.startswith("demo/")
     # La table de correspondance du portage cite les deux vocabulaires : c'est son role.
     and not _f.startswith("sdcd/portage/")
     and "/migrations/" not in _f
+    and "node_modules/" not in _f
+    and not _f.endswith(("package-lock.json", "/package.json"))
     and _f != "verifier_sdcd.py"
 ]
+
+# Noms de couleur du DSFR. Ils ne commencent pas par `fr-` et echappaient donc au
+# motif ci-dessous, alors qu'ils sont interpoles dans `var(--sdcd-fond-<valeur>)`
+# et `sdcd-badge--<valeur>` : une valeur restee en anglais ne designe aucun jeton
+# ni aucune variante, et la couleur choisie par le redacteur ne s'affiche pas.
+_COULEURS_DSFR = re.compile(
+    r'"(blue-france|blue-ecume|blue-cumulus|red-marianne|purple-glycine|'
+    r'pink-macaron|pink-tuile|yellow-tournesol|yellow-moutarde|orange-terre-battue|'
+    r'brown-cafe-creme|brown-caramel|brown-opera|beige-gris-galet|'
+    r'green-tilleul-verveine|green-bourgeon|green-emeraude|green-menthe|green-archipel)"'
+)
 
 _BLOC_COMMENTAIRE = re.compile(r"/\*.*?\*/", re.S)
 _LIGNE_SLASH = re.compile(r"^\s*//.*$", re.M)
@@ -376,11 +393,101 @@ for _f9 in _SUIVIS9:
         io.open(_f9, encoding="utf-8", errors="replace").read(), _suf9)
     for _m9 in sorted(set(_JETON_FR.findall(_txt9))):
         _restes9.append((_f9, _m9))
-print("  %d fichier(s) examines, %d jeton(s) fr-* restant(s)"
+    for _m9 in sorted(set(_COULEURS_DSFR.findall(_txt9))):
+        _restes9.append((_f9, _m9))
+print("  %d fichier(s) examines, %d residu(s) du vocabulaire DSFR"
       % (len(_SUIVIS9), len(_restes9)))
 for _f9, _m9 in _restes9:
     print("    RESIDU %-32s %s" % (_m9, _f9))
 echecs += len(_restes9)
+
+
+titre("10. Variantes construites par interpolation")
+# Le controle 3 ne voit que les classes ecrites en toutes lettres. Or plusieurs
+# gabarits composent la leur : `class="sdcd-tag sdcd-tag--{{ value.color }}"`.
+# La valeur vient d'un `ChoiceBlock`, donc l'ensemble des classes possibles est
+# connu — mais aucun controle ne les rapprochait, et le champ « couleur de
+# l'etiquette » a longtemps propose six teintes dont AUCUNE n'etait definie : le
+# choix du redacteur restait sans effet. Meme cause pour le badge « Gris ».
+#
+# On resout ici les deux bouts : les choix declares par le bloc, et le gabarit
+# que son Meta designe.
+from wagtail import blocks as _wblocks  # noqa: E402
+
+_DYNAMIQUE = re.compile(r"(sdcd-[a-z0-9-]+--)\{\{\s*([a-z_.]+)\s*\}\}")
+
+_definies10 = set()
+for _f10 in ("components.css", "base.css", "utilitaires.css", "responsive.css"):
+    _definies10.update(
+        re.findall(
+            r"\.(sdcd-[a-zA-Z0-9_-]+)",
+            io.open(os.path.join(RACINE, "sdcd", "static", "sdcd", _f10), encoding="utf-8").read(),
+        )
+    )
+
+
+def _blocs_structures():
+    """Tous les StructBlock du CMS, quel que soit le module qui les declare."""
+    import importlib
+    import pkgutil
+
+    vus = {}
+    for paquet in ("sites_conformes.core.blocks", "sites_conformes.menus.blocks"):
+        try:
+            mod = importlib.import_module(paquet)
+        except ImportError:
+            continue
+        modules = [mod]
+        if hasattr(mod, "__path__"):
+            for info in pkgutil.iter_modules(mod.__path__):
+                try:
+                    modules.append(importlib.import_module("%s.%s" % (paquet, info.name)))
+                except ImportError:
+                    continue
+        for m in modules:
+            for nom in dir(m):
+                objet = getattr(m, nom)
+                if (
+                    isinstance(objet, type)
+                    and issubclass(objet, _wblocks.StructBlock)
+                    and objet is not _wblocks.StructBlock
+                ):
+                    vus[objet] = nom
+    return vus
+
+
+_manquantes10 = []
+_examinees10 = 0
+for _bloc10, _nom10 in _blocs_structures().items():
+    _gabarit10 = getattr(getattr(_bloc10, "_meta_class", None), "template", None)
+    if not _gabarit10:
+        continue
+    try:
+        _src10 = io.open(get_template(_gabarit10).origin.name, encoding="utf-8").read()
+    except Exception:
+        continue
+
+    for _prefixe10, _var10 in _DYNAMIQUE.findall(_src10):
+        _champ10 = _var10.rsplit(".", 1)[-1]
+        _declare10 = _bloc10.declared_blocks.get(_champ10)
+        if not isinstance(_declare10, _wblocks.ChoiceBlock):
+            continue
+        _valeurs10 = []
+        for _cle10, _lib10 in _declare10.field.choices:
+            # Les choix peuvent etre groupes : (« Couleurs systeme », [(...), ...]).
+            if isinstance(_lib10, (list, tuple)):
+                _valeurs10.extend(v for v, _ in _lib10)
+            elif _cle10:
+                _valeurs10.append(_cle10)
+        for _v10 in _valeurs10:
+            _examinees10 += 1
+            if _prefixe10 + _v10 not in _definies10:
+                _manquantes10.append((_prefixe10 + _v10, _nom10, _gabarit10))
+
+print("  %d combinaison(s) examinees, %d sans regle" % (_examinees10, len(_manquantes10)))
+for _c10, _n10, _g10 in _manquantes10:
+    print("    SANS REGLE %-30s %s (%s)" % (_c10, _n10, _g10))
+echecs += len(_manquantes10)
 
 
 print("\n%s" % ("Aucun defaut." if echecs == 0 else "%d defaut(s)." % echecs))
