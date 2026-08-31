@@ -44,7 +44,7 @@ class SitesFacilesBasePage(Page):
         choices=COLOR_CHOICES,
         null=True,
         blank=True,
-        help_text=_("Uses the French Design System colors"),
+        help_text=_("Couleurs de fond du Système de design RDC"),
     )
 
     header_large = models.BooleanField(_("Full width"), default=False)  # type: ignore

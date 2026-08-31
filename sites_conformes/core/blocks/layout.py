@@ -96,8 +96,8 @@ class BackgroundColorBlock(blocks.StructBlock):
         label=_("Background color"),
         required=False,
         help_text=_(
-            "Uses the French Design System colors.<br>"
-            "If you want to design a classic website, choose the colour ‘white’ or ‘French blue’."
+            "Couleurs de fond du Système de design RDC.<br>"
+            "Pour une mise en page sobre, laissez vide ou choisissez « Gris »."
         ),
     )
 
@@ -241,7 +241,7 @@ class MultiColumnsWithTitleBlock(blocks.StructBlock):
     bg_color_class = BackgroundColorChoiceBlock(
         label=_("Background color"),
         required=False,
-        help_text=_("Uses the French Design System colors"),
+        help_text=_("Couleurs de fond du Système de design RDC"),
     )
     title = blocks.CharBlock(label=_("Title"), required=False)
     heading_tag = blocks.ChoiceBlock(
@@ -290,7 +290,7 @@ class FullWidthBackgroundBlock(blocks.StructBlock):
     bg_color_class = BackgroundColorChoiceBlock(
         label=_("Background color"),
         required=False,
-        help_text=_("Uses the French Design System colors"),
+        help_text=_("Couleurs de fond du Système de design RDC"),
     )
     top_margin = blocks.IntegerBlock(
         label=_("Top margin"),
@@ -339,7 +339,7 @@ class FullWidthBackgroundWithSidemenuBlock(blocks.StructBlock):
     bg_color_class = BackgroundColorChoiceBlock(
         label=_("Background color"),
         required=False,
-        help_text=_("Uses the French Design System colors"),
+        help_text=_("Couleurs de fond du Système de design RDC"),
     )
     top_margin = blocks.IntegerBlock(
         label=_("Top margin"),

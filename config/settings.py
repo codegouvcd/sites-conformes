@@ -152,6 +152,9 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    # Avant IframeMiddleware : inutile de composer une politique de securite pour
+    # une reponse que cette instance ne doit pas servir.
+    "sites_conformes.core.middleware.RoleMiddleware",
     "sites_conformes.core.middleware.IframeMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
@@ -393,6 +396,20 @@ if not WAGTAILADMIN_BASE_URL:
 WAGTAILAPI_BASE_URL = WAGTAILADMIN_BASE_URL
 
 WAGTAILADMIN_PATH = os.getenv("WAGTAILADMIN_PATH", "cms-admin/")
+
+# --- Role de l'instance -------------------------------------------------------
+#
+# Deux instances de la meme application permettent de servir le back-office sur
+# son propre domaine : l'une ne sert que le site public, l'autre que
+# l'administration. Les deux reglages valent vrai par defaut — une instance
+# unique se comporte donc comme avant, et rien ne change pour qui n'en veut pas.
+#
+# Le filtrage est fait par RoleMiddleware, sur le chemin. Les routes restent
+# declarees des deux cotes, pour que `reverse` continue de resoudre les URL
+# d'administration : plusieurs commandes de gestion en dependent, et les liens
+# « voir en ligne » du back-office doivent designer le site public.
+SF_SERVE_PUBLIC = getenv_bool("SF_SERVE_PUBLIC", True)
+SF_SERVE_ADMIN = getenv_bool("SF_SERVE_ADMIN", True)
 
 LOGIN_URL = f"{FORCE_SCRIPT_NAME}/{WAGTAILADMIN_PATH}login/"
 LOGOUT_URL = f"{FORCE_SCRIPT_NAME}/{WAGTAILADMIN_PATH}logout/"

@@ -1,5 +1,8 @@
 {% load wagtailcore_tags wagtail_dsfr_tags %}
 
 <div class="sdcd-highlight{% if value.color %} sdcd-highlight--{{ value.color }}{% endif %}">
-  {{ value.text | richtext_p_add_class:value.size }}
+  {# `size` est facultatif : sans valeur par defaut, un bloc construit hors de #}
+  {# l'editeur — import, migration, commande — levait VariableDoesNotExist et #}
+  {# la page entiere renvoyait 500. #}
+  {{ value.text | richtext_p_add_class:value.size|default:"" }}
 </div>

@@ -26,8 +26,22 @@ class Command(BaseCommand):
         force_update = kwargs.get("force")
 
         image_root = "staticfiles/illustration/"
-        files = os.listdir(image_root)
-        files.sort()
+
+        # Les illustrations viennent des fichiers statiques collectes. Sans
+        # `collectstatic` prealable, le dossier n'existe pas et `os.listdir`
+        # levait une FileNotFoundError : `create_starter_pages`, qui appelle cette
+        # commande, echouait alors sur une installation neuve — et avec lui
+        # `just deploy`, dont le conteneur bouclait. Meme garde-fou que sur
+        # `import_dsfr_pictograms`.
+        if not os.path.isdir(image_root):
+            if verbosity:
+                self.stdout.write(
+                    f"Aucune illustration a importer : {image_root} est absent. "
+                    "Lancez `collectstatic` si vous attendiez des images par defaut."
+                )
+            return
+
+        files = sorted(os.listdir(image_root))
 
         collection = get_or_create_collection("Illustrations par défaut")
 

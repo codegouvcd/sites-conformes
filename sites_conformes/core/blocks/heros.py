@@ -163,8 +163,8 @@ class HeroBackgroundImageBlock(blocks.StructBlock):
         label=_("Background color"),
         required=False,
         help_text=_(
-            "Uses the French Design System colors.<br>"
-            "If you want to design a classic website, choose the colour ‘white’ or ‘French blue’."
+            "Couleurs de fond du Système de design RDC.<br>"
+            "Pour une mise en page sobre, laissez vide ou choisissez « Gris »."
         ),
     )
 
@@ -239,7 +239,7 @@ class OldHero(blocks.StructBlock):
         label=_("Background color"),
         choices=COLOR_CHOICES,
         required=False,
-        help_text=_("Uses the French Design System colors. Apply only if there is no header image."),
+        help_text=_("Couleurs du Système de design RDC. Ne s’applique que sans image d’en-tête."),
     )
     header_large = blocks.BooleanBlock(
         label=_("Centered title"),
