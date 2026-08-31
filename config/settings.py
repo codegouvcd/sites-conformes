@@ -552,6 +552,46 @@ SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 
+# --- Politique de securite de contenu ---------------------------------------
+#
+# Emise par IframeMiddleware, qui compose l'en-tete en entier. Jusqu'ici il ne
+# contenait que `frame-ancestors` : une protection anti-cadrage, pas une
+# politique de scripts. Un site d'Etat sans politique de scripts n'oppose rien
+# a une injection de balise `<script>`.
+#
+# Ces valeurs ont ete etablies en mesurant ce que les pages emettent reellement :
+# zero script en ligne, zero gestionnaire `onclick`, zero ressource externe.
+# `script-src 'self'` est donc tenable sans amenagement.
+#
+# `style-src` garde `'unsafe-inline'` faute de choix : les blocs de fond posent
+# `style="background: ..."` en ligne, avec une image ou une couleur choisie par
+# le redacteur, et un attribut `style` ne peut pas porter de nonce. Le vecteur
+# reellement dangereux — le script — reste, lui, ferme.
+SF_CSP_DIRECTIVES = {
+    "default-src": ["'self'"],
+    "script-src": ["'self'"],
+    "style-src": ["'self'", "'unsafe-inline'"],
+    "img-src": ["'self'", "data:"],
+    "font-src": ["'self'"],
+    "connect-src": ["'self'"],
+    "object-src": ["'none'"],
+    "base-uri": ["'self'"],
+    "form-action": ["'self'"],
+}
+
+# --- HSTS --------------------------------------------------------------------
+#
+# Desactive par defaut, et ce n'est pas un oubli : un site joignable en HTTP se
+# rendrait injoignable pour un an aupres de tout navigateur ayant vu l'en-tete.
+# A n'activer que lorsque le HTTPS est en place et destine a le rester.
+# `preload` reste separe : l'inscription sur la liste des navigateurs est
+# difficilement reversible, et n'a de sens que sur un domaine dont on est
+# proprietaire.
+SECURE_HSTS_SECONDS = int(os.getenv("SECURE_HSTS_SECONDS", "0"))
+SECURE_HSTS_INCLUDE_SUBDOMAINS = getenv_bool("SECURE_HSTS_INCLUDE_SUBDOMAINS", False)
+SECURE_HSTS_PRELOAD = getenv_bool("SECURE_HSTS_PRELOAD", False)
+
+
 if sentry_dsn := os.getenv("SENTRY_DSN"):
     import sentry_sdk  # noqa: E402
 

@@ -490,5 +490,43 @@ for _c10, _n10, _g10 in _manquantes10:
 echecs += len(_manquantes10)
 
 
+titre("11. Classes d'icone existant dans la police")
+# Le portage traduisait `fr-icon-X` en `ri-X` par simple substitution de prefixe.
+# Les deux vocabulaires se recouvrent largement mais pas entierement : trois
+# classes ne designaient aucun glyphe — `ri-quote-line`, `ri-theme-fill`,
+# `ri-user-setting-fill`, ce dernier s'ecrivant `settings` au pluriel chez Remix.
+# Une classe sans glyphe ne leve aucune erreur : le pictogramme est simplement
+# absent, et personne ne le remarque avant de regarder la page.
+_TAILLES = {
+    "ri-lg", "ri-xl", "ri-xxs", "ri-xs", "ri-sm", "ri-fw",
+    "ri-1x", "ri-2x", "ri-3x", "ri-4x", "ri-5x",
+    "ri-6x", "ri-7x", "ri-8x", "ri-9x", "ri-10x",
+}
+_GLYPHES = set(
+    re.findall(
+        r"^\.(ri-[a-z0-9-]+):before",
+        io.open(
+            os.path.join(RACINE, "sdcd", "static", "sdcd", "assets", "icones.css"),
+            encoding="utf-8",
+        ).read(),
+        re.M,
+    )
+)
+
+_sans_glyphe = {}
+for _f11 in _SUIVIS9:
+    _suf11 = os.path.splitext(_f11)[1]
+    _txt11 = _sans_commentaires(
+        io.open(_f11, encoding="utf-8", errors="replace").read(), _suf11)
+    for _c11 in re.findall(r"\bri-[a-z0-9-]+", _txt11):
+        if _c11 not in _GLYPHES and _c11 not in _TAILLES:
+            _sans_glyphe.setdefault(_c11, _f11)
+print("  %d glyphe(s) dans la police, %d classe(s) sans glyphe"
+      % (len(_GLYPHES), len(_sans_glyphe)))
+for _c11, _f11 in sorted(_sans_glyphe.items()):
+    print("    SANS GLYPHE %-30s %s" % (_c11, _f11))
+echecs += len(_sans_glyphe)
+
+
 print("\n%s" % ("Aucun defaut." if echecs == 0 else "%d defaut(s)." % echecs))
 raise SystemExit(1 if echecs else 0)

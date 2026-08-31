@@ -17,12 +17,24 @@ _FRAME_FETCH_DESTS = ("iframe", "frame")
 
 class IframeMiddleware:
     """
-    Iframe embedding support:
+    Iframe embedding support et politique de securite de contenu.
 
     - flags requests coming from an iframe (``request.iframe``) so templates
       can render a stripped-down layout,
-    - emits a ``Content-Security-Policy: frame-ancestors`` directive built
-      from the per-site ``CmsDsfrConfig.iframe_allow_origins`` setting.
+    - emits the ``Content-Security-Policy`` header, whose ``frame-ancestors``
+      directive is built from the per-site ``CmsDsfrConfig.iframe_allow_origins``
+      setting.
+
+    Ce middleware ecrit l'en-tete en entier. C'est pourquoi la politique complete
+    est composee ici plutot que par ``django.middleware.csp`` : les deux
+    ecriraient le meme en-tete, et la derniere ecriture gagnerait. Jusqu'ici seul
+    ``frame-ancestors`` etait emis — une protection anti-cadrage, pas une
+    politique de scripts.
+
+    La politique ne s'applique qu'aux pages publiques. Le back-office de Wagtail
+    repose sur des scripts en ligne : lui imposer ``script-src 'self'`` le
+    casserait. Il conserve donc ``frame-ancestors`` seul, ce qui est une limite
+    assumee et signalee, pas un oubli.
 
     ``X-Frame-Options`` is intentionally left to Django's
     ``XFrameOptionsMiddleware`` (see ``X_FRAME_OPTIONS`` in settings): it only
@@ -38,12 +50,25 @@ class IframeMiddleware:
 
         response = self.get_response(request)
 
-        self._set_frame_ancestors(request, response)
+        self._set_content_security_policy(request, response)
         patch_vary_headers(response, ("Sec-Fetch-Dest",))
 
         return response
 
-    def _set_frame_ancestors(self, request: HttpRequest, response: HttpResponse) -> None:
+    def _set_content_security_policy(self, request: HttpRequest, response: HttpResponse) -> None:
+        ancetres = self._frame_ancestors(request)
+        directives = [f"frame-ancestors {ancetres}"]
+
+        # Le back-office garde la seule protection anti-cadrage : voir la
+        # docstring de la classe.
+        if not self._is_admin_request(request):
+            for nom, valeurs in getattr(settings, "SF_CSP_DIRECTIVES", {}).items():
+                if valeurs:
+                    directives.append("%s %s" % (nom, " ".join(valeurs)))
+
+        response.headers["Content-Security-Policy"] = "; ".join(directives)
+
+    def _frame_ancestors(self, request: HttpRequest) -> str:
         value = "'self'"
 
         # Never relax framing for the back office: only front-office pages
@@ -62,7 +87,7 @@ class IframeMiddleware:
                     exc_info=True,
                 )
 
-        response.headers["Content-Security-Policy"] = f"frame-ancestors {value}"
+        return value
 
     @staticmethod
     def _is_admin_request(request: HttpRequest) -> bool:

@@ -56,22 +56,52 @@ class IframeMiddlewareTestCase(TestCase):
         config.iframe_allow_origins = origins
         config.save()
 
+    @staticmethod
+    def directives(response):
+        """Decoupe l'en-tete en directives : leur ordre n'a pas de sens ici."""
+        entete = response.headers["Content-Security-Policy"]
+        return {d.split(" ", 1)[0]: d.split(" ", 1)[1] for d in entete.split("; ")}
+
     def test_defaults_to_self(self):
         _, response = self.run_middleware()
-        self.assertEqual(response.headers["Content-Security-Policy"], "frame-ancestors 'self'")
+        self.assertEqual(self.directives(response)["frame-ancestors"], "'self'")
 
     def test_configured_origins_are_allowed(self):
         self.set_origins("example.com\n\n  cartes.gouv.fr  ")
         _, response = self.run_middleware()
         self.assertEqual(
-            response.headers["Content-Security-Policy"],
-            "frame-ancestors 'self' https://example.com https://cartes.gouv.fr",
+            self.directives(response)["frame-ancestors"],
+            "'self' https://example.com https://cartes.gouv.fr",
         )
 
     def test_admin_is_never_embeddable_by_external_origins(self):
         self.set_origins("example.com")
         _, response = self.run_middleware(f"/{settings.WAGTAILADMIN_PATH}pages/")
-        self.assertEqual(response.headers["Content-Security-Policy"], "frame-ancestors 'self'")
+        self.assertEqual(self.directives(response)["frame-ancestors"], "'self'")
+
+    def test_public_pages_get_the_full_policy(self):
+        """Une page publique porte la politique complete, pas seulement frame-ancestors.
+
+        L'en-tete ne contenait jusqu'ici que `frame-ancestors` : une protection
+        anti-cadrage, sans rien opposer a l'injection d'une balise `<script>`.
+        """
+        _, response = self.run_middleware()
+        directives = self.directives(response)
+        self.assertEqual(directives["default-src"], "'self'")
+        self.assertEqual(directives["script-src"], "'self'")
+        self.assertEqual(directives["object-src"], "'none'")
+        self.assertEqual(directives["base-uri"], "'self'")
+        self.assertEqual(directives["form-action"], "'self'")
+        self.assertNotIn("'unsafe-inline'", directives["script-src"])
+
+    def test_admin_keeps_only_frame_ancestors(self):
+        """Le back-office de Wagtail repose sur des scripts en ligne.
+
+        Lui imposer `script-src 'self'` le casserait : c'est une limite assumee,
+        pas un oubli, et ce test la fige pour qu'elle ne change pas par accident.
+        """
+        _, response = self.run_middleware(f"/{settings.WAGTAILADMIN_PATH}pages/")
+        self.assertEqual(list(self.directives(response)), ["frame-ancestors"])
 
     def test_vary_header_contains_sec_fetch_dest(self):
         view_response = HttpResponse(headers={"Vary": "Cookie"})
