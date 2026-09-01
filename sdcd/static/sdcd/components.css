@@ -2435,6 +2435,21 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
 .sdcd-case-groupe { display: flex; align-items: center; gap: var(--sdcd-2); }
 .sdcd-case-groupe > label { display: inline; margin-bottom: 0; }
 .sdcd-case-groupe--sm > label { font-size: var(--sdcd-sm); }
+/* La case elle-meme n'etait pas habillee : le navigateur la rendait a 13 px, en
+   bleu systeme, sans rapport avec la charte. Vu sur le formulaire de connexion
+   du back-office. `accent-color` colore la case cochee avec le bleu d'Etat sans
+   reconstruire le controle : le comportement natif — clavier, lecteur d'ecran,
+   etat indetermine — reste intact, ce qu'une case redessinee perd souvent. */
+.sdcd-case-groupe input[type="checkbox"],
+.sdcd-case-groupe input[type="radio"] {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--sdcd-action);
+  cursor: pointer;
+}
+.sdcd-case-groupe > label { cursor: pointer; }
 
 /* --- etats d'erreur d'un champ ----------------------------------------- */
 .sdcd-champ--erreur .sdcd-input__champ,
@@ -2458,7 +2473,18 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
 .sdcd-header__operateur { display: flex; align-items: center; }
 .sdcd-header__operateur img { max-height: 56px; width: auto; }
 .sdcd-header__recherche { margin-left: auto; }
-.sdcd-header__service { font-weight: 600; font-size: 15px; color: var(--sdcd-texte); text-decoration: none; }
+.sdcd-header__service { font-weight: 600; font-size: 15px; color: var(--sdcd-texte); }
+/* Le titre de service vit dans un <p> a l'interieur du lien de retour a
+   l'accueil. `text-decoration: none` pose sur ce <p> ne pouvait rien : un
+   soulignement declare par un ancetre se propage aux descendants, qui ne
+   peuvent pas l'annuler. Il faut viser le lien lui-meme.
+
+   Un titre de service n'est pas un lien de texte courant : le souligner en
+   permanence le fait lire comme tel. Le soulignement revient au survol et au
+   focus, ou il signale l'action. */
+.sdcd-header__entite-bloc > a { text-decoration: none; color: inherit; }
+.sdcd-header__entite-bloc > a:hover .sdcd-header__service,
+.sdcd-header__entite-bloc > a:focus-visible .sdcd-header__service { text-decoration: underline; }
 
 /* --- tableau : enveloppes ------------------------------------------------
    Le conteneur defile horizontalement plutot que de deborder : la doctrine
