@@ -445,7 +445,11 @@
    specificite, cette regle annulait tout `sdcd-pt-*` ou `sdcd-py-*` pose sur un
    conteneur. Vu au navigateur : le titre de page collait au bord de l'en-tete,
    `sdcd-pt-6` calculant 0 px. */
-.sdcd-conteneur { max-width: var(--sdcd-maxw); margin: 0 auto; padding-left: var(--sdcd-gouttiere); padding-right: var(--sdcd-gouttiere); }
+/* Meme piege que la gouttiere : `margin: 0 auto` remettait aussi le haut et le
+   bas a zero, et annulait tout `sdcd-mt-*` / `sdcd-mb-*` / `sdcd-my-*` pose sur
+   un conteneur — c'est-a-dire l'espacement de chaque bloc du CMS, qui les porte
+   tous. Longhand, comme le rembourrage. */
+.sdcd-conteneur { max-width: var(--sdcd-maxw); margin-left: auto; margin-right: auto; padding-left: var(--sdcd-gouttiere); padding-right: var(--sdcd-gouttiere); }
 /* Un conteneur imbrique dans un conteneur ne doit rien reappliquer : la largeur
    maximale est deja atteinte, et sa gouttiere se cumulerait a celle du parent.
    Releve sur le CMS, ou le flux de blocs enveloppe chaque bloc et ou dix-sept

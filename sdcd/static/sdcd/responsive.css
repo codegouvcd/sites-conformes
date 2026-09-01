@@ -176,3 +176,12 @@ pre{overflow-x:auto}
   .sdcd-header__entite-bloc{order:3;flex-basis:100%}
   .sdcd-header__filet{display:none}
 }
+
+/* Mentions de bas de page sous 640 px. En rangee, quatre mentions ne tiennent
+   pas sur la largeur : la liste passait a la ligne au milieu, et la mention
+   rejetee gardait son filet gauche — un trait orphelin en debut de rangee,
+   decale de 12 px. On empile, sans filet. */
+@media (max-width:640px){
+  .sdcd-footer__legaux { flex-direction: column; align-items: flex-start; row-gap: var(--sdcd-2); }
+  .sdcd-footer__legal { border-left: none; padding-left: 0; }
+}

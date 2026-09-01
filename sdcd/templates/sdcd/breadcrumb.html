@@ -1,11 +1,30 @@
 {% load i18n %}
 {% translate "vous êtes ici :" as vous_etes_ici %}
+{% comment %}
+  Meme structure que sites_conformes_core/blocks/breadcrumbs.html, que les pages
+  Wagtail utilisent : bouton « Voir le fil d'Ariane » sous 640 px, fil replie
+  par `hidden`, liste ordonnee. Ce gabarit-ci sert aux vues qui ne sont pas des
+  pages (plan du site, etiquettes) et rendait le fil a plat, sans repli : sur
+  mobile, ces pages seules montraient le fil complet, la ou toutes les autres
+  montraient le bouton.
+{% endcomment %}
 <nav role="navigation" class="sdcd-breadcrumb" aria-label="{{ vous_etes_ici }}">
-  <a class="sdcd-breadcrumb__lien" href="{{ self.root_dir|default:'/' }}">{% translate "Accueil" %}</a>
-  {% for link in self.links %}
-    <i class="sdcd-breadcrumb__separateur ri-arrow-right-s-line" aria-hidden="true"></i>
-    <a class="sdcd-breadcrumb__lien" href="{{ link.url }}">{{ link.title }}</a>
-  {% endfor %}
-  <i class="sdcd-breadcrumb__separateur ri-arrow-right-s-line" aria-hidden="true"></i>
-  <span class="sdcd-breadcrumb__courant" aria-current="page">{{ self.current }}</span>
+  <button class="sdcd-breadcrumb__bouton"
+          aria-expanded="false"
+          aria-controls="page-breadcrumb">{% translate "Voir le fil d'Ariane" %}</button>
+  <div class="sdcd-repli" id="page-breadcrumb" hidden>
+    <ol class="sdcd-breadcrumb__liste">
+      <li>
+        <a class="sdcd-breadcrumb__lien" href="{{ self.root_dir|default:'/' }}">{% translate "Accueil" %}</a>
+      </li>
+      {% for link in self.links %}
+        <li>
+          <a class="sdcd-breadcrumb__lien" href="{{ link.url }}">{{ link.title|truncatewords:4 }}</a>
+        </li>
+      {% endfor %}
+      <li>
+        <a class="sdcd-breadcrumb__lien" aria-current="page">{{ self.current|truncatewords:6 }}</a>
+      </li>
+    </ol>
+  </div>
 </nav>

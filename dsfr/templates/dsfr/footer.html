@@ -61,8 +61,13 @@
       {% endcomment %}
       <ul class="sdcd-footer__legaux">
         {% block footer_links %}{% endblock footer_links %}
+        {% comment %}
+          `footer_bottom_extra` etait rendu apres la liste, hors d'elle : la
+          mention qu'il porte formait une ligne a part, decalee. Elle est une
+          mention de bas de page comme les autres et suit le meme rythme.
+        {% endcomment %}
+        {% block footer_bottom_extra %}{% endblock footer_bottom_extra %}
       </ul>
-      {% block footer_bottom_extra %}{% endblock footer_bottom_extra %}
     </div>
   </div>
 

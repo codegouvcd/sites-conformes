@@ -90,10 +90,16 @@
 
 {% block footer_bottom_extra %}
   {% translate "Opens a new window" as new_window %}
-  <span class="cmsfr-footer__bottom-extra">
+  {% comment %}
+    Cette mention etait un <span> place APRES la liste des mentions, avec son
+    propre filet et son propre retrait (`.cmsfr-footer__bottom-extra`). Elle se
+    retrouvait donc seule sur une ligne, decalee de 1 em par rapport aux autres.
+    C'est une mention de bas de page comme les autres : elle entre dans la liste.
+  {% endcomment %}
+  <li class="sdcd-footer__legal">
     {% translate "This website is made with" %} <a href="https://github.com/numerique-gouv/sites-conformes"
     target="_blank"
     rel="noopener external"
     title="Sites Conformes - {{ new_window }}">Sites Conformes</a>
-  </span>
+  </li>
 {% endblock footer_bottom_extra %}

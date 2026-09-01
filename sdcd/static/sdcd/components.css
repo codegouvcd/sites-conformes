@@ -846,6 +846,21 @@ li > a:only-child {
 /* La liste et le bouton de repli du fil d'Ariane. Le composant React rend le
    fil entier ; une integration en gabarit a besoin de nommer ses parties. */
 .sdcd-breadcrumb__liste { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sdcd-2); list-style: none; margin: 0; padding: 0; }
+.sdcd-breadcrumb__liste > li { display: inline-flex; align-items: center; gap: var(--sdcd-2); }
+/* La liste en <li> ne porte pas de <i class="sdcd-breadcrumb__separateur"> entre
+   ses maillons : deplie sur mobile, le fil lisait « Accueil Questions frequentes »
+   sans rien entre les deux. Le separateur vient du CSS, comme pour l'accordeon. */
+.sdcd-breadcrumb__liste > li + li::before {
+  content: "\ea6e";
+  font-family: 'remixicon';
+  font-size: 14px;
+  line-height: 1;
+  color: var(--sdcd-inactif);
+}
+/* Le fil est une rangee flex : sans cela, la region depliee se rangeait A COTE du
+   bouton « Voir le fil d'Ariane », sur la meme ligne. Elle prend la rangee suivante. */
+.sdcd-breadcrumb > .sdcd-repli { flex-basis: 100%; }
+.sdcd-breadcrumb__lien[aria-current="page"] { color: var(--sdcd-texte); font-weight: 500; }
 /* Meme raison qu'au pied de page : ces cibles faisaient 15 a 17 px de haut. */
 .sdcd-breadcrumb__bouton {
   display: inline-flex;
