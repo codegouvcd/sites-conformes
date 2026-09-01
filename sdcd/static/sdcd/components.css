@@ -751,6 +751,16 @@
   color: var(--sdcd-encre-2);
   text-decoration: none;
 }
+/* Un <li> dont le seul contenu est un lien forme une liste de navigation, non
+   du texte courant : l'exception « lien en ligne » du critere 2.5.8 ne s'y
+   applique pas, et la cible doit atteindre 24 px. Releve sur le plan du site,
+   ou chaque entree faisait 20 px de haut. La regle ne touche pas aux liens
+   inseres dans une phrase, qui ont des freres textuels. */
+li > a:only-child {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
 .sdcd-footer__bande { border-top: 1px solid var(--sdcd-ligne); }
 .sdcd-footer__bande-corps {
   max-width: var(--sdcd-maxw);
@@ -2516,7 +2526,13 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
    Un titre de service n'est pas un lien de texte courant : le souligner en
    permanence le fait lire comme tel. Le soulignement revient au survol et au
    focus, ou il signale l'action. */
-.sdcd-header__entite-bloc > a { text-decoration: none; color: inherit; }
+.sdcd-header__entite-bloc > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  text-decoration: none;
+  color: inherit;
+}
 .sdcd-header__entite-bloc > a:hover .sdcd-header__service,
 .sdcd-header__entite-bloc > a:focus-visible .sdcd-header__service { text-decoration: underline; }
 
