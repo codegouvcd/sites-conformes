@@ -209,8 +209,13 @@
 .w-human-readable-date,
 td.title .title-wrapper > a,
 thead th > a.icon,
-footer a,
-.w-footer a {
+/* Liens du pied du back-office — « Compte », « Nous contacter ». Ils ne vivent
+   pas dans un <footer> : Wagtail les pose dans une liste utilitaire. */
+ul.w-list-none > li > a.w-underline,
+/* Fil d'Ariane du back-office, a deux pixels du seuil. */
+nav ol > li > a.w-flex,
+/* Etiquette de statut d'une page, cliquable depuis la liste. */
+a.w-status {
     display: inline-flex;
     align-items: center;
     min-height: 24px;
