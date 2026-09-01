@@ -240,8 +240,15 @@
 /* Le corps d'une alerte est du texte courant : il doit etre borne comme lui.
    Mesure sur un modele de page a 1440 px : 147 caracteres par ligne, la ou
    l'oeil decroche des 75. La mise en avant et la citation etaient deja bornees
-   par leur propre largeur ; l'alerte et l'exergue s'etendaient sans limite. */
-.sdcd-alert__corps { flex: 1; max-width: var(--sdcd-mesure); }
+   par leur propre largeur ; l'alerte et l'exergue s'etendaient sans limite.
+
+   La mesure porte sur les elements qui PORTENT le texte, non sur le corps qui
+   les contient : `em` est relative a la taille de police de l'element ou la
+   regle s'applique, et le corps herite d'un corps plus grand que ses
+   paragraphes. Posee sur lui, la borne laissait encore passer 91 caracteres. */
+.sdcd-alert__corps { flex: 1; }
+.sdcd-alert__texte,
+.sdcd-alert__corps > p { max-width: var(--sdcd-mesure); }
 .sdcd-alert__titre { font-weight: 700; color: var(--sdcd-texte); }
 .sdcd-alert__texte { font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); line-height: 1.55; }
 .sdcd-alert__titre + .sdcd-alert__texte { margin-top: var(--sdcd-1); }
