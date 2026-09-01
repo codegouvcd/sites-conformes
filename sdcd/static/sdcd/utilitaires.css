@@ -223,7 +223,31 @@
    ===================================================================== */
 .sdcd-grille { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); }
 .sdcd-grille--gouttieres { gap: var(--sdcd-5); }
+/* « Centre » signifiait, en flexbox, `justify-content: center` : l'ensemble des
+   colonnes se placait au milieu de la ligne. Le passage a la grille l'a traduit
+   en `justify-items: center`, qui centre chaque enfant DANS SA PISTE — pas du
+   tout la meme chose. Une colonne de 6 sur 12 se posait donc sur les six
+   premieres pistes, c'est-a-dire a gauche : le formulaire de connexion du
+   back-office s'affichait colle au bord, avec la moitie droite de l'ecran vide.
+
+   Une grille n'ayant qu'un seul enfant est recentree en le decalant de la
+   moitie des pistes restantes. `:only-child` est la condition qui rend ce
+   decalage sur : applique a plusieurs enfants, il les empilerait tous sur la
+   meme colonne de depart. Quand il y en a plusieurs, `justify-items` garde son
+   sens — centrer chaque element dans sa piste, ce dont une grille d'elements a
+   besoin. */
 .sdcd-grille--centre { justify-items: center; }
+.sdcd-grille--centre > .sdcd-col-1:only-child { grid-column-start: 6; }
+.sdcd-grille--centre > .sdcd-col-2:only-child { grid-column-start: 6; }
+.sdcd-grille--centre > .sdcd-col-3:only-child { grid-column-start: 5; }
+.sdcd-grille--centre > .sdcd-col-4:only-child { grid-column-start: 5; }
+.sdcd-grille--centre > .sdcd-col-5:only-child { grid-column-start: 4; }
+.sdcd-grille--centre > .sdcd-col-6:only-child { grid-column-start: 4; }
+.sdcd-grille--centre > .sdcd-col-7:only-child { grid-column-start: 3; }
+.sdcd-grille--centre > .sdcd-col-8:only-child { grid-column-start: 3; }
+.sdcd-grille--centre > .sdcd-col-9:only-child { grid-column-start: 2; }
+.sdcd-grille--centre > .sdcd-col-10:only-child { grid-column-start: 2; }
+.sdcd-grille--centre > .sdcd-col-11:only-child { grid-column-start: 1; }
 .sdcd-grille--milieu { align-items: center; }
 .sdcd-grille--gauche { justify-items: start; }
 .sdcd-grille--droite { justify-items: end; }
@@ -280,6 +304,17 @@
   .sdcd-col-decale-sm-9 { grid-column-start: 10; }
   .sdcd-col-decale-sm-10 { grid-column-start: 11; }
   .sdcd-col-decale-sm-11 { grid-column-start: 12; }
+  .sdcd-grille--centre > .sdcd-col-sm-1:only-child { grid-column-start: 6; }
+  .sdcd-grille--centre > .sdcd-col-sm-2:only-child { grid-column-start: 6; }
+  .sdcd-grille--centre > .sdcd-col-sm-3:only-child { grid-column-start: 5; }
+  .sdcd-grille--centre > .sdcd-col-sm-4:only-child { grid-column-start: 5; }
+  .sdcd-grille--centre > .sdcd-col-sm-5:only-child { grid-column-start: 4; }
+  .sdcd-grille--centre > .sdcd-col-sm-6:only-child { grid-column-start: 4; }
+  .sdcd-grille--centre > .sdcd-col-sm-7:only-child { grid-column-start: 3; }
+  .sdcd-grille--centre > .sdcd-col-sm-8:only-child { grid-column-start: 3; }
+  .sdcd-grille--centre > .sdcd-col-sm-9:only-child { grid-column-start: 2; }
+  .sdcd-grille--centre > .sdcd-col-sm-10:only-child { grid-column-start: 2; }
+  .sdcd-grille--centre > .sdcd-col-sm-11:only-child { grid-column-start: 1; }
 }
 @media (min-width: 901px) {
   .sdcd-col-md-1 { grid-column-end: span 1; }
@@ -305,6 +340,17 @@
   .sdcd-col-decale-md-9 { grid-column-start: 10; }
   .sdcd-col-decale-md-10 { grid-column-start: 11; }
   .sdcd-col-decale-md-11 { grid-column-start: 12; }
+  .sdcd-grille--centre > .sdcd-col-md-1:only-child { grid-column-start: 6; }
+  .sdcd-grille--centre > .sdcd-col-md-2:only-child { grid-column-start: 6; }
+  .sdcd-grille--centre > .sdcd-col-md-3:only-child { grid-column-start: 5; }
+  .sdcd-grille--centre > .sdcd-col-md-4:only-child { grid-column-start: 5; }
+  .sdcd-grille--centre > .sdcd-col-md-5:only-child { grid-column-start: 4; }
+  .sdcd-grille--centre > .sdcd-col-md-6:only-child { grid-column-start: 4; }
+  .sdcd-grille--centre > .sdcd-col-md-7:only-child { grid-column-start: 3; }
+  .sdcd-grille--centre > .sdcd-col-md-8:only-child { grid-column-start: 3; }
+  .sdcd-grille--centre > .sdcd-col-md-9:only-child { grid-column-start: 2; }
+  .sdcd-grille--centre > .sdcd-col-md-10:only-child { grid-column-start: 2; }
+  .sdcd-grille--centre > .sdcd-col-md-11:only-child { grid-column-start: 1; }
 }
 @media (min-width: 1025px) {
   .sdcd-col-lg-1 { grid-column-end: span 1; }
@@ -330,6 +376,17 @@
   .sdcd-col-decale-lg-9 { grid-column-start: 10; }
   .sdcd-col-decale-lg-10 { grid-column-start: 11; }
   .sdcd-col-decale-lg-11 { grid-column-start: 12; }
+  .sdcd-grille--centre > .sdcd-col-lg-1:only-child { grid-column-start: 6; }
+  .sdcd-grille--centre > .sdcd-col-lg-2:only-child { grid-column-start: 6; }
+  .sdcd-grille--centre > .sdcd-col-lg-3:only-child { grid-column-start: 5; }
+  .sdcd-grille--centre > .sdcd-col-lg-4:only-child { grid-column-start: 5; }
+  .sdcd-grille--centre > .sdcd-col-lg-5:only-child { grid-column-start: 4; }
+  .sdcd-grille--centre > .sdcd-col-lg-6:only-child { grid-column-start: 4; }
+  .sdcd-grille--centre > .sdcd-col-lg-7:only-child { grid-column-start: 3; }
+  .sdcd-grille--centre > .sdcd-col-lg-8:only-child { grid-column-start: 3; }
+  .sdcd-grille--centre > .sdcd-col-lg-9:only-child { grid-column-start: 2; }
+  .sdcd-grille--centre > .sdcd-col-lg-10:only-child { grid-column-start: 2; }
+  .sdcd-grille--centre > .sdcd-col-lg-11:only-child { grid-column-start: 1; }
 }
 
 /* Conteneur de page : meme largeur maximale et meme gouttiere que les

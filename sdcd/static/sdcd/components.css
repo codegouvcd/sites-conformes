@@ -672,6 +672,21 @@
 }
 .sdcd-header__nav--mobile .sdcd-header__lien[aria-current="page"] { border-left-color: var(--sdcd-action); }
 
+/* Le menu mobile passait bien en colonne — mais le <nav>, pas la liste qu'il
+   contient. Celle-ci restait en ligne avec passage a la ligne : les entrees se
+   rangeaient deux par deux, et leurs filets de separation se croisaient. Sur un
+   telephone, le menu principal etait illisible. */
+.sdcd-header__nav--mobile .sdcd-nav__liste {
+  flex-direction: column;
+  column-gap: 0;
+  width: 100%;
+}
+.sdcd-header__nav--mobile .sdcd-nav__item {
+  display: flex;
+  width: 100%;
+}
+.sdcd-header__nav--mobile .sdcd-nav__item > * { flex: 1; }
+
 .sdcd-footer { font-family: var(--sdcd-font); background: var(--sdcd-fond); }
 .sdcd-footer__haut {
   max-width: var(--sdcd-maxw);
