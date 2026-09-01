@@ -1,7 +1,15 @@
 {% extends "wagtailadmin/base.html" %}
 {% load static %}
+{% comment %}
+  Le gabarit amont affichait ici le bloc-marque de la Republique francaise —
+  l'embleme d'un autre Etat, en haut de chaque page du back-office d'un CMS
+  congolais. Le fichier a ete retire du depot avec cette correction.
+
+  L'alternative reste vide : le logo jouxte le nom du site, qu'il ne fait que
+  redire. Une alternative le ferait annoncer deux fois par un lecteur d'ecran.
+{% endcomment %}
 {% block branding_logo %}
-  <img src="{% static 'artwork/logo-republique.svg' %}"
+  <img src="{% static 'sdcd/assets/armoiries-rdc.png' %}"
        alt=""
        height="80"
        width="80" />
