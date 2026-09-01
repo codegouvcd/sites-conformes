@@ -134,7 +134,13 @@ p:empty {
     aspect-ratio: initial !important;
 }
 
-.cmsfr-block-stepper dd {
+/* Le navigateur applique `margin-inline-start: 40px` a tout <dd>. Dans un
+   etapier, ce retrait decale la description de son propre intitule, sans rien
+   apporter : la hierarchie est deja portee par la graisse du <dt>. La regle
+   d'origine ne remettait a zero que le padding, jamais pose par le navigateur. */
+.cmsfr-block-stepper dd,
+.cmsfr-stepper__details dd {
+    margin-inline-start: 0;
     padding-left: 0;
 }
 
