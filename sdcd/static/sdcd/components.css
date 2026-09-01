@@ -1173,6 +1173,17 @@ li > a:only-child {
   transition: border-color var(--sdcd-transition);
 }
 .sdcd-card:hover { border-color: var(--sdcd-action); }
+/* Dans une grille, la colonne s'etire a la hauteur de la rangee, mais la carte
+   qu'elle contient gardait sa hauteur naturelle : les cartes d'une meme rangee
+   s'alignaient en haut et se terminaient en escalier. Mesure sur la page du
+   systeme de design : trois colonnes de 187 px pour des cartes de 187, 165 et
+   165. Une grille marquee --haut n'etire pas ses colonnes ; la regle est alors
+   sans effet, ce qui est le comportement voulu. */
+.sdcd-grille > .sdcd-card,
+.sdcd-grille > .sdcd-tile,
+.sdcd-grille > * > .sdcd-card,
+.sdcd-grille > * > .sdcd-tile { height: 100%; }
+
 .sdcd-card__media {
   /* Remonte le media quelle que soit sa position dans la source. */
   order: -1;
