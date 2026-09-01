@@ -31,7 +31,7 @@ class TopMenuLinkBlockTestCase(WagtailPageTestCase):
         # nom — le rendu de l'entree de menu haut creee juste au-dessus.
         self.assertInHTML(
             """
-            <a class="sdcd-button sdcd-button--primaire"
+            <a class="sdcd-button sdcd-button--tertiaire sdcd-button--sm"
                href="https://info.gouv.fr"
                target="_blank"
                rel="noopener noreferrer">Info Gouv
@@ -49,10 +49,10 @@ class TopMenuLinkBlockTestCase(WagtailPageTestCase):
         html = response.content.decode()
 
         self.assertInHTML(
-            f'<a class="sdcd-button sdcd-button--primaire" href="{self.content_page.url}" aria-current="page">Page de test</a>', html
+            f'<a class="sdcd-button sdcd-button--tertiaire sdcd-button--sm" href="{self.content_page.url}" aria-current="page">Page de test</a>', html
         )
         self.assertNotInHTML(
-            f"""<a class="sdcd-button sdcd-button--primaire" href="{self.content_page.url}"
+            f"""<a class="sdcd-button sdcd-button--tertiaire sdcd-button--sm" href="{self.content_page.url}"
             target="_blank" aria-current="page">Page de test</a>""",
             html,
         )
@@ -173,7 +173,7 @@ class MainMenuSubmenuBlockTestCase(WagtailPageTestCase):
 
         self.assertInHTML(
             '<button aria-expanded="false" aria-controls="collapse-menu-mon-sous-menu"'
-            ' type="menu" class="sdcd-header__lien">Mon sous-menu</button>',
+            ' type="button" class="sdcd-header__lien">Mon sous-menu</button>',
             html,
         )
 
@@ -198,7 +198,7 @@ class MainMenuSubmenuBlockTestCase(WagtailPageTestCase):
 
         self.assertInHTML(
             '<button aria-current="true" aria-expanded="false" aria-controls="collapse-menu-mon-sous-menu"'
-            ' type="menu" class="sdcd-header__lien">Mon sous-menu</button>',
+            ' type="button" class="sdcd-header__lien">Mon sous-menu</button>',
             html,
         )
 
@@ -261,7 +261,7 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
 
         self.assertInHTML(
             '<button aria-expanded="false" aria-controls="collapse-menu-ma-section"'
-            ' type="menu" class="sdcd-header__lien">Ma section</button>',
+            ' type="button" class="sdcd-header__lien">Ma section</button>',
             html,
         )
 
@@ -302,7 +302,7 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
 
         self.assertInHTML(
             '<button aria-current="true" aria-expanded="false" aria-controls="collapse-menu-ma-section"'
-            ' type="menu" class="sdcd-header__lien">Ma section</button>',
+            ' type="button" class="sdcd-header__lien">Ma section</button>',
             html,
         )
 

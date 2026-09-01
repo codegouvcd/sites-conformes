@@ -181,6 +181,28 @@
   // — apres le menu d'en-tete et le menu lateral — a porter aria-expanded et
   // aria-controls sans que rien ne les pilote. Le JavaScript du DSFR s'en
   // chargeait ; son retrait a laisse trois commandes inertes.
+  // Sous-menus et mega-menus de la navigation principale : un bouton
+  // .sdcd-header__lien qui porte aria-controls. Ouvrir l'un ferme les autres ;
+  // Echap et un clic hors du menu referment. Sans ce comportement, les menus
+  // deroulants du CMS etaient des boutons inertes.
+  function fermerMenusNav(sauf) {
+    var boutons = document.querySelectorAll(".sdcd-header__lien[aria-controls][aria-expanded='true']");
+    for (var i = 0; i < boutons.length; i++) {
+      if (boutons[i] === sauf) continue;
+      boutons[i].setAttribute("aria-expanded", "false");
+      afficher(boutons[i].getAttribute("aria-controls"), false);
+    }
+  }
+  surClic(".sdcd-header__lien[aria-controls]", function (el) {
+    var ouvert = basculer(el, "aria-expanded");
+    fermerMenusNav(el);
+    afficher(el.getAttribute("aria-controls"), ouvert);
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") fermerMenusNav(null); });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".sdcd-nav__item, .sdcd-megamenu, .sdcd-dropdown__menu")) fermerMenusNav(null);
+  });
+
   surClic(".sdcd-breadcrumb__bouton[aria-controls]", function (el) {
     var ouvert = basculer(el, "aria-expanded");
     afficher(el.getAttribute("aria-controls"), ouvert);

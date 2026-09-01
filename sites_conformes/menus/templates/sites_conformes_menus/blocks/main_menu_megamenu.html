@@ -2,7 +2,7 @@
 <button {% if current_page.url in self.menu_urls %}aria-current="true"{% endif %}
         aria-expanded="false"
         aria-controls="{{ self.id }}"
-        type="menu"
+        type="button"
         class="sdcd-header__lien">{{ self.label }}</button>
 
 <div class="sdcd-repli sdcd-megamenu" id="{{ self.id }}" hidden>

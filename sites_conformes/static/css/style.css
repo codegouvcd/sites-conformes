@@ -101,13 +101,27 @@ p:empty {
 }
 
 /* This style rule prevents user agents from applying a margin-top to the figure tag while complying with dsfr */
+/* L'image de l'en-tete large etait remontee de 40 px pour mordre sur
+   l'en-tete du site : avec un bandeau d'information affiche, elle le
+   recouvrait. Elle reste dans le flux. */
 .cmsfr-without-margin {
-    margin-top: -40px;
+    margin-top: 0;
 }
 
-:root[data-theme="light"] .cmsfr-background-dark .sdcd-button--secondaire {
-    background-color: rgba(255, 255, 255, 0.3);
+/* Boutons poses sur une image assombrie : le secondaire (bleu sur bleu nuit)
+   disparaissait. La regle ne valait que pour data-theme="light" pose
+   explicitement — pas pour le reglage « systeme », qui n'ecrit rien sur <html>. */
+.cmsfr-background-dark .sdcd-button--secondaire {
+    color: #fff;
+    border-color: #fff;
+    background-color: rgba(255, 255, 255, 0.12);
 }
+.cmsfr-background-dark .sdcd-button--secondaire:hover,
+.cmsfr-background-dark .sdcd-button--secondaire:focus-visible {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+.cmsfr-background-dark h1, .cmsfr-background-dark p { color: #fff; }
 
 .cmsfr-author_card__header {
     flex: 0 0 6rem !important;
@@ -235,4 +249,15 @@ input[data-whf_name][data-whf_name] {
   clip-path: inset(50%);
   overflow: hidden;
   white-space: nowrap;
+}
+
+/* Cases a cocher et boutons radio des formulaires Wagtail : le widget natif
+   fait 13 px, sous le minimum tactile de 24 px. */
+.sdcd-fieldset input[type="checkbox"],
+.sdcd-fieldset input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin: 2px 8px 2px 0;
+    accent-color: var(--sdcd-action);
+    vertical-align: middle;
 }

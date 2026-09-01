@@ -111,10 +111,14 @@ class Command(BaseCommand):
         self.evenements(agenda, images)
         self.fiches(catalogue, images)
 
-        # Exemples de composants : les modeles de pages a copier, quand ils existent.
-        composants = [p for p in (Page.objects.filter(slug=s).first() for s in COMPOSANTS) if p]
-        pages["composant-blocs"] = composants[1] if len(composants) > 1 else pages["systeme-de-design"]
-        pages["modeles"] = Page.objects.filter(slug="modeles-de-pages-a-copier").first() or index
+        # Exemples de composants : les modeles de pages a copier, quand ils
+        # existent. On lit les enfants de leur index plutot qu'une liste de
+        # slugs ecrite a la main — celle-ci ne correspondait pas aux slugs
+        # reels, et le menu se retrouvait sans aucun exemple de composant.
+        modeles = Page.objects.filter(slug="modeles-de-pages-a-copier").first()
+        composants = list(modeles.get_children().live().specific()) if modeles else []
+        pages["composant-blocs"] = next((p for p in composants if "bloc" in p.slug), None) or pages["systeme-de-design"]
+        pages["modeles"] = modeles or index
 
         # ----------------------------------------------------------------- accueil
         racine.title = "Sites Conformes"
@@ -244,6 +248,11 @@ class Command(BaseCommand):
             page.save()
 
     def publier(self, page, etiquette):
+        # Le resume sert aux tuiles des catalogues et aux balises de partage ;
+        # sans lui, l'extrait est calcule sur le corps et remonte des noms de
+        # classes ou des libelles de blocs.
+        if not page.search_description:
+            page.search_description = exemples.RESUMES.get(page.slug, "")
         page.save()
         revision = page.save_revision()
         revision.publish()

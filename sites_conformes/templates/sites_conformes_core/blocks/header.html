@@ -121,6 +121,28 @@
          aria-label="{{ main_menu_label }}"
          hidden>
       {% main_menu %}
+      {% comment %}
+        Sous 900 px, les outils de l'en-tete (acces rapides, connexion) et la
+        recherche ne tiennent pas sur la rangee : la rangee debordait de 900 px
+        et la page defilait de cote. Comme dans le DSFR, ils passent dans le
+        panneau du menu ; la feuille responsive les masque dans l'en-tete.
+      {% endcomment %}
+      <div class="sdcd-header__nav-outils">
+        {% if settings.sites_conformes_core.CmsDsfrConfig.search_bar %}
+          {% translate "Search" as search_label %}
+          <form action="{% url 'cms_search' %}" method="get" class="sdcd-header__nav-recherche">
+            <div class="sdcd-searchbar" role="search">
+              <label class="sdcd-lecteur-seul" for="query-mobile">{{ search_label }}</label>
+              <input class="sdcd-searchbar__champ" placeholder="{{ search_label }}" type="search" id="query-mobile" name="q" value="{{ query|default_if_none:'' }}">
+              <button class="sdcd-searchbar__bouton" title="{{ search_label }}">{{ search_label }}</button>
+            </div>
+          </form>
+        {% endif %}
+        <ul class="sdcd-header__outils">
+          {% top_menu %}
+          {% include "sites_conformes_core/blocks/user_menu.html" %}
+        </ul>
+      </div>
     </nav>
   {% endif %}
 {% endblock main_menu %}

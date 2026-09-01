@@ -2807,3 +2807,53 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
 /* --- typographie complementaire --------------------------------------------- */
 .sdcd-texte-lead { font-size: 1.0625rem; color: var(--sdcd-muet); }
 .sdcd-texte-lg { font-size: 1.0625rem; }
+
+/* Cibles tactiles (WCAG 2.5.8, 24 px) : le lien qui porte le titre d'une carte
+   ou d'une tuile ne faisait que 20 px de haut, le bouton qui masque un message
+   du bandeau 18 px. */
+.sdcd-card__titre a, .sdcd-tile__titre a { display: inline-block; padding-block: 2px; min-height: 24px; }
+.sdcd-notice__fermer, .sdcd-notice button { display: inline-flex; align-items: center; min-height: 24px; }
+
+/* --- sous-menus et mega-menus de la navigation ---------------------------
+   Le declencheur est un <button class="sdcd-header__lien"> : sans ces regles il
+   gardait l'aspect natif (boite grise) au milieu des liens. Le panneau se pose
+   sous la barre de navigation ; dans le menu mobile il reprend le flux. */
+button.sdcd-header__lien {
+  background: none; border: 0; border-bottom: 2px solid transparent; font: inherit;
+  font-size: var(--sdcd-sm); font-weight: 500; color: var(--sdcd-encre-2); cursor: pointer;
+  padding: 11px 0; display: inline-flex; align-items: center; gap: var(--sdcd-1);
+}
+button.sdcd-header__lien::after {
+  content: "\ea4e"; font-family: 'remixicon'; font-size: 18px; line-height: 1; transition: transform var(--sdcd-transition);
+}
+button.sdcd-header__lien[aria-expanded="true"] { color: var(--sdcd-action); border-bottom-color: var(--sdcd-action); }
+button.sdcd-header__lien[aria-expanded="true"]::after { transform: rotate(180deg); }
+.sdcd-header__nav { position: relative; }
+.sdcd-nav__item { position: relative; }
+.sdcd-header__nav .sdcd-megamenu {
+  position: absolute; left: 0; right: 0; top: 100%; z-index: 50;
+  box-shadow: var(--sdcd-ombre); border-bottom: 1px solid var(--sdcd-ligne);
+}
+.sdcd-header__nav .sdcd-dropdown__menu { z-index: 50; min-width: 260px; }
+.sdcd-header__nav .sdcd-dropdown__liste { list-style: none; margin: 0; padding: var(--sdcd-2) 0; }
+.sdcd-header__nav .sdcd-dropdown__liste .sdcd-header__lien { display: block; padding: var(--sdcd-2) var(--sdcd-4); white-space: normal; border-bottom: 0; }
+.sdcd-header__nav--mobile .sdcd-megamenu, .sdcd-header__nav--mobile .sdcd-dropdown__menu {
+  position: static; box-shadow: none; border: 0; padding: 0 0 var(--sdcd-3) var(--sdcd-3); min-width: 0;
+}
+.sdcd-header__nav--mobile button.sdcd-header__lien { width: 100%; justify-content: space-between; padding: 13px 0 13px 12px; border-bottom: 1px solid var(--sdcd-ligne); }
+.sdcd-header__nav--mobile .sdcd-megamenu .sdcd-conteneur { padding: 0; }
+.sdcd-megamenu__intro p { max-width: var(--sdcd-mesure); }
+.sdcd-megamenu .sdcd-lien--fermer { float: right; }
+/* Bandeau : le bouton qui masque le message est un bouton, pas un texte nu. */
+.sdcd-notice .sdcd-fermer { margin-left: auto; align-self: center; }
+.sdcd-notice__corps { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sdcd-2) var(--sdcd-4); }
+
+/* Une integration en gabarit enveloppe souvent l'image d'un <div> : sans
+   contrainte sur cette enveloppe, l'image gardait sa hauteur naturelle et
+   recouvrait le corps de la carte (catalogue du CMS). */
+.sdcd-card__media { overflow: hidden; }
+.sdcd-card__media > div { width: 100%; height: 100%; }
+.sdcd-card__media > div > img { width: 100%; height: 100%; object-fit: cover; }
+/* Recherche dans le panneau du menu mobile (gabarit du CMS). */
+.sdcd-header__nav-recherche { margin: 0; }
+.sdcd-header__nav-recherche .sdcd-searchbar { width: 100%; }

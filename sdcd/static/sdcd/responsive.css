@@ -185,3 +185,19 @@ pre{overflow-x:auto}
   .sdcd-footer__legaux { flex-direction: column; align-items: flex-start; row-gap: var(--sdcd-2); }
   .sdcd-footer__legal { border-left: none; padding-left: 0; }
 }
+
+/* Outils d'en-tete sous 900 px : la rangee d'actions (acces rapides, connexion,
+   recherche, bouton Menu) ne se repliait pas et debordait de 900 px — toute la
+   page defilait de cote. Les outils et la recherche vivent alors dans le
+   panneau du menu ; ne restent dans l'en-tete que les boutons Recherche/Menu. */
+@media (max-width:900px){
+  .sdcd-header__actions { flex-wrap: wrap; max-width: 100%; min-width: 0; }
+  .sdcd-header__actions > .sdcd-header__outils,
+  .sdcd-header__actions > .sdcd-header__recherche { display: none; }
+  .sdcd-header__nav-outils { padding: var(--sdcd-3) var(--sdcd-gouttiere) var(--sdcd-4); border-top: 1px solid var(--sdcd-ligne); display: flex; flex-direction: column; gap: var(--sdcd-3); }
+  .sdcd-header__nav-outils .sdcd-header__outils { display: flex; flex-direction: column; align-items: stretch; gap: var(--sdcd-2); list-style: none; margin: 0; padding: 0; }
+  .sdcd-header__nav-outils .sdcd-header__outils > li { display: block; }
+}
+@media (min-width:901px){
+  .sdcd-header__nav-outils { display: none; }
+}

@@ -33,6 +33,29 @@ from .outils import (
     tuile,
 )
 
+# Resumes (search_description) : ce que les catalogues et les partages affichent.
+RESUMES = {
+    "exemples": "Des pages construites avec les blocs du CMS, à ouvrir puis à retrouver dans le back-office.",
+    "page-atterrissage": "Une promesse, trois arguments, des cas d’usage et un appel à l’action : le modèle d’un service en ligne.",
+    "site-vitrine": "Actualités à la une, services principaux, informations par type d’usager : le modèle d’un ministère.",
+    "actualites": "Articles classés par catégorie et par étiquette, flux RSS et Atom.",
+    "agenda": "Ateliers, conférences, concertations et formations, filtrables par date et par catégorie.",
+    "catalogue-de-services": "Des fiches classées par étiquette, générées à partir des sous-pages.",
+    "formulaire-de-demonstration": "Tous les types de champs d’un formulaire, réponses consultables dans le back-office.",
+    "acte-de-naissance": "Déclarer une naissance et obtenir l’acte, en ligne ou au guichet, gratuitement dans les 90 jours.",
+    "passeport-biometrique": "Demander un passeport sur rendez-vous, avec un acte de naissance et une carte d’électeur.",
+    "creer-son-entreprise": "Immatriculation, identification nationale et numéro d’impôt en un dossier, sous trois jours.",
+    "declarer-ses-impots": "Déclarer la TVA et l’impôt professionnel en ligne, payer par virement ou par mobile.",
+    "dorsale-nationale-goma": "Le tronçon Bukavu – Goma de la fibre nationale est en service.",
+    "kikwit-site-en-une-semaine": "Deux agents, une journée de formation, un modèle de site vitrine.",
+    "accessibilite-premiers-audits": "Dix sites ministériels audités : alternatives d’images, contrastes, PDF.",
+    "un-site-public-doit-se-lire-au-telephone": "Neuf visites sur dix se font depuis un téléphone : concevoir pour lui d’abord.",
+    "atelier-prise-en-main": "Une journée pour créer un site de démonstration, douze places.",
+    "conference-services-publics-en-ligne": "Bilan du programme et feuille de route 2027, retransmis en direct.",
+    "concertation-lubumbashi": "Deux jours d’ateliers avec usagers, agents et associations.",
+    "formation-redacteurs-en-ligne": "Trois heures pour écrire court, hiérarchiser ses titres, décrire ses images.",
+}
+
 # ----------------------------------------------------------------- Exemples
 INTRO_EXEMPLES = [
     paragraphe(

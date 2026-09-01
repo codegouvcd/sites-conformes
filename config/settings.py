@@ -417,9 +417,14 @@ LOGOUT_URL = f"{FORCE_SCRIPT_NAME}/{WAGTAILADMIN_PATH}logout/"
 # page de connexion : le bouton « Se connecter » de l'en-tete y repondait 404.
 # Il pointe alors vers l'instance d'administration, dont l'adresse est celle
 # declaree pour les liens du back-office.
-if not SF_SERVE_ADMIN and WAGTAILADMIN_BASE_URL:
-    LOGIN_URL = f"{WAGTAILADMIN_BASE_URL}{LOGIN_URL}"
-    LOGOUT_URL = f"{WAGTAILADMIN_BASE_URL}{LOGOUT_URL}"
+# SF_ADMIN_URL nomme l'instance d'administration sans toucher a
+# WAGTAILADMIN_BASE_URL : celle-ci sert aussi a Wagtail pour composer les URL
+# absolues des images et des pages (full_url), et la poser sur l'instance
+# publique y faisait charger les images depuis le domaine d'administration.
+SF_ADMIN_URL = os.getenv("SF_ADMIN_URL", "").rstrip("/")
+if not SF_SERVE_ADMIN and SF_ADMIN_URL:
+    LOGIN_URL = f"{SF_ADMIN_URL}{LOGIN_URL}"
+    LOGOUT_URL = f"{SF_ADMIN_URL}{LOGOUT_URL}"
 
 WAGTAIL_FRONTEND_LOGIN_URL = LOGIN_URL
 

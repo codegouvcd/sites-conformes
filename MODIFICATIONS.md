@@ -663,3 +663,19 @@ mega-menu. Contenu rédigé en contexte congolais.
 | `config/settings.py` | `LOGIN_URL`/`LOGOUT_URL` absolus vers `WAGTAILADMIN_BASE_URL` quand l'instance ne sert pas le back-office |
 | `sdcd/templates/sdcd/breadcrumb.html` | Même structure que l'include des pages (bouton et repli sur mobile) |
 | `sdcd/static/sdcd/` | SDCD 0.18.0 |
+
+---
+
+## 2026-09-02 — Wagtail 8.0, menus déroulants, en-tête mobile
+
+| Fichier | Modification |
+|---|---|
+| `pyproject.toml`, `uv.lock` | Wagtail 7.4.2 → 8.0 ; wagtailmenus 4.1 ; wagtail-localize 1.14.5. Aucune migration, aucun code à adapter (vérificateur sans défaut, 294 tests OK sur image reconstruite) |
+| `sites_conformes/menus/templates/sites_conformes_menus/blocks/link.html` | Accès rapides de l'en-tête en liens tertiaires (étaient des boutons primaires) |
+| `…/main_menu_megamenu.html`, `…/main_menu_submenu.html` | `type="menu"` (inexistant) → `type="button"` ; pilotés par sdcd.js |
+| `sites_conformes/templates/sites_conformes_core/blocks/header.html` | Sous 900 px, accès rapides, connexion et recherche passent dans le panneau du menu (la rangée débordait de 900 px) |
+| `sites_conformes/templates/sites_conformes_core/blocks/notice.html` | Bouton « Masquer le message » en bouton tertiaire avec icône |
+| `sites_conformes/static/css/style.css` | En-tête large : plus de marge négative (recouvrait le bandeau) ; boutons secondaires lisibles sur image assombrie quel que soit le thème ; cases à cocher des formulaires à 20 px |
+| `config/settings.py`, `.env.example` | `SF_ADMIN_URL` pour le bouton de connexion (poser `WAGTAILADMIN_BASE_URL` sur l'instance publique faisait charger les images depuis le domaine d'administration) |
+| `sites_conformes/core/vitrine/` | Résumés (`search_description`) des pages d'exemple ; tuiles sans image ; exemples de composants lus depuis l'index des modèles |
+| `sdcd/static/sdcd/` | SDCD 0.18.0 (menus déroulants, média de carte borné, cibles tactiles) |
