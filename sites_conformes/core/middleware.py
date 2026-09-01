@@ -109,34 +109,63 @@ class RoleMiddleware:
       SF_SERVE_PUBLIC=0   l'instance ne sert que le back-office
       SF_SERVE_ADMIN=0    l'instance ne sert que le site public
 
-    Le filtrage se fait sur le chemin, et non en retirant les routes : `reverse`
-    continue de resoudre les URL d'administration meme sur une instance qui ne
-    les sert pas. Plusieurs commandes de gestion en dependent, et les liens
-    « voir en ligne » du back-office doivent pouvoir designer le site public.
+    Le filtrage porte sur la VUE resolue, et non sur le chemin. Une premiere
+    version comparait des prefixes d'URL, avec une liste de chemins toujours
+    servis. Elle a bloque `/jsi18n/` — le catalogue de traductions JavaScript,
+    que le back-office charge et qui ne vit sous aucun de ces prefixes. Toute
+    liste de chemins ecrite a la main aurait le meme defaut : elle oublie ce
+    qu'on n'a pas pense a y mettre.
 
-    Ce qui reste toujours servi : les fichiers statiques, les medias, et la vue
-    qui sert les fichiers stockes en base. Sans eux, le back-office s'afficherait
-    sans style et sans images.
+    On ne refuse donc que ce qu'on sait devoir refuser : le rendu des pages
+    Wagtail d'un cote, les vues d'administration de l'autre. Tout le reste —
+    fichiers statiques, medias, catalogues, sante — passe sans avoir a etre
+    enumere.
+
+    Les routes restent declarees des deux cotes : `reverse` doit continuer de
+    resoudre les URL d'administration, plusieurs commandes de gestion en
+    dependent, et les liens « voir en ligne » designent le site public.
     """
 
-    TOUJOURS_SERVIS = ("/static/", "/medias/", "/db-storage/", "/health", "/favicon.ico")
+    # Vues qui rendent le site public.
+    VUES_PUBLIQUES = ("wagtail.views", "wagtail.contrib.sitemaps")
+    # Vues qui composent le back-office.
+    VUES_ADMIN = ("wagtail.admin", "django.contrib.admin", "wagtail.snippets", "wagtail.users")
 
     def __init__(self, get_response):
         self.get_response = get_response
-        self.sert_public = getattr(settings, "SF_SERVE_PUBLIC", True)
-        self.sert_admin = getattr(settings, "SF_SERVE_ADMIN", True)
-        self.prefixe_admin = "/" + settings.WAGTAILADMIN_PATH.lstrip("/")
+
+    # Les reglages sont relus a chaque requete, et non figes a la construction :
+    # un middleware n'est instancie qu'une fois par processus, et une valeur
+    # capturee la ne suivrait ni `override_settings` en test, ni un changement de
+    # configuration a chaud. Le cout est celui de deux acces a un attribut.
+    @property
+    def sert_public(self):
+        return getattr(settings, "SF_SERVE_PUBLIC", True)
+
+    @property
+    def sert_admin(self):
+        return getattr(settings, "SF_SERVE_ADMIN", True)
 
     def __call__(self, request):
-        if not (self.sert_public and self.sert_admin):
-            chemin = request.path_info
-            if not chemin.startswith(self.TOUJOURS_SERVIS):
-                vise_admin = chemin.startswith(self.prefixe_admin) or chemin.startswith("/django-admin/")
-                if vise_admin and not self.sert_admin:
-                    return self.refuser(request, "administration")
-                if not vise_admin and not self.sert_public:
-                    return self.refuser(request, "site public")
-        return self.get_response(request)
+        response = self.get_response(request)
+        if not self.sert_public:
+            # Le domaine d'administration n'a rien a faire dans un index.
+            response.headers.setdefault("X-Robots-Tag", "noindex, nofollow")
+        return response
+
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        if self.sert_public and self.sert_admin:
+            return None
+
+        module = getattr(view_func, "__module__", "") or ""
+        # Une vue basee sur une classe porte le module de sa classe.
+        module = getattr(getattr(view_func, "view_class", None), "__module__", module)
+
+        if not self.sert_admin and module.startswith(self.VUES_ADMIN):
+            return self.refuser(request, "administration")
+        if not self.sert_public and module.startswith(self.VUES_PUBLIQUES):
+            return self.refuser(request, "site public")
+        return None
 
     @staticmethod
     def refuser(request, quoi):

@@ -1,61 +1,84 @@
 """Verifie qu'une instance ne sert que ce qu'on lui a demande de servir.
 
 Deployer le back-office sur son propre domaine n'a d'interet que si le site
-public n'y repond pas, et reciproquement. Ces tests figent les deux sens.
+public n'y repond pas, et reciproquement. Ces tests figent les deux sens, et
+surtout ce qui doit continuer de passer des deux cotes : une premiere version du
+filtre bloquait `/jsi18n/`, le catalogue de traductions que le back-office
+charge — defaut invisible tant qu'on ne regarde pas la console du navigateur.
+
+On passe par le client de test plutot que par une requete fabriquee : c'est la
+resolution d'URL reelle qui est en jeu.
 """
 
-from django.conf import settings
-from django.http import HttpResponse
-from django.test import RequestFactory, TestCase
-
-from sites_conformes.core.middleware import RoleMiddleware
+from django.test import TestCase, override_settings
+from django.urls import reverse
+from wagtail.models import Page
 
 
-def middleware(public=True, admin=True):
-    with_settings = TestCase().settings(SF_SERVE_PUBLIC=public, SF_SERVE_ADMIN=admin)
-    with_settings.enable()
-    try:
-        return RoleMiddleware(lambda r: HttpResponse("servi")), with_settings
-    except Exception:
-        with_settings.disable()
-        raise
+class RolesTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.accueil = Page.objects.get(slug="home")
 
+    @property
+    def admin(self):
+        """L'URL reelle du back-office, resolue plutot que devinee.
 
-class RoleMiddlewareTestCase(TestCase):
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.admin = "/" + settings.WAGTAILADMIN_PATH.lstrip("/")
+        La composer a la main a partir de WAGTAILADMIN_PATH donnait des chemins
+        inexistants : `/cms-admin/` nu n'est pas une route, et `/cms-admin/login/`
+        disparait lorsque ProConnect remplace la connexion locale.
+        """
+        return reverse("wagtailadmin_home")
 
-    def reponse(self, chemin, public=True, admin=True):
-        mw, ctx = middleware(public, admin)
-        try:
-            return mw(self.factory.get(chemin))
-        finally:
-            ctx.disable()
-
+    # ------------------------------------------------------------- par defaut
     def test_par_defaut_tout_est_servi(self):
         """Une instance unique doit se comporter exactement comme avant."""
-        self.assertEqual(self.reponse("/").status_code, 200)
-        self.assertEqual(self.reponse(self.admin).status_code, 200)
+        self.assertEqual(self.client.get("/").status_code, 200)
+        self.assertEqual(self.client.get(self.admin).status_code, 302)
 
-    def test_instance_publique_ne_sert_pas_l_administration(self):
-        self.assertEqual(self.reponse("/", admin=False).status_code, 200)
-        self.assertEqual(self.reponse(self.admin, admin=False).status_code, 404)
-        self.assertEqual(self.reponse(self.admin + "login/", admin=False).status_code, 404)
-        self.assertEqual(self.reponse("/django-admin/", admin=False).status_code, 404)
+    # --------------------------------------------------- instance d'administration
+    @override_settings(SF_SERVE_PUBLIC=False)
+    def test_l_administration_ne_sert_pas_les_pages_publiques(self):
+        self.assertEqual(self.client.get("/").status_code, 404)
 
-    def test_instance_d_administration_ne_sert_pas_le_site_public(self):
-        self.assertEqual(self.reponse(self.admin, public=False).status_code, 200)
-        self.assertEqual(self.reponse(self.admin + "pages/", public=False).status_code, 200)
-        self.assertEqual(self.reponse("/", public=False).status_code, 404)
-        self.assertEqual(self.reponse("/contact/", public=False).status_code, 404)
+    @override_settings(SF_SERVE_PUBLIC=False)
+    def test_l_administration_sert_son_back_office(self):
+        # Non connecte, Wagtail redirige vers la connexion : un 302, et non le
+        # 404 que poserait le filtre.
+        self.assertEqual(self.client.get(self.admin).status_code, 302)
 
-    def test_les_ressources_restent_servies_des_deux_cotes(self):
-        """Sans elles, le back-office s'afficherait sans style ni images."""
-        for chemin in ("/static/sdcd/styles.css", "/medias/images/x.png", "/db-storage/serve/?name=x"):
-            self.assertEqual(self.reponse(chemin, public=False).status_code, 200, chemin)
-            self.assertEqual(self.reponse(chemin, admin=False).status_code, 200, chemin)
+    @override_settings(SF_SERVE_PUBLIC=False)
+    def test_le_catalogue_de_traductions_reste_servi(self):
+        """Defaut de la premiere version : `/jsi18n/` ne vit sous aucun prefixe
+        d'administration, et une liste de chemins ecrite a la main l'oubliait.
+        Le back-office le charge, et sans lui la console se remplit d'erreurs."""
+        self.assertEqual(self.client.get("/jsi18n/").status_code, 200)
 
+    @override_settings(SF_SERVE_PUBLIC=False)
+    def test_le_domaine_d_administration_demande_a_ne_pas_etre_indexe(self):
+        reponse = self.client.get(self.admin)
+        self.assertIn("noindex", reponse.headers.get("X-Robots-Tag", ""))
+
+    # ---------------------------------------------------------- instance publique
+    @override_settings(SF_SERVE_ADMIN=False)
+    def test_l_instance_publique_ne_sert_pas_l_administration(self):
+        self.assertEqual(self.client.get(self.admin).status_code, 404)
+
+    @override_settings(SF_SERVE_ADMIN=False)
+    def test_l_instance_publique_sert_ses_pages(self):
+        self.assertEqual(self.client.get("/").status_code, 200)
+
+    @override_settings(SF_SERVE_ADMIN=False)
+    def test_l_instance_publique_reste_indexable(self):
+        self.assertNotIn("noindex", self.client.get("/").headers.get("X-Robots-Tag", ""))
+
+    # ------------------------------------------------------------------- forme
+    @override_settings(SF_SERVE_ADMIN=False)
     def test_refus_en_404_et_non_en_403(self):
-        """Une instance qui ne sert pas une partie ne doit pas en reveler l'existence."""
-        self.assertEqual(self.reponse(self.admin, admin=False).status_code, 404)
+        """Une instance ne doit pas reveler ce qu'elle ne sert pas."""
+        self.assertEqual(self.client.get(self.admin).status_code, 404)
+
+    @override_settings(SF_SERVE_PUBLIC=False)
+    def test_reverse_fonctionne_encore_sur_l_instance_d_administration(self):
+        """Les routes restent declarees : plusieurs commandes en dependent."""
+        self.assertTrue(reverse("wagtailadmin_home"))
