@@ -168,3 +168,60 @@
     opacity: 0.7;
     font-size: 0.875rem;
 }
+
+/* =============================================================================
+   Surcharges du back-office de Wagtail
+   =============================================================================
+
+   Ce qui suit corrige des defauts du back-office lui-meme, et non du systeme de
+   design : Wagtail fournit son propre CSS, que ces regles surchargent.
+
+   C'est une dette assumee : les selecteurs visent des classes de Wagtail, qui
+   peuvent changer d'une version a l'autre. A re-verifier a chaque montee de
+   version. Le perimetre est donc tenu au strict necessaire, et l'editeur de
+   texte riche — un composant React qui calcule ses positions — n'est pas
+   touche du tout.
+   ---------------------------------------------------------------------------- */
+
+/* --- Lisibilite des blocs d'aide -------------------------------------------
+   Les encarts d'explication de Wagtail sont du texte de lecture continue, et
+   s'etendaient sur toute la largeur : 154 caracteres par ligne mesures a
+   1440 px sur la liste des pages, la ou l'oeil decroche des 75. Un tableau de
+   gestion, lui, a besoin de sa largeur : il n'est pas borne. */
+.help-block p,
+.w-help-text,
+.w-preview__error-details {
+    max-width: 42em;
+}
+
+/* --- Cibles tactiles --------------------------------------------------------
+   Le critere 2.5.8 demande 24 px. Ces liens en faisaient 17 a 21 : liens de tri
+   des colonnes, titres de page dans les listes, boutons de date, liens du pied
+   du back-office.
+
+   La hauteur est obtenue par `min-height` et un centrage, non par du
+   rembourrage : le rembourrage decalerait le texte dans sa cellule, alors qu'un
+   centrage garde l'alignement des colonnes. Le gain de hauteur par ligne est de
+   quelques pixels.
+
+   L'exception « espacement » du critere ne s'applique pas ici : ces liens sont
+   contigus, sans zone morte suffisante autour. */
+.w-human-readable-date,
+td.title .title-wrapper > a,
+thead th > a.icon,
+footer a,
+.w-footer a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+}
+
+/* L'icone d'edition de l'avatar est isolee dans son menu : on l'agrandit sans
+   toucher a sa position. */
+.avatar__edit-link {
+    min-width: 24px;
+    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
