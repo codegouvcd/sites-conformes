@@ -1375,8 +1375,30 @@ li > a:only-child {
   color: var(--sdcd-texte);
   text-align: left;
 }
-.sdcd-accordion__entete[aria-expanded="true"] { color: var(--sdcd-action); }
+.sdcd-accordion__entete[aria-expanded="true"],
+details[open] > .sdcd-accordion__entete { color: var(--sdcd-action); }
 .sdcd-accordion__entete i { font-size: 18px; color: var(--sdcd-action); flex-shrink: 0; }
+/* Affordance. En <summary>, l'en-tete perdait son triangle natif : un summary en
+   `display: flex` ne rend plus son marqueur. Rien ne le remplacait — vu au
+   navigateur, les titres se lisaient comme une simple liste separee par des
+   filets, sans qu'on devine qu'ils se deplient. Le chevron est pose ici, dans la
+   police d'icones deja chargee, et tourne a l'ouverture. Le marqueur natif est
+   retire explicitement, pour que les navigateurs qui le rendraient malgre le
+   flex n'en affichent pas deux. */
+.sdcd-accordion__entete { list-style: none; }
+.sdcd-accordion__entete::-webkit-details-marker { display: none; }
+.sdcd-accordion__entete::after {
+  content: "\ea4e";
+  font-family: 'remixicon';
+  font-size: 20px;
+  line-height: 1;
+  color: var(--sdcd-action);
+  flex-shrink: 0;
+  transition: transform var(--sdcd-transition);
+}
+details[open] > .sdcd-accordion__entete::after,
+.sdcd-accordion__entete[aria-expanded="true"]::after { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .sdcd-accordion__entete::after { transition: none; } }
 .sdcd-accordion__contenu {
   padding: 0 4px 18px;
   font-size: var(--sdcd-sm);

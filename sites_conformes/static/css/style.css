@@ -142,6 +142,9 @@ p:empty {
 .cmsfr-stepper__details dd {
     margin-inline-start: 0;
     padding-left: 0;
+    /* Sans marge basse, la description d'une etape touchait l'intitule de la
+       suivante : les six etapes se lisaient comme un seul bloc. Mesure : 0 px. */
+    margin-bottom: var(--sdcd-3);
 }
 
 .cmsfr-stepper__details {
