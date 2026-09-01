@@ -219,6 +219,10 @@ a.w-status {
     display: inline-flex;
     align-items: center;
     min-height: 24px;
+    /* Sans effet sur un libelle long ; corrige l'icone seule du menu de site,
+       qui ne faisait que 16 px de large. */
+    min-width: 24px;
+    justify-content: center;
 }
 
 /* L'icone d'edition de l'avatar est isolee dans son menu : on l'agrandit sans
