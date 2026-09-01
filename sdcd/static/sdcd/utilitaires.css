@@ -233,10 +233,17 @@
    Une grille n'ayant qu'un seul enfant est recentree en le decalant de la
    moitie des pistes restantes. `:only-child` est la condition qui rend ce
    decalage sur : applique a plusieurs enfants, il les empilerait tous sur la
-   meme colonne de depart. Quand il y en a plusieurs, `justify-items` garde son
-   sens — centrer chaque element dans sa piste, ce dont une grille d'elements a
-   besoin. */
-.sdcd-grille--centre { justify-items: center; }
+   meme colonne de depart. A plusieurs enfants, il n'y a rien a centrer : les
+   colonnes remplissent deja la ligne. */
+/* L'alignement horizontal ne doit porter que sur le PLACEMENT, jamais sur la
+   largeur. En flexbox, `justify-content` deplacait la rangee sans toucher aux
+   colonnes. Traduit en `justify-items`, il redimensionne chaque enfant a son
+   contenu : a 768 px, trois tuiles empilees prenaient 655, 605 et 455 px et se
+   terminaient en escalier. Les enfants gardent donc leur largeur de colonne, et
+   le placement est obtenu en decalant l'enfant unique — voir plus bas. */
+.sdcd-grille--centre,
+.sdcd-grille--gauche,
+.sdcd-grille--droite { justify-items: stretch; }
 .sdcd-grille--centre > .sdcd-col-1:only-child { grid-column-start: 6; }
 .sdcd-grille--centre > .sdcd-col-2:only-child { grid-column-start: 6; }
 .sdcd-grille--centre > .sdcd-col-3:only-child { grid-column-start: 5; }
@@ -248,9 +255,18 @@
 .sdcd-grille--centre > .sdcd-col-9:only-child { grid-column-start: 2; }
 .sdcd-grille--centre > .sdcd-col-10:only-child { grid-column-start: 2; }
 .sdcd-grille--centre > .sdcd-col-11:only-child { grid-column-start: 1; }
+.sdcd-grille--droite > .sdcd-col-1:only-child { grid-column-start: 12; }
+.sdcd-grille--droite > .sdcd-col-2:only-child { grid-column-start: 11; }
+.sdcd-grille--droite > .sdcd-col-3:only-child { grid-column-start: 10; }
+.sdcd-grille--droite > .sdcd-col-4:only-child { grid-column-start: 9; }
+.sdcd-grille--droite > .sdcd-col-5:only-child { grid-column-start: 8; }
+.sdcd-grille--droite > .sdcd-col-6:only-child { grid-column-start: 7; }
+.sdcd-grille--droite > .sdcd-col-7:only-child { grid-column-start: 6; }
+.sdcd-grille--droite > .sdcd-col-8:only-child { grid-column-start: 5; }
+.sdcd-grille--droite > .sdcd-col-9:only-child { grid-column-start: 4; }
+.sdcd-grille--droite > .sdcd-col-10:only-child { grid-column-start: 3; }
+.sdcd-grille--droite > .sdcd-col-11:only-child { grid-column-start: 2; }
 .sdcd-grille--milieu { align-items: center; }
-.sdcd-grille--gauche { justify-items: start; }
-.sdcd-grille--droite { justify-items: end; }
 .sdcd-grille--haut { align-items: start; }
 .sdcd-grille--bas { align-items: end; }
 
@@ -315,6 +331,17 @@
   .sdcd-grille--centre > .sdcd-col-sm-9:only-child { grid-column-start: 2; }
   .sdcd-grille--centre > .sdcd-col-sm-10:only-child { grid-column-start: 2; }
   .sdcd-grille--centre > .sdcd-col-sm-11:only-child { grid-column-start: 1; }
+  .sdcd-grille--droite > .sdcd-col-sm-1:only-child { grid-column-start: 12; }
+  .sdcd-grille--droite > .sdcd-col-sm-2:only-child { grid-column-start: 11; }
+  .sdcd-grille--droite > .sdcd-col-sm-3:only-child { grid-column-start: 10; }
+  .sdcd-grille--droite > .sdcd-col-sm-4:only-child { grid-column-start: 9; }
+  .sdcd-grille--droite > .sdcd-col-sm-5:only-child { grid-column-start: 8; }
+  .sdcd-grille--droite > .sdcd-col-sm-6:only-child { grid-column-start: 7; }
+  .sdcd-grille--droite > .sdcd-col-sm-7:only-child { grid-column-start: 6; }
+  .sdcd-grille--droite > .sdcd-col-sm-8:only-child { grid-column-start: 5; }
+  .sdcd-grille--droite > .sdcd-col-sm-9:only-child { grid-column-start: 4; }
+  .sdcd-grille--droite > .sdcd-col-sm-10:only-child { grid-column-start: 3; }
+  .sdcd-grille--droite > .sdcd-col-sm-11:only-child { grid-column-start: 2; }
 }
 @media (min-width: 901px) {
   .sdcd-col-md-1 { grid-column-end: span 1; }
@@ -351,6 +378,17 @@
   .sdcd-grille--centre > .sdcd-col-md-9:only-child { grid-column-start: 2; }
   .sdcd-grille--centre > .sdcd-col-md-10:only-child { grid-column-start: 2; }
   .sdcd-grille--centre > .sdcd-col-md-11:only-child { grid-column-start: 1; }
+  .sdcd-grille--droite > .sdcd-col-md-1:only-child { grid-column-start: 12; }
+  .sdcd-grille--droite > .sdcd-col-md-2:only-child { grid-column-start: 11; }
+  .sdcd-grille--droite > .sdcd-col-md-3:only-child { grid-column-start: 10; }
+  .sdcd-grille--droite > .sdcd-col-md-4:only-child { grid-column-start: 9; }
+  .sdcd-grille--droite > .sdcd-col-md-5:only-child { grid-column-start: 8; }
+  .sdcd-grille--droite > .sdcd-col-md-6:only-child { grid-column-start: 7; }
+  .sdcd-grille--droite > .sdcd-col-md-7:only-child { grid-column-start: 6; }
+  .sdcd-grille--droite > .sdcd-col-md-8:only-child { grid-column-start: 5; }
+  .sdcd-grille--droite > .sdcd-col-md-9:only-child { grid-column-start: 4; }
+  .sdcd-grille--droite > .sdcd-col-md-10:only-child { grid-column-start: 3; }
+  .sdcd-grille--droite > .sdcd-col-md-11:only-child { grid-column-start: 2; }
 }
 @media (min-width: 1025px) {
   .sdcd-col-lg-1 { grid-column-end: span 1; }
@@ -387,6 +425,17 @@
   .sdcd-grille--centre > .sdcd-col-lg-9:only-child { grid-column-start: 2; }
   .sdcd-grille--centre > .sdcd-col-lg-10:only-child { grid-column-start: 2; }
   .sdcd-grille--centre > .sdcd-col-lg-11:only-child { grid-column-start: 1; }
+  .sdcd-grille--droite > .sdcd-col-lg-1:only-child { grid-column-start: 12; }
+  .sdcd-grille--droite > .sdcd-col-lg-2:only-child { grid-column-start: 11; }
+  .sdcd-grille--droite > .sdcd-col-lg-3:only-child { grid-column-start: 10; }
+  .sdcd-grille--droite > .sdcd-col-lg-4:only-child { grid-column-start: 9; }
+  .sdcd-grille--droite > .sdcd-col-lg-5:only-child { grid-column-start: 8; }
+  .sdcd-grille--droite > .sdcd-col-lg-6:only-child { grid-column-start: 7; }
+  .sdcd-grille--droite > .sdcd-col-lg-7:only-child { grid-column-start: 6; }
+  .sdcd-grille--droite > .sdcd-col-lg-8:only-child { grid-column-start: 5; }
+  .sdcd-grille--droite > .sdcd-col-lg-9:only-child { grid-column-start: 4; }
+  .sdcd-grille--droite > .sdcd-col-lg-10:only-child { grid-column-start: 3; }
+  .sdcd-grille--droite > .sdcd-col-lg-11:only-child { grid-column-start: 2; }
 }
 
 /* Conteneur de page : meme largeur maximale et meme gouttiere que les
