@@ -55,7 +55,9 @@
     {% endblock skiplinks %}
 
     {% wagtailuserbar %}
-    {% include "sites_conformes_core/blocks/header.html" %}
+    {% block header %}
+      {% include "sites_conformes_core/blocks/header.html" %}
+    {% endblock header %}
 
     {% if settings.sites_conformes_core.CmsDsfrConfig.notice_title or settings.sites_conformes_core.CmsDsfrConfig.notice_description %}
       {% include "sites_conformes_core/blocks/notice.html" %}
@@ -74,7 +76,9 @@
       {% endif %}
     {% endblock follow_newsletter_social_media %}
 
-    {% include "sites_conformes_core/blocks/footer.html" %}
+    {% block footer %}
+      {% include "sites_conformes_core/blocks/footer.html" %}
+    {% endblock footer %}
 
     {% if settings.sites_conformes_core.CmsDsfrConfig.theme_modale_button %}
       {% dsfr_theme_modale %}

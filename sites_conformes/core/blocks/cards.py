@@ -32,17 +32,17 @@ class CardstructValue(StructValue):
         if not ((link and link.url()) or url or document):
             return False
 
+        # Une carte construite par une commande (site vitrine, import) n'a pas
+        # forcement ces sous-blocs : ils valent alors None, et `len(None)`
+        # faisait echouer le rendu de la page entiere.
         enlarge = True
-        if len(call_to_action):
+        if call_to_action and len(call_to_action):
             enlarge = False
-        elif len(top_detail_badges_tags) and top_detail_badges_tags.raw_data[0]["type"] == "tags":
+        elif top_detail_badges_tags and len(top_detail_badges_tags) and top_detail_badges_tags.raw_data[0]["type"] == "tags":
             tags_list = top_detail_badges_tags.raw_data[0]["value"]
             for tag in tags_list:
-                if (
-                    tag["value"]["link"]["page"] is not None
-                    or tag["value"]["link"]["document"] is not None
-                    or tag["value"]["link"]["external_url"] != ""
-                ):
+                lien = (tag.get("value") or {}).get("link") or {}
+                if lien.get("page") is not None or lien.get("document") is not None or lien.get("external_url"):
                     enlarge = False
 
         return enlarge
@@ -71,11 +71,15 @@ class CardBlock(blocks.StructBlock):
     )
     description = blocks.RichTextBlock(label=_("Content"), features=LIMITED_RICHTEXTFIELD_FEATURES, required=False)
     image = ImageBlock(label=_("Image"), required=False)
+    # La valeur par defaut etait « h3 », copiee du niveau de titre : elle n'est
+    # pas un ratio. Toute carte creee sans ratio explicite (par une commande,
+    # une importation) ouvrait alors en edition avec « Sélectionnez un choix
+    # valide », et la previsualisation refusait la page entiere.
     image_ratio = blocks.ChoiceBlock(
         label=_("Image ratio"),
         choices=IMAGE_RATIOS,
         required=False,
-        default="h3",
+        default="",
     )
     image_badge = BadgesListBlock(
         label=_("Image area badge"), required=False, help_text=_("Only used if the card has an image."), max_num=1
@@ -141,7 +145,7 @@ class HorizontalCardBlock(CardBlock):
         label=_("Image ratio"),
         choices=HORIZONTAL_CARD_IMAGE_RATIOS,
         required=False,
-        default="h3",
+        default="",
     )
     bottom_detail_text = blocks.CharBlock(
         label=_("Bottom detail: text"),

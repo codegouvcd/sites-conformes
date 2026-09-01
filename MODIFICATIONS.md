@@ -639,3 +639,27 @@ Les entrées suivantes seront ajoutées au fil du portage :
 - remplacement des classes d'icônes `fr-icon-*` par `ri-*` ;
 - substitution de la marque d'État française par la marque congolaise ;
 - production des fichiers d'icône référencés par `sdcd_favicon`.
+
+---
+
+## 2026-09-02 — Site vitrine complet, page de connexion, tableau de bord
+
+Le site de démonstration montre désormais tout ce que le CMS sait faire, à la
+manière de sites.beta.gouv.fr : rubrique « Exemples » (page d'atterrissage,
+site vitrine, blog, agenda, catalogue, formulaire), documentation, en-tête
+complet (recherche, connexion, bandeau), lettre d'information, réseaux sociaux,
+mega-menu. Contenu rédigé en contexte congolais.
+
+| Fichier | Modification |
+|---|---|
+| `sites_conformes/core/vitrine/` | Ajouté — contenu du site vitrine (accueil, exemples, documentation, configuration, images, fabriques de blocs) |
+| `sites_conformes/core/showcase_images/` | Ajouté — 20 compositions plates aux couleurs du SDCD, sans texte ni photo tierce |
+| `sites_conformes/core/management/commands/create_showcase_pages.py` | Réécrit — construit la rubrique Exemples, les entrées de blog, d'agenda et de catalogue, le formulaire, les réglages et les menus ; idempotent |
+| `sites_conformes/core/tests/test_showcase_pages.py` | Réécrit — chaque page validée bloc par bloc (comme le formulaire d'édition), rendu, en-tête, menus, connexion sur le domaine d'administration |
+| `sites_conformes/core/blocks/cards.py` | `image_ratio` : valeur par défaut « h3 » (hors choix) → vide ; `enlarge_link` tolère les sous-blocs absents |
+| `sites_conformes/core/migrations/0086_*`, `blog/0065_*`, `events/0037_*` | Migrations de schéma correspondantes |
+| `sites_conformes/dashboard/views.py`, `templates/wagtailadmin/home/panels/_tutorials.html` | Panneau « Tutoriels » (appel réseau vers sites.beta.gouv.fr, vignettes Sites Faciles) remplacé par des guides locaux |
+| `sites_conformes/dashboard/templates/wagtailadmin/login.html`, `templates/sites_conformes_core/standalone.html` | Page de connexion : en-tête et pied réduits (les liens du site public répondaient 404 sur le domaine d'administration) |
+| `config/settings.py` | `LOGIN_URL`/`LOGOUT_URL` absolus vers `WAGTAILADMIN_BASE_URL` quand l'instance ne sert pas le back-office |
+| `sdcd/templates/sdcd/breadcrumb.html` | Même structure que l'include des pages (bouton et repli sur mobile) |
+| `sdcd/static/sdcd/` | SDCD 0.18.0 |

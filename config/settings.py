@@ -413,6 +413,13 @@ SF_SERVE_ADMIN = getenv_bool("SF_SERVE_ADMIN", True)
 
 LOGIN_URL = f"{FORCE_SCRIPT_NAME}/{WAGTAILADMIN_PATH}login/"
 LOGOUT_URL = f"{FORCE_SCRIPT_NAME}/{WAGTAILADMIN_PATH}logout/"
+# Une instance qui ne sert pas le back-office ne peut pas non plus servir sa
+# page de connexion : le bouton « Se connecter » de l'en-tete y repondait 404.
+# Il pointe alors vers l'instance d'administration, dont l'adresse est celle
+# declaree pour les liens du back-office.
+if not SF_SERVE_ADMIN and WAGTAILADMIN_BASE_URL:
+    LOGIN_URL = f"{WAGTAILADMIN_BASE_URL}{LOGIN_URL}"
+    LOGOUT_URL = f"{WAGTAILADMIN_BASE_URL}{LOGOUT_URL}"
 
 WAGTAIL_FRONTEND_LOGIN_URL = LOGIN_URL
 

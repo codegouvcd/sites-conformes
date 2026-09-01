@@ -1,8 +1,6 @@
 from datetime import date
 
-import requests
 from django.contrib.admin.utils import quote
-from django.core.cache import cache
 from django.urls import reverse
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.ui.components import Component
@@ -41,46 +39,36 @@ shortcuts_panel = ShortcutsPanel()
 
 
 class TutorialsPanel(Component):
+    """Guides du tableau de bord.
+
+    La version d'origine interrogeait sites.beta.gouv.fr pour afficher les
+    tutoriels video de Sites Faciles : un appel reseau vers un site francais a
+    chaque chargement (cache une semaine), et des vignettes a la marque d'un
+    autre Etat sur le tableau de bord d'un site congolais. Les guides sont ceux
+    du site vitrine, servis par l'instance publique : aucun appel sortant.
+    """
+
     order = 300
-    TUTORIAL_PANEL_CACHE_KEY = "tutorials_panel"
-    TUTORIAL_PANEL_CACHE_TIMEOUT = 60 * 60 * 24 * 7  # Cache for one week
+    template_name = "wagtailadmin/home/panels/_tutorials.html"
+
+    GUIDES = [
+        ("Créer votre site", "creer-votre-site", "doc-full"),
+        ("Le système de design", "systeme-de-design", "view"),
+        ("Questions fréquentes", "questions-frequentes", "help"),
+    ]
 
     def get_context_data(self, parent_content=None):
-        tutorials = cache.get(self.TUTORIAL_PANEL_CACHE_KEY)
+        from django.conf import settings
 
-        if tutorials is None:
-            try:
-                res = requests.get(
-                    "https://sites.beta.gouv.fr/api/v2/pages/",
-                    params={
-                        "child_of": 107,
-                    },
-                    timeout=5,
-                )
-                res.raise_for_status()
-                tutorials = []
-                for page in res.json()["items"]:
-                    page_res = requests.get(
-                        f'https://sites.beta.gouv.fr/api/v2/pages/{page["id"]}/',
-                        params={"fields": "title,preview_image_render,-body"},
-                        timeout=5,
-                    )
-                    page_res.raise_for_status()
-                    page_data = page_res.json()
-                    tutorials.append(
-                        {
-                            "title": page_data["title"],
-                            "image": page_data["preview_image_render"]["full_url"],
-                            "url": page_data["meta"]["html_url"],
-                        }
-                    )
-            except requests.RequestException:
-                tutorials = []
-
-            cache.set(self.TUTORIAL_PANEL_CACHE_KEY, tutorials, self.TUTORIAL_PANEL_CACHE_TIMEOUT)
-        return {"tutorials": tutorials}
-
-    template_name = "wagtailadmin/home/panels/_tutorials.html"
+        base = f"{settings.HOST_PROTO}://{settings.HOST_URL}"
+        if getattr(settings, "HOST_PORT", "") and settings.HOST_PORT not in ("80", "443"):
+            base = f"{base}:{settings.HOST_PORT}"
+        return {
+            "tutorials": [
+                {"title": titre, "url": f"{base}/{slug}/", "icon": icone}
+                for titre, slug, icone in self.GUIDES
+            ]
+        }
 
 
 tutorials_panel = TutorialsPanel()

@@ -1,6 +1,64 @@
 {% extends "sites_conformes_core/base.html" %}
 {% load widget_tweaks i18n static dsfr_tags wagtail_dsfr_tags %}
 
+{% comment %}
+  En-tete et pied reduits. La page de connexion heritait de l'en-tete et du pied
+  du site public : menu principal, mentions, lettre d'information. Servie sur le
+  domaine d'administration — ou les pages publiques ne sont pas servies — chacun
+  de ces liens repondait 404. Une page de connexion n'a besoin que de la marque
+  de l'Etat et d'un retour vers le site public.
+{% endcomment %}
+{% block header %}
+  {% translate "Home page" as home_page %}
+  <header class="sdcd-header" role="banner">
+    <div class="sdcd-filet-tricolore" aria-hidden="true">
+      <div class="sdcd-filet-tricolore__bande--bleu"></div>
+      <div class="sdcd-filet-tricolore__bande--jaune"></div>
+      <div class="sdcd-filet-tricolore__bande--rouge"></div>
+    </div>
+    <div class="sdcd-header__principal">
+      <div class="sdcd-header__corps">
+        <a href="{% settings_value 'HOST_PROTO' %}://{% settings_value 'HOST_URL' %}/"
+           title="{{ home_page }} — {{ settings.sites_conformes_core.CmsDsfrConfig.site_title }}">
+          <img class="sdcd-header__armoiries"
+               src="{% static 'sdcd/assets/armoiries-rdc.png' %}"
+               alt="{% translate 'Armoiries de la République Démocratique du Congo' %}">
+        </a>
+        <div>
+          <div class="sdcd-header__republique">
+            <p class="sdcd-logo">{{ settings.sites_conformes_core.CmsDsfrConfig.header_brand_html|safe }}</p>
+          </div>
+          <div class="sdcd-header__devise">{% translate "Justice · Paix · Travail" %}</div>
+        </div>
+        <div class="sdcd-header__filet sdcd-sm-hide" aria-hidden="true"></div>
+        <div class="sdcd-header__entite-bloc">
+          <p class="sdcd-header__service">{{ settings.sites_conformes_core.CmsDsfrConfig.site_title }}</p>
+          <p class="sdcd-header__service-accroche">{% translate "Administration" %}</p>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock header %}
+
+{% block footer %}
+  <footer class="sdcd-footer" role="contentinfo">
+    <div class="sdcd-filet-tricolore" aria-hidden="true">
+      <div class="sdcd-filet-tricolore__bande--bleu"></div>
+      <div class="sdcd-filet-tricolore__bande--jaune"></div>
+      <div class="sdcd-filet-tricolore__bande--rouge"></div>
+    </div>
+    <div class="sdcd-footer__bande">
+      <div class="sdcd-footer__bande-corps">
+        <ul class="sdcd-footer__legaux">
+          <li class="sdcd-footer__legal">
+            <a class="sdcd-footer__lien" href="{% settings_value 'HOST_PROTO' %}://{% settings_value 'HOST_URL' %}/">{% translate "Back to the public site" %}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+{% endblock footer %}
+
 {% block title %}
   <title>{% translate "Connection" %} — {{ settings.sites_conformes_core.CmsDsfrConfig.site_title }}</title>
 {% endblock title %}
