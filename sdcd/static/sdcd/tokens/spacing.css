@@ -2,8 +2,11 @@
   --sdcd-1:4px; --sdcd-2:8px; --sdcd-3:12px; --sdcd-4:16px; --sdcd-5:24px; --sdcd-6:32px; --sdcd-7:40px; --sdcd-8:64px;
   --sdcd-rayon:0; --sdcd-rayon-carte:0; --sdcd-rayon-pilule:999px;
   --sdcd-maxw:1200px; --sdcd-gouttiere:clamp(16px,4vw,24px);
-  /* Mesure de lecture du texte courant : environ 75 caracteres a 16 px. */
-  --sdcd-mesure:42rem;
+  /* Mesure de lecture. En `ch` — la largeur du zero de la police courante — et
+     non en `rem` : une largeur fixe donne 75 caracteres a 16 px, mais 91 des que
+     le bloc emploie un corps plus petit, comme l'alerte ou la mise en exergue.
+     L'unite suit la taille du texte qu'elle borne. */
+  --sdcd-mesure:75ch;
   --sdcd-ombre:0 4px 16px rgba(22,26,29,.14);
   --sdcd-transition:160ms ease-out;
 }
