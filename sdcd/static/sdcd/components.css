@@ -237,7 +237,11 @@
    le CMS l'emploie pour ses messages de formulaire. */
 .sdcd-alert--sm { font-size: var(--sdcd-xs); }
 .sdcd-alert--sm p { font-size: var(--sdcd-xs); margin: 0; }
-.sdcd-alert__corps { flex: 1; }
+/* Le corps d'une alerte est du texte courant : il doit etre borne comme lui.
+   Mesure sur un modele de page a 1440 px : 147 caracteres par ligne, la ou
+   l'oeil decroche des 75. La mise en avant et la citation etaient deja bornees
+   par leur propre largeur ; l'alerte et l'exergue s'etendaient sans limite. */
+.sdcd-alert__corps { flex: 1; max-width: var(--sdcd-mesure); }
 .sdcd-alert__titre { font-weight: 700; color: var(--sdcd-texte); }
 .sdcd-alert__texte { font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); line-height: 1.55; }
 .sdcd-alert__titre + .sdcd-alert__texte { margin-top: var(--sdcd-1); }
@@ -1277,6 +1281,10 @@ li > a:only-child {
 .sdcd-badge--nouveau { background: var(--sdcd-nouveau-pale); color: var(--sdcd-nouveau); }
 /* Groupe de badges, et variante compacte. */
 .sdcd-badges { display: flex; flex-wrap: wrap; gap: var(--sdcd-2); list-style: none; margin: 0; padding: 0; }
+/* Pose sur le media d'une carte, le groupe debordait de 4 px sous 640 px : le
+   media est un conteneur flex sans rembourrage, et la liste y prenait sa largeur
+   naturelle. On la contient. */
+.sdcd-card__media .sdcd-badges { max-width: 100%; }
 .sdcd-badge--sm { font-size: 10px; padding: 2px 6px; }
 
 /* Conteneur d'etiquettes. Le systeme avait .sdcd-tagcloud — un nuage pondere,
@@ -2441,7 +2449,8 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
   font-family: var(--sdcd-font);
 }
 .sdcd-exergue__titre { font-size: var(--sdcd-h4); font-weight: 700; margin: 0; }
-.sdcd-exergue__texte { margin: 0; font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); }
+/* Meme raison que pour l'alerte : 149 caracteres par ligne mesures a 1440 px. */
+.sdcd-exergue__texte { margin: 0; font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); max-width: var(--sdcd-mesure); }
 
 /* --- infobulle -------------------------------------------------------
    `.sdcd-ancre` porte le positionnement relatif : une infobulle se place par
