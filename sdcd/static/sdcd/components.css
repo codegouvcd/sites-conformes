@@ -738,7 +738,19 @@
 }
 .sdcd-footer__colonne-titre::-webkit-details-marker { display: none; }
 .sdcd-footer__liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
-.sdcd-footer__lien { font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); text-decoration: none; }
+/* Les liens du pied faisaient 17 px de haut : sous le seuil de 24 px du critere
+   2.5.8, et l'exception « lien en ligne dans un texte » ne s'applique pas a une
+   liste de liens. Sur un telephone, ils sont difficiles a viser sans se tromper
+   de voisin. La hauteur minimale ne change rien a l'aspect : le texte reste a sa
+   taille, seule la zone cliquable s'etend. */
+.sdcd-footer__lien {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  font-size: var(--sdcd-sm);
+  color: var(--sdcd-encre-2);
+  text-decoration: none;
+}
 .sdcd-footer__bande { border-top: 1px solid var(--sdcd-ligne); }
 .sdcd-footer__bande-corps {
   max-width: var(--sdcd-maxw);
@@ -778,7 +790,10 @@
   padding: 0 var(--sdcd-3);
   border-left: 1px solid var(--sdcd-ligne);
 }
-.sdcd-footer__legal:first-child { border-left: none; margin-left: calc(-1 * var(--sdcd-3)); }
+/* Le premier element etait tire vers la gauche par une marge negative, pour
+   compenser son propre rembourrage : sa boite depassait alors de 12 px hors de
+   la liste. On retire le rembourrage plutot que de le compenser. */
+.sdcd-footer__legal:first-child { border-left: none; padding-left: 0; }
 .sdcd-footer__drapeau {
   margin-left: auto;
   display: flex;
@@ -810,8 +825,26 @@
 /* La liste et le bouton de repli du fil d'Ariane. Le composant React rend le
    fil entier ; une integration en gabarit a besoin de nommer ses parties. */
 .sdcd-breadcrumb__liste { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sdcd-2); list-style: none; margin: 0; padding: 0; }
-.sdcd-breadcrumb__bouton { background: none; border: none; font-family: inherit; font-size: var(--sdcd-sm); color: var(--sdcd-action); cursor: pointer; padding: 0; }
-.sdcd-breadcrumb__lien { color: var(--sdcd-muet); text-decoration: none; }
+/* Meme raison qu'au pied de page : ces cibles faisaient 15 a 17 px de haut. */
+.sdcd-breadcrumb__bouton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: var(--sdcd-sm);
+  color: var(--sdcd-action);
+  cursor: pointer;
+  padding: 0;
+}
+.sdcd-breadcrumb__lien {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: var(--sdcd-muet);
+  text-decoration: none;
+}
 .sdcd-breadcrumb__courant { color: var(--sdcd-texte); font-weight: 500; }
 
 .sdcd-langmenu { position: relative; font-family: var(--sdcd-font); }
@@ -1350,6 +1383,7 @@
 .sdcd-lien {
   display: inline-flex;
   align-items: baseline;
+  min-height: 24px;
   gap: 6px;
   font-family: var(--sdcd-font);
   font-size: 0.9375rem;
