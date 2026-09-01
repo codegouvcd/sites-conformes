@@ -165,3 +165,14 @@ pre{overflow-x:auto}
 @media (min-width: 641px) {
   .sdcd-breadcrumb .sdcd-repli[hidden] { display: block !important; }
 }
+
+/* En-tete sous 900 px, la ou le bouton Menu apparait. Sans regle, la rangee flex
+   se contentait de passer a la ligne : armoiries, puis entite, puis le bouton
+   Menu seul sur une troisieme rangee, colle a droite, avec un vide a sa gauche.
+   Le bouton remonte a cote des armoiries ; l'entite prend la rangee suivante en
+   pleine largeur. */
+@media (max-width:900px){
+  .sdcd-header__actions{order:2;margin-left:auto}
+  .sdcd-header__entite-bloc{order:3;flex-basis:100%}
+  .sdcd-header__filet{display:none}
+}

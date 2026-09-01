@@ -440,7 +440,12 @@
 
 /* Conteneur de page : meme largeur maximale et meme gouttiere que les
    composants, pour qu'une page et un composant s'alignent sur la meme colonne. */
-.sdcd-conteneur { max-width: var(--sdcd-maxw); margin: 0 auto; padding: 0 var(--sdcd-gouttiere); }
+/* Gouttiere en longhand, jamais en raccourci : `padding: 0 X` remettait aussi le
+   haut et le bas a zero. Declaree apres les utilitaires d'espacement, a meme
+   specificite, cette regle annulait tout `sdcd-pt-*` ou `sdcd-py-*` pose sur un
+   conteneur. Vu au navigateur : le titre de page collait au bord de l'en-tete,
+   `sdcd-pt-6` calculant 0 px. */
+.sdcd-conteneur { max-width: var(--sdcd-maxw); margin: 0 auto; padding-left: var(--sdcd-gouttiere); padding-right: var(--sdcd-gouttiere); }
 /* Un conteneur imbrique dans un conteneur ne doit rien reappliquer : la largeur
    maximale est deja atteinte, et sa gouttiere se cumulerait a celle du parent.
    Releve sur le CMS, ou le flux de blocs enveloppe chaque bloc et ou dix-sept

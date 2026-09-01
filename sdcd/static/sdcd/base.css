@@ -16,7 +16,7 @@ a{color:var(--sdcd-action);text-decoration:underline;text-underline-offset:3px;t
 a:hover{color:var(--sdcd-action-survol);text-decoration-thickness:2px}
 :focus-visible{outline:none;box-shadow:var(--sdcd-focus)}
 code,pre{font-family:var(--sdcd-font-mono);font-size:.875em}
-.sdcd-container{max-width:var(--sdcd-maxw);margin:0 auto;padding:0 var(--sdcd-gouttiere)}
+.sdcd-container{max-width:var(--sdcd-maxw);margin:0 auto;padding-left:var(--sdcd-gouttiere);padding-right:var(--sdcd-gouttiere)}
 .sdcd-filet-tricolore{display:flex;height:4px}
 .sdcd-filet-tricolore>*{flex:1}
 .sdcd-eyebrow{font-size:var(--sdcd-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sdcd-muet)}
