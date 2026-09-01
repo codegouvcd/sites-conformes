@@ -805,7 +805,9 @@ li > a:only-child {
 }
 
 .sdcd-footer__legal {
-  font-size: var(--sdcd-xs);
+  /* Meme corps que .sdcd-footer__lien : une mention en texte nu (« Ce site est
+     fait avec… ») se lisait en .75rem a cote de liens en .875rem. */
+  font-size: var(--sdcd-sm);
   color: var(--sdcd-muet);
   text-decoration: none;
   padding: 0 var(--sdcd-3);
