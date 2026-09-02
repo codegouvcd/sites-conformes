@@ -2889,3 +2889,7 @@ button.sdcd-header__lien[aria-expanded="true"]::after { transform: rotate(180deg
 fieldset.sdcd-champ { border: 0; padding: 0; margin: 0 0 var(--sdcd-4); min-width: 0; }
 fieldset.sdcd-champ > legend { padding: 0; }
 .sdcd-champ > .sdcd-checkbox, .sdcd-champ > .sdcd-radio { display: flex; margin-bottom: var(--sdcd-2); }
+/* Un <button> peut porter .sdcd-footer__lien (parametres d'affichage) : sans
+   remise a zero, il gardait l'aspect natif du navigateur — en theme sombre,
+   une boite noire au texte illisible. */
+button.sdcd-footer__lien { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }

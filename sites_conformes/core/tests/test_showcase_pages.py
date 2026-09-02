@@ -59,6 +59,14 @@ class SiteVitrineTestCase(WagtailPageTestCase):
         self.assertIsInstance(Page.objects.get(slug="catalogue-de-services").specific, CatalogIndexPage)
         self.assertIsInstance(Page.objects.get(slug="formulaire-de-demonstration").specific, FormPage)
 
+    def test_les_modeles_de_pages_ont_des_slugs_propres(self):
+        index = Page.objects.filter(slug="page_templates_index").first()
+        if index is None:
+            self.skipTest("pas de modeles de pages")
+        for page in index.get_children():
+            self.assertNotIn("dsfr", page.slug, page.slug)
+            self.assertTrue(page.slug.isascii(), page.slug)
+
     def test_les_rubriques_vivantes_ont_des_entrees(self):
         self.assertEqual(BlogEntryPage.objects.live().count(), 4)
         self.assertEqual(EventEntryPage.objects.live().count(), 4)

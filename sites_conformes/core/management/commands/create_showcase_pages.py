@@ -20,6 +20,7 @@ plutot que d'en ajouter.
 """
 
 from django.core.management.base import BaseCommand
+from django.utils.text import slugify
 from django.db import transaction
 from wagtail.models import Page
 
@@ -118,6 +119,15 @@ class Command(BaseCommand):
             or Page.objects.filter(slug="modeles-de-pages-a-copier").first()
         )
         composants = list(modeles.get_children().live().specific()) if modeles else []
+        # Les modeles importes de l'amont portaient des slugs francais accentues,
+        # suffixes « -dsfr » : on les derive du titre, en ASCII.
+        for composant in composants:
+            propre = slugify(composant.title)
+            if composant.slug != propre:
+                ancien = composant.slug
+                composant.slug = propre
+                composant.save_revision().publish()
+                self.stdout.write(f"  modèle : {propre} (était {ancien})")
         pages["composant-blocs"] = next((p for p in composants if "bloc" in p.slug), None) or pages["systeme-de-design"]
         pages["modeles"] = modeles or index
 
