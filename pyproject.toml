@@ -40,6 +40,8 @@ dependencies = [
     "wand>=0.6.13",
     "wagtail-honeypot>=1.2.1",
     "sentry-sdk[django]>=2.61.0",
+    "wagtail-2fa==1.8.0",
+    "packaging>=26.3",
 ]
 
 [dependency-groups]
@@ -82,6 +84,7 @@ sites_conformes = [
 
 [tool.black]
 line-length = 119
+target-version = ["py312", "py313", "py314"]
 
 # force-exclude (not extend-exclude) is required so that black skips migration
 # files even when pre-commit passes them explicitly on the command line.
@@ -165,3 +168,7 @@ ignore = ["E203", "E266"]
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
+
+# Blocks installation of known malware (typosquatting, deliberately malicious packages)
+[tool.uv.audit]
+malware-check = true

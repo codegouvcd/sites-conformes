@@ -110,6 +110,6 @@
     {% endfor %}
   </div>
   <div class="sdcd-boutons sdcd-boutons--enligne-sm sdcd-boutons--centre">
-    <a class="sdcd-button sdcd-button--primaire" href="{% pageurl value.index_page %}">{% translate "See all events" %}</a>
+    <a class="sdcd-button sdcd-button--primaire" href="{% pageurl value.index_page %}{% filters_query value.see_all_link_filters %}">{{ value.see_all_button_label }}</a>
   </div>
 </div>

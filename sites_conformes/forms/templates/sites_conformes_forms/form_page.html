@@ -1,5 +1,5 @@
 {% extends "sites_conformes_core/base.html" %}
-{% load wagtailcore_tags dsfr_tags i18n honeypot_tags static %}
+{% load wagtailcore_tags wagtail_dsfr_tags i18n honeypot_tags static %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css/honeypot.css' %}">
@@ -22,13 +22,16 @@
     {{ page.intro|richtext }}
 
     <form action="{% pageurl page %}" method="post" autocomplete="on">
-      <div class="sdcd-fieldset__element">
-        {% if page.all_fields_required %}
-          <p class="sdcd-texte-sm">{% translate "All fields are mandatory." %}</p>
-        {% else %}
-          <p class="sdcd-texte-sm">{% translate "Fields marked with an asterisk (*) are mandatory." %}</p>
-        {% endif %}
-      </div>
+      {% settings_value "DSFR_MARK_OPTIONAL_FIELDS" as dsfr_mark_optional_fields %}
+      {% if not dsfr_mark_optional_fields %}
+        <div class="sdcd-fieldset__element">
+          {% if page.all_fields_required %}
+            <p class="sdcd-texte-sm">{% translate "All fields are mandatory." %}</p>
+          {% else %}
+            <p class="sdcd-texte-sm">{% translate "Fields marked with an asterisk (*) are mandatory." %}</p>
+          {% endif %}
+        </div>
+      {% endif %}
 
       {% csrf_token %}
       {% if form.non_field_errors %}

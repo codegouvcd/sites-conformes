@@ -62,6 +62,7 @@ class SitesFacilesCustomForm(BaseForm):
     """
 
     template_name = "dsfr/form_snippet.html"  # type: ignore
+    bound_field_class = DsfrBoundField
 
     # Sans cette ligne, `as_field_group()` retombe sur le gabarit de champ par
     # defaut de Django : etiquette sans classe, aide en `<div class="helptext">`,

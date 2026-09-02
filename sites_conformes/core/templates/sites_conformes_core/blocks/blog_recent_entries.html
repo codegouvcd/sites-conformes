@@ -108,6 +108,6 @@
     {% endfor %}
   </div>
   <div class="sdcd-boutons sdcd-boutons--enligne-sm sdcd-boutons--centre">
-    <a class="sdcd-button sdcd-button--primaire" href="{% pageurl value.blog %}">{% translate "See all posts" %}</a>
+    <a class="sdcd-button sdcd-button--primaire" href="{% pageurl value.blog %}{% filters_query value.see_all_link_filters %}">{{ value.see_all_button_label }}</a>
   </div>
 </div>
