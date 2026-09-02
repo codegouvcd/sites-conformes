@@ -151,6 +151,7 @@ p:empty {
     width: 120px;
     margin: auto;
     max-width: none;
+    padding: 0; /* sdcd-py-4 est pose sur l'image : en border-box, il l'aplatissait en ellipse */
     object-fit: cover;
     aspect-ratio: 1 / 1 !important;
 }
