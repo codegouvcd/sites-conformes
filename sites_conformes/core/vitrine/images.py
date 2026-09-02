@@ -67,6 +67,9 @@ def importer_images(ecrire=print):
             # Le fichier a change depuis l'import (image redessinee) : on le
             # remplace, sinon la base garderait l'ancienne version a jamais.
             image = overwrite_image(image=image, full_file_path=chemin, title=titre)
+            # Les rendus en cache sont ceux de l'ancien fichier : sans cette
+            # purge, les pages continuaient d'afficher l'image d'avant.
+            image.renditions.all().delete()
             remplacees += 1
         images[nom] = image
     ecrire(f"  images : {len(images)} disponibles, {importees} importées, {remplacees} remplacées")
