@@ -699,3 +699,24 @@ livre dans le depot SDCD (`adaptateurs/django-admin`).
 | `sdcd/static/sdcd/` | SDCD 0.18.1 |
 | `pyproject.toml`, `uv.lock` | Wagtail 8.0, wagtailmenus 4.1, wagtail-localize 1.14.5 |
 | `config/settings.py` | `SF_ADMIN_URL` pour le bouton de connexion de l'instance publique |
+
+---
+
+## 2026-09-03 — Fusion de l'amont v4.2.0-rc1
+
+Reprise des 15 commits de l'amont depuis la base du fork : authentification a
+deux facteurs (wagtail-2fa), libelle et filtres du bouton « voir tout » des
+blocs d'entrees recentes, correction des filtres de catalogue, classes de
+formulaires, crochets de personnalisation de la recherche, outillage (bandit,
+deptry), documentation Sphinx. Conserve cote RDC : Wagtail 8, gabarits et
+classes SDCD, politique CSP/HSTS, README.
+
+| Fichier | Modification |
+|---|---|
+| `pyproject.toml`, `uv.lock` | `wagtail>=8.0` conserve (l'amont reste en 7.x) ; `wagtail-2fa==1.8.0` ajoute |
+| `sites_conformes/dashboard/compat.py`, `config/settings.py` | Cale `wagtail.users.widgets` (retire dans Wagtail 8, encore importe par wagtail-2fa — issue labd/wagtail-2fa#283), resolue paresseusement |
+| `sites_conformes/*/migrations/00xx_merge_*`, `..._alter_*_body_*` | Migrations de raccord entre les branches (definitions de blocs) |
+| `sites_conformes/core/templates/.../blog_recent_entries.html`, `events_recent_entries.html` | Bouton « voir tout » configurable et filtre, en classes SDCD |
+| `sites_conformes/forms/templates/.../form_page.html` | `DSFR_MARK_OPTIONAL_FIELDS` repris ; champs rendus par `dsfr_form_field` (SDCD) |
+| `sites_conformes/*/tests/test_*.py` | Tests amont portes vers les classes SDCD |
+| `sites_conformes/templates/.../blocks/share.html` | Classes de plateforme retirees (plus de regle) |
