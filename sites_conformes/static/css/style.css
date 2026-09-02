@@ -144,7 +144,7 @@ p:empty {
    rognee. */
 /* Selecteur a trois classes : .sdcd-card__media > div > img (SDCD) impose
    sinon width/height 100 % avec une specificite superieure. */
-.sdcd-card__media > .cmsfr-vertical_contact_card__header > .cmsfr-vertical_contact_card-img,
+.sdcd-card__media .cmsfr-vertical_contact_card__header .cmsfr-vertical_contact_card-img,
 .cmsfr-vertical_contact_card-img {
     border-radius: 50%;
     height: 120px;
