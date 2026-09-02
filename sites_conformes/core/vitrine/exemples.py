@@ -36,6 +36,10 @@ from .outils import (
 # Resumes (search_description) : ce que les catalogues et les partages affichent.
 RESUMES = {
     "exemples": "Des pages construites avec les blocs du CMS, à ouvrir puis à retrouver dans le back-office.",
+    "documentation": "La démarche pour ouvrir un site, le système de design, les questions fréquentes.",
+    "creer-votre-site": "Six étapes, de la demande d’ouverture à la mise en ligne.",
+    "systeme-de-design": "Couleurs, typographie et composants communs aux sites de l’État congolais.",
+    "questions-frequentes": "Hébergement, nom de domaine, accessibilité, responsabilités de chacun.",
     "page-atterrissage": "Une promesse, trois arguments, des cas d’usage et un appel à l’action : le modèle d’un service en ligne.",
     "site-vitrine": "Actualités à la une, services principaux, informations par type d’usager : le modèle d’un ministère.",
     "actualites": "Articles classés par catégorie et par étiquette, flux RSS et Atom.",

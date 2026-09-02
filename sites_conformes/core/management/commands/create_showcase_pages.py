@@ -67,8 +67,18 @@ class Command(BaseCommand):
         pages["contact"] = contact
 
         # ---------------------------------------------------------- documentation
+        # Un index « Documentation » (catalogue : ses sous-pages s'y listent en
+        # tuiles) et les trois guides dessous, comme sur sites.beta.gouv.fr. Les
+        # guides crees a la racine par une version anterieure y sont deplaces.
+        doc = self.index(CatalogIndexPage, racine, "documentation", "Documentation", documentation.INTRO)
+        pages["documentation"] = doc
         for slug, titre, corps, _ordre in documentation.PAGES:
-            pages[slug] = self.page_contenu(racine, slug, titre, corps())
+            page = self.page_contenu(doc, slug, titre, corps())
+            if page.get_parent().pk != doc.pk:
+                page.move(doc, pos="last-child")
+                page = ContentPage.objects.get(pk=page.pk)
+                self.stdout.write(f"  {slug} : déplacée sous Documentation")
+            pages[slug] = page
 
         # ---------------------------------------------------------------- exemples
         index = self.index(CatalogIndexPage, racine, "exemples", "Exemples", exemples.INTRO_EXEMPLES)

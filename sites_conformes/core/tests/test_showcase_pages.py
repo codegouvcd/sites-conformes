@@ -23,7 +23,7 @@ from sites_conformes.forms.models import FormPage
 from sites_conformes.menus.models import MainMenu, TopMenu
 
 PAGES_ATTENDUES = [
-    "creer-votre-site", "systeme-de-design", "questions-frequentes",
+    "documentation", "creer-votre-site", "systeme-de-design", "questions-frequentes",
     "exemples", "page-atterrissage", "site-vitrine", "actualites", "agenda",
     "catalogue-de-services", "formulaire-de-demonstration",
 ]
@@ -52,6 +52,8 @@ class SiteVitrineTestCase(WagtailPageTestCase):
 
     def test_les_types_de_pages_sont_ceux_des_cas_d_usage(self):
         self.assertIsInstance(Page.objects.get(slug="exemples").specific, CatalogIndexPage)
+        self.assertIsInstance(Page.objects.get(slug="documentation").specific, CatalogIndexPage)
+        self.assertEqual(Page.objects.get(slug="creer-votre-site").get_parent().slug, "documentation")
         self.assertIsInstance(Page.objects.get(slug="actualites").specific, BlogIndexPage)
         self.assertIsInstance(Page.objects.get(slug="agenda").specific, EventsIndexPage)
         self.assertIsInstance(Page.objects.get(slug="catalogue-de-services").specific, CatalogIndexPage)

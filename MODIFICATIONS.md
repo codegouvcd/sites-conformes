@@ -679,3 +679,23 @@ mega-menu. Contenu rédigé en contexte congolais.
 | `config/settings.py`, `.env.example` | `SF_ADMIN_URL` pour le bouton de connexion (poser `WAGTAILADMIN_BASE_URL` sur l'instance publique faisait charger les images depuis le domaine d'administration) |
 | `sites_conformes/core/vitrine/` | Résumés (`search_description`) des pages d'exemple ; tuiles sans image ; exemples de composants lus depuis l'index des modèles |
 | `sdcd/static/sdcd/` | SDCD 0.18.0 (menus déroulants, média de carte borné, cibles tactiles) |
+
+---
+
+## 2026-09-02 — Affinage du rendu, Wagtail 8, index Documentation
+
+Relecture page par page sous Brave (bureau 1280 px et mobile 375 px), puis
+corrections ; mise a jour de Wagtail 7.4 vers 8.0 (aucune migration ni
+adaptation de code necessaires, 294 tests) ; theme SDCD pour l'admin Django
+livre dans le depot SDCD (`adaptateurs/django-admin`).
+
+| Fichier | Modification |
+|---|---|
+| `sites_conformes/core/vitrine/` | Accueil : pictogrammes, bandes de fond ; articles, evenements, fiches : bandeau d'en-tete ; index « Documentation » et guides deplaces dessous ; resumes ; images de contenu recadrees, remplacees a l'import quand le fichier change (rendus purges) |
+| `sites_conformes/core/abstract.py` | `cover()` se replie sur `header_image` (listes et entrees recentes illustrees) |
+| `sites_conformes/templates/.../blocks/share.html`, `follow.html` | Boutons de partage et de reseaux sociaux discrets, en ligne |
+| `sites_conformes/core/templates/.../blocks/tabs.html`, `accordions.html` | Panneaux caches sauf le premier ; accordeons alignes a gauche |
+| `sites_conformes/static/css/style.css` | Cases a cocher 20 px, portrait de la fiche contact en medaillon |
+| `sdcd/static/sdcd/` | SDCD 0.18.1 |
+| `pyproject.toml`, `uv.lock` | Wagtail 8.0, wagtailmenus 4.1, wagtail-localize 1.14.5 |
+| `config/settings.py` | `SF_ADMIN_URL` pour le bouton de connexion de l'instance publique |

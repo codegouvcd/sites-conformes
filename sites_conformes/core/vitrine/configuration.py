@@ -85,7 +85,7 @@ def configurer(site, pages, ecrire=print):
     if haut is None:
         haut = TopMenu(site=site)
     haut.items = [
-        ("link", {"text": "Documentation", "link_type": "page", "page": pages["creer-votre-site"],
+        ("link", {"text": "Documentation", "link_type": "page", "page": pages["documentation"],
                   "icon_class": "ri-book-2-line"}),
         ("link", {"text": "Code source", "link_type": "external_url",
                   "external_url": "https://github.com/codegouvcd/sites-conformes", "icon_class": "ri-github-line"}),
@@ -144,6 +144,7 @@ def ranger_menu(site, pages, composants, ecrire=print):
         ("submenu", {
             "label": "Documentation",
             "links": [
+                lien(pages["documentation"], "Toute la documentation"),
                 lien(pages["creer-votre-site"], "Créer votre site"),
                 lien(pages["systeme-de-design"], "Le système de design"),
                 lien(pages["questions-frequentes"], "Questions fréquentes"),

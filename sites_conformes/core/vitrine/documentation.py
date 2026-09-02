@@ -470,6 +470,17 @@ def corps_faq():
     ]
 
 
+INTRO = [
+    (
+        "paragraph",
+        rt(
+            "<p class=\"sdcd-texte-lead\">Tout ce qu’il faut savoir pour ouvrir et tenir un site "
+            "de l’État avec Sites Conformes : la démarche, le système de design, les "
+            "questions que se posent les services.</p>"
+        ),
+    ),
+]
+
 PAGES = [
     ("creer-votre-site", "Créer votre site", corps_creer, 1),
     ("systeme-de-design", "Le système de design", corps_design, 2),
