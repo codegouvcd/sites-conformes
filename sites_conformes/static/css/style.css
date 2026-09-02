@@ -139,14 +139,19 @@ p:empty {
     background: var(--background-default-grey);
 }
 
+/* Le portrait (rendu carre) est un medaillon de 120 px, centre. Etire a 100 %
+   de la hauteur du media et a 50 % de sa largeur, il devenait une ellipse
+   rognee. */
 .cmsfr-vertical_contact_card-img {
     border-radius: 50%;
-    height: 100%;
-    width: 100%;
+    height: 120px;
+    width: 120px;
     margin: auto;
-    max-width: 50%;
-    aspect-ratio: initial !important;
+    max-width: none;
+    object-fit: cover;
+    aspect-ratio: 1 / 1 !important;
 }
+.cmsfr-vertical_contact_card__header { display: flex; justify-content: center; }
 
 /* Le navigateur applique `margin-inline-start: 40px` a tout <dd>. Dans un
    etapier, ce retrait decale la description de son propre intitule, sans rien
@@ -262,15 +267,4 @@ input[data-whf_name][data-whf_name] {
     margin: 2px 8px 2px 0;
     accent-color: var(--sdcd-action);
     vertical-align: middle;
-}
-
-/* Fiche contact : l'image est un portrait (rendu fill-200x200), pas une
-   banniere. Etiree sur toute la largeur du media, elle etait rognee au tiers ;
-   elle devient un medaillon centre. */
-.cmsfr-author_card__header.sdcd-card__media { justify-content: center; }
-.cmsfr-author_card__header .cmsfr-author-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
 }
