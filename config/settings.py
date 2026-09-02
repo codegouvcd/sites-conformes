@@ -83,6 +83,10 @@ INTERNAL_IPS = [
 
 # Applications definition
 
+# Cale : wagtail-2fa 1.8.0 importe un module retire dans Wagtail 8. A retirer
+# avec la cale elle-meme des que wagtail-2fa est corrige (issue #283).
+import sites_conformes.dashboard.compat  # noqa: E402, F401
+
 INSTALLED_APPS = [
     # The order is important for overriding templates and using contexts, please change it carefully.
     "storages",
