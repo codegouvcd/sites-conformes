@@ -15,6 +15,7 @@ https://github.com/betagouv/tous-a-bord/blob/main/config/settings.py
 
 import os
 import sys
+import zoneinfo
 from pathlib import Path
 
 import dj_database_url
@@ -264,7 +265,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "fr"
 
-TIME_ZONE = "Europe/Paris"
+TIME_ZONE = os.getenv("TIME_ZONE", "Africa/Kinshasa")
+
+# Fuseaux proposes dans le compte utilisateur : seuls les noms canoniques
+# « Region/Ville » (et UTC). La base tzdata expose aussi des alias comme
+# « localtime », que les navigateurs refusent (Intl.DateTimeFormat), ce qui
+# faisait echouer la traduction de toute la liste dans l'administration.
+WAGTAIL_USER_TIME_ZONES = sorted(
+    fuseau for fuseau in zoneinfo.available_timezones() if "/" in fuseau and not fuseau.startswith(("Etc/", "SystemV/"))
+) + ["UTC"]
 
 USE_I18N = True
 

@@ -720,3 +720,4 @@ classes SDCD, politique CSP/HSTS, README.
 | `sites_conformes/forms/templates/.../form_page.html` | `DSFR_MARK_OPTIONAL_FIELDS` repris ; champs rendus par `dsfr_form_field` (SDCD) |
 | `sites_conformes/*/tests/test_*.py` | Tests amont portes vers les classes SDCD |
 | `sites_conformes/templates/.../blocks/share.html` | Classes de plateforme retirees (plus de regle) |
+| `config/settings.py` | `TIME_ZONE` par defaut `Africa/Kinshasa` (surchargeable par la variable `TIME_ZONE`) ; `WAGTAIL_USER_TIME_ZONES` limite aux noms canoniques « Region/Ville » + UTC : l'alias `localtime` de tzdata faisait echouer `Intl.DateTimeFormat` et donc la traduction de la liste des fuseaux dans le compte utilisateur |
