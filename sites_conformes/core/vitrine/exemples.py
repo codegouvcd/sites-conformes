@@ -175,6 +175,7 @@ def vitrine(images, pages, blog, agenda):
                 bouton("Nous contacter", page=pages["contact"], type_="sdcd-button sdcd-button--secondaire"),
             ],
             images["hero-vitrine"],
+            haut=4,  # sans marge, le titre collait au bandeau d'information
         )
     ]
     corps = [
