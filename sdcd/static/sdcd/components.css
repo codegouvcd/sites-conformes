@@ -2862,3 +2862,7 @@ button.sdcd-header__lien[aria-expanded="true"]::after { transform: rotate(180deg
 .sdcd-nav__item:has(> .sdcd-megamenu) { position: static; }
 /* Onglets : la liste des onglets passe a la ligne au lieu de deborder. */
 .sdcd-tabs__liste { flex-wrap: wrap; }
+/* Bandeau : sous une certaine largeur le texte passe sous le titre au lieu de
+   se comprimer en colonne etroite a cote de lui (vu sur telephone). */
+.sdcd-notice__texte { flex: 1 1 320px; margin: 0; }
+.sdcd-notice__titre { margin: 0; }
