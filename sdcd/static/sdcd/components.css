@@ -2857,3 +2857,8 @@ button.sdcd-header__lien[aria-expanded="true"]::after { transform: rotate(180deg
 /* Recherche dans le panneau du menu mobile (gabarit du CMS). */
 .sdcd-header__nav-recherche { margin: 0; }
 .sdcd-header__nav-recherche .sdcd-searchbar { width: 100%; }
+/* Le mega-menu se pose sur toute la largeur de la barre, pas sur celle de
+   son entree : l'entree qui le contient ne doit pas etre son referent. */
+.sdcd-nav__item:has(> .sdcd-megamenu) { position: static; }
+/* Onglets : la liste des onglets passe a la ligne au lieu de deborder. */
+.sdcd-tabs__liste { flex-wrap: wrap; }

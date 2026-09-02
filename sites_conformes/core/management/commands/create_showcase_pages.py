@@ -31,20 +31,6 @@ from sites_conformes.core.vitrine.images import importer_images
 from sites_conformes.events.models import EventEntryPage, EventsIndexPage
 from sites_conformes.forms.models import FormField, FormPage
 
-# Slugs des modeles de pages a copier qui montrent chaque composant.
-COMPOSANTS = [
-    "en-tetes-et-bandeaux-dappel-a-action",
-    "blocs-simples-de-textes-et-dimages",
-    "page-de-contenu-avec-menu-lateral",
-    "cartes",
-    "tuiles",
-    "options-de-mise-en-valeur-de-textes",
-    "accordeons",
-    "etapiers",
-    "grilles-delements",
-]
-
-
 class Command(BaseCommand):
     help = "Construit le site vitrine : accueil, exemples, documentation, reglages."
 
@@ -256,8 +242,11 @@ class Command(BaseCommand):
         # Le resume sert aux tuiles des catalogues et aux balises de partage ;
         # sans lui, l'extrait est calcule sur le corps et remonte des noms de
         # classes ou des libelles de blocs.
-        if not page.search_description:
-            page.search_description = exemples.RESUMES.get(page.slug, "")
+        # Toujours, pas seulement quand il est vide : la page de base remplit
+        # search_description a partir du corps a la premiere sauvegarde, et
+        # l'extrait remontait alors des libelles de blocs (« width 4 content »).
+        if page.slug in exemples.RESUMES:
+            page.search_description = exemples.RESUMES[page.slug]
         page.save()
         revision = page.save_revision()
         revision.publish()

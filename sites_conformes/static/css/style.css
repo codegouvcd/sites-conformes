@@ -253,8 +253,10 @@ input[data-whf_name][data-whf_name] {
 
 /* Cases a cocher et boutons radio des formulaires Wagtail : le widget natif
    fait 13 px, sous le minimum tactile de 24 px. */
-.sdcd-fieldset input[type="checkbox"],
-.sdcd-fieldset input[type="radio"] {
+.sdcd-checkbox input[type="checkbox"],
+.sdcd-radio input[type="radio"],
+.sdcd-champ input[type="checkbox"],
+.sdcd-champ input[type="radio"] {
     width: 20px;
     height: 20px;
     margin: 2px 8px 2px 0;
