@@ -201,11 +201,12 @@ def hero_fond_image(titre, sous_titre, boutons_, image, masque="darken", positio
     })
 
 
-def hero_bandeau(titre, sous_titre, boutons_, image, position="bottom", fond_="", haut=0, bas=0):
+def hero_bandeau(titre, sous_titre, boutons_, image, position="bottom", fond_="", haut=0, bas=0, cadrage=""):
+    """`cadrage` : partie de l'image gardee dans le bandeau 32:9 ("" = centre)."""
     return ("hero_text_wide_image", {
         "text_content": {"hero_title": titre, "hero_subtitle": rt(sous_titre), "position": position},
         "layout": {"top_margin": haut, "bottom_margin": bas, "background_color": fond_},
         "buttons": boutons_,
-        "image": {"image": img(image), "image_positioning": "bottom", "image_width": "sdcd-media--lg",
+        "image": {"image": img(image), "image_positioning": cadrage, "image_width": "sdcd-media--lg",
                   "image_ratio": "sdcd-ratio-32x9"},
     })
