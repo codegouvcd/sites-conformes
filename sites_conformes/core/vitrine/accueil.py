@@ -2,6 +2,7 @@
 
 from .outils import (
     accordeons,
+    fond,
     actualites_recentes,
     bouton,
     carte,
@@ -42,23 +43,24 @@ def corps(images, pages, blog, agenda):
             ("tile", tuile("Un site conforme au système de design",
                            "<p>Armoiries, filet tricolore, typographie et couleurs sont posés par "
                            "le système. Les règles d’accessibilité sont intégrées aux composants.</p>",
-                           page=pages["systeme-de-design"])),
+                           page=pages["systeme-de-design"], image=images["picto-conformite"])),
             ("tile", tuile("Un site géré en autonomie",
                            "<p>Aucune compétence informatique n’est nécessaire pour publier et "
                            "mettre à jour. Une matinée suffit pour prendre l’outil en main.</p>",
-                           page=pages["creer-votre-site"])),
+                           page=pages["creer-votre-site"], image=images["picto-autonomie"])),
             ("tile", tuile("Un budget maîtrisé",
                            "<p>Le logiciel est libre et gratuit. Seuls l’hébergement et "
                            "l’éventuel accompagnement restent à la charge du service.</p>",
-                           page=pages["questions-frequentes"])),
+                           page=pages["questions-frequentes"], image=images["picto-budget"])),
             ("tile", tuile("Un site sécurisé et hébergé où vous voulez",
                            "<p>Mises à jour de sécurité suivies, en-têtes de protection posés par "
                            "défaut, hébergement chez l’État ou chez un prestataire agréé.</p>",
-                           page=pages["questions-frequentes"])),
+                           page=pages["questions-frequentes"], image=images["picto-securite"])),
         ], largeur="6"),
 
-        paragraphe("<h2>Les principales fonctionnalités</h2>"),
-        grille([
+        fond([
+            ("text", rt("<h2>Les principales fonctionnalités</h2>")),
+            ("item_grid", {"column_width": "4", "horizontal_align": "left", "vertical_align": "", "items": [
             ("card", carte("Blocs prêts à l’emploi",
                            "<p>Choisissez, assemblez et remplissez des composants préconfigurés : "
                            "texte, image, carte, accordéon, tableau, vidéo.</p>",
@@ -83,8 +85,9 @@ def corps(images, pages, blog, agenda):
             ("card", carte("Site public ou intranet",
                            "<p>Publiez pour tous, réservez l’accès aux agents connectés, ou "
                            "installez le site sur le réseau interne de votre entité.</p>",
-                           page=pages["questions-frequentes"], fond_gris=True)),
-        ], largeur="4"),
+                           page=pages["questions-frequentes"], fond_gris=False)),
+            ]}),
+        ], couleur="gris"),
 
         paragraphe(
             "<h2>Les cas d’usage</h2>"
@@ -140,18 +143,20 @@ def corps(images, pages, blog, agenda):
             icone="ri-shield-check-line", couleur="chart-2",
         ),
 
-        paragraphe("<h2>Envie de tester ?</h2>"
-                   "<p>Découvrez l’outil et faites vos essais pour déterminer s’il répond à "
-                   "votre besoin. Un bac à sable est mis à disposition des équipes qui "
-                   "souhaitent essayer Sites Conformes sans l’installer sur un serveur. Pour "
-                   "y accéder, vous devez travailler pour l’État et votre projet doit être "
-                   "éligible au système de design.</p>"),
-        ("buttons_list", {"buttons": [
-            ("button", bouton("Demander un accès au bac à sable", page=pages["contact"],
-                              icone="ri-key-2-line", cote="gauche")),
-            ("button", bouton("Voir le code source", url="https://github.com/codegouvcd/sites-conformes",
-                              type_="sdcd-button sdcd-button--secondaire", icone="ri-github-line", cote="gauche")),
-        ], "position": ""}),
+        fond([
+            ("text", rt("<h2>Envie de tester ?</h2>"
+                        "<p>Découvrez l’outil et faites vos essais pour déterminer s’il répond à "
+                        "votre besoin. Un bac à sable est mis à disposition des équipes qui "
+                        "souhaitent essayer Sites Conformes sans l’installer sur un serveur. Pour "
+                        "y accéder, vous devez travailler pour l’État et votre projet doit être "
+                        "éligible au système de design.</p>")),
+            ("buttons_list", {"buttons": [
+                ("button", bouton("Demander un accès au bac à sable", page=pages["contact"],
+                                  icone="ri-key-2-line", cote="gauche")),
+                ("button", bouton("Voir le code source", url="https://github.com/codegouvcd/sites-conformes",
+                                  type_="sdcd-button sdcd-button--secondaire", icone="ri-github-line", cote="gauche")),
+            ], "position": ""}),
+        ], couleur="bleu"),
 
         paragraphe("<h2>Un commun numérique pour des sites publics conformes</h2>"
                    "<p>Sites Conformes repose sur un socle libre déjà éprouvé, le gestionnaire "

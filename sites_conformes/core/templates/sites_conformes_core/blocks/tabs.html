@@ -1,4 +1,8 @@
 {% load i18n wagtailcore_tags %}
+{% comment %}
+  Les panneaux autres que le premier portent `hidden` : sdcd.js bascule cet
+  attribut au clic. Sans lui, les trois panneaux s'affichaient empiles.
+{% endcomment %}
 <div class="sdcd-tabs sdcd-mb-4">
   {% translate "Tabs group" as tabs_group %}
   <ul class="sdcd-tabs__liste" role="tablist" aria-label="{{ tabs_group }}">
@@ -20,7 +24,8 @@
          class="sdcd-tabs__panneau{% if forloop.first %} sdcd-tabs__panneau--actif{% endif %}"
          role="tabpanel"
          aria-labelledby="tabpanel-{{ block.id }}-{{ forloop.counter }}"
-         tabindex="0">
+         tabindex="0"
+         {% if not forloop.first %}hidden{% endif %}>
       {% include "sites_conformes_core/blocks/blocks_stream.html" with stream=tab_block.value.content %}
     </div>
   {% endfor %}

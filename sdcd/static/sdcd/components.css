@@ -2640,11 +2640,8 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
    Les couleurs de marque sont celles des plateformes, volontairement hors du
    jeu de jetons : ce ne sont pas des couleurs du systeme, et les aligner sur
    lui tromperait sur leur origine. */
-.sdcd-share__bouton--facebook { background: #1877F2; color: #FFFFFF; border-color: #1877F2; }
-.sdcd-share__bouton--x { background: #000000; color: #FFFFFF; border-color: #000000; }
-.sdcd-share__bouton--linkedin { background: #0A66C2; color: #FFFFFF; border-color: #0A66C2; }
-.sdcd-share__bouton--courriel,
-.sdcd-share__bouton--copier { background: var(--sdcd-fond-alt); color: var(--sdcd-texte); border-color: var(--sdcd-ligne); }
+/* Les boutons de partage ne portent plus les couleurs de chaque plateforme :
+   une rangee de boutons discrets du systeme, comme les reseaux sociaux. */
 
 /* --- etape : etat ---------------------------------------------------------- */
 .sdcd-stepper__etat { font-size: var(--sdcd-xs); color: var(--sdcd-muet); }
@@ -2866,3 +2863,29 @@ button.sdcd-header__lien[aria-expanded="true"]::after { transform: rotate(180deg
    se comprimer en colonne etroite a cote de lui (vu sur telephone). */
 .sdcd-notice__texte { flex: 1 1 320px; margin: 0; }
 .sdcd-notice__titre { margin: 0; }
+/* --- en-tete au-dessus de 900 px : une seule rangee ------------------------
+   Les actions (acces rapides, recherche) passaient sous la marque, sur une
+   rangee a elles : l'en-tete faisait 250 px. Elles restent dans la rangee de la
+   marque et se replient en deux lignes a droite si la place manque. */
+@media (min-width: 901px) {
+  .sdcd-header__corps { flex-wrap: nowrap; }
+  .sdcd-header__actions { flex: 1 1 0; min-width: 0; flex-wrap: wrap; justify-content: flex-end; row-gap: var(--sdcd-2); }
+  .sdcd-header__recherche { margin-left: 0; }
+  .sdcd-header__recherche .sdcd-searchbar__champ { width: 200px; }
+}
+/* Onglets : la liste n'est pas une liste a puces ; un seul panneau visible. */
+.sdcd-tabs__liste { list-style: none; margin: 0; padding: 0; }
+.sdcd-tabs__liste > li { display: contents; }
+/* Reseaux sociaux et partage : une rangee de boutons discrets, pas une pile de
+   boutons primaires aux couleurs de chaque plateforme. */
+.sdcd-suivre__reseaux .sdcd-boutons, .sdcd-share .sdcd-boutons, .sdcd-share__boutons {
+  display: flex; flex-wrap: wrap; gap: var(--sdcd-2); list-style: none; margin: 0; padding: 0;
+}
+/* Groupe de cases ou de boutons radio rendu par un <fieldset class="sdcd-champ">
+   (formulaires du CMS) : pas de cadre natif, options empilees. Sans cela, le
+   cadre et la legende flottante du navigateur apparaissaient, et les options en
+   inline-flex se suivaient sur une ligne, la case de l'une collee au libelle
+   de la precedente. */
+fieldset.sdcd-champ { border: 0; padding: 0; margin: 0 0 var(--sdcd-4); min-width: 0; }
+fieldset.sdcd-champ > legend { padding: 0; }
+.sdcd-champ > .sdcd-checkbox, .sdcd-champ > .sdcd-radio { display: flex; margin-bottom: var(--sdcd-2); }

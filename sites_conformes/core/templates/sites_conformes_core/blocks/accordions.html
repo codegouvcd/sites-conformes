@@ -1,7 +1,11 @@
 {% load dsfr_tags wagtailcore_tags %}
 <div class="sdcd-conteneur sdcd-py-5 cmsfr-block-accordions">
   <div class="sdcd-grille sdcd-grille--gouttieres">
-    <div class="sdcd-col-12 sdcd-col-decale-md-2 sdcd-col-md-8">
+    {% comment %}
+      Sans decalage : le bloc s'alignait au centre alors que le texte qui
+      l'entoure est cale a gauche, dans la mesure de lecture.
+    {% endcomment %}
+    <div class="sdcd-col-12 sdcd-col-md-8">
       {% for subblock in value %}
         {% if subblock.block_type == "title" %}
           <div class="sdcd-col-12">

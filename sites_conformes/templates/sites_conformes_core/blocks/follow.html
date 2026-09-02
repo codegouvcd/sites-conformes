@@ -36,7 +36,7 @@
         <ul class="sdcd-boutons">
           {% for link in settings.sites_conformes_core.CmsDsfrConfig.social_media_items.all %}
             <li>
-              <a class="{{ link.icon_class }} sdcd-button sdcd-button--primaire"
+              <a class="{{ link.icon_class }} sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
                  href="{{ link.url }}"
                  target="_blank"
                  title="{{ link.title }} - {{ new_window_label }}"

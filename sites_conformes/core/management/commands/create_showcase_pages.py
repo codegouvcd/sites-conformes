@@ -207,6 +207,7 @@ class Command(BaseCommand):
             page.date = date
             page.body = corps
             page.header_image = image
+            page.hero = self.bandeau(titre, slug, image)
             page.save()
             page.blog_categories.set([self.categorie(categorie)])
             page.tags.set(etiquettes, clear=True)
@@ -227,6 +228,7 @@ class Command(BaseCommand):
             page.location = lieu
             page.body = corps
             page.header_image = image
+            page.hero = self.bandeau(titre, slug, image)
             page.save()
             page.event_categories.set([self.categorie(categorie)])
             page.tags.set(etiquettes, clear=True)
@@ -234,9 +236,21 @@ class Command(BaseCommand):
 
     def fiches(self, catalogue, images):
         for slug, titre, etiquettes, image, corps in exemples.fiches(images):
-            page = self.page_contenu(catalogue, slug, titre, corps, image=image)
+            page = self.page_contenu(catalogue, slug, titre, corps, image=image,
+                                     hero=self.bandeau(titre, slug, image))
             page.tags.set(etiquettes, clear=True)
             page.save()
+
+    def bandeau(self, titre, slug, image):
+        """En-tete large : l'image d'en-tete en bandeau, le titre et le resume par-dessous.
+
+        Les pages n'affichent que le flux `hero` ; `header_image` seul ne se
+        voyait nulle part, et les articles s'ouvraient sans image.
+        """
+        from sites_conformes.core.vitrine.outils import hero_bandeau
+
+        resume = exemples.RESUMES.get(slug, "")
+        return [hero_bandeau(titre, f"<p>{resume}</p>" if resume else "", [], image, haut=0, bas=0)]
 
     def publier(self, page, etiquette):
         # Le resume sert aux tuiles des catalogues et aux balises de partage ;

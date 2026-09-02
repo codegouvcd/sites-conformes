@@ -176,8 +176,11 @@ class SitesFacilesBasePage(Page):
     def cover(self):
         hero_blocks = getattr(self, "hero", None)
 
+        # Sans en-tete configurable, l'image d'en-tete classique sert de
+        # couverture : les listes d'articles, d'evenements et les entrees
+        # recentes restaient sans image alors que chaque page en portait une.
         if not hero_blocks:
-            return None
+            return getattr(self, "header_image", None)
 
         first_hero = hero_blocks[0].value or {}
 
