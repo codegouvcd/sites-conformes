@@ -263,3 +263,14 @@ input[data-whf_name][data-whf_name] {
     accent-color: var(--sdcd-action);
     vertical-align: middle;
 }
+
+/* Fiche contact : l'image est un portrait (rendu fill-200x200), pas une
+   banniere. Etiree sur toute la largeur du media, elle etait rognee au tiers ;
+   elle devient un medaillon centre. */
+.cmsfr-author_card__header.sdcd-card__media { justify-content: center; }
+.cmsfr-author_card__header .cmsfr-author-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
