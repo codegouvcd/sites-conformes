@@ -115,7 +115,12 @@ class Command(BaseCommand):
         # existent. On lit les enfants de leur index plutot qu'une liste de
         # slugs ecrite a la main — celle-ci ne correspondait pas aux slugs
         # reels, et le menu se retrouvait sans aucun exemple de composant.
-        modeles = Page.objects.filter(slug="modeles-de-pages-a-copier").first()
+        # L'index des modeles porte le slug `page_templates_index` (pose par
+        # create_starter_pages), pas celui que son titre laisse deviner.
+        modeles = (
+            Page.objects.filter(slug="page_templates_index").first()
+            or Page.objects.filter(slug="modeles-de-pages-a-copier").first()
+        )
         composants = list(modeles.get_children().live().specific()) if modeles else []
         pages["composant-blocs"] = next((p for p in composants if "bloc" in p.slug), None) or pages["systeme-de-design"]
         pages["modeles"] = modeles or index
