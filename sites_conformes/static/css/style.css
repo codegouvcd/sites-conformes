@@ -142,6 +142,9 @@ p:empty {
 /* Le portrait (rendu carre) est un medaillon de 120 px, centre. Etire a 100 %
    de la hauteur du media et a 50 % de sa largeur, il devenait une ellipse
    rognee. */
+/* Selecteur a trois classes : .sdcd-card__media > div > img (SDCD) impose
+   sinon width/height 100 % avec une specificite superieure. */
+.sdcd-card__media > .cmsfr-vertical_contact_card__header > .cmsfr-vertical_contact_card-img,
 .cmsfr-vertical_contact_card-img {
     border-radius: 50%;
     height: 120px;
