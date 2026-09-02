@@ -7,7 +7,7 @@
       {% if settings.sites_conformes_core.CmsDsfrConfig.share_links_facebook %}
         <li>
           {% translate "Share on Facebook" as share_facebook %}
-          <a class="sdcd-share__bouton--facebook sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
+          <a class="sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
              target="_blank"
              rel="noopener"
              title="{{ share_facebook }} - {{ new_window }}"
@@ -19,7 +19,7 @@
       {% if settings.sites_conformes_core.CmsDsfrConfig.share_links_twitter %}
         <li>
           {% translate "Share on X (previously Twitter)" as share_twitter %}
-          <a class="sdcd-share__bouton--x sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
+          <a class="sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
              target="_blank"
              rel="noopener"
              title="{{ share_twitter }} - {{ new_window }}"
@@ -33,7 +33,7 @@
       {% if settings.sites_conformes_core.CmsDsfrConfig.share_links_linkedin %}
         <li>
           {% translate "Share on LinkedIn" as share_linkedin %}
-          <a class="sdcd-share__bouton--linkedin sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
+          <a class="sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
              target="_blank"
              rel="noopener"
              title="{{ share_linkedin }} - {{ new_window }}"
@@ -47,7 +47,7 @@
       {% if settings.sites_conformes_core.CmsDsfrConfig.share_links_email %}
         <li>
           {% translate "Share via email" as share_email %}
-          <a class="sdcd-share__bouton--courriel sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
+          <a class="sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
              target="_blank"
              rel="noopener external"
              title="{{ share_email }} - {{ new_window }}"
@@ -60,7 +60,7 @@
       {% if settings.sites_conformes_core.CmsDsfrConfig.share_links_clipboard %}
         <li>
           {% translate "Page URL copied to clipboard." as copied_to_clipboard %}
-          <button class="sdcd-share__bouton--copier sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
+          <button class="sdcd-button sdcd-button--tertiaire-bordure sdcd-button--sm"
                   id="share-{{ block.id }}-clipboard"
                   onclick="navigator.clipboard.writeText(window.location).then(function() {alert('{{ copied_to_clipboard }}')});">
             {% translate "Copy to clipboard" %}
