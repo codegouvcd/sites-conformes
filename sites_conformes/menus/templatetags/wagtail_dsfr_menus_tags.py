@@ -55,4 +55,12 @@ def main_menu(context: Context) -> dict:
 
     current_page = context.get("page", None)
 
-    return {"request": request, "main_menu": main_menu, "current_page": current_page}
+    # Le menu est rendu deux fois par l'en-tete (bureau, mobile) : sans suffixe,
+    # les regions repliables portaient deux fois le meme identifiant, et le
+    # JavaScript n'ouvrait que la premiere — invisible sur mobile.
+    return {
+        "request": request,
+        "main_menu": main_menu,
+        "current_page": current_page,
+        "menu_suffixe": context.get("menu_suffixe", ""),
+    }

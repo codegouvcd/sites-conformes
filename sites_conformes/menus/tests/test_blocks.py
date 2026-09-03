@@ -277,11 +277,21 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
             <div class="sdcd-megamenu__intro">
             <p class="sdcd-megamenu__titre">Ma section</p>
             <p>Description de la section</p>
-            <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite sdcd-lien--aligne"
+            <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite"
                           href="{self.section_page.url}">Voir la section</a>
             </div>""",
             html,
         )
+
+    def test_megamenu_ids_distincts_entre_bureau_et_mobile(self):
+        # L'en-tete rend le menu deux fois : sans suffixe, les deux regions
+        # portaient le meme identifiant et le JavaScript n'ouvrait que la
+        # premiere, invisible sur mobile.
+        html = self.client.get(self.other_page.url).content.decode()
+        self.assertEqual(html.count('id="collapse-menu-ma-section"'), 1)
+        self.assertEqual(html.count('id="collapse-menu-ma-section-mobile"'), 1)
+        self.assertEqual(html.count('aria-controls="collapse-menu-ma-section-mobile"'), 1)
+        self.assertEqual(html.count('data-sdcd-replie="collapse-menu-ma-section-mobile"'), 1)
 
     def test_megamenu_column_with_link(self):
         response = self.client.get(self.other_page.url)

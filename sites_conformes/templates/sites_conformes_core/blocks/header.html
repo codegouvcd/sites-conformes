@@ -120,7 +120,12 @@
          id="sdcd-nav-mobile"
          aria-label="{{ main_menu_label }}"
          hidden>
-      {% main_menu %}
+      {% comment %}
+        Le menu est rendu une seconde fois ici : ses regions repliables
+        recoivent un suffixe, sinon elles portent les memes identifiants que
+        celles de la navigation bureau, et rien ne s'ouvre sur mobile.
+      {% endcomment %}
+      {% with menu_suffixe="-mobile" %}{% main_menu %}{% endwith %}
       {% comment %}
         Sous 900 px, les outils de l'en-tete (acces rapides, connexion) et la
         recherche ne tiennent pas sur la rangee : la rangee debordait de 900 px

@@ -1,9 +1,13 @@
 <ul class="sdcd-sidemenu__liens">
   <li class="sdcd-sidemenu__section">
+    {% comment %}
+      La racine de l'arbre etait toujours marquee comme page courante, meme
+      depuis une sous-page : deux entrees en surbrillance a la fois.
+    {% endcomment %}
     <a class="sdcd-sidemenu__lien"
        href="{{ value.page.url }}"
        target="_self"
-       aria-current="page">{{ value.page.title }}</a>
+       {% if value.page.pk == page.pk %}aria-current="page"{% endif %}>{{ value.page.title }}</a>
     {% if value.page.get_children.live.count %}
       <ul class="sdcd-sidemenu__liens">
         {% for child_page in value.page.get_children.live %}

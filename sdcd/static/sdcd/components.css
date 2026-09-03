@@ -970,7 +970,10 @@ li > a:only-child {
   text-align: left;
 }
 .sdcd-sidemenu__entete i { color: var(--sdcd-muet); }
-.sdcd-sidemenu__liens { display: flex; flex-direction: column; }
+/* Les listes du menu lateral sont des <ul> en gabarit : sans quoi chaque
+   entree gardait sa puce, et les sous-listes leur retrait de navigateur. */
+.sdcd-sidemenu__liens { display: flex; flex-direction: column; list-style: none; margin: 0; padding: 0; }
+.sdcd-sidemenu__liens .sdcd-sidemenu__liens { padding-left: var(--sdcd-3); margin-top: 6px; }
 .sdcd-sidemenu__lien {
   padding: var(--sdcd-2) var(--sdcd-3);
   font-size: var(--sdcd-sm);
@@ -2544,7 +2547,7 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
   margin-bottom: var(--sdcd-5);
 }
 .sdcd-megamenu__intro { max-width: var(--sdcd-mesure); }
-.sdcd-megamenu__titre {
+.sdcd-megamenu__intro > .sdcd-megamenu__titre {
   font-size: var(--sdcd-h2);
   font-weight: 700;
   line-height: 1.2;
@@ -2961,7 +2964,12 @@ button.sdcd-header__lien::after {
 }
 button.sdcd-header__lien[aria-expanded="true"] { color: var(--sdcd-action); border-bottom-color: var(--sdcd-action); }
 button.sdcd-header__lien[aria-expanded="true"]::after { transform: rotate(180deg); }
-.sdcd-header__nav { position: relative; }
+/* Le mega-menu se pose sur toute la largeur de l'en-tete (donc de la
+   fenetre), pas sur celle de la barre de navigation : c'est l'en-tete qui
+   sert de referent. La barre reste statique, les entrees a liste deroulante
+   gardent le leur. */
+.sdcd-header { position: relative; }
+.sdcd-header__nav { position: static; }
 .sdcd-nav__item { position: relative; }
 .sdcd-header__nav .sdcd-megamenu {
   position: absolute; left: 0; right: 0; top: 100%; z-index: 50;

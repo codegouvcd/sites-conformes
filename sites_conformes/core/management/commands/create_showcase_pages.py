@@ -142,7 +142,17 @@ class Command(BaseCommand):
         # un index public « Composants », dans Exemples ; le menu relie les copies.
         composants_index = self.index(CatalogIndexPage, index, "composants", "Composants", exemples.INTRO_COMPOSANTS)
         pages["composants"] = composants_index
-        composants = [self.copie_composant(gabarit, composants_index) for gabarit in gabarits]
+        # Les modeles amont portent des illustrations de leur site d'origine ;
+        # les copies recoivent une vignette de la vitrine, chacune la sienne.
+        vignettes = [images[n] for n in (
+            "illustration-blocs", "illustration-redaction", "illustration-securite",
+            "actualite-numerique", "actualite-accessibilite", "actualite-formation",
+            "evenement-atelier", "evenement-conference", "service-etat-civil", "service-passeport",
+        )]
+        composants = [
+            self.copie_composant(gabarit, composants_index, vignettes[rang % len(vignettes)])
+            for rang, gabarit in enumerate(gabarits)
+        ]
         pages["composant-blocs"] = next((p for p in composants if "bloc" in p.slug), None) or pages["systeme-de-design"]
         pages["modeles"] = modeles or index
 
@@ -189,7 +199,7 @@ class Command(BaseCommand):
         self.publier(page, slug)
         return page
 
-    def copie_composant(self, gabarit, parent):
+    def copie_composant(self, gabarit, parent, vignette=None):
         """Copie publique d'un modele de page, refaite a chaque passage force.
 
         Le modele reste la source : sa copie n'est jamais editee ici, elle est
@@ -212,6 +222,8 @@ class Command(BaseCommand):
         # L'arbre de pages du menu lateral suit la copie : il montre l'index
         # des composants, pas celui des modeles.
         self.reparer_arbres(copie, parent, seulement_absents=False)
+        if vignette is not None:
+            copie.header_image = vignette
         self.publier(copie, slug)
         return copie
 
