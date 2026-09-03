@@ -194,7 +194,11 @@ pre{overflow-x:auto}
   .sdcd-header__actions { flex-wrap: wrap; max-width: 100%; min-width: 0; }
   .sdcd-header__actions > .sdcd-header__outils,
   .sdcd-header__actions > .sdcd-header__recherche { display: none; }
-  .sdcd-header__nav-outils { padding: var(--sdcd-3) var(--sdcd-gouttiere) var(--sdcd-4); border-top: 1px solid var(--sdcd-ligne); display: flex; flex-direction: column; gap: var(--sdcd-3); }
+  /* min-width: 0 — enfant d'une colonne flex, le bloc des outils prenait sa
+     largeur de contenu minimale (403 px sur un ecran de 375) et la barre de
+     recherche sortait de l'ecran, la page defilant de cote menu ouvert. */
+  .sdcd-header__nav-outils { min-width: 0; padding: var(--sdcd-3) var(--sdcd-gouttiere) var(--sdcd-4); border-top: 1px solid var(--sdcd-ligne); display: flex; flex-direction: column; gap: var(--sdcd-3); }
+  .sdcd-header__nav-outils > * { max-width: 100%; }
   .sdcd-header__nav-outils .sdcd-header__outils { display: flex; flex-direction: column; align-items: stretch; gap: var(--sdcd-2); list-style: none; margin: 0; padding: 0; }
   .sdcd-header__nav-outils .sdcd-header__outils > li { display: block; }
 }

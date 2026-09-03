@@ -144,10 +144,12 @@ class Command(BaseCommand):
         pages["composants"] = composants_index
         # Les modeles amont portent des illustrations de leur site d'origine ;
         # les copies recoivent une vignette de la vitrine, chacune la sienne.
+        # Les compositions saturees, a pictogramme : les illustrations pales
+        # se perdaient dans la grille de tuiles.
         vignettes = [images[n] for n in (
-            "illustration-blocs", "illustration-redaction", "illustration-securite",
-            "actualite-numerique", "actualite-accessibilite", "actualite-formation",
-            "evenement-atelier", "evenement-conference", "service-etat-civil", "service-passeport",
+            "actualite-numerique", "actualite-accessibilite", "actualite-formation", "actualite-tribune",
+            "evenement-atelier", "evenement-conference", "evenement-concertation", "evenement-formation",
+            "service-etat-civil", "service-passeport",
         )]
         composants = [
             self.copie_composant(gabarit, composants_index, vignettes[rang % len(vignettes)])
