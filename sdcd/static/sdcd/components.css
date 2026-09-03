@@ -694,9 +694,14 @@
 }
 .sdcd-header__nav--mobile .sdcd-nav__item {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 }
 .sdcd-header__nav--mobile .sdcd-nav__item > * { flex: 1; }
+/* La region repliee (sous-menu, mega-menu) passe sous son bouton, sur toute
+   la largeur : en rangee, elle se rangeait a cote de lui et sortait de
+   l'ecran. */
+.sdcd-header__nav--mobile .sdcd-nav__item > .sdcd-repli { flex: 1 1 100%; }
 
 .sdcd-footer { font-family: var(--sdcd-font); background: var(--sdcd-fond); }
 .sdcd-footer__haut {
