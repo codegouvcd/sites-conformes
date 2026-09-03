@@ -269,11 +269,14 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
         response = self.client.get(self.other_page.url)
         html = response.content.decode()
 
+        # Le titre est un paragraphe (pas de h4 dans la navigation, avant le h1)
+        # et la description n'est plus masquee par une classe : c'est le panneau
+        # mobile qui la retire.
         self.assertInHTML(
             f"""
             <div class="sdcd-megamenu__intro">
-            <h4 class="sdcd-h4 sdcd-mb-2">Ma section</h4>
-            <p class="sdcd-masque sdcd-affiche-lg">Description de la section</p>
+            <p class="sdcd-megamenu__titre">Ma section</p>
+            <p>Description de la section</p>
             <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite sdcd-lien--aligne"
                           href="{self.section_page.url}">Voir la section</a>
             </div>""",
@@ -284,10 +287,13 @@ class MainMenuMegamenuBlockTestCase(WagtailPageTestCase):
         response = self.client.get(self.other_page.url)
         html = response.content.decode()
 
+        # L'intitule de colonne n'est pas un lien (le bloc ne lui associe aucune
+        # page ; « # » remontait en haut de page) et la liste est celle du
+        # mega-menu, pas celle d'une liste deroulante.
         self.assertInHTML(
             '<div class="sdcd-col-12 sdcd-col-lg-3">'
-            '<h5 class="sdcd-megamenu__categorie"><a class="sdcd-header__lien" href="#" target="_self">Colonne 1</a></h5>'
-            '<ul class="sdcd-dropdown__liste">'
+            '<p class="sdcd-megamenu__categorie">Colonne 1</p>'
+            '<ul class="sdcd-megamenu__liste">'
             "<li>"
             f'<a class="sdcd-header__lien" href="{self.column_page.url}">Page de colonne</a>'
             "</li>"

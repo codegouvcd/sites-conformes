@@ -2525,13 +2525,87 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
 .sdcd-separateur-ou::after { content: ""; flex: 1; border-top: 1px solid var(--sdcd-ligne); }
 
 /* --- mega-menu -------------------------------------------------------- */
+/* Un panneau sur toute la largeur de la barre. En tete, a gauche : le titre de
+   la rubrique, sa description et le lien vers la rubrique entiere ; a droite,
+   « Fermer ». Dessous, les colonnes : un intitule souligne d'un filet, puis
+   des liens sur une ligne chacun. La version anterieure decalait l'en-tete au
+   centre et empruntait aux listes deroulantes leur retrait : le panneau
+   semblait vide a droite et bancal a gauche. */
 .sdcd-megamenu {
   background: var(--sdcd-fond);
   border-top: 1px solid var(--sdcd-ligne);
-  padding: var(--sdcd-5) 0;
+  padding: var(--sdcd-5) 0 var(--sdcd-6);
 }
-.sdcd-megamenu__intro { font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); margin-bottom: var(--sdcd-4); }
-.sdcd-megamenu__categorie { font-weight: 700; font-size: var(--sdcd-sm); margin-bottom: var(--sdcd-2); }
+.sdcd-megamenu__entete {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sdcd-4);
+  margin-bottom: var(--sdcd-5);
+}
+.sdcd-megamenu__intro { max-width: var(--sdcd-mesure); }
+.sdcd-megamenu__titre {
+  font-size: var(--sdcd-h2);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--sdcd-encre);
+  margin: 0 0 var(--sdcd-1);
+}
+.sdcd-megamenu__intro p { font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); margin: 0 0 var(--sdcd-2); }
+.sdcd-megamenu__intro > .sdcd-lien { font-size: var(--sdcd-sm); }
+.sdcd-megamenu__categorie {
+  font-weight: 700;
+  font-size: var(--sdcd-sm);
+  color: var(--sdcd-encre);
+  margin: 0 0 var(--sdcd-1);
+  padding-bottom: var(--sdcd-2);
+  border-bottom: 1px solid var(--sdcd-ligne);
+}
+.sdcd-megamenu__liste { list-style: none; margin: 0; padding: 0; }
+.sdcd-megamenu__liste .sdcd-header__lien {
+  display: block;
+  padding: 10px 0;
+  border-bottom: 0;
+  white-space: normal;
+  font-weight: 400;
+  color: var(--sdcd-encre-2);
+}
+.sdcd-megamenu__liste .sdcd-header__lien:hover,
+.sdcd-megamenu__liste .sdcd-header__lien:focus-visible { color: var(--sdcd-action); text-decoration: underline; }
+.sdcd-megamenu__liste .sdcd-header__lien[aria-current="page"] { color: var(--sdcd-action); font-weight: 600; }
+/* « Fermer » : un lien d'action, pas un bouton encadre, avec la croix a droite. */
+.sdcd-megamenu .sdcd-lien--fermer {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--sdcd-sm);
+  font-weight: 500;
+  color: var(--sdcd-action);
+  cursor: pointer;
+}
+.sdcd-megamenu .sdcd-lien--fermer::after {
+  content: "\eb99";
+  font-family: 'remixicon';
+  font-size: 18px;
+  line-height: 1;
+}
+.sdcd-megamenu .sdcd-lien--fermer:hover { text-decoration: underline; }
+/* Dans le panneau mobile, l'entree qui ouvre le mega-menu porte deja son
+   titre, et le bouton de repli le ferme : titre, description et « Fermer »
+   n'y ont pas de place ; le lien vers la rubrique, si. */
+.sdcd-header__nav--mobile .sdcd-megamenu__entete { display: block; margin-bottom: var(--sdcd-2); }
+.sdcd-header__nav--mobile .sdcd-megamenu__titre,
+.sdcd-header__nav--mobile .sdcd-megamenu__intro p,
+.sdcd-header__nav--mobile .sdcd-megamenu .sdcd-lien--fermer { display: none; }
+.sdcd-header__nav--mobile .sdcd-megamenu__intro > .sdcd-lien { display: inline-flex; padding: 10px 0 10px 12px; }
+.sdcd-header__nav--mobile .sdcd-megamenu__categorie { margin-top: var(--sdcd-3); padding-left: 12px; }
+.sdcd-header__nav--mobile .sdcd-megamenu__liste .sdcd-header__lien { padding: 10px 0 10px 12px; }
 
 /* --- champ de mot de passe --------------------------------------------
    Une colonne : le champ, puis la case « Afficher ». Les grouper en ligne
@@ -2646,11 +2720,73 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
 /* --- etape : etat ---------------------------------------------------------- */
 .sdcd-stepper__etat { font-size: var(--sdcd-xs); color: var(--sdcd-muet); }
 
+/* --- etapier : frise des etapes ------------------------------------------ */
+/* Sous la jauge, chaque etape sur sa ligne : un repere rond relie au suivant
+   par un rail. Les etapes faites portent une coche sur fond d'action, l'etape
+   en cours son numero cercle d'action, celles a venir un numero en retrait.
+   La sequence se lit d'un coup d'oeil, la ou une liste de definitions
+   alignait trois titres sans dire ou l'on en etait. */
+.sdcd-stepper__titre { margin-top: 0; }
+.sdcd-stepper__suivant { margin: 0; }
+.sdcd-stepper__etapes { list-style: none; margin: var(--sdcd-4) 0 0; padding: 0; }
+.sdcd-stepper__etape {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  column-gap: var(--sdcd-3);
+  padding-bottom: var(--sdcd-4);
+}
+.sdcd-stepper__etape:last-child { padding-bottom: 0; }
+.sdcd-stepper__etape::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 30px;
+  bottom: 2px;
+  width: 2px;
+  background: var(--sdcd-ligne);
+}
+.sdcd-stepper__etape:last-child::before { display: none; }
+.sdcd-stepper__etape--faite::before { background: var(--sdcd-action); }
+.sdcd-stepper__marque {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--sdcd-ligne-forte);
+  background: var(--sdcd-fond);
+  color: var(--sdcd-encre-2);
+  font-size: var(--sdcd-xs);
+  font-weight: 700;
+  line-height: 1;
+}
+.sdcd-stepper__etape--faite .sdcd-stepper__marque {
+  background: var(--sdcd-action);
+  border-color: var(--sdcd-action);
+  color: var(--sdcd-sur-action);
+}
+.sdcd-stepper__etape--faite .sdcd-stepper__marque::before {
+  content: "\eb7b";
+  font-family: 'remixicon';
+  font-size: 16px;
+  font-weight: 400;
+}
+.sdcd-stepper__etape--courante .sdcd-stepper__marque { border-color: var(--sdcd-action); color: var(--sdcd-action); }
+.sdcd-stepper__etape--avenir .sdcd-stepper__marque { border-color: var(--sdcd-ligne); color: var(--sdcd-muet); }
+.sdcd-stepper__etape-titre { display: block; font-weight: 700; color: var(--sdcd-encre); padding-top: 3px; }
+.sdcd-stepper__etape--avenir .sdcd-stepper__etape-titre { color: var(--sdcd-encre-2); font-weight: 600; }
+.sdcd-stepper__etape-detail { margin: 2px 0 0; font-size: var(--sdcd-sm); color: var(--sdcd-encre-2); }
+
 /* --- visibilite ------------------------------------------------------------ */
 .sdcd-masque { display: none !important; }
 @media (min-width: 1025px) {
   .sdcd-masque-lg { display: none !important; }
-  .sdcd-affiche-lg { display: initial; }
+  /* `revert` rend a l'element son affichage naturel (bloc pour un paragraphe,
+     en ligne pour un span) ; `!important` pour l'emporter sur `.sdcd-masque`,
+     que l'on combine avec cette classe pour n'afficher qu'a partir de lg. */
+  .sdcd-affiche-lg { display: revert !important; }
 }
 .sdcd-affiche-lg { display: none; }
 
@@ -2840,7 +2976,6 @@ button.sdcd-header__lien[aria-expanded="true"]::after { transform: rotate(180deg
 .sdcd-header__nav--mobile button.sdcd-header__lien { width: 100%; justify-content: space-between; padding: 13px 0 13px 12px; border-bottom: 1px solid var(--sdcd-ligne); }
 .sdcd-header__nav--mobile .sdcd-megamenu .sdcd-conteneur { padding: 0; }
 .sdcd-megamenu__intro p { max-width: var(--sdcd-mesure); }
-.sdcd-megamenu .sdcd-lien--fermer { float: right; }
 /* Bandeau : le bouton qui masque le message est un bouton, pas un texte nu. */
 .sdcd-notice .sdcd-fermer { margin-left: auto; align-self: center; }
 .sdcd-notice__corps { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sdcd-2) var(--sdcd-4); }

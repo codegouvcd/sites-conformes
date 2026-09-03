@@ -138,7 +138,8 @@ def ranger_menu(site, pages, composants, ecrire=print):
             "main_link": {"text": "Voir toute la rubrique", "link_type": "page", "page": pages["exemples"]},
             "columns": [
                 ("column", {"label": "Exemples de pages", "links": exemples_pages}),
-                ("column", {"label": "Exemples de composants", "links": [lien(p) for p in composants]}),
+                ("column", {"label": "Exemples de composants",
+                            "links": [lien(pages["composants"], "Tous les composants")] + [lien(p) for p in composants]}),
             ],
         }),
         ("submenu", {

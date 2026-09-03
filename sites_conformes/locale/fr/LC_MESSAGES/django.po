@@ -207,3 +207,15 @@ msgstr "Connexion"
 #~ msgstr ""
 #~ "Entrez un sub valide. Cette valeur ne peut contenir que des lettres, "
 #~ "nombres et @/./+/-/_/: uniquement."
+
+#: sites_conformes/core/templates/sites_conformes_core/blocks/stepper.html
+msgid "Next step:"
+msgstr "Étape suivante :"
+
+#: sites_conformes/core/templates/sites_conformes_core/blocks/stepper.html
+msgid "completed"
+msgstr "terminée"
+
+#: sites_conformes/core/templates/sites_conformes_core/blocks/stepper.html
+msgid "current step"
+msgstr "étape en cours"

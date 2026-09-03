@@ -295,6 +295,20 @@ class StepperBlock(blocks.StructBlock):
         total = value.get("total") or 0
         courante = min(value.get("current") or 0, total)
         contexte["segments"] = [rang <= courante for rang in range(1, total + 1)]
+        # La frise des etapes : chaque etape decrite connait son etat, d'apres
+        # son rang par rapport a l'etape courante, et la premiere etape a venir
+        # est annoncee comme « etape suivante ».
+        etapes = []
+        for rang, etape in enumerate(value.get("steps") or [], start=1):
+            if rang < courante:
+                etat = "faite"
+            elif rang == courante:
+                etat = "courante"
+            else:
+                etat = "avenir"
+            etapes.append({"titre": etape.value.get("title"), "detail": etape.value.get("detail"), "etat": etat})
+        contexte["etapes"] = etapes
+        contexte["suivante"] = next((e["titre"] for e in etapes if e["etat"] == "avenir"), "")
         return contexte
 
     class Meta:

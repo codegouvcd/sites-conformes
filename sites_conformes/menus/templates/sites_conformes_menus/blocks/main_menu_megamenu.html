@@ -5,32 +5,39 @@
         type="button"
         class="sdcd-header__lien">{{ self.label }}</button>
 
+{% comment %}
+  Le panneau s'aligne sur le conteneur de l'en-tete, pas sur toute la fenetre.
+  En tete : titre, description et lien vers la rubrique a gauche, « Fermer » a
+  droite. Puis les colonnes. Le titre est un paragraphe, pas un titre de
+  section : un h4 dans la navigation, avant le h1 de la page, brouillait le
+  plan de la page pour les lecteurs d'ecran. La description n'est plus
+  masquee sous lg par une classe : c'est le panneau mobile qui la retire.
+{% endcomment %}
 <div class="sdcd-repli sdcd-megamenu" id="{{ self.id }}" hidden>
-  <div class="sdcd-conteneur sdcd-conteneur--fluide">
-    {% comment %}
-      `data-fr-js-collapse-button` etait le crochet du JavaScript du DSFR, parti
-      avec lui : le bouton n'avait plus aucun effet. sdcd.js replie la region
-      nommee par `data-sdcd-replie` et remet le declencheur a l'etat ferme.
-    {% endcomment %}
-    <button type="button"
-            class="sdcd-lien--fermer sdcd-lien"
-            data-sdcd-replie="{{ self.id }}">{% translate "Close" %}</button>
-    <div class="sdcd-grille sdcd-grille--gouttieres">
-      <div class="sdcd-col-12 sdcd-col-lg-8 sdcd-col-decale-lg-4">
-        <div class="sdcd-megamenu__intro">
-          <h4 class="sdcd-h4 sdcd-mb-2">{{ self.label }}</h4>
-          {% if self.description %}
-          <p class="sdcd-masque sdcd-affiche-lg">{{ self.description }}</p>
-          {% endif %}
-          {% if self.main_link.url %}
+  <div class="sdcd-conteneur">
+    <div class="sdcd-megamenu__entete">
+      <div class="sdcd-megamenu__intro">
+        <p class="sdcd-megamenu__titre">{{ self.label }}</p>
+        {% if self.description %}
+          <p>{{ self.description }}</p>
+        {% endif %}
+        {% if self.main_link.url %}
           <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite sdcd-lien--aligne" href="{{ self.main_link.url }}">{{ self.main_link.label }}</a>
-          {% endif %}
-        </div>
+        {% endif %}
       </div>
-
-    {% for column in self.columns %}
-      {% include_block column %}
-    {% endfor %}
+      {% comment %}
+        `data-fr-js-collapse-button` etait le crochet du JavaScript du DSFR, parti
+        avec lui : le bouton n'avait plus aucun effet. sdcd.js replie la region
+        nommee par `data-sdcd-replie` et remet le declencheur a l'etat ferme.
+      {% endcomment %}
+      <button type="button"
+              class="sdcd-lien--fermer sdcd-lien"
+              data-sdcd-replie="{{ self.id }}">{% translate "Close" %}</button>
+    </div>
+    <div class="sdcd-grille sdcd-grille--gouttieres">
+      {% for column in self.columns %}
+        {% include_block column %}
+      {% endfor %}
     </div>
   </div>
 </div>

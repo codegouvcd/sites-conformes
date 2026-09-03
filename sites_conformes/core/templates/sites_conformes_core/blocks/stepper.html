@@ -1,14 +1,20 @@
 {% load i18n %}
+{% comment %}
+  L'etapier du systeme : le compte d'etapes au-dessus du titre, la jauge, puis
+  l'etape suivante — et, dessous, la frise des etapes. Une liste de definitions
+  alignait les titres des etapes sans dire laquelle etait faite, en cours ou a
+  venir ; la frise le montre : coche pour les etapes faites, numero cercle pour
+  l'etape en cours, numero en retrait pour la suite. Les etats sont aussi dits
+  en toutes lettres, pour les lecteurs d'ecran.
+{% endcomment %}
 <div class="sdcd-conteneur sdcd-my-5">
   <div class="sdcd-stepper">
-    <{{ value.heading_tag | default:"h2" }} class="sdcd-stepper__titre">
-    {{ value.title }}
-    <span class="sdcd-stepper__etat">
+    <p class="sdcd-stepper__compte">
       {% with current_step=value.current total_steps=value.total %}
         {% blocktranslate %}Step {{ current_step }} of {{ total_steps }}{% endblocktranslate %}
       {% endwith %}
-    </span>
-    </{{ value.heading_tag | default:"h2" }}>
+    </p>
+    <{{ value.heading_tag | default:"h2" }} class="sdcd-stepper__titre">{{ value.title }}</{{ value.heading_tag | default:"h2" }}>
     {% comment %}
       La jauge etait un <div> vide portant `data-fr-current-step` : c'est le
       JavaScript du DSFR qui y dessinait les segments. Parti avec lui, l'indicateur
@@ -21,17 +27,30 @@
         <div class="sdcd-stepper__segment{% if fait %} sdcd-stepper__segment--fait{% endif %}"></div>
       {% endfor %}
     </div>
-    <dl class="sdcd-grille sdcd-grille--gouttieres cmsfr-stepper__details">
-      {% for step in value.steps %}
-        <div class="sdcd-col-12 sdcd-col-sm-12">
-          <dt>
-            <span class="sdcd-gras">{{ step.value.title }}</span>
-          </dt>
-          <dd>
-            {{ step.value.detail|linebreaksbr }}
-          </dd>
-        </div>
-      {% endfor %}
-    </dl>
+    {% if suivante %}
+      <p class="sdcd-stepper__suivant"><strong>{% translate "Next step:" %}</strong> {{ suivante }}</p>
+    {% endif %}
+    {% if etapes %}
+      <ol class="sdcd-stepper__etapes">
+        {% for etape in etapes %}
+          <li class="sdcd-stepper__etape sdcd-stepper__etape--{{ etape.etat }}">
+            <span class="sdcd-stepper__marque" aria-hidden="true">{% if etape.etat != "faite" %}{{ forloop.counter }}{% endif %}</span>
+            <div>
+              <span class="sdcd-stepper__etape-titre">
+                {{ etape.titre }}
+                {% if etape.etat == "faite" %}
+                  <span class="sdcd-lecteur-seul">({% translate "completed" %})</span>
+                {% elif etape.etat == "courante" %}
+                  <span class="sdcd-lecteur-seul">({% translate "current step" %})</span>
+                {% endif %}
+              </span>
+              {% if etape.detail %}
+                <p class="sdcd-stepper__etape-detail">{{ etape.detail|linebreaksbr }}</p>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+    {% endif %}
   </div>
 </div>

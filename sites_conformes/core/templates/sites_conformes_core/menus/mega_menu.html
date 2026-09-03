@@ -1,33 +1,38 @@
 {% load menu_tags i18n %}
+{% comment %}
+  Meme structure que le mega-menu de l'application menus : en-tete a gauche
+  (titre, description, lien vers la rubrique), « Fermer » a droite, colonnes
+  a filets dessous. Le panneau s'aligne sur le conteneur de l'en-tete.
+{% endcomment %}
 <div class="sdcd-repli sdcd-megamenu"
      id="mega-menu-{{ menu.parent_menu_item.id }}"
      tabindex="-1"
      hidden>
-  <div class="sdcd-conteneur sdcd-conteneur--fluide">
-    <button class="sdcd-lien--fermer sdcd-lien"
-            aria-controls="mega-menu-{{ menu.parent_menu_item.id }}">{% translate "Close" %}</button>
-    <div class="sdcd-grille sdcd-grille--gouttieres">
-      <div class="sdcd-col-12 sdcd-col-lg-8 sdcd-col-decale-lg-4">
-        <div class="sdcd-megamenu__intro">
-          <h4 class="sdcd-h4 sdcd-mb-2">{{ menu.parent_menu_item.menu_text }}</h4>
-          {% if menu.description %}<p class="sdcd-masque sdcd-affiche-lg">{{ menu.description|safe }}</p>{% endif %}
-          {% if menu.main_link %}
-            <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite sdcd-lien--aligne"
-               href="{{ menu.main_link }}">{% translate "See the whole section" %}</a>
-          {% endif %}
-        </div>
+  <div class="sdcd-conteneur">
+    <div class="sdcd-megamenu__entete">
+      <div class="sdcd-megamenu__intro">
+        <p class="sdcd-megamenu__titre">{{ menu.parent_menu_item.menu_text }}</p>
+        {% if menu.description %}<p>{{ menu.description|safe }}</p>{% endif %}
+        {% if menu.main_link %}
+          <a class="sdcd-lien ri-arrow-right-line sdcd-lien--icone-droite sdcd-lien--aligne"
+             href="{{ menu.main_link }}">{% translate "See the whole section" %}</a>
+        {% endif %}
       </div>
+      <button type="button"
+              class="sdcd-lien--fermer sdcd-lien"
+              data-sdcd-replie="mega-menu-{{ menu.parent_menu_item.id }}"
+              aria-controls="mega-menu-{{ menu.parent_menu_item.id }}">{% translate "Close" %}</button>
+    </div>
+    <div class="sdcd-grille sdcd-grille--gouttieres">
       {% for category in menu.get_categories %}
         <div class="sdcd-col-12 sdcd-col-lg-3">
-          <h5 class="sdcd-megamenu__categorie">
-            <a class="sdcd-header__lien" href="#" target="_self">
-              {% if category.category.heading %}
-                {{ category.category.heading }}
-              {% else %}
-                {{ category.category.title }}
-              {% endif %}
-            </a>
-          </h5>
+          <p class="sdcd-megamenu__categorie">
+            {% if category.category.heading %}
+              {{ category.category.heading }}
+            {% else %}
+              {{ category.category.title }}
+            {% endif %}
+          </p>
           {% flat_menu category.category.handle template="sites_conformes_core/menus/mega_menu_category.html" %}
         </div>
       {% endfor %}

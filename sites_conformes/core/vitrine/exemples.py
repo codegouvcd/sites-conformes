@@ -40,6 +40,17 @@ RESUMES = {
     "creer-votre-site": "Six étapes, de la demande d’ouverture à la mise en ligne.",
     "systeme-de-design": "Couleurs, typographie et composants communs aux sites de l’État congolais.",
     "questions-frequentes": "Hébergement, nom de domaine, accessibilité, responsabilités de chacun.",
+    "composants": "Chaque bloc du CMS dans toutes ses variantes : tuiles, cartes, accordéons, étapiers, mises en valeur.",
+    "landing-page-dun-service-numerique": "Le modèle complet d’une page d’atterrissage : promesse, arguments, fonctionnalités, questions fréquentes.",
+    "tuiles": "Tuiles simples, avec lien, badge, tag ou texte de détail, horizontales ou verticales.",
+    "en-tetes-et-bandeaux-dappel-a-action": "En-têtes de page avec image, sur fond de couleur, et bandeaux d’appel à l’action.",
+    "page-de-contenu-avec-menu-lateral": "Une page longue avec un menu latéral qui suit la lecture.",
+    "blocs-simples-de-textes-et-dimages": "Paragraphes, images, vidéos, citations et boutons : les blocs de base.",
+    "options-de-mise-en-valeur-de-textes": "Mises en avant, alertes, encadrés, badges et étiquettes.",
+    "grilles-delements": "Grilles de tuiles, de cartes ou de blocs libres, en deux, trois ou quatre colonnes.",
+    "accordeons": "Accordéons simples et groupés, ouverts ou fermés au chargement.",
+    "cartes": "Cartes verticales et horizontales, avec image, badge, étiquettes ou fond gris.",
+    "etapiers": "L’étapier : où l’on en est dans une démarche, et ce qu’il reste à faire.",
     "page-atterrissage": "Une promesse, trois arguments, des cas d’usage et un appel à l’action : le modèle d’un service en ligne.",
     "site-vitrine": "Actualités à la une, services principaux, informations par type d’usager : le modèle d’un ministère.",
     "actualites": "Articles classés par catégorie et par étiquette, flux RSS et Atom.",
@@ -70,6 +81,16 @@ INTRO_EXEMPLES = [
         "site vitrine, blog, agenda, catalogue, formulaire. Les exemples de composants, "
         "regroupés dans les modèles de pages à copier, montrent chaque bloc dans "
         "toutes ses variantes.</p>"
+    ),
+]
+
+
+INTRO_COMPOSANTS = [
+    paragraphe(
+        "<p class=\"sdcd-texte-lead\">Chaque page ci-dessous montre un bloc du CMS dans toutes ses "
+        "variantes, tel qu’un rédacteur peut l’assembler depuis le back-office.</p>"
+        "<p>Ces pages sont des copies des modèles de pages à copier : ouvrez le back-office, "
+        "rubrique « Modèles de pages », pour repartir de l’un d’eux.</p>"
     ),
 ]
 

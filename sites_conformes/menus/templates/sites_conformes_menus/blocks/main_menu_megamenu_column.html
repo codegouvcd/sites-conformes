@@ -1,11 +1,13 @@
 {% load wagtailcore_tags %}
-
+{% comment %}
+  L'intitule de la colonne n'est pas un lien : le bloc ne lui associe aucune
+  page, et un lien vers « # » remontait au haut de page. Les liens sont ceux
+  du mega-menu, pas ceux d'une liste deroulante : ils n'en heritent plus le
+  retrait ni les filets.
+{% endcomment %}
 <div class="sdcd-col-12 sdcd-col-lg-3">
-  <h5 class="sdcd-megamenu__categorie">
-    <a class="sdcd-header__lien" href="#" target="_self">{{ self.label }}</a>
-  </h5>
-
-    <ul class="sdcd-dropdown__liste">
+  <p class="sdcd-megamenu__categorie">{{ self.label }}</p>
+  <ul class="sdcd-megamenu__liste">
     {% for link in self.links %}
       <li>
         {% include_block link %}

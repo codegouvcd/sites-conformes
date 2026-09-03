@@ -721,3 +721,16 @@ classes SDCD, politique CSP/HSTS, README.
 | `sites_conformes/*/tests/test_*.py` | Tests amont portes vers les classes SDCD |
 | `sites_conformes/templates/.../blocks/share.html` | Classes de plateforme retirees (plus de regle) |
 | `config/settings.py` | `TIME_ZONE` par defaut `Africa/Kinshasa` (surchargeable par la variable `TIME_ZONE`) ; `WAGTAIL_USER_TIME_ZONES` limite aux noms canoniques « Region/Ville » + UTC : l'alias `localtime` de tzdata faisait echouer `Intl.DateTimeFormat` et donc la traduction de la liste des fuseaux dans le compte utilisateur |
+
+---
+
+## 2026-09-03 — Mega-menu, etapier, pages publiques des composants
+
+| Fichier | Modification |
+|---|---|
+| `sites_conformes/menus/templates/.../main_menu_megamenu.html`, `..._column.html`, `core/templates/.../menus/mega_menu.html`, `mega_menu_category.html` | Mega-menu recompose : en-tete a gauche (titre en paragraphe, description visible, lien vers la rubrique), « Fermer » a droite ; colonnes a intitule non cliquable (plus de lien vers « # ») et liste propre au mega-menu (`sdcd-megamenu__liste`) ; conteneur aligne sur l'en-tete. Regles dans SDCD 0.18.2 |
+| `sites_conformes/core/templates/.../blocks/stepper.html`, `core/blocks/basics.py` | Etapier : compte d'etapes au-dessus du titre, jauge, « Etape suivante », puis frise verticale des etapes avec leur etat (faite, courante, a venir), dit aussi en toutes lettres pour les lecteurs d'ecran |
+| `sites_conformes/core/management/commands/create_showcase_pages.py`, `core/vitrine/exemples.py`, `configuration.py` | Les modeles de pages a copier vivent hors du site (sans URL) : le menu les reliait par `href="None"`. Un index public « Composants » sous Exemples recoit une copie de chaque modele ; le menu relie les copies. Resumes des dix modeles |
+| `sites_conformes/core/tests/test_showcase_pages.py` | Composants publics sous `/exemples/composants/`, aucun `href="None"` ni `href="#"` dans l'en-tete, etats de l'etapier rendus |
+| `sites_conformes/locale/fr/LC_MESSAGES/django.po`, `django.mo` | « Next step: », « completed », « current step » |
+| `sdcd/static/sdcd/components.css` | SDCD 0.18.2 |

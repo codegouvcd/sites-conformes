@@ -19,6 +19,7 @@ plutot que d'en ajouter.
     python manage.py create_showcase_pages --reinitialiser   # reecrit meme si modifiee
 """
 
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 from django.db import transaction
@@ -118,16 +119,30 @@ class Command(BaseCommand):
             Page.objects.filter(slug="page_templates_index").first()
             or Page.objects.filter(slug="modeles-de-pages-a-copier").first()
         )
-        composants = list(modeles.get_children().live().specific()) if modeles else []
+        if modeles is None or not modeles.get_children().exists():
+            # Les modeles sont importes au deploiement (`import_page_templates`),
+            # pas par `create_starter_pages` : une base neuve n'en a aucun, et la
+            # vitrine n'aurait alors aucun composant a montrer.
+            call_command("import_page_templates", stdout=self.stdout)
+            modeles = Page.objects.filter(slug="page_templates_index").first()
+        gabarits = list(modeles.get_children().live().specific()) if modeles else []
         # Les modeles importes de l'amont portaient des slugs francais accentues,
         # suffixes « -dsfr » : on les derive du titre, en ASCII.
-        for composant in composants:
-            propre = slugify(composant.title)
-            if composant.slug != propre:
-                ancien = composant.slug
-                composant.slug = propre
-                composant.save_revision().publish()
+        for gabarit in gabarits:
+            propre = slugify(gabarit.title)
+            if gabarit.slug != propre:
+                ancien = gabarit.slug
+                gabarit.slug = propre
+                gabarit.save_revision().publish()
                 self.stdout.write(f"  modèle : {propre} (était {ancien})")
+            if self.reparer_arbres(gabarit, modeles):
+                self.stdout.write(f"  modèle : {gabarit.slug}, arbre de pages rattaché aux modèles")
+        # Les modeles vivent hors du site (freres de l'accueil, sans URL) : lies
+        # tels quels, le menu pointait sur « None ». Chaque modele est copie sous
+        # un index public « Composants », dans Exemples ; le menu relie les copies.
+        composants_index = self.index(CatalogIndexPage, index, "composants", "Composants", exemples.INTRO_COMPOSANTS)
+        pages["composants"] = composants_index
+        composants = [self.copie_composant(gabarit, composants_index) for gabarit in gabarits]
         pages["composant-blocs"] = next((p for p in composants if "bloc" in p.slug), None) or pages["systeme-de-design"]
         pages["modeles"] = modeles or index
 
@@ -173,6 +188,63 @@ class Command(BaseCommand):
             page.header_image = image
         self.publier(page, slug)
         return page
+
+    def copie_composant(self, gabarit, parent):
+        """Copie publique d'un modele de page, refaite a chaque passage force.
+
+        Le modele reste la source : sa copie n'est jamais editee ici, elle est
+        remplacee. Une copie modifiee dans le back-office est laissee telle
+        quelle, comme les autres pages de la vitrine.
+        """
+        slug = slugify(gabarit.title)
+        existante = parent.get_children().filter(slug=slug).first()
+        if existante and self.laisser(existante.specific, slug):
+            return existante.specific
+        if existante:
+            existante.delete()
+        copie = gabarit.copy(
+            recursive=False,
+            to=parent,
+            update_attrs={"slug": slug, "show_in_menus": True},
+            copy_revisions=False,
+            keep_live=True,
+        ).specific
+        # L'arbre de pages du menu lateral suit la copie : il montre l'index
+        # des composants, pas celui des modeles.
+        self.reparer_arbres(copie, parent, seulement_absents=False)
+        self.publier(copie, slug)
+        return copie
+
+    def reparer_arbres(self, page, cible, seulement_absents=True):
+        """Rattache les blocs « arbre de pages » du menu lateral a `cible`.
+
+        Le modele importe de l'amont pointe son arbre sur un identifiant de
+        page de son site d'origine, absent ici : le bloc ne validait plus, et
+        la page ne se laissait plus enregistrer dans le back-office.
+        """
+        corps = getattr(page, "body", None)
+        if corps is None:
+            return False
+        brut = corps.raw_data
+        modifie = False
+        for bloc in brut:
+            if bloc.get("type") != "fullwidthbackgroundwithsidemenu":
+                continue
+            for item in bloc.get("value", {}).get("sidemenu_content", []):
+                if item.get("type") != "pagetree":
+                    continue
+                pk = item.get("value", {}).get("page")
+                if seulement_absents and pk and Page.objects.filter(pk=pk).exists():
+                    continue
+                if pk == cible.pk:
+                    continue
+                item["value"]["page"] = cible.pk
+                modifie = True
+        if modifie:
+            page.body = brut
+            page.save()
+            page.save_revision().publish()
+        return modifie
 
     def index(self, modele, parent, slug, titre, corps):
         page = modele.objects.filter(slug=slug).first()

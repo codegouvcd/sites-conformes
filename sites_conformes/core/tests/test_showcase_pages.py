@@ -25,7 +25,7 @@ from sites_conformes.menus.models import MainMenu, TopMenu
 PAGES_ATTENDUES = [
     "documentation", "creer-votre-site", "systeme-de-design", "questions-frequentes",
     "exemples", "page-atterrissage", "site-vitrine", "actualites", "agenda",
-    "catalogue-de-services", "formulaire-de-demonstration",
+    "catalogue-de-services", "formulaire-de-demonstration", "composants",
 ]
 
 
@@ -101,7 +101,11 @@ class SiteVitrineTestCase(WagtailPageTestCase):
                     self.fail(f"{page.slug}.{champ} invalide : {e.as_json_data()}")
 
     def test_chaque_page_se_rend(self):
+        # Les modeles de pages a copier vivent hors du site, sans URL : ils ne
+        # se rendent pas, leurs copies sous Exemples si.
         for page in Page.objects.live().exclude(depth__lte=1):
+            if page.url is None:
+                continue
             with self.subTest(page=page.slug):
                 self.assertPageIsRenderable(page.specific)
 
@@ -132,6 +136,27 @@ class SiteVitrineTestCase(WagtailPageTestCase):
                         "Exemples de pages", "Exemples de composants", "Documentation",
                         "Facebook", "sdcd-notice"):
             self.assertIn(attendu, contenu, f"« {attendu} » absent de l'accueil rendu")
+
+    def test_les_composants_ont_une_page_publique(self):
+        # Les modeles de pages a copier vivent hors du site, sans URL : le menu
+        # les reliait par « None ». Leurs copies, sous Exemples, ont une adresse.
+        index = CatalogIndexPage.objects.get(slug="composants")
+        copies = index.get_children().live()
+        self.assertGreaterEqual(copies.count(), 8)
+        for copie in copies:
+            self.assertTrue(copie.url and copie.url.startswith("/exemples/composants/"), copie.title)
+
+    def test_aucun_lien_de_l_accueil_ne_pointe_sur_none(self):
+        contenu = self.client.get("/").content.decode()
+        self.assertNotIn('href="None"', contenu)
+        self.assertNotIn('href="#"', contenu.split("<main")[0], "un lien vers « # » dans l'en-tete")
+
+    def test_l_etapier_decrit_l_etat_de_chaque_etape(self):
+        fiche = ContentPage.objects.get(slug="acte-de-naissance")
+        contenu = self.client.get(fiche.url).content.decode()
+        self.assertIn("sdcd-stepper__etape--courante", contenu)
+        self.assertIn("sdcd-stepper__etape--avenir", contenu)
+        self.assertIn("Étape suivante", contenu)
 
     def test_le_menu_principal_est_un_mega_menu(self):
         menu = MainMenu.objects.filter(site=self.site).first()
