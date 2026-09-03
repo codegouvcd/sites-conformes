@@ -661,6 +661,10 @@
 }
 .sdcd-header__nav--mobile {
   flex-direction: column;
+  /* Une colonne qui herite de `flex-wrap: wrap` dimensionne sa ligne a la
+     largeur de contenu maximale de ses enfants : le bloc des outils prenait
+     403 px sur un ecran de 375 et la page defilait de cote menu ouvert. */
+  flex-wrap: nowrap;
   padding: 4px var(--sdcd-gouttiere) 12px;
   border-top: 1px solid var(--sdcd-ligne);
   --sdcd-mobile-display: flex;
