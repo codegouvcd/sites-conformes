@@ -8,7 +8,12 @@
         {% include "sites_conformes_core/heros/_hero_buttons.html" %}
       </div>
        <div class="sdcd-col-md-6">
-      {% image value.image fill-600x600 as header_image %}
+      {% comment %}
+        4:3 plutot que le carre d'origine : une image d'en-tete est presque
+        toujours en paysage, et le carre la coupait sur les cotes tout en
+        faisant un en-tete plus haut que son texte.
+      {% endcomment %}
+      {% image value.image fill-720x540 as header_image %}
       <img class="sdcd-image-fluide"
            src="{{ header_image.full_url }}"
            alt="{{ header_image.alt }}" />

@@ -179,6 +179,21 @@ class ImageAndTextBlock(blocks.StructBlock):
         help_text=_("The link is shown at the bottom of the text block, with an arrow"),
     )
 
+    def get_context(self, value, parent_context=None):
+        """La colonne de texte prend le reste des douze colonnes.
+
+        Le gabarit calculait sa largeur par `12{{ -12|add:ratio }}`, qui rend
+        « 12-8 » pour une image sur 4 : une classe inexistante, et le texte
+        passait sous l'image au lieu de se poser a cote.
+        """
+        contexte = super().get_context(value, parent_context)
+        try:
+            image = int(value.get("image_ratio") or 4)
+        except (TypeError, ValueError):
+            image = 4
+        contexte["largeur_texte"] = max(12 - image, 1)
+        return contexte
+
     class Meta:
         icon = "image"
         template = "sites_conformes_core/blocks/image_and_text.html"

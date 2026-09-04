@@ -7,7 +7,7 @@
           {% include "sites_conformes_core/blocks/image_svg_or_raster.html" with extra_classes="sdcd-image-fluide" %}
         </div>
       </div>
-      <div class="sdcd-col-12 sdcd-col-sm-12{{ -12|add:value.image_ratio }}">
+      <div class="sdcd-col-12 sdcd-col-sm-{{ largeur_texte }}">
         {{ value.text|richtext }}
 
         {% if value.link is not None and value.link.url %}
@@ -21,7 +21,7 @@
         {% endif %}
       </div>
     {% else %}
-      <div class="sdcd-col-12 sdcd-col-sm-12{{ -12|add:value.image_ratio }}{% if value.image_side == "right_above" %} cmsfr-order-mobile__2{% endif %}">
+      <div class="sdcd-col-12 sdcd-col-sm-{{ largeur_texte }}{% if value.image_side == "right_above" %} cmsfr-order-mobile__2{% endif %}">
         {{ value.text|richtext }}
 
         {% if value.link is not None and value.link.url %}

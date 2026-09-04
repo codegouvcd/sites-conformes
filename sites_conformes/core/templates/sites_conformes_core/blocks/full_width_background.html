@@ -1,9 +1,13 @@
 {% load dsfr_tags wagtailcore_tags wagtailimages_tags %}
 {% image value.bg_image original as bg_img %}
-<div class="sdcd-py-7 {{ value.vertical_margin }} cmsfr-block-full-width-background"
-     {% if value.bg_color_class or bg_img or value.bg_color %}style="background:{% endif %}
-     {% if bg_img %}no-repeat center url({{ bg_img.url }}){% endif %}
-     {% if value.bg_color_class %} var(--sdcd-fond-{{ value.bg_color_class }}) {% elif value.bg_color %}{{ value.bg_color }}{% endif %}
-     {% if value.bg_color_class or bg_img or value.bg_color %};"{% endif %}>
+{% comment %}
+  Avec une image : elle couvre le bloc (et non a sa taille naturelle, coupee),
+  sous un voile sombre qui garde le texte lisible, en blanc (classe
+  sdcd-fond-image du systeme). Sans image : la couleur de fond choisie.
+{% endcomment %}
+<div class="sdcd-py-7 {{ value.vertical_margin }} cmsfr-block-full-width-background{% if bg_img %} sdcd-fond-image{% endif %}"
+     {% if bg_img %}style="background-image: linear-gradient(rgba(10, 22, 34, .62), rgba(10, 22, 34, .62)), url({{ bg_img.url }});"
+     {% elif value.bg_color_class %}style="background: var(--sdcd-fond-{{ value.bg_color_class }});"
+     {% elif value.bg_color %}style="background: {{ value.bg_color }};"{% endif %}>
   <div class="sdcd-conteneur">{% include "sites_conformes_core/blocks/blocks_stream.html" with stream=value.content %}</div>
 </div>

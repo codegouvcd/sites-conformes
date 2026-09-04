@@ -67,6 +67,21 @@ class Command(BaseCommand):
             self.stderr.write(self.style.ERROR("La page de contact est absente : lancez `create_starter_pages`."))
             return
         pages["contact"] = contact
+        # Le texte de depart de la page de contact gardait un « <autres
+        # methodes> » a remplacer : on le remplace.
+        contact = contact.specific
+        if not self.laisser(contact, "contact"):
+            contact.intro = (
+                "<p>Une question sur Sites Conformes, une demande d’ouverture de site, un défaut à "
+                "signaler ? Écrivez-nous avec ce formulaire : l’équipe répond sous deux jours ouvrés.</p>"
+                "<p>Vous pouvez aussi joindre le service au +243 81 000 00 00, du lundi au vendredi de "
+                "8 h à 16 h, ou passer au ministère du Numérique, boulevard du 30 Juin à Kinshasa-Gombe.</p>"
+            )
+            contact.thank_you_text = (
+                "<p>Merci, votre message est bien arrivé. Vous recevrez une réponse à l’adresse indiquée "
+                "sous deux jours ouvrés.</p>"
+            )
+            self.publier(contact, "contact")
 
         # ---------------------------------------------------------- documentation
         # Un index « Documentation » (catalogue : ses sous-pages s'y listent en
@@ -74,8 +89,15 @@ class Command(BaseCommand):
         # guides crees a la racine par une version anterieure y sont deplaces.
         doc = self.index(CatalogIndexPage, racine, "documentation", "Documentation", documentation.INTRO)
         pages["documentation"] = doc
+        # Une illustration par guide : sans image, l'index de la documentation
+        # n'alignait que trois cartes de texte.
+        illustrations = {
+            "creer-votre-site": images["illustration-redaction"],
+            "systeme-de-design": images["illustration-blocs"],
+            "questions-frequentes": images["illustration-securite"],
+        }
         for slug, titre, corps, _ordre in documentation.PAGES:
-            page = self.page_contenu(doc, slug, titre, corps())
+            page = self.page_contenu(doc, slug, titre, corps(), image=illustrations.get(slug))
             if page.get_parent().pk != doc.pk:
                 page.move(doc, pos="last-child")
                 page = ContentPage.objects.get(pk=page.pk)
@@ -157,6 +179,10 @@ class Command(BaseCommand):
             ancienne.delete()
         pages["composant-blocs"] = next((p for p in pages_composants if "bloc" in p.slug), None) or pages["systeme-de-design"]
         pages["modeles"] = modeles or index
+        # L'index des exemples, maintenant que toutes ses rubriques existent.
+        if not self.laisser(index, "exemples"):
+            index.body = exemples.corps_exemples(images, pages)
+            self.publier(index, "exemples")
 
         # ----------------------------------------------------------------- accueil
         racine.title = "Sites Conformes"

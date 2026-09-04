@@ -9,7 +9,7 @@
     {% for tab_block in block.value %}
       <li role="presentation">
         <button id="tabpanel-{{ block.id }}-{{ forloop.counter }}"
-                class="sdcd-tabs__onglet ri-checkbox-line sdcd-tabs__onglet--icone-gauche"
+                class="sdcd-tabs__onglet"
                 tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
                 role="tab"
                 aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"

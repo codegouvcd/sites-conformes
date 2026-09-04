@@ -1250,7 +1250,9 @@ li > a:only-child {
    presentation de chaque carte : fond, bordure, ombre, disposition. Sans eux le
    portage aurait supprime une capacite editoriale existante — ce qui aurait ete
    une regression deguisee en migration. */
-.sdcd-card--horizontal { display: flex; }
+/* Horizontale : en rangee (la base est une colonne), le media a gauche par
+   son `order`, aligne sur toute la hauteur de la carte. */
+.sdcd-card--horizontal { display: flex; flex-direction: row; align-items: stretch; }
 .sdcd-card--horizontal .sdcd-card__media { width: 33%; height: auto; flex-shrink: 0; }
 .sdcd-card--horizontal .sdcd-card__corps { flex: 1; min-width: 0; }
 .sdcd-card--gris { background: var(--sdcd-fond-alt); }
@@ -1277,7 +1279,11 @@ li > a:only-child {
 
 .sdcd-tile {
   display: flex;
-  flex-direction: column;
+  /* Le pictogramme vient apres le corps dans le balisage (gabarits du CMS,
+     comme dans le DSFR) mais se lit en haut : l'ordre est inverse, et le
+     contenu reste cale en haut de la tuile quand la grille l'etire. */
+  flex-direction: column-reverse;
+  justify-content: flex-end;
   gap: var(--sdcd-3);
   padding: 20px;
   text-decoration: none;
@@ -2503,6 +2509,8 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
   padding: var(--sdcd-5);
   display: flex;
   flex-direction: column;
+  /* Sans cela, un bouton place dans l'exergue s'etirait sur toute sa largeur. */
+  align-items: flex-start;
   gap: var(--sdcd-2);
   font-family: var(--sdcd-font);
 }
@@ -2824,7 +2832,10 @@ dialog.sdcd-modal__voile:not([open]) { display: none; }
 /* La tuile offre les memes reglages de presentation que la carte : le rediger
    choisit fond, bordure, ombre et disposition sans avoir a savoir lequel des
    deux composants il emploie. */
-.sdcd-tile--horizontal { flex-direction: row; align-items: center; }
+/* Horizontale : le corps a gauche prend la place, le pictogramme a droite. */
+.sdcd-tile--horizontal { flex-direction: row; align-items: center; justify-content: space-between; gap: var(--sdcd-4); }
+.sdcd-tile--horizontal > :first-child { flex: 1 1 auto; min-width: 0; }
+.sdcd-tile--horizontal > :last-child { flex: 0 0 auto; }
 .sdcd-tile--gris { background: var(--sdcd-fond-alt); }
 .sdcd-tile--sans-fond { background: transparent; }
 .sdcd-tile--sans-bordure { border: none; }
@@ -3011,6 +3022,15 @@ button.sdcd-header__lien[aria-expanded="true"]::after { transform: rotate(180deg
 .sdcd-nav__item:has(> .sdcd-megamenu) { position: static; }
 /* Onglets : la liste des onglets passe a la ligne au lieu de deborder. */
 .sdcd-tabs__liste { flex-wrap: wrap; }
+/* Deux listes de boutons qui se suivent dans un contenu se touchaient. */
+.sdcd-boutons + .sdcd-boutons { margin-top: var(--sdcd-3); }
+/* Bloc sur image de fond : l'image couvre le bloc, le texte passe en blanc
+   (le gabarit pose un voile sombre dans le degrade de fond). */
+.sdcd-fond-image { background-size: cover; background-position: center; background-repeat: no-repeat; color: #fff; }
+.sdcd-fond-image :is(h1, h2, h3, h4, p, li) { color: #fff; }
+.sdcd-fond-image .sdcd-button--secondaire { border-color: #fff; color: #fff; }
+/* Deux mises en avant qui se suivent se lisaient comme un seul bloc. */
+.sdcd-highlight + .sdcd-highlight { margin-top: var(--sdcd-3); }
 /* Bandeau : sous une certaine largeur le texte passe sous le titre au lieu de
    se comprimer en colonne etroite a cote de lui (vu sur telephone). */
 .sdcd-notice__texte { flex: 1 1 320px; margin: 0; }

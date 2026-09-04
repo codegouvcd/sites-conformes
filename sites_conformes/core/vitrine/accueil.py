@@ -43,19 +43,19 @@ def corps(images, pages, blog, agenda):
             ("tile", tuile("Un site conforme au système de design",
                            "<p>Armoiries, filet tricolore, typographie et couleurs sont posés par "
                            "le système. Les règles d’accessibilité sont intégrées aux composants.</p>",
-                           page=pages["systeme-de-design"], image=images["picto-conformite"])),
+                           page=pages["systeme-de-design"], image=images["picto-conformite"], horizontale=True)),
             ("tile", tuile("Un site géré en autonomie",
                            "<p>Aucune compétence informatique n’est nécessaire pour publier et "
                            "mettre à jour. Une matinée suffit pour prendre l’outil en main.</p>",
-                           page=pages["creer-votre-site"], image=images["picto-autonomie"])),
+                           page=pages["creer-votre-site"], image=images["picto-autonomie"], horizontale=True)),
             ("tile", tuile("Un budget maîtrisé",
                            "<p>Le logiciel est libre et gratuit. Seuls l’hébergement et "
                            "l’éventuel accompagnement restent à la charge du service.</p>",
-                           page=pages["questions-frequentes"], image=images["picto-budget"])),
+                           page=pages["questions-frequentes"], image=images["picto-budget"], horizontale=True)),
             ("tile", tuile("Un site sécurisé et hébergé où vous voulez",
                            "<p>Mises à jour de sécurité suivies, en-têtes de protection posés par "
                            "défaut, hébergement chez l’État ou chez un prestataire agréé.</p>",
-                           page=pages["questions-frequentes"], image=images["picto-securite"])),
+                           page=pages["questions-frequentes"], image=images["picto-securite"], horizontale=True)),
         ], largeur="6"),
 
         fond([

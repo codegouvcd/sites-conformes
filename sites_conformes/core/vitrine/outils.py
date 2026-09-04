@@ -38,10 +38,11 @@ def bouton(texte, page=None, url=None, type_="sdcd-button sdcd-button--primaire"
 
 
 def tuile(titre, texte, page=None, url=None, image=None, badge=None, petite=False, niveau="h3", detail="",
-          couleur_badge="info"):
+          couleur_badge="info", horizontale=False):
     # Les couleurs de badge sont celles du systeme (succes, info, alerte,
     # erreur) ou d'illustration (chart-N) : « nouveau » n'en fait pas partie.
-    valeur = {"title": titre, "heading_tag": niveau, "description": rt(texte), "is_small": petite}
+    valeur = {"title": titre, "heading_tag": niveau, "description": rt(texte), "is_small": petite,
+              "is_horizontal": horizontale}
     if page is not None or url:
         valeur["link"] = lien_page(page) if page is not None else lien_externe(url)
     if image is not None:

@@ -351,9 +351,9 @@ def grilles(images, pages):
         ], haut=2, bas=2),
         paragraphe("<h2>Colonnes avec titre et fond</h2>"),
         colonnes("Trois chiffres", [
-            ("4", [("text", rt("<p class=\"sdcd-display-xs\">64</p><p>sites ouverts depuis janvier</p>"))]),
-            ("4", [("text", rt("<p class=\"sdcd-display-xs\">310</p><p>rédacteurs formés</p>"))]),
-            ("4", [("text", rt("<p class=\"sdcd-display-xs\">9 / 10</p><p>consultations depuis un téléphone</p>"))]),
+            ("4", [("text", rt("<p class=\"sdcd-display\">64</p><p>sites ouverts depuis janvier</p>"))]),
+            ("4", [("text", rt("<p class=\"sdcd-display\">310</p><p>rédacteurs formés</p>"))]),
+            ("4", [("text", rt("<p class=\"sdcd-display\">9 / 10</p><p>consultations depuis un téléphone</p>"))]),
         ], couleur="gris"),
     ]
 

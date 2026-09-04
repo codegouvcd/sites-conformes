@@ -78,11 +78,33 @@ INTRO_EXEMPLES = [
         "avec les blocs du CMS et rien d’autre. Ouvrez-la, puis retrouvez-la dans le "
         "back-office pour voir comment elle est assemblée.</p>"
         "<p>Les exemples de pages montrent un cas d’usage complet : page d’atterrissage, "
-        "site vitrine, blog, agenda, catalogue, formulaire. Les exemples de composants, "
-        "regroupés dans les modèles de pages à copier, montrent chaque bloc dans "
-        "toutes ses variantes.</p>"
+        "site vitrine, actualités, agenda, catalogue, formulaire. Les pages de composants "
+        "montrent chaque bloc dans toutes ses variantes.</p>"
     ),
 ]
+
+
+def corps_exemples(images, pages):
+    """L'index des exemples, une fois toutes les pages creees.
+
+    Le catalogue ne liste de lui-meme que ses pages de contenu : les rubriques
+    (actualites, agenda, catalogue, formulaire, composants) n'y figuraient pas.
+    """
+    return INTRO_EXEMPLES + [
+        paragraphe("<h2>Rubriques</h2>"),
+        grille([
+            ("card", carte("Actualités", "Des articles classés par catégorie et par étiquette, avec leurs auteurs.",
+                           page=pages["actualites"], image=images["actualite-numerique"], ratio="sdcd-ratio-16x9")),
+            ("card", carte("Agenda", "Des événements filtrables par date et par catégorie, avec leur lieu.",
+                           page=pages["agenda"], image=images["evenement-conference"], ratio="sdcd-ratio-16x9")),
+            ("card", carte("Catalogue de services", "Des fiches classées par étiquette, l’étapier d’une démarche dans chacune.",
+                           page=pages["catalogue-de-services"], image=images["service-etat-civil"], ratio="sdcd-ratio-16x9")),
+            ("card", carte("Formulaire", "Tous les types de champs, les réponses consultables dans le back-office.",
+                           page=pages["formulaire-de-demonstration"], image=images["illustration-redaction"], ratio="sdcd-ratio-16x9")),
+            ("card", carte("Composants", "Chaque bloc du CMS dans ses variantes, avec où le trouver dans le back-office.",
+                           page=pages["composants"], image=images["illustration-blocs"], ratio="sdcd-ratio-16x9")),
+        ], largeur="4"),
+    ]
 
 
 INTRO_COMPOSANTS = [
