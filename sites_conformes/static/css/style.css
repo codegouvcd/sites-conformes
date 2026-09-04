@@ -279,3 +279,6 @@ input[data-whf_name][data-whf_name] {
    par le flux de blocs, la regle du systeme sur `.sdcd-boutons + .sdcd-boutons`
    ne les voit donc pas. */
 .cmsfr-block-buttons_list + .cmsfr-block-buttons_list { margin-top: var(--sdcd-3); }
+/* Une liste de boutons dans le flux : un peu d'air apres elle, sinon le titre
+   suivant lui collait. */
+.cmsfr-block-buttons_list { margin-bottom: var(--sdcd-4); }

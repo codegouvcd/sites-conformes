@@ -10,11 +10,16 @@
       <div class="sdcd-col sdcd-col-md-4 sdcd-col-12">
         <nav class="sdcd-sidemenu sdcd-mb-1">
           <div>
+            {% comment %}
+              Sur mobile, le menu demarre replie derriere ce bouton (la liste
+              prenait tout l'ecran avant le contenu) ; au-dessus de 900 px le
+              systeme masque le bouton et deplie la liste.
+            {% endcomment %}
             <button class="sdcd-sidemenu__entete"
-                    hidden
+                    type="button"
                     aria-controls="sdcd-sidemenu-wrapper-{{ block.id }}"
                     aria-expanded="false">{% translate "In this section" %}</button>
-            <div class="sdcd-repli" id="sdcd-sidemenu-wrapper-{{ block.id }}">
+            <div class="sdcd-repli" id="sdcd-sidemenu-wrapper-{{ block.id }}" hidden>
               {% if value.sidemenu_title %}
                 <div class="sdcd-sidemenu__titre" id="sdcd-sidemenu-titre">{{ value.sidemenu_title }}</div>
               {% endif %}

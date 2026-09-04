@@ -212,3 +212,15 @@ pre{overflow-x:auto}
   .sdcd-card--horizontal { flex-direction: column; }
   .sdcd-card--horizontal .sdcd-card__media { width: 100%; height: 160px; }
 }
+
+/* Menu lateral : replie derriere son bouton sous 900 px (le gabarit pose
+   `hidden` sur la liste) ; au-dessus, le bouton disparait et la liste se
+   deplie quoi qu'il arrive — meme selecteur double que pour le fil d'Ariane. */
+@media (min-width:901px){
+  .sdcd-sidemenu__entete { display: none; }
+  .sdcd-sidemenu .sdcd-repli[hidden] { display: block !important; }
+}
+@media (max-width:900px){
+  .sdcd-sidemenu { border-right: 0; padding-right: 0; min-width: 0; }
+  .sdcd-sidemenu__entete { border: 1px solid var(--sdcd-ligne); border-radius: var(--sdcd-rayon); }
+}

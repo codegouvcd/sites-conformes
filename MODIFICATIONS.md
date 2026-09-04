@@ -752,3 +752,4 @@ classes SDCD, politique CSP/HSTS, README.
 | `sites_conformes/forms/templates/.../form_page.html` | Introduction du formulaire bornee a la mesure de lecture |
 | `sites_conformes/static/css/style.css` | Boutons d'en-tete : `align-items: left/right` (valeurs invalides) remplaces par `flex-start/flex-end` — sur mobile, les boutons d'un en-tete aligne a gauche etaient centres |
 | `sdcd/static/sdcd/` | SDCD 0.18.7 (listes de boutons en colonne, carte horizontale empilee sur mobile) |
+| `.../blocks/full_width_background_with_sidemenu.html` | Sur mobile, le menu lateral demarre replie derriere son bouton « Dans cette rubrique » (le bouton etait `hidden`, la liste prenait tout l'ecran avant le contenu) ; espace apres une liste de boutons |
