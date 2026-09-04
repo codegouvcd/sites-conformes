@@ -745,3 +745,7 @@ classes SDCD, politique CSP/HSTS, README.
 | `sites_conformes/core/showcase_images/picto-*.png`, `illustration-*.png`, `portrait-*.png` | Pictogrammes sur fond transparent ; illustrations et portraits regeneres avec leur glyphe (les fichiers etaient vides) |
 | `sites_conformes/core/vitrine/accueil.py` | Les quatre tuiles « bonnes raisons » en horizontal, pictogramme a droite |
 | `sdcd/static/sdcd/` | SDCD 0.18.6 |
+| `.../blocks/multicolumns.html` | Rembourrage vertical seulement quand le bloc a un fond ; image de fond en couverture sous voile |
+| `sites_conformes/static/css/style.css` | Deux listes de boutons successives espacees |
+| `sites_conformes/core/vitrine/images.py` | Cache vide apres remplacement d'une image (Wagtail gardait les anciens noms de rendus) ; l'instance publique reste a redemarrer |
+| `sites_conformes/core/vitrine/exemples.py`, `create_showcase_pages.py` | Index des exemples : les rubriques (actualites, agenda, catalogue, formulaire, composants) en cartes ; guides de la documentation illustres ; page de contact reecrite ; la carte « Modeles » de l'accueil renvoie vers les composants |

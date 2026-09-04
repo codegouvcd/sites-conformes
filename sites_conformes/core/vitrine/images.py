@@ -38,6 +38,9 @@ TITRES = {
     "illustration-blocs": "Vitrine — illustration des blocs",
     "illustration-redaction": "Vitrine — illustration de la rédaction",
     "illustration-securite": "Vitrine — illustration de la sécurité",
+    "service-protection": "Vitrine — service protection des données",
+    "rubrique-formulaire": "Vitrine — rubrique formulaire",
+    "rubrique-composants": "Vitrine — rubrique composants",
     "picto-conformite": "Vitrine — pictogramme conformité",
     "picto-autonomie": "Vitrine — pictogramme autonomie",
     "picto-budget": "Vitrine — pictogramme budget",
@@ -70,6 +73,13 @@ def importer_images(ecrire=print):
             # Les rendus en cache sont ceux de l'ancien fichier : sans cette
             # purge, les pages continuaient d'afficher l'image d'avant.
             image.renditions.all().delete()
+            # Wagtail garde les rendus en cache (cache par defaut, en memoire du
+            # processus) : apres la purge, il servait encore les anciens noms de
+            # fichier, en 404. Le cache de ce processus est vide ici ; l'instance
+            # publique, elle, doit etre redemarree apres un remplacement d'images.
+            from django.core.cache import cache
+
+            cache.clear()
             remplacees += 1
         images[nom] = image
     ecrire(f"  images : {len(images)} disponibles, {importees} importées, {remplacees} remplacées")

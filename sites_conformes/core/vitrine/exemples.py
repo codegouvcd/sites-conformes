@@ -100,9 +100,9 @@ def corps_exemples(images, pages):
             ("card", carte("Catalogue de services", "Des fiches classées par étiquette, l’étapier d’une démarche dans chacune.",
                            page=pages["catalogue-de-services"], image=images["service-etat-civil"], ratio="sdcd-ratio-16x9")),
             ("card", carte("Formulaire", "Tous les types de champs, les réponses consultables dans le back-office.",
-                           page=pages["formulaire-de-demonstration"], image=images["illustration-redaction"], ratio="sdcd-ratio-16x9")),
+                           page=pages["formulaire-de-demonstration"], image=images["rubrique-formulaire"], ratio="sdcd-ratio-16x9")),
             ("card", carte("Composants", "Chaque bloc du CMS dans ses variantes, avec où le trouver dans le back-office.",
-                           page=pages["composants"], image=images["illustration-blocs"], ratio="sdcd-ratio-16x9")),
+                           page=pages["composants"], image=images["rubrique-composants"], ratio="sdcd-ratio-16x9")),
         ], largeur="4"),
     ]
 
@@ -244,7 +244,7 @@ def vitrine(images, pages, blog, agenda):
                 ("card", carte("Protection des données",
                                "<p>Accompagner les administrations et les entreprises dans "
                                "l’application de la loi sur les données personnelles.</p>",
-                               page=pages["questions-frequentes"], image=images["illustration-securite"],
+                               page=pages["questions-frequentes"], image=images["service-protection"],
                                ratio="sdcd-ratio-16x9")),
                 ("card", carte("Académie du numérique",
                                "<p>Former les agents de l’État aux outils numériques, du "

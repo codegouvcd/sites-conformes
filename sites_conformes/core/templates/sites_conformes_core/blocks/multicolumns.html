@@ -1,10 +1,14 @@
 {% load dsfr_tags wagtailcore_tags wagtailimages_tags %}
 {% image value.bg_image original as bg_img %}
-<div class="sdcd-py-7 {{ value.vertical_margin }} cmsfr-block-multicolumns"
-     {% if value.bg_color_class or bg_img or value.bg_color %}style="background:{% endif %}
-     {% if bg_img %}no-repeat center url({{ bg_img.url }}){% endif %}
-     {% if value.bg_color_class %} var(--sdcd-fond-{{ value.bg_color_class }}) {% elif value.bg_color %}{{ value.bg_color }}{% endif %}
-     {% if value.bg_color_class or bg_img or value.bg_color %};"{% endif %}>
+{% comment %}
+  Le rembourrage vertical n'a de sens qu'avec un fond (couleur ou image) : sans
+  fond, le bloc ouvrait un vide de 56 px au-dessus et au-dessous de ses
+  colonnes. Avec une image, celle-ci couvre le bloc sous un voile, texte blanc.
+{% endcomment %}
+<div class="{% if value.bg_color_class or bg_img or value.bg_color %}sdcd-py-7{% endif %} {{ value.vertical_margin }} cmsfr-block-multicolumns{% if bg_img %} sdcd-fond-image{% endif %}"
+     {% if bg_img %}style="background-image: linear-gradient(rgba(10, 22, 34, .62), rgba(10, 22, 34, .62)), url({{ bg_img.url }});"
+     {% elif value.bg_color_class %}style="background: var(--sdcd-fond-{{ value.bg_color_class }});"
+     {% elif value.bg_color %}style="background: {{ value.bg_color }};"{% endif %}>
   <div class="sdcd-conteneur">
     {% if value.title %}
       <div class="sdcd-grille sdcd-grille--gouttieres">
@@ -13,7 +17,7 @@
         </div>
       </div>
     {% endif %}
-    <div class="sdcd-grille sdcd-grille--gouttieres {{ value.grid_position }} sdcd-py-5">
+    <div class="sdcd-grille sdcd-grille--gouttieres {{ value.grid_position }} sdcd-py-3">
       {% for subblock in value.columns %}
         {% if subblock.block_type == "column" %}
           <div class="sdcd-col-12{% if subblock.value.width %} sdcd-col-lg-{{ subblock.value.width }}{% endif %}">

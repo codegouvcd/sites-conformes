@@ -215,7 +215,7 @@ def en_tetes(images, pages):
             ("text", rt("<h2>Un bandeau sur image</h2>"
                         "<p>La même structure, avec une image de fond. Le texte reste lisible grâce au "
                         "voile que le système applique.</p>")),
-        ], couleur="bleu-soutenu", image=images["hero-accueil"]),
+        ], couleur="bleu-soutenu", image=images["hero-vitrine"]),
         paragraphe("<h2>Texte et appel à action</h2>"
                    "<p>Le bloc le plus simple pour finir une page : une phrase et un bouton.</p>"),
         texte_appel("<p>Votre administration n’a pas encore de site ? La demande prend cinq minutes.</p>",
@@ -351,9 +351,9 @@ def grilles(images, pages):
         ], haut=2, bas=2),
         paragraphe("<h2>Colonnes avec titre et fond</h2>"),
         colonnes("Trois chiffres", [
-            ("4", [("text", rt("<p class=\"sdcd-display\">64</p><p>sites ouverts depuis janvier</p>"))]),
-            ("4", [("text", rt("<p class=\"sdcd-display\">310</p><p>rédacteurs formés</p>"))]),
-            ("4", [("text", rt("<p class=\"sdcd-display\">9 / 10</p><p>consultations depuis un téléphone</p>"))]),
+            ("4", [("text", rt("<p class=\"sdcd-h1\">64</p><p>sites ouverts depuis janvier</p>"))]),
+            ("4", [("text", rt("<p class=\"sdcd-h1\">310</p><p>rédacteurs formés</p>"))]),
+            ("4", [("text", rt("<p class=\"sdcd-h1\">9 / 10</p><p>consultations depuis un téléphone</p>"))]),
         ], couleur="gris"),
     ]
 

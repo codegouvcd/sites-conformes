@@ -178,7 +178,9 @@ class Command(BaseCommand):
             self.stdout.write(f"  composants : {ancienne.slug} retirée")
             ancienne.delete()
         pages["composant-blocs"] = next((p for p in pages_composants if "bloc" in p.slug), None) or pages["systeme-de-design"]
-        pages["modeles"] = modeles or index
+        # L'index des modeles est hors du site, sans URL : la carte « Modeles » de
+        # l'accueil renvoie vers les pages de composants, qui les montrent.
+        pages["modeles"] = composants_index
         # L'index des exemples, maintenant que toutes ses rubriques existent.
         if not self.laisser(index, "exemples"):
             index.body = exemples.corps_exemples(images, pages)

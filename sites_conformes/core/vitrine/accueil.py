@@ -129,7 +129,7 @@ def corps(images, pages, blog, agenda):
                            ratio="sdcd-ratio-16x9", badge="Catalogue")),
             ("card", carte("Formulaire",
                            "<p>Tous les types de champs, réponses consultables dans le "
-                           "back-office.</p>", page=pages["formulaire-de-demonstration"], image=images["illustration-redaction"],
+                           "back-office.</p>", page=pages["formulaire-de-demonstration"], image=images["rubrique-formulaire"],
                            ratio="sdcd-ratio-16x9", badge="Formulaire")),
         ], largeur="4"),
 
