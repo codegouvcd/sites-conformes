@@ -70,14 +70,16 @@ p:empty {
     align-items: center;
 }
 
+/* `left` et `right` ne sont pas des valeurs d'align-items : en colonne (mobile),
+   les boutons d'un en-tete aligne a gauche se retrouvaient centres. */
 .cmsfr-hero-btns--left {
-    justify-content: left;
-    align-items: left;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .cmsfr-hero-btns--right {
-    justify-content: right;
-    align-items: right;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 .cmsfr-text-content--left {

@@ -78,14 +78,19 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  /* En colonne (mobile), chaque bouton garde sa largeur et se cale a gauche ;
+     `align-items: center` porte par la variante a icones les centrait, et un
+     bouton etire prenait toute la largeur a cote d'un autre centre. */
+  align-items: flex-start;
 }
-.sdcd-boutons--enligne { flex-direction: row; }
-.sdcd-boutons--centre { justify-content: center; }
-.sdcd-boutons--droite { justify-content: flex-end; }
-.sdcd-boutons--icones { align-items: center; }
-@media (min-width: 641px)  { .sdcd-boutons--enligne-sm { flex-direction: row; } }
-@media (min-width: 901px)  { .sdcd-boutons--enligne-md { flex-direction: row; } }
-@media (min-width: 1025px) { .sdcd-boutons--enligne-lg { flex-direction: row; } }
+.sdcd-boutons > li { max-width: 100%; }
+.sdcd-boutons--enligne { flex-direction: row; align-items: center; }
+.sdcd-boutons--centre { justify-content: center; align-items: center; }
+.sdcd-boutons--droite { justify-content: flex-end; align-items: flex-end; }
+.sdcd-boutons--icones .sdcd-button { align-items: center; }
+@media (min-width: 641px)  { .sdcd-boutons--enligne-sm { flex-direction: row; align-items: center; } }
+@media (min-width: 901px)  { .sdcd-boutons--enligne-md { flex-direction: row; align-items: center; } }
+@media (min-width: 1025px) { .sdcd-boutons--enligne-lg { flex-direction: row; align-items: center; } }
 
 .sdcd-button {
   display: inline-flex;

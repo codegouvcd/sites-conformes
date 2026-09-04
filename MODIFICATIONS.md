@@ -750,3 +750,5 @@ classes SDCD, politique CSP/HSTS, README.
 | `sites_conformes/core/vitrine/images.py` | Cache vide apres remplacement d'une image (Wagtail gardait les anciens noms de rendus) ; l'instance publique reste a redemarrer |
 | `sites_conformes/core/vitrine/exemples.py`, `create_showcase_pages.py` | Index des exemples : les rubriques (actualites, agenda, catalogue, formulaire, composants) en cartes ; guides de la documentation illustres ; page de contact reecrite ; la carte « Modeles » de l'accueil renvoie vers les composants |
 | `sites_conformes/forms/templates/.../form_page.html` | Introduction du formulaire bornee a la mesure de lecture |
+| `sites_conformes/static/css/style.css` | Boutons d'en-tete : `align-items: left/right` (valeurs invalides) remplaces par `flex-start/flex-end` — sur mobile, les boutons d'un en-tete aligne a gauche etaient centres |
+| `sdcd/static/sdcd/` | SDCD 0.18.7 (listes de boutons en colonne, carte horizontale empilee sur mobile) |

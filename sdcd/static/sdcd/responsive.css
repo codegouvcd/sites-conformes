@@ -205,3 +205,10 @@ pre{overflow-x:auto}
 @media (min-width:901px){
   .sdcd-header__nav-outils { display: none; }
 }
+
+/* Carte horizontale : sous 900 px elle s'empile, l'image au-dessus, comme une
+   carte verticale ; en rangee, le texte se comprimait sur un tiers. */
+@media (max-width:900px){
+  .sdcd-card--horizontal { flex-direction: column; }
+  .sdcd-card--horizontal .sdcd-card__media { width: 100%; height: 160px; }
+}
