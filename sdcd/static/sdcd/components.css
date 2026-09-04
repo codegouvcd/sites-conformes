@@ -984,6 +984,17 @@ li > a:only-child {
   text-align: left;
 }
 .sdcd-sidemenu__entete i { color: var(--sdcd-muet); }
+/* Le bouton qui replie le menu (mobile) annonce son etat par un chevron,
+   comme l'accordeon. */
+.sdcd-sidemenu__entete::after {
+  content: "\ea4e";
+  font-family: 'remixicon';
+  font-size: 20px;
+  line-height: 1;
+  color: var(--sdcd-action);
+  transition: transform var(--sdcd-transition);
+}
+.sdcd-sidemenu__entete[aria-expanded="true"]::after { transform: rotate(180deg); }
 /* Les listes du menu lateral sont des <ul> en gabarit : sans quoi chaque
    entree gardait sa puce, et les sous-listes leur retrait de navigateur. */
 .sdcd-sidemenu__liens { display: flex; flex-direction: column; list-style: none; margin: 0; padding: 0; }
