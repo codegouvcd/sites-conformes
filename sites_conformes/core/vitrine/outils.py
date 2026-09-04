@@ -37,19 +37,24 @@ def bouton(texte, page=None, url=None, type_="sdcd-button sdcd-button--primaire"
     return valeur
 
 
-def tuile(titre, texte, page=None, url=None, image=None, badge=None, petite=False, niveau="h3"):
+def tuile(titre, texte, page=None, url=None, image=None, badge=None, petite=False, niveau="h3", detail="",
+          couleur_badge="info"):
+    # Les couleurs de badge sont celles du systeme (succes, info, alerte,
+    # erreur) ou d'illustration (chart-N) : « nouveau » n'en fait pas partie.
     valeur = {"title": titre, "heading_tag": niveau, "description": rt(texte), "is_small": petite}
     if page is not None or url:
         valeur["link"] = lien_page(page) if page is not None else lien_externe(url)
     if image is not None:
         valeur["image"] = image
     if badge:
-        valeur["top_detail_badges_tags"] = [("badges", [("badge", {"text": badge, "color": "nouveau", "hide_icon": True})])]
+        valeur["top_detail_badges_tags"] = [("badges", [("badge", {"text": badge, "color": couleur_badge, "hide_icon": True})])]
+    if detail:
+        valeur["detail_text"] = detail
     return valeur
 
 
 def carte(titre, texte, page=None, url=None, image=None, ratio="", etiquettes=(), detail_haut="", icone_haut="",
-          niveau="h3", fond_gris=False, badge=None):
+          niveau="h3", fond_gris=False, badge=None, couleur_badge="info", detail_bas="", appel=()):
     """Carte verticale ou horizontale : le ratio depend de la grille qui la recoit."""
     valeur = {
         "title": titre,
@@ -67,11 +72,52 @@ def carte(titre, texte, page=None, url=None, image=None, ratio="", etiquettes=()
             ("tags", [("tag", {"label": e, "is_small": True, "color": "chart-1"}) for e in etiquettes])
         ]
     elif badge:
-        valeur["top_detail_badges_tags"] = [("badges", [("badge", {"text": badge, "color": "nouveau", "hide_icon": True})])]
+        valeur["top_detail_badges_tags"] = [("badges", [("badge", {"text": badge, "color": couleur_badge, "hide_icon": True})])]
     if detail_haut:
         valeur["top_detail_text"] = detail_haut
         valeur["top_detail_icon"] = icone_haut
+    if detail_bas:
+        valeur["bottom_detail_text"] = detail_bas
+    if appel:
+        valeur["call_to_action"] = [("buttons", [("button", b) for b in appel])]
     return valeur
+
+
+def carte_horizontale(titre, texte, **options):
+    """Carte seule sur sa ligne (bloc « card ») ; `ratio` : sdcd-card--horizontal-tiers ou -moitie."""
+    return ("card", carte(titre, texte, **options))
+
+
+def image_centree(image, legende="", alt="", largeur="", ratio=""):
+    return ("image", {"title": "", "heading_tag": "h3", "image": image, "alt": alt, "width": largeur,
+                      "image_ratio": ratio, "caption": legende, "url": ""})
+
+
+def lien_simple(texte, page=None, url=None, icone="", taille=""):
+    valeur = {"text": texte, "icon": icone, "size": taille}
+    valeur.update(lien_page(page) if page is not None else lien_externe(url))
+    return ("link", valeur)
+
+
+def separateur(haut=3, bas=3):
+    return ("separator", {"top_margin": haut, "bottom_margin": bas})
+
+
+def ancre(identifiant):
+    return ("anchor", {"anchor_id": identifiant})
+
+
+def texte_appel(html, boutons_):
+    return ("text_cta", {"text": rt(html), "cta_buttons": [("buttons", [("button", b) for b in boutons_])]})
+
+
+def fond_menu_lateral(contenu, titre_menu, page_racine, couleur="gris", haut=5, bas=5):
+    """Fond pleine largeur avec, a gauche, l'arbre des pages sous `page_racine`."""
+    return ("fullwidthbackgroundwithsidemenu", {
+        "bg_color_class": couleur, "top_margin": haut, "bottom_margin": bas,
+        "main_content": contenu, "sidemenu_title": titre_menu,
+        "sidemenu_content": [("pagetree", {"page": page_racine})],
+    })
 
 
 def grille(items, largeur="4", horizontal="left", vertical=""):
@@ -128,7 +174,7 @@ def alerte(titre, texte, niveau_="info", tag="h3"):
     return ("alert", {"title": titre, "description": re.sub(r"<[^>]+>", "", texte), "level": niveau_, "heading_tag": tag})
 
 
-def badges(*textes, couleur="nouveau"):
+def badges(*textes, couleur="info"):
     return ("badges_list", [("badge", {"text": t, "color": couleur, "hide_icon": True}) for t in textes])
 
 

@@ -41,9 +41,9 @@ RESUMES = {
     "systeme-de-design": "Couleurs, typographie et composants communs aux sites de l’État congolais.",
     "questions-frequentes": "Hébergement, nom de domaine, accessibilité, responsabilités de chacun.",
     "composants": "Chaque bloc du CMS dans toutes ses variantes : tuiles, cartes, accordéons, étapiers, mises en valeur.",
-    "landing-page-dun-service-numerique": "Le modèle complet d’une page d’atterrissage : promesse, arguments, fonctionnalités, questions fréquentes.",
     "tuiles": "Tuiles simples, avec lien, badge, tag ou texte de détail, horizontales ou verticales.",
-    "en-tetes-et-bandeaux-dappel-a-action": "En-têtes de page avec image, sur fond de couleur, et bandeaux d’appel à l’action.",
+    "en-tetes-et-bandeaux": "En-têtes de page avec image, sur fond de couleur, et bandeaux d’appel à l’action.",
+    "onglets-colonnes-et-fiches-contact": "Onglets, colonnes de largeur réglable et fiches contact.",
     "page-de-contenu-avec-menu-lateral": "Une page longue avec un menu latéral qui suit la lecture.",
     "blocs-simples-de-textes-et-dimages": "Paragraphes, images, vidéos, citations et boutons : les blocs de base.",
     "options-de-mise-en-valeur-de-textes": "Mises en avant, alertes, encadrés, badges et étiquettes.",
@@ -89,8 +89,8 @@ INTRO_COMPOSANTS = [
     paragraphe(
         "<p class=\"sdcd-texte-lead\">Chaque page ci-dessous montre un bloc du CMS dans toutes ses "
         "variantes, tel qu’un rédacteur peut l’assembler depuis le back-office.</p>"
-        "<p>Ces pages sont des copies des modèles de pages à copier : ouvrez le back-office, "
-        "rubrique « Modèles de pages », pour repartir de l’un d’eux.</p>"
+        "<p>Chaque page dit où trouver le bloc dans le back-office. Pour repartir d’une page "
+        "complète, les modèles de pages à copier sont dans le back-office, rubrique « Pages ».</p>"
     ),
 ]
 

@@ -28,7 +28,7 @@ from wagtail.models import Page
 from sites_conformes.blog.models import BlogEntryPage, BlogIndexPage, Category
 from sites_conformes.core.models import CatalogIndexPage, ContentPage
 from sites_conformes.core.utils import get_default_site
-from sites_conformes.core.vitrine import accueil, configuration, documentation, exemples
+from sites_conformes.core.vitrine import accueil, composants, configuration, documentation, exemples
 from sites_conformes.core.vitrine.images import importer_images
 from sites_conformes.events.models import EventEntryPage, EventsIndexPage
 from sites_conformes.forms.models import FormField, FormPage
@@ -138,24 +138,24 @@ class Command(BaseCommand):
             if self.reparer_arbres(gabarit, modeles):
                 self.stdout.write(f"  modèle : {gabarit.slug}, arbre de pages rattaché aux modèles")
         # Les modeles vivent hors du site (freres de l'accueil, sans URL) : lies
-        # tels quels, le menu pointait sur « None ». Chaque modele est copie sous
-        # un index public « Composants », dans Exemples ; le menu relie les copies.
+        # tels quels, le menu pointait sur « None ». Les pages de composants sont
+        # redigees ici, sous un index public « Composants » dans Exemples : les
+        # copies des modeles amont montraient un contenu generique (« Argument
+        # #1 ») et les illustrations d'un autre site.
         composants_index = self.index(CatalogIndexPage, index, "composants", "Composants", exemples.INTRO_COMPOSANTS)
         pages["composants"] = composants_index
-        # Les modeles amont portent des illustrations de leur site d'origine ;
-        # les copies recoivent une vignette de la vitrine, chacune la sienne.
-        # Les compositions saturees, a pictogramme : les illustrations pales
-        # se perdaient dans la grille de tuiles.
-        vignettes = [images[n] for n in (
-            "actualite-numerique", "actualite-accessibilite", "actualite-formation", "actualite-tribune",
-            "evenement-atelier", "evenement-conference", "evenement-concertation", "evenement-formation",
-            "service-etat-civil", "service-passeport",
-        )]
-        composants = [
-            self.copie_composant(gabarit, composants_index, vignettes[rang % len(vignettes)])
-            for rang, gabarit in enumerate(gabarits)
-        ]
-        pages["composant-blocs"] = next((p for p in composants if "bloc" in p.slug), None) or pages["systeme-de-design"]
+        pages_composants = []
+        for slug, titre, corps_de, vignette, avec_hero in composants.PAGES:
+            resultat = corps_de(images, pages)
+            hero, corps = resultat if avec_hero else (None, resultat)
+            pages_composants.append(
+                self.page_contenu(composants_index, slug, titre, corps, hero=hero, image=images[vignette], sous_parent=True)
+            )
+        attendus = {slug for slug, *_ in composants.PAGES}
+        for ancienne in composants_index.get_children().exclude(slug__in=attendus):
+            self.stdout.write(f"  composants : {ancienne.slug} retirée")
+            ancienne.delete()
+        pages["composant-blocs"] = next((p for p in pages_composants if "bloc" in p.slug), None) or pages["systeme-de-design"]
         pages["modeles"] = modeles or index
 
         # ----------------------------------------------------------------- accueil
@@ -172,7 +172,7 @@ class Command(BaseCommand):
 
         # ---------------------------------------------------------------- reglages
         configuration.configurer(site, pages, ecrire)
-        configuration.ranger_menu(site, pages, composants, ecrire)
+        configuration.ranger_menu(site, pages, pages_composants, ecrire)
         self.stdout.write(self.style.SUCCESS("Site vitrine en place."))
 
     # ------------------------------------------------------------------ outils
@@ -185,8 +185,14 @@ class Command(BaseCommand):
         self.stdout.write(f"  {slug} : modifiée depuis sa création, laissée telle quelle (--reinitialiser pour l'écraser)")
         return True
 
-    def page_contenu(self, parent, slug, titre, corps, hero=None, image=None):
-        page = ContentPage.objects.filter(slug=slug).first()
+    def page_contenu(self, parent, slug, titre, corps, hero=None, image=None, sous_parent=False):
+        # `sous_parent` : ne chercher la page que sous `parent`. Les pages de
+        # composants portent les memes slugs que les modeles a copier, hors du
+        # site : une recherche globale aurait ecrase le contenu des modeles.
+        if sous_parent:
+            page = ContentPage.objects.filter(slug=slug, path__startswith=parent.path).exclude(pk=parent.pk).first()
+        else:
+            page = ContentPage.objects.filter(slug=slug).first()
         if page and self.laisser(page, slug):
             return page
         if page is None:
@@ -200,34 +206,6 @@ class Command(BaseCommand):
             page.header_image = image
         self.publier(page, slug)
         return page
-
-    def copie_composant(self, gabarit, parent, vignette=None):
-        """Copie publique d'un modele de page, refaite a chaque passage force.
-
-        Le modele reste la source : sa copie n'est jamais editee ici, elle est
-        remplacee. Une copie modifiee dans le back-office est laissee telle
-        quelle, comme les autres pages de la vitrine.
-        """
-        slug = slugify(gabarit.title)
-        existante = parent.get_children().filter(slug=slug).first()
-        if existante and self.laisser(existante.specific, slug):
-            return existante.specific
-        if existante:
-            existante.delete()
-        copie = gabarit.copy(
-            recursive=False,
-            to=parent,
-            update_attrs={"slug": slug, "show_in_menus": True},
-            copy_revisions=False,
-            keep_live=True,
-        ).specific
-        # L'arbre de pages du menu lateral suit la copie : il montre l'index
-        # des composants, pas celui des modeles.
-        self.reparer_arbres(copie, parent, seulement_absents=False)
-        if vignette is not None:
-            copie.header_image = vignette
-        self.publier(copie, slug)
-        return copie
 
     def reparer_arbres(self, page, cible, seulement_absents=True):
         """Rattache les blocs « arbre de pages » du menu lateral a `cible`.

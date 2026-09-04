@@ -141,10 +141,15 @@ class SiteVitrineTestCase(WagtailPageTestCase):
         # Les modeles de pages a copier vivent hors du site, sans URL : le menu
         # les reliait par « None ». Leurs copies, sous Exemples, ont une adresse.
         index = CatalogIndexPage.objects.get(slug="composants")
-        copies = index.get_children().live()
-        self.assertGreaterEqual(copies.count(), 8)
-        for copie in copies:
-            self.assertTrue(copie.url and copie.url.startswith("/exemples/composants/"), copie.title)
+        pages = index.get_children().live()
+        self.assertEqual(pages.count(), 10)
+        for page in pages:
+            self.assertTrue(page.url and page.url.startswith("/exemples/composants/"), page.title)
+            self.assertTrue(page.specific.header_image, f"{page.slug} : pas de vignette")
+        # Le contenu est redige, pas copie des modeles amont.
+        contenu = self.client.get("/exemples/composants/tuiles/").content.decode()
+        self.assertIn("Acte de naissance", contenu)
+        self.assertNotIn("Argument #1", contenu)
 
     def test_aucun_lien_de_l_accueil_ne_pointe_sur_none(self):
         contenu = self.client.get("/").content.decode()
