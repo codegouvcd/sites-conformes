@@ -35,6 +35,8 @@ from .outils import (
 
 # Resumes (search_description) : ce que les catalogues et les partages affichent.
 RESUMES = {
+    "mentions-legales": "Éditeur, hébergement, licence des contenus, données personnelles et cookies.",
+    "accessibilite": "État de conformité, contenus non accessibles, contact et voies de recours.",
     "exemples": "Des pages construites avec les blocs du CMS, à ouvrir puis à retrouver dans le back-office.",
     "documentation": "La démarche pour ouvrir un site, le système de design, les questions fréquentes.",
     "creer-votre-site": "Six étapes, de la demande d’ouverture à la mise en ligne.",

@@ -146,6 +146,10 @@ class SiteVitrineTestCase(WagtailPageTestCase):
         for page in pages:
             self.assertTrue(page.url and page.url.startswith("/exemples/composants/"), page.title)
             self.assertTrue(page.specific.header_image, f"{page.slug} : pas de vignette")
+        # L'ordre de l'arbre est celui du catalogue, pas celui des creations.
+        from sites_conformes.core.vitrine.composants import PAGES
+
+        self.assertEqual([p.slug for p in pages], [slug for slug, *_ in PAGES])
         # Le contenu est redige, pas copie des modeles amont.
         contenu = self.client.get("/exemples/composants/tuiles/").content.decode()
         self.assertIn("Acte de naissance", contenu)

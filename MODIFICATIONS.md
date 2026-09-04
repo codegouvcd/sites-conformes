@@ -754,3 +754,6 @@ classes SDCD, politique CSP/HSTS, README.
 | `sdcd/static/sdcd/` | SDCD 0.18.8 (listes de boutons en colonne, carte horizontale empilee sur mobile, menu lateral replie avec chevron) |
 | `.../blocks/full_width_background_with_sidemenu.html` | Sur mobile, le menu lateral demarre replie derriere son bouton « Dans cette rubrique » (le bouton etait `hidden`, la liste prenait tout l'ecran avant le contenu) ; espace apres une liste de boutons |
 | `.../heros/hero_image_text.html`, `static/css/style.css` | Sous 900 px, l'image de l'en-tete ne touche plus les boutons |
+| `create_showcase_pages.py`, `test_showcase_pages.py` | Les pages de composants sont rangees dans l'ordre du catalogue (plan du site, menu) |
+| `sites_conformes/events/templates/.../event_entry_page.html` | Espace apres « Date : » |
+| `sdcd/static/sdcd/` | SDCD 0.18.8 : pictogrammes de tuile eclaircis en theme sombre |

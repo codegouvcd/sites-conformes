@@ -28,7 +28,7 @@ from wagtail.models import Page
 from sites_conformes.blog.models import BlogEntryPage, BlogIndexPage, Category
 from sites_conformes.core.models import CatalogIndexPage, ContentPage
 from sites_conformes.core.utils import get_default_site
-from sites_conformes.core.vitrine import accueil, composants, configuration, documentation, exemples
+from sites_conformes.core.vitrine import accueil, composants, configuration, documentation, exemples, legal
 from sites_conformes.core.vitrine.images import importer_images
 from sites_conformes.events.models import EventEntryPage, EventsIndexPage
 from sites_conformes.forms.models import FormField, FormPage
@@ -82,6 +82,11 @@ class Command(BaseCommand):
                 "sous deux jours ouvrés.</p>"
             )
             self.publier(contact, "contact")
+
+        # ----------------------------------------------------------- pages legales
+        # Les pages de depart ne contenaient qu'un « Entrez ici… ».
+        self.page_contenu(racine, "mentions-legales", "Mentions légales", legal.MENTIONS)
+        self.page_contenu(racine, "accessibilite", "Déclaration d’accessibilité", legal.ACCESSIBILITE)
 
         # ---------------------------------------------------------- documentation
         # Un index « Documentation » (catalogue : ses sous-pages s'y listent en
@@ -177,6 +182,11 @@ class Command(BaseCommand):
         for ancienne in composants_index.get_children().exclude(slug__in=attendus):
             self.stdout.write(f"  composants : {ancienne.slug} retirée")
             ancienne.delete()
+        # L'ordre de l'arbre (plan du site, menu) suit celui du catalogue, pas
+        # celui des creations successives : chaque page est reposee en dernier,
+        # dans l'ordre voulu.
+        for page in pages_composants:
+            Page.objects.get(pk=page.pk).move(composants_index, pos="last-child")
         pages["composant-blocs"] = next((p for p in pages_composants if "bloc" in p.slug), None) or pages["systeme-de-design"]
         # L'index des modeles est hors du site, sans URL : la carte « Modeles » de
         # l'accueil renvoie vers les pages de composants, qui les montrent.

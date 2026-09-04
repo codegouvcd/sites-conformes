@@ -1315,6 +1315,11 @@ li > a:only-child {
 /* Une tuile peut porter une illustration plutot qu'une icone, et une
    metadonnee sous son intitule. */
 .sdcd-tile__media { max-width: 80px; height: auto; }
+/* Pictogrammes en image (PNG, couleur d'action claire) : sur fond sombre ils
+   s'eteignaient. Le filtre les eclaircit sans changer la teinte ; un SVG a
+   couleur courante ferait mieux, mais l'image reste celle que le redacteur a
+   choisie dans la mediatheque. */
+[data-theme="dark"] .sdcd-tile__media img { filter: brightness(1.9) saturate(0.85); }
 .sdcd-tile__meta { font-size: var(--sdcd-xs); color: var(--sdcd-muet); }
 .sdcd-tile__titre { font-weight: 600; font-size: var(--sdcd-corps); color: var(--sdcd-texte); }
 .sdcd-tile:hover .sdcd-tile__titre { text-decoration: underline; }
