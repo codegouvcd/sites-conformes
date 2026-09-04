@@ -19,7 +19,8 @@
   {% include "sites_conformes_core/blocks/messages.html" %}
 
   <div class="sdcd-conteneur sdcd-pb-7">
-    {{ page.intro|richtext }}
+    {# Borne a la mesure : 131 caracteres par ligne a 1280 px sans elle. #}
+    <div class="sdcd-mesure">{{ page.intro|richtext }}</div>
 
     <form action="{% pageurl page %}" method="post" autocomplete="on">
       {% settings_value "DSFR_MARK_OPTIONAL_FIELDS" as dsfr_mark_optional_fields %}

@@ -749,3 +749,4 @@ classes SDCD, politique CSP/HSTS, README.
 | `sites_conformes/static/css/style.css` | Deux listes de boutons successives espacees |
 | `sites_conformes/core/vitrine/images.py` | Cache vide apres remplacement d'une image (Wagtail gardait les anciens noms de rendus) ; l'instance publique reste a redemarrer |
 | `sites_conformes/core/vitrine/exemples.py`, `create_showcase_pages.py` | Index des exemples : les rubriques (actualites, agenda, catalogue, formulaire, composants) en cartes ; guides de la documentation illustres ; page de contact reecrite ; la carte « Modeles » de l'accueil renvoie vers les composants |
+| `sites_conformes/forms/templates/.../form_page.html` | Introduction du formulaire bornee a la mesure de lecture |
