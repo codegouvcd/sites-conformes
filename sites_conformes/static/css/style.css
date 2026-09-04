@@ -282,3 +282,9 @@ input[data-whf_name][data-whf_name] {
 /* Une liste de boutons dans le flux : un peu d'air apres elle, sinon le titre
    suivant lui collait. */
 .cmsfr-block-buttons_list { margin-bottom: var(--sdcd-4); }
+
+/* En-tete image et texte : sous 900 px, l'image passe sous les boutons et les
+   touchait. */
+@media (max-width: 900px) {
+    .cmsfr-hero-image { margin-top: var(--sdcd-4); }
+}
