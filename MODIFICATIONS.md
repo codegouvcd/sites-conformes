@@ -757,3 +757,4 @@ classes SDCD, politique CSP/HSTS, README.
 | `create_showcase_pages.py`, `test_showcase_pages.py` | Les pages de composants sont rangees dans l'ordre du catalogue (plan du site, menu) |
 | `sites_conformes/events/templates/.../event_entry_page.html` | Espace apres « Date : » |
 | `sdcd/static/sdcd/` | SDCD 0.18.8 : pictogrammes de tuile eclaircis en theme sombre |
+| `sites_conformes/core/vitrine/legal.py` (nouveau), `create_showcase_pages.py` | Mentions legales et declaration d'accessibilite redigees (editeur, hebergement, licence, donnees personnelles, cookies ; etat de conformite, contenus non accessibles, contact, recours) a la place des « Entrez ici… » de depart |

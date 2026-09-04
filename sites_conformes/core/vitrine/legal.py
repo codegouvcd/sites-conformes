@@ -33,8 +33,7 @@ MENTIONS = [
         "la source et la date. Les armoiries de la République et les marques des services "
         "publics restent protégées et ne peuvent être réutilisées sans autorisation.</p>"
     ),
-    paragraphe("<h2>Données personnelles</h2>"),
-    accordeons("Vos données, en trois questions", [
+    accordeons("Données personnelles", [
         ("Quelles données sont collectées ?",
          "<p>Le formulaire de contact recueille le nom, l’adresse électronique, le numéro de "
          "téléphone et le message. Ces données servent uniquement à répondre à la demande.</p>"),
@@ -45,7 +44,7 @@ MENTIONS = [
          "<p>Vous pouvez demander l’accès, la rectification ou la suppression de vos données "
          "en écrivant au délégué à la protection des données du ministère, par le formulaire "
          "de contact ou par courrier à l’adresse de l’éditeur. La réponse arrive sous un mois.</p>"),
-    ], niveau="h3"),
+    ], niveau="h2"),
     encadre("Cookies",
             "<p>Ce site n’utilise aucun cookie de mesure d’audience ni de publicité. Seuls des "
             "témoins techniques sont déposés : votre choix de thème d’affichage et, pour les "
